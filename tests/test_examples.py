@@ -7,6 +7,7 @@ from pathlib import Path
 import pytest
 
 from tools.content_hash import content_hash
+from tools.converter_hash import pin_errors
 from tools.strict_json import load, loads
 from tools.validate import validation_errors
 
@@ -33,13 +34,12 @@ def test_cards_validate(path):
 def test_example_cards_are_licensed_and_without_domain(path):
     card = load(path)
     assert card['added']['layers']['profile']['domain'] == 'none'
-    assert card['author']['source']['license'] == 'CC-BY-4.0'
+    assert card['author']['source']['license'] in ('CC-BY-4.0', 'CC-BY-3.0')
 
 
 @pytest.mark.parametrize('path', CARDS, ids=lambda p: p.name)
 def test_conversion_rules_are_pinned(path):
-    digest = hashlib.sha256((path.parent / 'CONVERSION.md').read_bytes()).hexdigest()
-    assert load(path)['added']['by']['converter_hash'] == 'sha256:' + digest
+    assert pin_errors(load(path)) == []
 
 
 @pytest.mark.parametrize('path', CARDS + FICTIONAL, ids=lambda p: str(p)[-12:])

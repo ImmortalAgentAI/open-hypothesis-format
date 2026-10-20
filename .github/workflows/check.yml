@@ -34,5 +34,10 @@ jobs:
           .venv/bin/python tools/content_hash.py --check examples/cards/*.json tests/fixtures/fictional/fx_*.json
           .venv/bin/python tools/check_gaps.py examples/cards/*.json tests/fixtures/fictional/fx_*.json
           .venv/bin/python tools/check_refs.py examples/cards/*.json tests/fixtures/fictional/fx_*.json
+          .venv/bin/python tools/converter_hash.py --check examples/cards/*.json
+          shopt -s nullglob
+          for ledger in examples/ledgers/*.json; do
+            .venv/bin/python tools/check_ledger.py "examples/cards/${ledger##*/}" "$ledger"
+          done
           .venv/bin/python tools/validate.py --schema schema/pair-brief-1.schema.json tests/fixtures/fictional/pair-brief-six-seven.json
           .venv/bin/python tools/validate.py --schema schema/hypothesis-relations-1.schema.json tests/fixtures/fictional/relations-six-seven.json

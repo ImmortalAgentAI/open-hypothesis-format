@@ -1,5 +1,13 @@
 # Changelog
 
+## Unreleased
+
+The card format, the schemas and the vocabularies are unchanged.
+
+- `tools/converter_hash.py` checks an example card's `added.by.converter_hash` against conversion rules kept in the repository: `examples/cards/CONVERSION.md` for `ohf-example-conversion`, else `examples/converters/<converter>-<version>/`. The pin is the hash of a listing of relative paths and file hashes, so it reproduces from the repository alone.
+- `tools/check_ledger.py` checks an example card's entailment records against its ledger, `examples/ledgers/<slug>.json`: each record shows the worst recorded check of its current value and passage. CI runs both checks.
+- An example card may quote a source under CC BY 3.0 as well as CC BY 4.0.
+
 ## 1.0.1
 
 The card format, the schemas and the vocabularies are unchanged; cards valid under 1.0.0 stay schema-valid. The reference checker is stricter, so a card that passed it under 1.0.0 can now fail it.

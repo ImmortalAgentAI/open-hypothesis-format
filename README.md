@@ -37,7 +37,7 @@ Every card states `"standard_version": "1.0"`. This names the version of the car
 | [`schema/`](schema) | JSON Schemas, draft 2020-12: card, pair relations, pair brief, scientific field extensions, gap policy |
 | [`vocabularies/`](vocabularies) | Controlled vocabularies, pinned by SHA-256 in the schema |
 | [`examples/`](examples) | Example cards converted from published articles |
-| [`tools/`](tools) | Validator, gap checker, reference checker, content-hash tool, mapping checker, generators of the field reference and the list of related standards |
+| [`tools/`](tools) | Validator, gap checker, reference checker, content-hash tool, converter-pin and entailment-ledger checkers for the example cards, mapping checker, generators of the field reference and the list of related standards |
 | [`tests/`](tests) | Tests of the tools and the repository files; test fixtures in `tests/fixtures/` |
 
 ## Validate a card
@@ -54,6 +54,8 @@ python3 -m venv .venv
 ```
 
 The validator rejects duplicate JSON members, non-finite numbers and invalid calendar timestamps, and reports every schema error. The gap checker applies the [gap rules](spec/README.md#gaps) to the gaps a card lists and lists the checks that need a reviewer. It does not show that every missing applicable field is listed: a field that is absent and has no gap is not reported. The reference checker resolves the internal references of a card, as listed in [identifiers and references](spec/references.md), applies the integrity rules the schema cannot express, lists which predictions are comparable, and computes the [completeness](spec/README.md#completeness) level from the card's own records; a declared level above the computed one is an error. The check on source bytes relies on the source verification the card records; the tools do not refetch the source. Both checkers assume a schema-valid card.
+
+For the example cards, CI also checks that each card's `added.by.converter_hash` is the hash of conversion rules kept in the repository, and that each card's entailment verdicts match the checks recorded in its ledger. See [`examples/README.md`](examples/README.md#converter-pins-and-entailment-ledgers).
 
 A schema pass checks shape only. It does not show that a quotation matches its source, that a source supports a claim, or that a card is complete.
 
