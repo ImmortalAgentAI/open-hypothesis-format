@@ -179,7 +179,9 @@ def test_mechanism_card_with_only_descriptive_atoms_is_warned():
     atom(document)['claim_type']['value'] = 'association'
     result = check_refs(document)
     assert result['valid']
-    assert [w['code'] for w in result['warnings']] == ['REF_KIND_ATOMS']
+    # The fixture's declared completeness is reported separately; see test_completeness.py.
+    completeness = {'REF_COMPLETENESS_UNDERSTATED', 'REF_MISSING_FOR_NEXT'}
+    assert [w['code'] for w in result['warnings'] if w['code'] not in completeness] == ['REF_KIND_ATOMS']
 
 
 def test_selection_record_accepts_a_gap():

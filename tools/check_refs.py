@@ -3,31 +3,106 @@
 A prediction is comparable when, across both zones, it states its system, endpoint,
 form and epistemic status, and a direction when its form is a directional contrast.
 
-Atom and prediction identifiers must name an atom or prediction of the card. Card
-pointers must resolve; a known result must be an evidence line and an alternative
-must be an item of `core.alternative_explanations`. External references are listed,
-not fetched. It assumes a card that already passes `tools/validate.py`.
+Identifiers are unique within their namespace and zone; the same identifier in the
+author and added zones names one record seen from both zones. Each reference field
+names what its vocabulary in the field reference says: an identifier must name a
+record of the right namespace, and a card pointer must resolve to a filled value and,
+for a typed field, to a record of the right kind. `REFERENCES` holds the typed fields
+and `OPEN_REFERENCES` the fields that may name any card value; any other card pointer
+in the layers must resolve. A versioned proposition, written `h_<id>@<version>` as in
+`identity.supersedes[]`, and an external, artifact or unavailable reference are listed
+under `external`, not fetched. The table in `spec/references.md` lists every field.
+
+Every `src` in the added zone names a record of `added.sources`. Author-zone values
+carry a `locator` into the text of `author.source`; OHF 1.0 defines no locator syntax,
+so locators are not resolved.
 
 The card is also checked for the rules that JSON Schema cannot express: every
 author-zone atom is classified by an added-zone atom with the same id; a refetched
 source matches, or for a mismatch differs from, `author.source.source_text_sha256`;
 each entailment record names a sourced added-zone value once per basis, and its
-checker is not the pass that wrote the added zone. A card whose kind is mechanism
-while every atom only states existence, distribution or association gets a warning.
+checker is not the pass that wrote the added zone; the counts of `author.generation`
+agree; an entailment record is not older than the access time of the source record
+its value names or than the nearest assessment of that value; and no added-zone
+assessment is later than `added.at`. A card whose kind is mechanism while every atom
+only states existence, distribution or association gets a warning. The completeness
+level is computed by `check_completeness.py` and compared with the declared one.
+It assumes a card that already passes `tools/validate.py`.
 """
 import argparse
+import datetime
 import json
 from pathlib import Path
+import re
 import sys
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 
+import check_completeness  # noqa: E402
 from check_gaps import filled, resolve_pointer, unwrap  # noqa: E402
 from strict_json import load  # noqa: E402
 
 ZONES = ('author', 'added')
-ITEM_LISTS = ('explains', 'reinterprets', 'opens')
 COMPARABLE = ('system', 'endpoint', 'form', 'epistemic_status')
+VERSIONED = re.compile(r'h_[a-z0-9-]+@[1-9][0-9]*')
+
+# Identifier namespaces: the record list that holds the identifiers.
+NAMESPACES = {
+    'atom': 'core.atoms[]',
+    'prediction': 'predictions[]',
+    'evidence line': 'evidence.lines[]',
+    'mechanism entity': 'mechanism.entities[]',
+    'mechanism step': 'mechanism.steps[]',
+    'assumption': 'core.assumptions[]',
+    'uncertainty': 'core.uncertainties[]',
+    'explained observation': 'core.explains[]',
+    'reinterpretation': 'core.reinterprets[]',
+    'opened question': 'core.opens[]',
+}
+# The card pointer of one record of each kind a typed reference can name; `*` is an array index.
+POINTERS = {
+    'atom': 'core/atoms/*',
+    'prediction': 'predictions/*',
+    'evidence line': 'evidence/lines/*',
+    'mechanism entity': 'mechanism/entities/*',
+    'mechanism step': 'mechanism/steps/*',
+    'alternative': 'core/alternative_explanations/value/*',
+    'proposition': 'core/statement',
+    'experiment plan': 'appendix/experiment_plan',
+}
+# Typed reference fields: the kinds they may name and the forms they may take.
+# Forms: `id` an identifier, `pointer` a card pointer, `version` a versioned proposition,
+# `external` an external, artifact or unavailable reference, `text` a free label, `null` a root.
+REFERENCES = {
+    'core.atoms[].parent_ref': (('atom',), {'id', 'pointer', 'version', 'external', 'null'}),
+    'core.explains[].atom_refs[]': (('atom',), {'id'}),
+    'core.explains[].prediction_refs[]': (('prediction',), {'id'}),
+    'core.reinterprets[].atom_refs[]': (('atom',), {'id'}),
+    'core.opens[].atom_refs[]': (('atom',), {'id'}),
+    'core.alternative_explanations[].distinguishing_prediction_refs[]': (('prediction',), {'pointer', 'external'}),
+    'mechanism.steps[].subject_ref': (('mechanism entity',), {'id', 'pointer'}),
+    'mechanism.steps[].object_ref': (('mechanism entity',), {'id', 'pointer'}),
+    'mechanism.steps[].evidence_refs[]': (('evidence line',), {'id', 'pointer'}),
+    'mechanism.molecular_targets[].entity_ref': (('mechanism entity',), {'id'}),
+    'predictions[].derives_from_atom_refs[]': (('atom',), {'id'}),
+    'predictions[].known_result_ref': (('evidence line',), {'pointer', 'external'}),
+    'predictions[].also_expected_under[].ref': (('alternative',), {'pointer', 'external'}),
+    'predictions[].test_plan_ref': (('experiment plan',), {'pointer', 'external', 'text'}),
+    'evidence.lines[].target_ref': (('atom', 'prediction', 'mechanism step', 'proposition'),
+                                    {'id', 'pointer', 'version', 'external'}),
+    'evidence.lines[].items[].line_id': (('evidence line',), {'id'}),
+    'profile.dose_response.endpoint_ref': (('prediction',), {'id', 'pointer', 'version', 'external'}),
+}
+# Reference fields whose vocabulary names no namespace: a card pointer must resolve.
+OPEN_REFERENCES = (
+    'core.explains[].observation_ref', 'core.explains[].rival_ref', 'core.reinterprets[].finding_ref',
+    'core.uncertainties[].target_ref', 'core.uncertainties[].resolution_test_ref',
+    'core.alternative_explanations[].claim_or_ref.ref', 'core.alternative_explanations[].shared_observation_refs[]',
+    'core.first_proposed.source_ref', 'core.testability.cheapest_test.ref', 'core.novelty_assessment.prior_claim_refs[]',
+    'core.potential_benefit.target_refs[]', 'predictions[].resolution.resolves_by.event_ref',
+    'evidence.lines[].risk_of_bias.tool_ref', 'evidence.references[].access_context.alternate_source_refs[]',
+    'provenance.inspiration_refs[]', 'profile.harm',
+)
 
 
 def issue(code, path, message):
@@ -38,26 +113,47 @@ def layers(card, zone):
     return card.get(zone, {}).get('layers', {})
 
 
-def identifiers(card, key, errors):
-    """Identifiers of core.atoms[] or predictions[] across both zones.
+def sourced(node):
+    """True for a source wrapper: a value with its `src` or `locator`."""
+    return isinstance(node, dict) and 'value' in node and ('src' in node or 'locator' in node)
 
-    An identifier is unique within its zone. The same identifier in the author
-    and added zones names one record seen from both zones.
+
+def walk(node, logical, path):
+    """Yield (logical path, card path, node) for a node and everything in it, looking through wrappers."""
+    yield logical, path, node
+    value = node['value'] if sourced(node) else node
+    if isinstance(value, dict):
+        for key, item in value.items():
+            yield from walk(item, f'{logical}.{key}', f'{path}.{key}')
+    elif isinstance(value, list):
+        for i, item in enumerate(value):
+            yield from walk(item, f'{logical}[]', f'{path}[{i}]')
+
+
+def zone_nodes(card, zone):
+    for layer, content in layers(card, zone).items():
+        yield from walk(content, layer, f'{zone}.{layer}')
+
+
+def identifiers(card, errors):
+    """Identifiers of each namespace across both zones.
+
+    An identifier is unique within its namespace and zone. The same identifier in the
+    author and added zones names one record seen from both zones.
     """
-    found = set()
+    found = {kind: set() for kind in NAMESPACES}
     for zone in ZONES:
-        records = layers(card, zone).get('core', {}).get('atoms', []) if key == 'atoms' \
-            else layers(card, zone).get('predictions', [])
-        seen = set()
-        for i, record in enumerate(unwrap(records) or []):
-            value = unwrap(record.get('id')) if isinstance(record, dict) else None
-            if not isinstance(value, str):
-                continue
-            if value in seen:
-                path = f'{zone}.core.atoms[{i}]' if key == 'atoms' else f'{zone}.predictions[{i}]'
-                errors.append(issue('REF_DUPLICATE_ID', path, f'Duplicate id {value!r} in the {zone} zone'))
-            seen.add(value)
-            found.add(value)
+        seen = {kind: set() for kind in NAMESPACES}
+        for logical, path, node in zone_nodes(card, zone):
+            for kind, records in NAMESPACES.items():
+                value = unwrap(node)
+                if logical != f'{records}.id' or not isinstance(value, str):
+                    continue
+                if value in seen[kind]:
+                    errors.append(issue('REF_DUPLICATE_ID', path.removesuffix('.id'),
+                                        f'Duplicate {kind} id {value!r} in the {zone} zone'))
+                seen[kind].add(value)
+                found[kind].add(value)
     return found
 
 
@@ -87,18 +183,159 @@ def _under(pointer, pattern):
         w == p or (w == '*' and p.isdigit()) for w, p in zip(wanted, parts))
 
 
-def evidence_lines():
-    return [f'/{zone}/layers/evidence/lines/*' for zone in ZONES]
+def patterns(kinds):
+    return [f'/{zone}/layers/{POINTERS[kind]}' for kind in kinds for zone in ZONES]
 
 
-def alternatives():
-    return [f'/{zone}/layers/core/alternative_explanations/value/*' for zone in ZONES]
+def own_versions(card):
+    identity = card.get('identity', {})
+    return {f"{card.get('id')}@{card.get('version')}",
+            f"{unwrap(identity.get('proposition_id'))}@{unwrap(identity.get('version'))}"}
 
 
-def check_ids(values, known, path, kind, errors):
-    for value in values or []:
-        if value not in known:
-            errors.append(issue('REF_UNKNOWN_ID', path, f'No {kind} with id {value!r}'))
+def typed_reference(card, value, path, kinds, forms, ids, errors, external):
+    """Check one value of a typed reference field."""
+    wanted = ' or '.join(kinds)
+    if value is None and 'null' in forms:
+        return
+    if isinstance(value, dict) and value.get('kind') == 'card':
+        if 'pointer' in forms:
+            pointer_target(card, value, path, patterns(kinds), errors, external)
+        else:
+            errors.append(issue('REF_WRONG_TARGET', path, f'Must be the identifier of a {wanted}'))
+        return
+    if isinstance(value, dict):
+        if 'external' in forms:
+            external.append({'path': path, 'reference': value})
+        else:
+            errors.append(issue('REF_WRONG_TARGET', path, f'Must name a {wanted} of this card'))
+        return
+    if not isinstance(value, str):
+        return
+    if 'version' in forms and VERSIONED.fullmatch(value):
+        if value not in own_versions(card):
+            external.append({'path': path, 'reference': value})
+        return
+    if 'id' not in forms:
+        if 'text' not in forms:
+            errors.append(issue('REF_WRONG_TARGET', path, f'Must be a card pointer to a {wanted}'))
+        return
+    named = [kind for kind in kinds if value in ids.get(kind, ())]
+    if len(named) > 1:
+        errors.append(issue('REF_WRONG_TARGET', path, f'{value!r} names records of more than one kind: '
+                            + ', '.join(named)))
+    elif not named:
+        other = [kind for kind, known in ids.items() if value in known]
+        if other:
+            errors.append(issue('REF_WRONG_TARGET', path, f'{value!r} names a {other[0]}, not a {wanted}'))
+        else:
+            errors.append(issue('REF_UNKNOWN_ID', path, f'No {wanted} with id {value!r}'))
+
+
+def check_references(card, ids, errors, external):
+    for zone in ZONES:
+        for logical, path, node in zone_nodes(card, zone):
+            value = unwrap(node) if sourced(node) else node
+            if logical in REFERENCES:
+                typed_reference(card, value, path, *REFERENCES[logical], ids, errors, external)
+            elif logical in OPEN_REFERENCES:
+                pointer_target(card, value, path, (), errors, external)
+            elif isinstance(value, dict) and value.get('kind') == 'card' and 'pointer' in value:
+                pointer_target(card, value, path, (), errors, [])
+    search = card.get('added', {}).get('challenge_search') or {}
+    for i, reference in enumerate(search.get('evidence_refs', [])):
+        pointer_target(card, reference, f'added.challenge_search.evidence_refs[{i}]',
+                       patterns(('evidence line',)), errors, external)
+    check_parents(card, errors)
+
+
+def check_parents(card, errors):
+    """An atom is not its own ancestor."""
+    parents = {}
+    for zone in ZONES:
+        atoms = layers(card, zone).get('core', {}).get('atoms', [])
+        for i, atom in enumerate(atoms if isinstance(atoms, list) else []):
+            ident, parent = unwrap(atom.get('id')), unwrap(atom.get('parent_ref'))
+            if isinstance(parent, dict) and parent.get('kind') == 'card':
+                try:
+                    parent = unwrap(unwrap(resolve_pointer(card, parent.get('pointer', ''))).get('id'))
+                except (KeyError, AttributeError):
+                    parent = None
+            if isinstance(ident, str) and isinstance(parent, str):
+                parents[ident] = (parent, f'{zone}.core.atoms[{i}].parent_ref')
+    for start in sorted(parents):
+        seen, current = {start}, parents[start][0]
+        while current in parents and current not in seen:
+            seen.add(current)
+            current = parents[current][0]
+        if current == start:
+            errors.append(issue('REF_WRONG_TARGET', parents[start][1], f'Atom {start!r} is its own ancestor'))
+
+
+def check_sources(card, errors):
+    """Every `src` in the added zone names a record of `added.sources`."""
+    added = card.get('added', {})
+    registry = added.get('sources') or {}
+    nodes = [node for member, content in added.items() if member not in ('layers', 'sources')
+             for node in walk(content, member, f'added.{member}')]
+    nodes += list(zone_nodes(card, 'added'))
+    dangling = [(path, node['src']) for _, path, node in nodes
+                if isinstance(node, dict) and isinstance(node.get('src'), str) and node['src'] not in registry]
+    if dangling and not registry:
+        errors.append(issue('REF_SOURCES_EMPTY', 'added.sources',
+                            'Added values name source records, but added.sources is empty'))
+    for path, name in dangling:
+        errors.append(issue('REF_SOURCE_UNKNOWN', path, f'No source record {name!r} in added.sources'))
+
+
+def check_generation(card, errors):
+    """The counts of a generation run agree with each other."""
+    generation = card.get('author', {}).get('generation') or {}
+    generated, submitted, everything = (generation.get(key) for key in ('generated', 'submitted', 'submits_all'))
+    if type(generated) is not int or type(submitted) is not int:
+        return
+    if submitted > generated:
+        message = f'The run submitted {submitted} hypotheses but generated only {generated}'
+    elif everything is True and submitted != generated:
+        message = 'submits_all is true, so submitted must equal generated'
+    elif everything is False and submitted == generated:
+        message = 'submits_all is false, but submitted equals generated'
+    else:
+        return
+    errors.append(issue('REF_GENERATION_INCONSISTENT', 'author.generation', message))
+
+
+def moment(text):
+    """Parse an RFC 3339 timestamp; None when it is not one."""
+    try:
+        return datetime.datetime.fromisoformat(text.replace('t', 'T').replace('z', 'Z').replace('Z', '+00:00'))
+    except (AttributeError, TypeError, ValueError):
+        return None
+
+
+def nearest_assessment(card, pointer):
+    """The assessment at a pointer or at its nearest ancestor, or None."""
+    tokens = pointer.split('/')[1:]
+    for end in range(len(tokens), 0, -1):
+        try:
+            node = resolve_pointer(card, '/' + '/'.join(tokens[:end]))
+        except KeyError:
+            continue
+        if isinstance(node, dict) and isinstance(node.get('assessment'), dict):
+            return node['assessment']
+    return None
+
+
+def check_times(card, errors):
+    """No added-zone assessment is later than `added.at`."""
+    written = moment(card.get('added', {}).get('at'))
+    for _, path, node in zone_nodes(card, 'added'):
+        if not (isinstance(node, dict) and isinstance(node.get('assessment'), dict)):
+            continue
+        assessed = moment(node['assessment'].get('assessed_at'))
+        if written and assessed and assessed > written:
+            errors.append(issue('REF_TIME_ORDER', f'{path}.assessment',
+                                'assessed_at is later than added.at, when the added zone was written'))
 
 
 def check(card):
@@ -106,44 +343,22 @@ def check(card):
     fields = {}
     if card.get('standard_version') != '1.0':
         return {'valid': False, 'errors': [issue('REF_STANDARD_VERSION', 'standard_version', 'Only OHF 1.0 cards are checked')],
-                'warnings': [], 'external': [], 'comparable': [], 'not_comparable': []}
-    atoms, predictions = identifiers(card, 'atoms', errors), identifiers(card, 'predictions', errors)
+                'warnings': [], 'external': [], 'comparable': [], 'not_comparable': [], 'completeness': None}
+    ids = identifiers(card, errors)
     domains = {zone: layers(card, zone).get('profile', {}).get('domain') for zone in ZONES}
     if domains['author'] is not None and domains['author'] != domains['added']:
         errors.append(issue('REF_DOMAIN_MISMATCH', 'profile.domain',
                             'author and added zones select different domain profiles'))
+    check_references(card, ids, errors, external)
+    check_sources(card, errors)
+    check_generation(card, errors)
     for zone in ZONES:
-        core = layers(card, zone).get('core', {})
-        for name in ITEM_LISTS:
-            seen = set()
-            for i, item in enumerate(unwrap(core.get(name)) or []):
-                path = f'{zone}.core.{name}[{i}]'
-                if item['id'] in seen:
-                    errors.append(issue('REF_DUPLICATE_ID', path, f"Duplicate id {item['id']!r}"))
-                seen.add(item['id'])
-                check_ids(item.get('atom_refs'), atoms, path, 'atom', errors)
-                check_ids(item.get('prediction_refs'), predictions, path, 'prediction', errors)
-                for key in ('observation_ref', 'rival_ref', 'finding_ref'):
-                    pointer_target(card, item.get(key), f'{path}.{key}', (), errors, external)
-        first = unwrap(core.get('first_proposed'))
-        if isinstance(first, dict):
-            pointer_target(card, first.get('source_ref'), f'{zone}.core.first_proposed.source_ref', (), errors, external)
-        test = (unwrap(core.get('testability')) or {}).get('cheapest_test', {})
-        if test.get('kind') == 'reference':
-            pointer_target(card, test['ref'], f'{zone}.core.testability.cheapest_test', (), errors, external)
-        for i, prediction in enumerate(layers(card, zone).get('predictions', [])):
-            path = f'{zone}.predictions[{i}]'
-            check_ids(unwrap(prediction.get('derives_from_atom_refs')), atoms, path, 'atom', errors)
-            pointer_target(card, unwrap(prediction.get('known_result_ref')), f'{path}.known_result_ref',
-                           evidence_lines(), errors, external)
-            for j, entry in enumerate(unwrap(prediction.get('also_expected_under')) or []):
-                if entry.get('kind') == 'alternative':
-                    pointer_target(card, entry['ref'], f'{path}.also_expected_under[{j}]',
-                                   alternatives(), errors, external)
+        for prediction in layers(card, zone).get('predictions', []):
             merged = fields.setdefault(unwrap(prediction.get('id')), {})
             merged.update({key: unwrap(value) for key, value in prediction.items()
                            if filled(unwrap(value))})
-    check_integrity(card, errors, warnings, external)
+    check_integrity(card, errors, warnings)
+    check_times(card, errors)
     for ident, prediction in fields.items():
         missing = [key for key in COMPARABLE if key not in prediction]
         if prediction.get('form') == 'directional_contrast' and 'direction' not in prediction:
@@ -152,11 +367,12 @@ def check(card):
             not_comparable.append({'id': ident, 'missing': missing})
         else:
             comparable.append(ident)
+    completeness = check_completeness.check(card, comparable, not_comparable, errors, warnings)
     return {'valid': not errors, 'errors': errors, 'warnings': warnings, 'external': external,
-            'comparable': comparable, 'not_comparable': not_comparable}
+            'comparable': comparable, 'not_comparable': not_comparable, 'completeness': completeness}
 
 
-def check_integrity(card, errors, warnings, external):
+def check_integrity(card, errors, warnings):
     added_atoms = {unwrap(atom.get('id')): atom for atom in layers(card, 'added').get('core', {}).get('atoms', [])}
     for i, atom in enumerate(layers(card, 'author').get('core', {}).get('atoms', [])):
         if unwrap(atom.get('id')) not in added_atoms:
@@ -167,9 +383,6 @@ def check_integrity(card, errors, warnings, external):
     if 'mechanism' in kinds and types and types <= {'existence', 'distribution', 'association'}:
         warnings.append(issue('REF_KIND_ATOMS', 'core.kind',
                               'core.kind is mechanism, but every atom only states existence, distribution or association'))
-    for i, line in enumerate(layers(card, 'added').get('evidence', {}).get('lines', [])):
-        tool = unwrap(line.get('risk_of_bias') or {}) or {}
-        pointer_target(card, tool.get('tool_ref'), f'added.evidence.lines[{i}].risk_of_bias.tool_ref', (), errors, external)
     verification = card['added']['source_verification']
     stored = card.get('author', {}).get('source', {}).get('source_text_sha256')
     if verification['status'] == 'refetched_match' and verification['sha256'] != stored:
@@ -179,6 +392,7 @@ def check_integrity(card, errors, warnings, external):
         errors.append(issue('REF_SOURCE_MISMATCH', 'added.source_verification.sha256',
                             'refetched_mismatch needs refetched bytes that differ from the stored source'))
     by = card['added']['by']
+    sources = card['added'].get('sources') or {}
     seen = set()
     for i, record in enumerate(card['added'].get('integrity', {}).get('entailment', [])):
         path = f'added.integrity.entailment[{i}]'
@@ -197,8 +411,17 @@ def check_integrity(card, errors, warnings, external):
             continue
         if not (isinstance(node, dict) and 'src' in node and 'value' in node):
             errors.append(issue('REF_WRONG_TARGET', path, 'An entailment record names a sourced added-zone value'))
-        elif record['basis'] == 'basis_quote' and 'basis_quote' not in node:
+            continue
+        if record['basis'] == 'basis_quote' and 'basis_quote' not in node:
             errors.append(issue('REF_WRONG_TARGET', path, 'The value has no basis_quote to check'))
+        checked = moment(record['checked_at'])
+        accessed = moment((sources.get(node['src']) or {}).get('accessed_at'))
+        if checked and accessed and checked < accessed:
+            errors.append(issue('REF_TIME_ORDER', path,
+                                f"checked_at is earlier than the access time of source record {node['src']!r}"))
+        assessed = moment((nearest_assessment(card, record['pointer']) or {}).get('assessed_at'))
+        if checked and assessed and checked < assessed:
+            errors.append(issue('REF_TIME_ORDER', path, 'checked_at is earlier than the assessment of the value'))
 
 
 def main():
