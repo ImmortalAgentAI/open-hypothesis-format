@@ -15,7 +15,8 @@ ROOT = Path(__file__).resolve().parents[1]
 SCHEMA = load(ROOT / 'schema/hypothesis-1.schema.json')
 CARD = load(ROOT / 'examples/cards/muller-sheltering.json')
 # The full conditions the example card does not meet.
-FULL = [text for key, text in CONDITIONS['full'] if key != 'claim atom']
+# The full conditions the example card does not meet.
+FULL = [text for key, text in CONDITIONS['full'] if key not in ('claim atom', 'challenge search')]
 
 
 def result(document):
@@ -127,9 +128,9 @@ def test_understated_level_is_warned():
 @pytest.mark.parametrize('missing, warned', [
     (FULL, 0),
     ([item.upper() for item in FULL], 0),
-    (FULL[:2], 1),
+    (FULL[:1], 1),
     (FULL + ['A falsification condition stated by the authors.'], 1),
-    ([], 3),
+    ([], 2),
 ])
 def test_missing_for_next_names_each_derived_condition(missing, warned):
     outcome = result(declare(copy.deepcopy(CARD), 'comparable', missing))
