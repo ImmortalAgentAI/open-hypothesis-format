@@ -96,6 +96,8 @@ Besides the layers, a card holds these members. All are required unless marked o
 | `added.completeness` | The completeness level, the layers present and what the next level still needs. |
 | `added.challenge_search` | Optional. The search for evidence against the hypothesis; see [completeness](#completeness). |
 
+A card for a hypothesis that a person wrote without a generation tool still states `author.generation`, `added.by` and `added.budget`, because the schema requires them. With `author.generator.kind` `human`, every member of `author.generation` is null, which means not applicable: there was no generation run. When the added zone was written without a language model, `added.by.model` is `"none"`, `added.budget.model_calls` is 0 and the token counts are null; these too mean not applicable, not unknown. HTTP requests are counted as for any card. The fixture `tests/fixtures/fictional/fx_nine.json` follows this convention.
+
 ## Domain profiles
 
 A card names its domain profile in `added.layers.profile.domain`. [`profiles-1.json`](../vocabularies/profiles-1.json) lists the profiles and their paths.
@@ -111,16 +113,16 @@ Completeness is structural:
 
 - `accepted`: the author's assertion is checked against source bytes, and source, licence and provenance are present.
 - `comparable`: `accepted`, plus a prediction that states, across both zones, its system, endpoint, form and epistemic status, and a direction when the form is `directional_contrast`.
-- `full`: `comparable`, plus a typed mechanism step, claim atoms, and evidence on both sides. If no disputing evidence is found, the gap records the search queries. `added.challenge_search` records the search for disputing evidence: its queries, the artifacts inspected, the outcome and the evidence lines found.
+- `full`: `comparable`, plus a typed mechanism step, claim atoms, and evidence on both sides. If no disputing evidence is found, `added.challenge_search` records the search queries. `added.challenge_search` records the search for disputing evidence: its queries, the artifacts inspected, the outcome and the evidence lines found.
 
 Completeness says nothing about whether the claim or its reading is correct.
 
 `tools/check_refs.py` computes the level from these conditions and reports, for each condition that is not met, the reason. It reads them as follows:
 
-- The author's assertion is checked against source bytes when `added.source_verification.status` is `refetched_match` with the stored hash. A source that is `not_refetchable` or `refetched_mismatch` cannot show this by machine; the condition goes to `manual_review_required` with the reason.
+- The level is computed from the card's own records; the tools fetch nothing. The author's assertion counts as checked against source bytes when the card records `added.source_verification.status` `refetched_match` with the stored hash. The tools rely on that record and do not repeat the refetch or compare the quotations with the source. A source that is `not_refetchable` or `refetched_mismatch` cannot show this by machine; the condition goes to `manual_review_required` with the reason.
 - The source is `author.source` with its citation, URL and source text SHA-256; the licence is its `license` and `rights_basis`; the provenance is `author.generator`, `added.by` and `added.produced_by`.
 - A typed mechanism step has a `subject_ref`, a `relation` and an `object_ref`, across both zones.
-- Evidence is on both sides when one evidence line supports and one disputes. Without a disputing line, the search for one is recorded by `added.challenge_search` with the outcome `not_found`, or by an `evidence.lines` gap with the disposition `searched_not_found` and its query identifiers. A search that stopped early, with the outcome `incomplete` or a `budget_exhausted` gap, goes to `manual_review_required`.
+- Evidence is on both sides when one evidence line supports and one disputes. Without a disputing line, the search for one is recorded by `added.challenge_search` with the outcome `not_found` and its query identifiers. The gap catalogue has no path for a missing disputing line, so a gap does not stand for this search; a gap on a member of an evidence line, such as `evidence.lines[].risk_of_bias`, is about that member. A search that stopped early, with the outcome `incomplete`, goes to `manual_review_required`.
 - `added.challenge_search` is optional. When it is recorded with the outcome `found`, it names a disputing evidence line.
 
 The computed level is the highest level whose conditions, and those of every lower level, are met. A declared level that a condition at or below it rules out is an error (`REF_COMPLETENESS_OVERSTATED`); a declared level below the computed one is a warning (`REF_COMPLETENESS_UNDERSTATED`). `missing_for_next` must name each condition that the next level still needs; extra or missing items are a warning (`REF_MISSING_FOR_NEXT`). The checker's report gives the conditions in the words it expects.

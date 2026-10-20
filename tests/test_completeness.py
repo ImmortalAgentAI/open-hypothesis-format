@@ -89,7 +89,7 @@ def test_incomplete_search_needs_review():
 @pytest.mark.parametrize('mutation, reason', [
     ('no_step', 'no mechanism step'),
     ('untyped_step', 'subject_ref, relation and object_ref'),
-    ('no_disputing_line', 'no search for disputing evidence'),
+    ('no_disputing_line', 'records no completed search'),
     ('challenge_names_no_disputing_line', 'names no disputing evidence line'),
     ('no_atoms', 'no claim atoms'),
 ])
@@ -186,3 +186,28 @@ def test_process_members_are_required(member):
     document = load(ROOT / 'tests/fixtures/fictional/fx_nine.json')
     del document[member[0]][member[1]]
     assert validation_errors(SCHEMA, document)
+
+
+def test_card_without_generation_tool_follows_the_convention():
+    # spec/README.md: for a human generator, null generation members, model "none",
+    # zero model calls and null token counts mean not applicable, not unknown.
+    document = load(ROOT / 'tests/fixtures/fictional/fx_nine.json')
+    assert document['author']['generator']['kind'] == 'human'
+    assert all(value is None for value in document['author']['generation'].values())
+    assert document['added']['by']['model'] == 'none'
+    budget = document['added']['budget']
+    assert budget['model_calls'] == 0 and budget['input_tokens'] is None and budget['output_tokens'] is None
+    outcome = result(document)
+    assert outcome['valid'] and outcome['completeness']['computed'] == 'accepted' and not outcome['warnings']
+
+
+@pytest.mark.parametrize('path', ['evidence.lines[].risk_of_bias', 'evidence.lines[].direction'])
+def test_gap_on_a_line_member_is_not_a_search_for_disputing_evidence(path):
+    document = full_card()
+    document['added']['layers']['evidence']['lines'].pop()
+    del document['added']['challenge_search']
+    document['added']['gaps'].append({'path': path, 'disposition': 'searched_not_found', 'reason': 'Test.',
+                                      'query_ids': ['q1'], 'inspected_artifacts': []})
+    outcome = result(document)
+    both = [e for e in outcome['completeness']['unmet'] if e['condition'].startswith('Evidence on both sides')]
+    assert both and 'REF_COMPLETENESS_OVERSTATED' in codes(outcome)

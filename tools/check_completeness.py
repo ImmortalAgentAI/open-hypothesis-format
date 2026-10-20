@@ -9,12 +9,17 @@ The conditions are those of the specification, section Completeness:
 - comparable: accepted, and at least one comparable prediction.
 - full: comparable, and a typed mechanism step (a step with `subject_ref`,
   `relation` and `object_ref`, across both zones), claim atoms and evidence on both
-  sides. Evidence is on both sides when a line
-  supports and a line disputes; without a disputing line, the search for one is
-  recorded by a challenge search with the outcome `not_found` or by an
-  `evidence.lines` gap with the disposition `searched_not_found` and its query
-  identifiers. `added.challenge_search` is optional; when it is recorded with the
-  outcome `found`, it names a disputing line.
+  sides. Evidence is on both sides when a line supports and a line disputes.
+  Without a disputing line, the search for one is recorded by `added.challenge_search`
+  with the outcome `not_found` and its query identifiers; OHF 1.0 has no gap path
+  for a missing disputing line, so no gap stands for that search.
+  `added.challenge_search` is optional; when it is recorded with the outcome `found`,
+  it names a disputing line.
+
+The level is computed from the card's own records; the tools fetch nothing. The
+condition on source bytes relies on the source verification the card records
+(`added.source_verification`), which these tools do not repeat: they neither refetch
+the source nor compare the author-zone values with it.
 
 Each condition is met, unmet or for manual review. A source that was not refetched,
 or whose refetched bytes differ, cannot show by machine that the author's assertion
@@ -27,7 +32,9 @@ error; a declared level below the computed level is a warning. `missing_for_next
 is derived for the level after the declared one, or after the highest level that
 manual review could confirm when the declared level is overstated. Each derived
 condition must be named by an item of the declared `missing_for_next`: an item
-names a condition when it contains the condition's key, ignoring case. An item
+names a condition when it contains the condition's key, ignoring case; the match is
+by substring, so an item that uses a different word (for example "license") does not
+name the condition, and any item that mentions a key names it. An item
 that names no unmet or manual-review condition up to that level is extra. A
 missing or extra item is a warning. The keys are the first member of each entry
 of `CONDITIONS`.
@@ -76,8 +83,8 @@ def source_bytes(card):
     stored = card.get('author', {}).get('source', {}).get('source_text_sha256')
     if status == 'refetched_match':
         if verification.get('sha256') == stored:
-            return 'met', 'The refetched source matches author.source.source_text_sha256.'
-        return 'unmet', 'refetched_match is recorded, but the refetched hash differs from the stored one.'
+            return 'met', 'added.source_verification records a refetch whose hash matches author.source.source_text_sha256.'
+        return 'unmet', 'added.source_verification records refetched_match, but its hash differs from the stored one.'
     if status == 'refetched_mismatch':
         return 'manual', 'The refetched source differs from the stored one; a reviewer must check the assertions.'
     if status == 'not_refetchable':
@@ -144,18 +151,15 @@ def evidence_lines(card):
 def both_sides(card):
     directions = {direction for _, direction in evidence_lines(card)}
     search = card.get('added', {}).get('challenge_search') or {}
-    gaps = [gap for gap in card.get('added', {}).get('gaps', [])
-            if gap.get('path', '').startswith('evidence.lines') and gap.get('query_ids')]
     if 'supports' not in directions:
         return 'unmet', 'No evidence line supports the hypothesis.'
     if 'disputes' in directions:
         return 'met', 'Evidence lines support and dispute the hypothesis.'
-    if (search.get('outcome') == 'not_found' and search.get('query_ids')) or any(
-            gap['disposition'] == 'searched_not_found' for gap in gaps):
-        return 'met', 'No line disputes the hypothesis, and the search for one is recorded with its queries.'
-    if search.get('outcome') == 'incomplete' or any(gap['disposition'] == 'budget_exhausted' for gap in gaps):
-        return 'manual', 'No line disputes the hypothesis, and the search for one stopped before it was complete.'
-    return 'unmet', 'No line disputes the hypothesis, and no search for disputing evidence is recorded.'
+    if search.get('outcome') == 'not_found' and search.get('query_ids'):
+        return 'met', 'No line disputes the hypothesis, and added.challenge_search records the search with its queries.'
+    if search.get('outcome') == 'incomplete':
+        return 'manual', 'No line disputes the hypothesis, and the recorded search stopped before it was complete.'
+    return 'unmet', 'No line disputes the hypothesis, and added.challenge_search records no completed search for one.'
 
 
 def challenge_search(card):

@@ -306,11 +306,12 @@ def check_generation(card, errors):
 
 
 def moment(text):
-    """Parse an RFC 3339 timestamp; None when it is not one."""
+    """Parse an RFC 3339 timestamp; None when it is not one or has no offset."""
     try:
-        return datetime.datetime.fromisoformat(text.replace('t', 'T').replace('z', 'Z').replace('Z', '+00:00'))
+        parsed = datetime.datetime.fromisoformat(text.replace('t', 'T').replace('z', 'Z').replace('Z', '+00:00'))
     except (AttributeError, TypeError, ValueError):
         return None
+    return parsed if parsed.tzinfo is not None else None
 
 
 def nearest_assessment(card, pointer):

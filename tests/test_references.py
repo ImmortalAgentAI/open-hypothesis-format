@@ -284,3 +284,10 @@ def test_independent_times_are_not_ordered():
     document['added']['source_verification']['fetched_at'] = '2026-10-25T00:00:00Z'
     entailment(document, '/added/layers/core/kind')['checked_at'] = '2026-10-25T00:00:00Z'
     assert result(document)['valid']
+
+
+def test_timestamp_without_offset_is_not_compared():
+    # The schema rejects a time without an offset; the reference checker must not crash on one.
+    from tools.check_refs import moment
+    assert moment('2026-10-20T12:00:01') is None
+    assert moment('2026-10-20T12:00:01Z') is not None
