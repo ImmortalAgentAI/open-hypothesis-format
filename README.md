@@ -80,7 +80,7 @@ Each file is under one of two licences, assigned by path.
 
 | Licence | Applies to |
 | --- | --- |
-| MIT, [`LICENSE`](LICENSE) | Code: [`tools/`](tools), [`tests/`](tests), [`schema/`](schema), [`.forgejo/`](.forgejo), `requirements.txt`, `pytest.ini`, `.gitignore` |
+| MIT, [`LICENSE`](LICENSE) | Code: [`tools/`](tools), [`tests/`](tests), [`schema/`](schema), [`.forgejo/`](.forgejo), [`.github/`](.github), `requirements.txt`, `pytest.ini`, `.gitignore` |
 | CC BY 4.0, [`LICENSE-SPEC`](LICENSE-SPEC) | Specification: everything else, including this README, [`CHANGELOG.md`](CHANGELOG.md), [`spec/`](spec), [`vocabularies/`](vocabularies) and [`examples/`](examples) |
 
 The JSON Schemas in `schema/` are validators and are under MIT with the code, although the specification describes them. The test fixtures in `tests/fixtures/` are under MIT with the tests. The field catalogue, mapping and policies in `spec/` are under CC BY 4.0 with the specification.
