@@ -21,6 +21,11 @@ record must show the worst active verdict (no < partial < entails), and on a tie
 such check that is not older than the latest assessment the value carries (else the earliest),
 with its time and note. A key whose active checks disagree is DISPUTED: printed
 as information, not a failure. A later 'entails' on the same text never hides an earlier 'no'.
+Limit: without WORKDIR the passage of a src item is not known, and it is taken to be the passage
+of the check the record shows. A check of the same value against another passage (one made
+after the src was changed) is then not told apart from a check of the current passage, so a
+later 'entails' with another passage hash can stand in for an earlier 'no'. With WORKDIR the
+passage is read from the source and only its own checks count.
 
 Without WORKDIR the check needs only the card and the ledger: it rebuilds every checked value
 from the card, with the same rules as entailment.build, and fails on a missing or mismatched
@@ -233,6 +238,11 @@ def latest_assessment(node):
     return max(times) if times else None
 
 
+def unknown_verdicts(ledger):
+    """Keys with an entry whose verdict is not one of RANK."""
+    return {k for k, history in ledger['entries'].items() for e in history if e.get('verdict') not in RANK}
+
+
 def disputed(entries):
     return len({e['verdict'] for e in entries}) > 1
 
@@ -300,6 +310,10 @@ def check(card, ledger, passages=None):
         errors.append(f'ledger content_hash {led.get("content_hash")} is not the card\'s {actual} (the card '
                       'changed after the last merge or carry: carry, re-check what changed, merge)')
     entries, notes = led['entries'], led['notes']
+    bad = unknown_verdicts(led)
+    for k in sorted(bad):
+        errors.append(f'{k}: ledger entry with a verdict not in {sorted(RANK)} (the ledger was not written '
+                      'by entailment.py merge: rebuild it from the checker outputs)')
     nodes = dict(sourced(card))
     items = {key_of(x): x for x in value_items(card)}
     records = {key_of(r): r for r in card['added']['integrity']['entailment']}
@@ -311,6 +325,8 @@ def check(card, ledger, passages=None):
         errors.append(f'{p} ({b}): record for a value that is not sourced (remove the record)')
     for k, r in records.items():
         history = entries.get(k) or []
+        if k in bad:
+            continue
         if not history:
             errors.append(f'{k}: entailment record with no ledger entry (its checked text is unknown: '
                           're-run the entailment pass on it and merge)')
@@ -356,8 +372,9 @@ def summary(card, ledger, passages=None):
     records = {key_of(r): r for r in card['added']['integrity']['entailment']}
     nodes = dict(sourced(card))
     out = []
+    bad = unknown_verdicts(led)
     for k, history in led['entries'].items():
-        if k in items:
+        if k in items and k not in bad:
             act, err = _active_for(k, items[k], records.get(k), history, passages)
             if not err and disputed(act):
                 worst = choose(act, latest_assessment(nodes[items[k]['pointer']]))

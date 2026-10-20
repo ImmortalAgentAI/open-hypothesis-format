@@ -117,3 +117,97 @@ def test_command_line_exit_codes(card, tmp_path):
     ledger_path.unlink()
     r = subprocess.run(args, capture_output=True, text=True)
     assert r.returncode == 1 and 'no entailment ledger' in r.stdout
+
+
+def resealed(card, ledger):
+    """The card rehashed after a change, and the ledger written for it, as merge would leave them."""
+    ledger['content_hash'] = rehashed(card)['content_hash']
+    return check_ledger.check(card, ledger)
+
+
+def record_of(card, key):
+    return next(r for r in card['added']['integrity']['entailment'] if check_ledger.key_of(r) == key)
+
+
+def test_quotation_changed_after_the_check_fails(card):
+    ledger = ledger_for(card)
+    node = card['added']['layers']['core']['atoms'][0]['modality']
+    node['basis_quote'] += ' Changed.'
+    errors = resealed(card, ledger)
+    assert any('/added/layers/core/atoms/0/modality|basis_quote: the passage differs' in e for e in errors)
+
+
+def test_record_that_no_check_backs_fails(card):
+    ledger = ledger_for(card)
+    record = entails_record(card)
+    record['checked_at'] = '2099-01-01T00:00:00Z'
+    errors = resealed(card, ledger)
+    assert any(f'{check_ledger.key_of(record)}: no ledger entry for this text backs the record' in e for e in errors)
+
+
+def test_tie_shows_the_earliest_check(card):
+    ledger = ledger_for(card)
+    key = '/added/layers/core/scope|src'
+    [check] = ledger['entries'][key]
+    assert not check_ledger.latest_assessment(card['added']['layers']['core']['scope'])
+    check_ledger.add_entry(ledger, key, dict(check, checked_at='2000-01-01T00:00:00Z'))
+    assert any(f'{key}: the record shows the check at {check["checked_at"]}' in e
+               for e in check_ledger.check(card, ledger))
+
+
+def test_tie_shows_the_earliest_check_not_older_than_the_assessment(card):
+    ledger = ledger_for(card)
+    key = '/added/layers/evidence/lines/0/indirectness|src'
+    [check] = ledger['entries'][key]
+    node = card['added']['layers']['evidence']['lines'][0]['indirectness']
+    assessed = check_ledger.latest_assessment(node)
+    assert check['verdict'] == 'entails' and assessed < check['checked_at']
+    older = dict(check, checked_at='2000-01-01T00:00:00Z')
+    check_ledger.add_entry(ledger, key, older)
+    # The later check is the one after the assessment: the record keeps showing it.
+    assert check_ledger.check(card, ledger) == []
+    record_of(card, key)['checked_at'] = older['checked_at']
+    assert any(f'{key}: the record shows the check at 2000-01-01T00:00:00Z' in e for e in resealed(card, ledger))
+
+
+def test_note_edited_by_hand_fails(card):
+    ledger = ledger_for(card)
+    record = next(r for r in card['added']['integrity']['entailment'] if r['verdict'] == 'partial')
+    record['note'] += ' Edited.'
+    errors = resealed(card, ledger)
+    assert any(f'{check_ledger.key_of(record)}: the note in the card is not the note of the check' in e for e in errors)
+
+
+def test_note_text_missing_from_the_ledger_fails(card):
+    ledger = ledger_for(card)
+    record = next(r for r in card['added']['integrity']['entailment'] if r['verdict'] == 'partial')
+    del ledger['notes'][check_ledger.note_sha256(record['note'])]
+    assert any(f'{check_ledger.key_of(record)}: the ledger has no text for note' in e
+               for e in check_ledger.check(card, ledger))
+
+
+def test_record_for_a_value_that_is_not_sourced_fails(card):
+    ledger = ledger_for(card)
+    record = dict(entails_record(card), pointer='/added/layers/core/scope', basis='basis_quote')
+    assert 'basis_quote' not in card['added']['layers']['core']['scope']
+    card['added']['integrity']['entailment'].append(record)
+    errors = resealed(card, ledger)
+    assert any('/added/layers/core/scope (basis_quote): record for a value that is not sourced' in e for e in errors)
+
+
+def test_sourced_value_without_a_record_fails(card):
+    ledger = ledger_for(card)
+    records = card['added']['integrity']['entailment']
+    record = entails_record(card)
+    records.remove(record)
+    errors = resealed(card, ledger)
+    assert any(f"{record['pointer']} ({record['basis']}): no entailment record" in e for e in errors)
+
+
+def test_unknown_verdict_in_the_ledger_is_reported(card):
+    ledger = ledger_for(card)
+    key = check_ledger.key_of(entails_record(card))
+    ledger['entries'][key].append(dict(ledger['entries'][key][0], checked_at='2099-01-01T00:00:00Z', verdict='maybe'))
+    errors = check_ledger.check(card, ledger)
+    assert any(f'{key}: ledger entry with a verdict not in' in e for e in errors)
+    assert check_ledger.summary(card, ledger)[1] == sum(len(v) for v in ledger['entries'].values())

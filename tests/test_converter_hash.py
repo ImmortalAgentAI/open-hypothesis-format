@@ -59,3 +59,27 @@ def test_pin_of_rules_kept_in_the_repository(tmp_path, monkeypatch):
     assert converter_hash.pin_errors(card) == []
     card['added']['by']['converter_hash'] = sha(b'other')
     assert converter_hash.pin_errors(card)
+
+
+def test_name_or_version_outside_the_allowed_characters_fails():
+    for name, version in (('ohf-extractor', '../1.0'), ('ohf/extractor', '1.0'), ('ohf-extractor', '1.0\n'),
+                          ('OHF', '1.0'), ('ohf-extractor', 1)):
+        card = copy.deepcopy(CARD)
+        card['added']['by'].update(converter=name, converter_version=version)
+        [error] = converter_hash.pin_errors(card)
+        assert 'may hold only [a-z0-9.-]' in error, (name, version)
+
+
+def test_symbolic_link_in_the_rules_fails(tmp_path, monkeypatch):
+    monkeypatch.setattr(converter_hash, 'CONVERTERS', tmp_path / 'converters')
+    outside = rules(tmp_path / 'outside')
+    root = rules(tmp_path / 'converters' / 'ohf-extractor-1.0.0')
+    (root / 'scripts' / 'linked.py').symlink_to(outside / 'scripts' / 'build.py')
+    card = copy.deepcopy(CARD)
+    card['added']['by'].update(converter='ohf-extractor', converter_version='1.0.0')
+    [error] = converter_hash.pin_errors(card)
+    assert 'a symbolic link in the rules directory' in error
+    (tmp_path / 'converters' / 'ohf-extractor-2.0.0').symlink_to(outside, target_is_directory=True)
+    card['added']['by']['converter_version'] = '2.0.0'
+    [error] = converter_hash.pin_errors(card)
+    assert 'the rules directory is a symbolic link' in error

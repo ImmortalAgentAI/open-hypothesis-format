@@ -22,13 +22,13 @@ The licence was confirmed from the article's full-text XML. The card reproduces 
 python3 tools/converter_hash.py --check examples/cards/*.json
 ```
 
-The card schema allows no extra member in an entailment record, so the text each verdict is about is recorded next to the card, in `ledgers/<slug>.json` (format `ohf-entailment-ledger/2`). For each record, the ledger keeps every check of the value: the SHA-256 of the value as the checker saw it, the SHA-256 of the passage, the time, the verdict and the note. The converter only adds checks. The checker cannot see whether a check was removed; the ledger's history in this repository shows it. A card's record must show the worst check of its current value and passage, so a later `entails` does not hide an earlier `no`. A value whose checks disagree is reported as disputed. That is information, not a failure.
+The card schema allows no extra member in an entailment record, so the text each verdict is about is recorded next to the card, in `ledgers/<slug>.json` (format `ohf-entailment-ledger/2`). For each record, the ledger keeps every check of the value: the SHA-256 of the value as the checker saw it, the SHA-256 of the passage, the time, the verdict and the note. The converter only adds checks. The checker cannot see whether a check was removed; the ledger's history in this repository shows it. A card's record must show the worst check of its current value and passage, so a later `entails` on the same text does not hide an earlier `no`; for values from source documents, see the limit below. A value whose checks disagree is reported as disputed. That is information, not a failure.
 
 ```sh
 python3 tools/check_ledger.py examples/cards/<slug>.json examples/ledgers/<slug>.json
 ```
 
-Without the source documents, the ledger checker verifies the values and the verdicts, and the passages of quotations, which are in the card. A passage from a source document is checked by whoever downloads the source; its SHA-256 is in the card. The muller-sheltering card was converted before ledgers were kept and has none.
+Without the source documents, as in CI, the ledger checker verifies the values and the verdicts, and the passages of quotations, which are in the card. For a value taken from a source document, the passage is not known there, so it is taken to be the passage of the check the record shows. A check of the same value against another passage, made after its source reference changed, is then not told apart from a check of the current passage: a later `entails` against another passage can stand in for an earlier `no`. The converter runs the check with the source documents, where only the current passage's checks count. Anyone can repeat it by downloading the sources; their SHA-256 values are in the card. The muller-sheltering card was converted before ledgers were kept and has none.
 
 ## Content hash
 
