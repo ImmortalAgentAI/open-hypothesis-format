@@ -42,6 +42,8 @@ Every card states `"standard_version": "1.0"`. This names the version of the car
 
 ## Validate a card
 
+The tools need Python 3.11 or later, because the pinned `rpds-py` requires it. They are tested on Python 3.12, the version both CI workflows use.
+
 ```sh
 python3 -m venv .venv
 .venv/bin/pip install -r requirements.txt
