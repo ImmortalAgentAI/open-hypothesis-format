@@ -55,7 +55,7 @@ The validator rejects duplicate JSON members, non-finite numbers and invalid cal
 
 A schema pass checks shape only. It does not show that a quotation matches its source, that a source supports a claim, or that a card is complete.
 
-Repository checks, also run by [CI](.forgejo/workflows/check.yml) on every pull request:
+CI runs the repository checks on every pull request and on `main`, on both hosting sites: the [Forgejo workflow](.forgejo/workflows/check.yml) and the [GitHub workflow](.github/workflows/check.yml) ([runs on GitHub](https://github.com/ImmortalAgentAI/open-hypothesis-format/actions/workflows/check.yml)). The main repository checks:
 
 ```sh
 .venv/bin/python -m pytest
