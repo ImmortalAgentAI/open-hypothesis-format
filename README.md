@@ -51,7 +51,7 @@ python3 -m venv .venv
 .venv/bin/python tools/check_refs.py examples/cards/muller-sheltering.json
 ```
 
-The validator rejects duplicate JSON members, non-finite numbers and invalid calendar timestamps, and reports every schema error. The gap checker applies the [gap rules](spec/README.md#gaps) and lists the checks that need a reviewer. The reference checker resolves the internal references of a card, applies the integrity rules the schema cannot express, and lists which predictions are comparable. Both checkers assume a schema-valid card.
+The validator rejects duplicate JSON members, non-finite numbers and invalid calendar timestamps, and reports every schema error. The gap checker applies the [gap rules](spec/README.md#gaps) to the gaps a card lists and lists the checks that need a reviewer. It does not show that every missing applicable field is listed: a field that is absent and has no gap is not reported. The reference checker resolves the internal references of a card, as listed in [identifiers and references](spec/references.md), applies the integrity rules the schema cannot express, lists which predictions are comparable, and computes the [completeness](spec/README.md#completeness) level; a declared level above the computed one is an error. Both checkers assume a schema-valid card.
 
 A schema pass checks shape only. It does not show that a quotation matches its source, that a source supports a claim, or that a card is complete.
 

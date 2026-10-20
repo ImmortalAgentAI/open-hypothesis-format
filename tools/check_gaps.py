@@ -1,7 +1,8 @@
 """Check the gap records of a card against the gap policy and field classes.
 
-The check is structural. It confirms what the card itself shows; a condition that
-needs a human reading of the source is listed under `review_required`, never passed
+The check is structural. It checks the gaps a card lists; it does not show that every
+missing applicable field is listed. It confirms what the card itself shows; a condition
+that needs a human reading of the source is listed under `review_required`, never passed
 silently. It does not resolve query records or source artifacts. It assumes a card that already passes
 `tools/validate.py` and does not replace schema validation.
 
