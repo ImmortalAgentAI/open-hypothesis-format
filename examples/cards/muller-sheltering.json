@@ -883,7 +883,7 @@
       }
     ],
     "completeness": {
-      "level": "accepted",
+      "level": "comparable",
       "layers_present": [
         "core",
         "mechanism",
@@ -893,7 +893,9 @@
         "profile"
       ],
       "missing_for_next": [
-        "A falsification condition stated by the authors."
+        "A typed mechanism step: subject_ref, relation and object_ref.",
+        "Evidence on both sides: a supporting and a disputing evidence line, or a recorded search for disputing evidence.",
+        "A challenge search in added.challenge_search."
       ]
     },
     "sources": {
@@ -1980,5 +1982,5 @@
     ],
     "source_class": "external_published"
   },
-  "content_hash": "sha256:aadeb2f97c35240d3800180a4f20c3fbc33a04d255ecf80c73e53cc97e7f3086"
+  "content_hash": "sha256:c8aa9008ce33498600b8cb8385e1c28d00ceed5b861dbcb354abf852a193f276"
 }
