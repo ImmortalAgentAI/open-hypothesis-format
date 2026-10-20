@@ -12,6 +12,7 @@ Every card states `"standard_version": "1.0"`, the version of the card format; a
 | [field-catalogue.json](field-catalogue.json) | All 180 logical paths, with definition, logical type, vocabulary, conceptual basis and field class |
 | [fields.md](fields.md) | Field reference with an example for every path, generated from [field-reference.json](field-reference.json) |
 | [logical-types.md](logical-types.md) | How logical types are represented |
+| [references.md](references.md) | The identifier namespaces of a card and what each reference field must name |
 | [related-standards.md](related-standards.md), [related-standards.json](related-standards.json) | The standards and models OHF fields draw on, with version, licence and relation to OHF |
 | [mapping.md](mapping.md), [mapping.json](mapping.json) | Where each logical path is stored in a card, or why it is not |
 | [gap-path-policy.json](gap-path-policy.json) | For each path, whether a gap may call the field not applicable |
@@ -95,6 +96,8 @@ Besides the layers, a card holds these members. All are required unless marked o
 | `added.completeness` | The completeness level, the layers present and what the next level still needs. |
 | `added.challenge_search` | Optional. The search for evidence against the hypothesis; see [completeness](#completeness). |
 
+A card for a hypothesis that a person wrote without a generation tool still states `author.generation`, `added.by` and `added.budget`, because the schema requires them. With `author.generator.kind` `human`, every member of `author.generation` is null, which means not applicable: there was no generation run. When the added zone was written without a language model, `added.by.model` is `"none"`, `added.budget.model_calls` is 0 and the token counts are null; these too mean not applicable, not unknown. HTTP requests are counted as for any card. The fixture `tests/fixtures/fictional/fx_nine.json` follows this convention.
+
 ## Domain profiles
 
 A card names its domain profile in `added.layers.profile.domain`. [`profiles-1.json`](../vocabularies/profiles-1.json) lists the profiles and their paths.
@@ -110,9 +113,19 @@ Completeness is structural:
 
 - `accepted`: the author's assertion is checked against source bytes, and source, licence and provenance are present.
 - `comparable`: `accepted`, plus a prediction that states, across both zones, its system, endpoint, form and epistemic status, and a direction when the form is `directional_contrast`.
-- `full`: `comparable`, plus a typed mechanism step, claim atoms, and evidence on both sides. If no disputing evidence is found, the gap records the search queries. `added.challenge_search` records the search for disputing evidence: its queries, the artifacts inspected, the outcome and the evidence lines found.
+- `full`: `comparable`, plus a typed mechanism step, claim atoms, and evidence on both sides. If no disputing evidence is found, `added.challenge_search` records the search queries. `added.challenge_search` records the search for disputing evidence: its queries, the artifacts inspected, the outcome and the evidence lines found.
 
 Completeness says nothing about whether the claim or its reading is correct.
+
+`tools/check_refs.py` computes the level from these conditions and reports, for each condition that is not met, the reason. It reads them as follows:
+
+- The level is computed from the card's own records; the tools fetch nothing. The author's assertion counts as checked against source bytes when the card records `added.source_verification.status` `refetched_match` with the stored hash. The tools rely on that record and do not repeat the refetch or compare the quotations with the source. A source that is `not_refetchable` or `refetched_mismatch` cannot show this by machine; the condition goes to `manual_review_required` with the reason.
+- The source is `author.source` with its citation, URL and source text SHA-256; the licence is its `license` and `rights_basis`; the provenance is `author.generator`, `added.by` and `added.produced_by`.
+- A typed mechanism step has a `subject_ref`, a `relation` and an `object_ref`, across both zones.
+- Evidence is on both sides when one evidence line supports and one disputes. Without a disputing line, the search for one is recorded by `added.challenge_search` with the outcome `not_found` and its query identifiers. The gap catalogue has no path for a missing disputing line, so a gap does not stand for this search; a gap on a member of an evidence line, such as `evidence.lines[].risk_of_bias`, is about that member. A search that stopped early, with the outcome `incomplete`, goes to `manual_review_required`.
+- `added.challenge_search` is optional. When it is recorded with the outcome `found`, it names a disputing evidence line.
+
+The computed level is the highest level whose conditions, and those of every lower level, are met. A declared level that a condition at or below it rules out is an error (`REF_COMPLETENESS_OVERSTATED`); a declared level below the computed one is a warning (`REF_COMPLETENESS_UNDERSTATED`). `missing_for_next` must name each condition that the next level still needs; extra or missing items are a warning (`REF_MISSING_FOR_NEXT`). The checker's report gives the conditions in the words it expects.
 
 ## Integrity
 
@@ -129,6 +142,10 @@ Rules:
 - `refetched_match` requires the refetched SHA-256 to equal `author.source.source_text_sha256`; `refetched_mismatch` requires it to differ (`REF_SOURCE_MISMATCH`).
 - The entailment checker is not the pass that wrote the added zone: its name differs from `added.by.converter` and its instructions from the rules pinned by `added.by.converter_hash` (`REF_CHECKER_NOT_INDEPENDENT`).
 - Each entailment pointer resolves to a sourced added-zone value, once per basis.
+- Every `src` in the added zone names a record of `added.sources` (`REF_SOURCE_UNKNOWN`); an empty `added.sources` while values name source records is also reported once (`REF_SOURCES_EMPTY`).
+- Identifiers are unique within their namespace, and each reference names a record of the kind its field allows (`REF_DUPLICATE_ID`, `REF_UNKNOWN_ID`, `REF_WRONG_TARGET`, `REF_UNRESOLVED`). [references.md](references.md) lists the namespaces and the reference fields.
+- `author.generation`: `submitted` is at most `generated`, and `submits_all` is true exactly when the two are equal; a null count is not compared (`REF_GENERATION_INCONSISTENT`).
+- An entailment record is not checked before the source record its value names was accessed, nor before the assessment of that value, or of its nearest enclosing value, was made; no added-zone assessment is made after `added.at` (`REF_TIME_ORDER`). Other times, such as a refetch or an entailment check after `added.at`, are independent and are not ordered.
 - A value with a `partial` or `no` verdict is not presented as supported by its source. A value without a record has not been checked.
 - `metadata_check.retracted: false` means only that the registry listed no retraction at `checked_at`.
 - `produced_by` states who produced the record. Which producers a consumer accepts is the consumer's rule.

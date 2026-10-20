@@ -13,6 +13,7 @@ The cards in [`fictional/`](fictional) describe a fictional test system. They ar
 - `fx_five`: a claim with no intervention, in the domain profile `none`: the intervention fields are absent and need no gap, and an author-only field is `not_supplied`.
 - `fx_six` and `fx_seven`: two rival accounts of the same oscillation. [`pair-brief-six-seven.json`](fictional/pair-brief-six-seven.json) records what they share and which observations tell them apart; [`relations-six-seven.json`](fictional/relations-six-seven.json) records the relation in `ohf:hypothesis-relations@1`.
 - `fx_eight`: failed integrity checks. The refetched source differs from the stored one ([`fx_eight.refetched.json`](fictional/sources/fx_eight.refetched.json)), one entailment verdict is `partial` and one is `no`, and two evidence lines share an independence group.
+- `fx_nine`: a hypothesis written by a person without a generation tool: the generator is `human`, every member of the generation record is null, and the card has no entailment records. It reaches `accepted`.
 
 ## Fragments
 

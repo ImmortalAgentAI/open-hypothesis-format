@@ -8,7 +8,7 @@ Biological hypotheses are written as prose, spread across papers, preprints and,
 
 In OHF, a **hypothesis** is a proposed claim about a living system, typically an explanation of an observed phenomenon, that goes beyond established knowledge at the time it is stated, is stated with its scope and conditions, and entails observations that would count for or against it. The [glossary](spec/glossary.md) defines the other terms.
 
-This repository holds OHF 1.0.0: the specification, the JSON Schemas, the vocabularies, an example card and a reference validator.
+This repository holds OHF 1.0.1: the specification, the JSON Schemas, the vocabularies, an example card and a reference validator.
 
 - **Implementers** who write, convert or read cards: start with the [schema](schema/hypothesis-1.schema.json) and the [validator](tools/validate.py).
 - **Scientists and reviewers**: start with the [field reference](spec/fields.md) and the [specification](spec/README.md).
@@ -42,6 +42,8 @@ Every card states `"standard_version": "1.0"`. This names the version of the car
 
 ## Validate a card
 
+The tools need Python 3.11 or later, because the pinned `rpds-py` requires it. They are tested on Python 3.12, the version both CI workflows use.
+
 ```sh
 python3 -m venv .venv
 .venv/bin/pip install -r requirements.txt
@@ -51,7 +53,7 @@ python3 -m venv .venv
 .venv/bin/python tools/check_refs.py examples/cards/muller-sheltering.json
 ```
 
-The validator rejects duplicate JSON members, non-finite numbers and invalid calendar timestamps, and reports every schema error. The gap checker applies the [gap rules](spec/README.md#gaps) and lists the checks that need a reviewer. The reference checker resolves the internal references of a card, applies the integrity rules the schema cannot express, and lists which predictions are comparable. Both checkers assume a schema-valid card.
+The validator rejects duplicate JSON members, non-finite numbers and invalid calendar timestamps, and reports every schema error. The gap checker applies the [gap rules](spec/README.md#gaps) to the gaps a card lists and lists the checks that need a reviewer. It does not show that every missing applicable field is listed: a field that is absent and has no gap is not reported. The reference checker resolves the internal references of a card, as listed in [identifiers and references](spec/references.md), applies the integrity rules the schema cannot express, lists which predictions are comparable, and computes the [completeness](spec/README.md#completeness) level from the card's own records; a declared level above the computed one is an error. The check on source bytes relies on the source verification the card records; the tools do not refetch the source. Both checkers assume a schema-valid card.
 
 A schema pass checks shape only. It does not show that a quotation matches its source, that a source supports a claim, or that a card is complete.
 
@@ -78,7 +80,7 @@ Each file is under one of two licences, assigned by path.
 
 | Licence | Applies to |
 | --- | --- |
-| MIT, [`LICENSE`](LICENSE) | Code: [`tools/`](tools), [`tests/`](tests), [`schema/`](schema), [`.forgejo/`](.forgejo), `requirements.txt`, `pytest.ini`, `.gitignore` |
+| MIT, [`LICENSE`](LICENSE) | Code: [`tools/`](tools), [`tests/`](tests), [`schema/`](schema), [`.forgejo/`](.forgejo), [`.github/`](.github), `requirements.txt`, `pytest.ini`, `.gitignore` |
 | CC BY 4.0, [`LICENSE-SPEC`](LICENSE-SPEC) | Specification: everything else, including this README, [`CHANGELOG.md`](CHANGELOG.md), [`spec/`](spec), [`vocabularies/`](vocabularies) and [`examples/`](examples) |
 
 The JSON Schemas in `schema/` are validators and are under MIT with the code, although the specification describes them. The test fixtures in `tests/fixtures/` are under MIT with the tests. The field catalogue, mapping and policies in `spec/` are under CC BY 4.0 with the specification.
