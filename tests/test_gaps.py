@@ -40,7 +40,7 @@ def with_gaps(card, *gaps):
 
 
 @pytest.mark.parametrize('path', [f'tests/fixtures/fictional/fx_{n}' for n in
-                                  ('one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight')]
+                                  ('one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine')]
                          + ['examples/cards/muller-sheltering'])
 def test_cards_pass(path):
     assert run(load(ROOT / f'{path}.json'))['valid']

@@ -162,3 +162,22 @@ def test_card_without_comparable_prediction_cannot_be_comparable():
     outcome = result(document)
     assert 'REF_COMPLETENESS_OVERSTATED' in codes(outcome)
     assert outcome['completeness']['computed'] == 'accepted'
+
+
+def test_human_card_without_generation_log_reaches_accepted():
+    document = load(ROOT / 'tests/fixtures/fictional/fx_nine.json')
+    assert document['author']['generator'] == {'kind': 'human', 'system': None, 'system_version': None, 'model': None}
+    assert set(document['author']['generation'].values()) == {None}
+    assert 'integrity' not in document['added'] and document['added']['budget']['model_calls'] == 0
+    outcome = result(document)
+    assert outcome['valid'] and not outcome['warnings']
+    assert outcome['completeness']['computed'] == 'accepted'
+
+
+@pytest.mark.parametrize('member', [('author', 'generation'), ('added', 'budget'), ('added', 'by')])
+def test_process_members_are_required(member):
+    # The schema requires these members even for a card written by a person without a tool;
+    # such a card states them with null counts and the converter model "none".
+    document = load(ROOT / 'tests/fixtures/fictional/fx_nine.json')
+    del document[member[0]][member[1]]
+    assert validation_errors(SCHEMA, document)
