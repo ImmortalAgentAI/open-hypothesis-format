@@ -121,7 +121,7 @@ Completeness says nothing about whether the claim or its reading is correct.
 - The source is `author.source` with its citation, URL and source text SHA-256; the licence is its `license` and `rights_basis`; the provenance is `author.generator`, `added.by` and `added.produced_by`.
 - A typed mechanism step has a `subject_ref`, a `relation` and an `object_ref`, across both zones.
 - Evidence is on both sides when one evidence line supports and one disputes. Without a disputing line, the search for one is recorded by `added.challenge_search` with the outcome `not_found`, or by an `evidence.lines` gap with the disposition `searched_not_found` and its query identifiers. A search that stopped early, with the outcome `incomplete` or a `budget_exhausted` gap, goes to `manual_review_required`.
-- `full` also needs `added.challenge_search`; with the outcome `found`, it names a disputing evidence line.
+- `added.challenge_search` is optional. When it is recorded with the outcome `found`, it names a disputing evidence line.
 
 The computed level is the highest level whose conditions, and those of every lower level, are met. A declared level that a condition at or below it rules out is an error (`REF_COMPLETENESS_OVERSTATED`); a declared level below the computed one is a warning (`REF_COMPLETENESS_UNDERSTATED`). `missing_for_next` must name each condition that the next level still needs; extra or missing items are a warning (`REF_MISSING_FOR_NEXT`). The checker's report gives the conditions in the words it expects.
 

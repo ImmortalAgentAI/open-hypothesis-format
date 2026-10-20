@@ -8,12 +8,13 @@ The conditions are those of the specification, section Completeness:
   `author.generator`, `added.by` and `added.produced_by`.
 - comparable: accepted, and at least one comparable prediction.
 - full: comparable, and a typed mechanism step (a step with `subject_ref`,
-  `relation` and `object_ref`, across both zones), claim atoms, evidence on both
-  sides, and `added.challenge_search`. Evidence is on both sides when a line
+  `relation` and `object_ref`, across both zones), claim atoms and evidence on both
+  sides. Evidence is on both sides when a line
   supports and a line disputes; without a disputing line, the search for one is
   recorded by a challenge search with the outcome `not_found` or by an
   `evidence.lines` gap with the disposition `searched_not_found` and its query
-  identifiers. A challenge search with the outcome `found` names a disputing line.
+  identifiers. `added.challenge_search` is optional; when it is recorded with the
+  outcome `found`, it names a disputing line.
 
 Each condition is met, unmet or for manual review. A source that was not refetched,
 or whose refetched bytes differ, cannot show by machine that the author's assertion
@@ -56,7 +57,7 @@ CONDITIONS = {
         ('claim atom', 'Claim atoms in core.atoms[].'),
         ('both sides', 'Evidence on both sides: a supporting and a disputing evidence line, '
                        'or a recorded search for disputing evidence.'),
-        ('challenge search', 'A challenge search in added.challenge_search.'),
+        ('challenge search', 'A challenge search with the outcome found names a disputing evidence line.'),
     ],
 }
 
@@ -160,7 +161,7 @@ def both_sides(card):
 def challenge_search(card):
     search = card.get('added', {}).get('challenge_search')
     if not search:
-        return 'unmet', 'added.challenge_search is absent.'
+        return 'met', 'No challenge search is recorded; it is optional.'
     if search.get('outcome') == 'found':
         disputing = {pointer for pointer, direction in evidence_lines(card) if direction == 'disputes'}
         if not any(ref.get('pointer') in disputing for ref in search.get('evidence_refs', [])):

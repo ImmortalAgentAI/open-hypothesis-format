@@ -69,6 +69,13 @@ def test_recorded_search_stands_for_a_disputing_line():
     assert outcome['valid'] and outcome['completeness']['computed'] == 'full'
 
 
+def test_challenge_search_is_optional_with_a_disputing_line():
+    document = full_card()
+    del document['added']['challenge_search']
+    outcome = result(document)
+    assert outcome['valid'] and outcome['completeness']['computed'] == 'full'
+
+
 def test_incomplete_search_needs_review():
     document = full_card('incomplete')
     document['added']['layers']['evidence']['lines'].pop()
@@ -82,7 +89,6 @@ def test_incomplete_search_needs_review():
     ('no_step', 'no mechanism step'),
     ('untyped_step', 'subject_ref, relation and object_ref'),
     ('no_disputing_line', 'no search for disputing evidence'),
-    ('no_challenge_search', 'challenge_search is absent'),
     ('challenge_names_no_disputing_line', 'names no disputing evidence line'),
     ('no_atoms', 'no claim atoms'),
 ])
@@ -95,8 +101,6 @@ def test_unmet_full_condition_rejects_full(mutation, reason):
         del layers['mechanism']['steps'][0]['relation']
     elif mutation == 'no_disputing_line':
         layers['evidence']['lines'].pop()
-        del document['added']['challenge_search']
-    elif mutation == 'no_challenge_search':
         del document['added']['challenge_search']
     elif mutation == 'challenge_names_no_disputing_line':
         document['added']['challenge_search']['evidence_refs'] = [{'kind': 'card', 'pointer': '/added/layers/evidence/lines/0'}]

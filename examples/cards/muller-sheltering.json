@@ -894,8 +894,7 @@
       ],
       "missing_for_next": [
         "A typed mechanism step: subject_ref, relation and object_ref.",
-        "Evidence on both sides: a supporting and a disputing evidence line, or a recorded search for disputing evidence.",
-        "A challenge search in added.challenge_search."
+        "Evidence on both sides: a supporting and a disputing evidence line, or a recorded search for disputing evidence."
       ]
     },
     "sources": {
@@ -1982,5 +1981,5 @@
     ],
     "source_class": "external_published"
   },
-  "content_hash": "sha256:c8aa9008ce33498600b8cb8385e1c28d00ceed5b861dbcb354abf852a193f276"
+  "content_hash": "sha256:4d61558a7bee24623bdb780dd4cc1729d2e2c697911db083c86ea03ea3940e6d"
 }
