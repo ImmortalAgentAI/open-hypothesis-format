@@ -1,0 +1,38 @@
+name: OHF checks
+on:
+  pull_request:
+  push:
+    branches: [main]
+permissions:
+  contents: read
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97 # v7.0.0
+        with:
+          python-version: '3.12'
+      - name: Install
+        run: |
+          python -m venv .venv
+          .venv/bin/python -m pip install -r requirements.txt
+      - name: Tests
+        run: .venv/bin/python -m pytest -q
+      - name: Catalogue, mapping and generated files
+        run: |
+          .venv/bin/python tools/check_mapping.py
+          .venv/bin/python tools/build_field_reference.py --check
+          .venv/bin/python tools/build_related_standards.py --check
+          .venv/bin/python tools/validate.py --schema schema/gap-path-policy-1.schema.json spec/gap-path-policy.json
+      - name: Examples
+        shell: bash
+        run: |
+          .venv/bin/python tools/validate.py examples/cards/*.json tests/fixtures/fictional/fx_*.json
+          .venv/bin/python tools/content_hash.py --check examples/cards/*.json tests/fixtures/fictional/fx_*.json
+          .venv/bin/python tools/check_gaps.py examples/cards/*.json tests/fixtures/fictional/fx_*.json
+          .venv/bin/python tools/check_refs.py examples/cards/*.json tests/fixtures/fictional/fx_*.json
+          .venv/bin/python tools/validate.py --schema schema/pair-brief-1.schema.json tests/fixtures/fictional/pair-brief-six-seven.json
+          .venv/bin/python tools/validate.py --schema schema/hypothesis-relations-1.schema.json tests/fixtures/fictional/relations-six-seven.json
