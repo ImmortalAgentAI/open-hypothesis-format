@@ -14,6 +14,22 @@ Source: Andrea Mrnjavac, Beatriz Vicoso and Tim Connallon, [An Extension of Mull
 
 The licence was confirmed from the article's full-text XML. The card reproduces passages of the article and adds a structured reading of them; the zone marks that reading as a change.
 
+## Converter pins and entailment ledgers
+
+`added.by.converter_hash` pins the rules a card was converted under. The rules are kept in this repository, so the pin can be recomputed from it alone. A card from `ohf-example-conversion` pins the SHA-256 of [CONVERSION.md](cards/CONVERSION.md). A card from another converter pins the rules in `converters/<converter>-<version>/`. The pin is the SHA-256 of a listing with one line per file, `<path> sha256:<hex>`, with the path relative to that directory, sorted by path:
+
+```sh
+python3 tools/converter_hash.py --check examples/cards/*.json
+```
+
+The card schema allows no extra member in an entailment record, so the text each verdict is about is recorded next to the card, in `ledgers/<slug>.json` (format `ohf-entailment-ledger/2`). For each record, the ledger keeps every check of the value: the SHA-256 of the value as the checker saw it, the SHA-256 of the passage, the time, the verdict and the note. The converter only adds checks. The checker cannot see whether a check was removed; the ledger's history in this repository shows it. A card's record must show the worst check of its current value and passage, so a later `entails` does not hide an earlier `no`. A value whose checks disagree is reported as disputed. That is information, not a failure.
+
+```sh
+python3 tools/check_ledger.py examples/cards/<slug>.json examples/ledgers/<slug>.json
+```
+
+Without the source documents, the ledger checker verifies the values and the verdicts, and the passages of quotations, which are in the card. A passage from a source document is checked by whoever downloads the source; its SHA-256 is in the card. The muller-sheltering card was converted before ledgers were kept and has none.
+
 ## Content hash
 
 `content_hash` is the SHA-256 of the card's RFC 8785 canonical JSON form without the `content_hash` member:
