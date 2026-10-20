@@ -1,0 +1,10 @@
+{
+  "kind": "synthetic_software_fixture",
+  "statement": "In fictional test system two, increasing setting X changes counter Y.",
+  "license": "CC0-1.0",
+  "observable": "The fictional counter Y.",
+  "h0": "The fictional setting has no effect on counter Y.",
+  "h1": "The fictional setting changes counter Y.",
+  "test": "Run the fictional counter procedure.",
+  "status": "planned"
+}

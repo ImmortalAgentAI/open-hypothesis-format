@@ -1,0 +1,1984 @@
+{
+  "schema": "ohf:hypothesis@1",
+  "id": "h_muller-sheltering-extension",
+  "version": 1,
+  "standard_version": "1.0",
+  "vocabularies": {
+    "heuristics": {
+      "id": "ohf:heuristics@1",
+      "sha256": "sha256:ef18bd7539c4cf06878be8720cbab9e541d5d41f0c0e369a0274bd1b07e7f5ef"
+    },
+    "profiles": {
+      "id": "ohf:profiles@1",
+      "sha256": "sha256:5c7f2b59712a38c9c03ecfed9ceebe782b0c43b6ac60485ab44396b6e1e681cc"
+    }
+  },
+  "identity": {
+    "proposition_id": "h_muller-sheltering-extension",
+    "version": 1,
+    "supersedes": [],
+    "retractions": [],
+    "duplicate_cluster_ref": null,
+    "representative_ref": null,
+    "lifecycle": "example"
+  },
+  "author": {
+    "source": {
+      "kind": "paper",
+      "citation": "Mrnjavac A, Vicoso B, Connallon T. An Extension of Muller's Sheltering Hypothesis for the Evolution of Sex Chromosome Gene Content. Mol Biol Evol. 2025;42(8):msaf177",
+      "doi": "10.1093/molbev/msaf177",
+      "url": "https://doi.org/10.1093/molbev/msaf177",
+      "license": "CC-BY-4.0",
+      "rights_basis": "license",
+      "retrieved_at": "2026-10-19T19:10:10.236391+00:00",
+      "source_text_sha256": "sha256:aec24a2447826a7ba21328f44dd243644e621fc0eb07894800e2bf124eadf09e",
+      "language": "en"
+    },
+    "generator": {
+      "kind": "human",
+      "system": null,
+      "system_version": null,
+      "model": null
+    },
+    "generation": {
+      "run_id": null,
+      "generated": null,
+      "submitted": null,
+      "submits_all": null
+    },
+    "submitted_at": "2026-10-19T19:10:10.236391+00:00",
+    "layers": {
+      "core": {
+        "statement": {
+          "value": "By relaxing restrictive assumptions of earlier models, we show that sheltering promotes fixation of LOF mutations with sexually dimorphic fitness effects, resulting in decay of X-linked genes that are exclusively expressed by males and Y-linked genes that are primarily, though not necessarily exclusively, expressed by females.",
+          "locator": "XML .//p[1] (1-based document order)"
+        },
+        "explanandum": {
+          "value": "the evolutionary patterns of both gene loss and sex-biased gene content on sex chromosome",
+          "locator": "XML .//p[5] (1-based document order)"
+        }
+      },
+      "mechanism": {
+        "summary": {
+          "value": "Our model shows that sheltering of LOF mutations promotes the evolutionary decay of certain types of genes from X and Y chromosomes, resulting in enrichments of female-biased genes on the X (owing to a deficit of male-limited genes) and male-biased genes on the Y (owing to a deficit of genes that are more important for female than male fitness).",
+          "locator": "XML .//p[34] (1-based document order)"
+        }
+      },
+      "predictions": [],
+      "evidence": {},
+      "provenance": {},
+      "profile": {},
+      "appendix": {}
+    }
+  },
+  "added": {
+    "by": {
+      "converter": "ohf-example-conversion",
+      "converter_version": "1.0.0",
+      "converter_hash": "sha256:ceaa0747e824f872d331f1ef75af4c0c52c62aae6b2a6079958bea2b04d10ed6",
+      "model": "claude-opus-5-5"
+    },
+    "at": "2026-10-20T17:04:22Z",
+    "cutoff_date": null,
+    "layers": {
+      "core": {
+        "kind": {
+          "value": "mechanism",
+          "src": "abstract"
+        },
+        "scope": {
+          "value": "A population-genetic model of homologous X and Y regions that no longer recombine and start with the same functional genes; it applies equally to Z and W chromosomes with the sexes switched. It concerns loss-of-function mutations: fixation on the X requires complete recessivity, while incomplete recessivity narrows, but does not remove, gene loss from the Y. Its importance in nature depends on the distribution of dominance and of sex-specific fitness effects.",
+          "src": "aim"
+        },
+        "atoms": [
+          {
+            "id": "a_sex_dimorphic",
+            "statement": {
+              "value": "Loss-of-function mutations often reduce fitness by different amounts in females and males.",
+              "src": "assumptions"
+            },
+            "claim_type": {
+              "value": "distribution",
+              "src": "assumptions"
+            },
+            "role": {
+              "value": "core",
+              "src": "assumptions"
+            },
+            "modality": {
+              "value": "proposed",
+              "src": "assumptions",
+              "basis_quote": "It therefore seems plausible for LOF alleles to differentially affect the fitness of each sex, though this has not yet been systematically tested."
+            }
+          },
+          {
+            "id": "a_recessive",
+            "statement": {
+              "value": "A meaningful fraction of loss-of-function mutations is recessive enough for sheltering to act.",
+              "src": "dominance_data"
+            },
+            "claim_type": {
+              "value": "distribution",
+              "src": "dominance_data"
+            },
+            "role": {
+              "value": "core",
+              "src": "conditions"
+            },
+            "modality": {
+              "value": "speculative",
+              "src": "dominance_data",
+              "basis_quote": "leaves open the possibility that a meaningful fraction of LOF mutations might be recessive enough for sheltering to be important in sex chromosome evolution"
+            }
+          },
+          {
+            "id": "a_x_decay",
+            "statement": {
+              "value": "Male-limited genes whose loss-of-function alleles are completely recessive (h = 0) are reliably lost from the X and kept on the Y when the population-scaled mutation rate is intermediate to large; when it is small, these genes are lost from either chromosome, and as it approaches zero at least half of the losses are from the Y.",
+              "src": "drift"
+            },
+            "claim_type": {
+              "value": "model_sufficiency",
+              "src": "drift"
+            },
+            "role": {
+              "value": "core",
+              "src": "drift"
+            },
+            "modality": {
+              "value": "claimed_shown",
+              "src": "drift",
+              "basis_quote": "are reliably lost from the X and retained on the Y, consistent with deterministic predictions"
+            }
+          },
+          {
+            "id": "a_y_decay",
+            "statement": {
+              "value": "Completely recessive (h = 0) loss-of-function alleles become fixed on the Y when the male fitness cost is below μm·sf/μf, so genes essential for females can decay from the Y even with moderate fitness costs in males; incomplete recessivity narrows these conditions.",
+              "src": "y_fixation"
+            },
+            "claim_type": {
+              "value": "model_sufficiency",
+              "src": "y_fixation"
+            },
+            "role": {
+              "value": "core",
+              "src": "y_fixation"
+            },
+            "modality": {
+              "value": "claimed_shown",
+              "src": "y_fixation",
+              "basis_quote": "can deterministically decay from the Y even if they have moderate fitness costs in males"
+            }
+          },
+          {
+            "id": "a_reinforce",
+            "statement": {
+              "value": "Genetic drift, selective interference and regulatory evolution widen the conditions under which sheltering causes Y-linked gene loss.",
+              "src": "abstract"
+            },
+            "claim_type": {
+              "value": "model_sufficiency",
+              "src": "abstract"
+            },
+            "role": {
+              "value": "core",
+              "src": "abstract"
+            },
+            "modality": {
+              "value": "claimed_shown",
+              "src": "abstract",
+              "basis_quote": "We further show that drift and other processes contributing to Y degeneration (i.e. selective interference and regulatory evolution) expand conditions of Y-linked gene loss by sheltering."
+            }
+          }
+        ],
+        "alternative_explanations": {
+          "value": [
+            {
+              "claim_or_ref": {
+                "kind": "literal",
+                "text": "Selective interference: in a region without recombination, selection is overwhelmed by drift, so mildly deleterious mutations accumulate and Y-linked genes decay."
+              },
+              "unresolved_reason": "The article treats it as acting together with sheltering, not as excluded."
+            },
+            {
+              "claim_or_ref": {
+                "kind": "literal",
+                "text": "Degeneration by regulatory evolution: cis-regulatory changes silence Y-linked genes, which lets mutations accumulate in them."
+              },
+              "unresolved_reason": "The article treats it as acting together with sheltering, not as excluded."
+            },
+            {
+              "claim_or_ref": {
+                "kind": "literal",
+                "text": "Sex-biased gene content arises from other processes: different rates of gene duplication, translocations or fusions with autosomes, new genes, regulatory divergence, and constraints from dosage compensation or meiotic X inactivation."
+              },
+              "unresolved_reason": "The article says several of these must act together to explain the overall pattern."
+            }
+          ],
+          "src": "processes"
+        },
+        "uncertainties": {
+          "value": [
+            {
+              "id": "u_dominance",
+              "question": "The distribution of dominance of loss-of-function mutations is unknown; only its mean and a few higher moments are roughly estimated.",
+              "kind": "parameter"
+            },
+            {
+              "id": "u_sex_costs",
+              "question": "For most genes, which both sexes express, there are not enough data on how the fitness costs of loss-of-function alleles differ between the sexes.",
+              "kind": "parameter"
+            },
+            {
+              "id": "u_x_condition",
+              "question": "Fixation on the X requires mutations that are male-limited and completely recessive; slight expression in females or in heterozygotes prevents it.",
+              "kind": "scope"
+            }
+          ],
+          "src": "conditions"
+        },
+        "explains": {
+          "value": [
+            {
+              "id": "x_y_loss",
+              "observation": "After recombination stops between the X and Y, the Y loses genes.",
+              "status": "explained",
+              "mode": "direct",
+              "atom_refs": [
+                "a_y_decay",
+                "a_reinforce"
+              ]
+            },
+            {
+              "id": "x_x_deficit",
+              "observation": "X chromosomes are strongly deficient in genes primarily expressed by males.",
+              "observation_ref": {
+                "kind": "card",
+                "pointer": "/added/layers/evidence/lines/1"
+              },
+              "status": "contested",
+              "mode": "consequence",
+              "atom_refs": [
+                "a_x_decay"
+              ],
+              "prediction_refs": [
+                "p_x_lineages"
+              ]
+            },
+            {
+              "id": "x_x_losses",
+              "observation": "Genes are also lost from the X: genes important for males decay faster on young Drosophila neo-X chromosomes, and the mammalian gene PRSSLY was lost from the X but kept on the Y.",
+              "status": "unexplained",
+              "mode": "direct",
+              "atom_refs": [
+                "a_x_decay"
+              ],
+              "prediction_refs": [
+                "p_x_rate",
+                "p_x_lineages"
+              ],
+              "observation_ref": {
+                "kind": "card",
+                "pointer": "/added/layers/evidence/lines/2"
+              }
+            }
+          ],
+          "src": "patterns"
+        },
+        "reinterprets": {
+          "value": [
+            {
+              "id": "r_early_models",
+              "finding": "Early models showed that recessive lethal mutations stay rare on the Y in large populations, because the same mutations also arise on the X.",
+              "finding_ref": {
+                "kind": "card",
+                "pointer": "/added/layers/evidence/lines/0"
+              },
+              "current_interpretation": "Sheltering cannot cause Y-linked gene loss, so Muller's hypothesis is rejected.",
+              "proposed_interpretation": "The models assumed lethal mutations with equal costs in both sexes. When costs differ between the sexes, sheltering fixes loss-of-function alleles on the X or the Y.",
+              "atom_refs": [
+                "a_sex_dimorphic",
+                "a_y_decay",
+                "a_x_decay"
+              ]
+            },
+            {
+              "id": "r_mean_dominance",
+              "finding": "The mean dominance of lethal and loss-of-function mutations is small but above zero.",
+              "finding_ref": {
+                "kind": "card",
+                "pointer": "/added/layers/evidence/lines/3"
+              },
+              "current_interpretation": "The mutations are not recessive enough for sheltering to matter.",
+              "proposed_interpretation": "A mean says little about the distribution; a meaningful fraction of mutations may be nearly recessive.",
+              "atom_refs": [
+                "a_recessive"
+              ]
+            },
+            {
+              "id": "r_dosage_compensation",
+              "finding": "Species with highly degenerate Y chromosomes often evolve dosage compensation, which implies that gene loss from the Y costs males.",
+              "finding_ref": {
+                "kind": "card",
+                "pointer": "/added/layers/evidence/lines/4"
+              },
+              "current_interpretation": "Sheltering, which assumes costless loss, cannot explain Y degeneration.",
+              "proposed_interpretation": "This rules out sheltering only as the sole explanation; it can still contribute alongside processes that favour dosage compensation.",
+              "atom_refs": [
+                "a_y_decay",
+                "a_reinforce"
+              ]
+            }
+          ],
+          "src": "rejection"
+        },
+        "opens": {
+          "value": [
+            {
+              "id": "o_dominance_distribution",
+              "new_question": "What is the full distribution of dominance of loss-of-function mutations, not only its mean?",
+              "why_not_askable_today": "Most available mutation data were insufficient for estimating aspects of the distribution of dominance other than its mean.",
+              "enabling_method": "Genetic engineering combined with high-throughput phenotyping.",
+              "atom_refs": [
+                "a_recessive"
+              ]
+            },
+            {
+              "id": "o_sex_costs",
+              "new_question": "How much do the fitness costs of losing a gene differ between females and males, for genes that both sexes express?",
+              "why_not_askable_today": "For most genes, which both sexes express, there are not enough data on the fitness effects of loss-of-function alleles.",
+              "enabling_method": "Genetic engineering combined with high-throughput phenotyping.",
+              "atom_refs": [
+                "a_sex_dimorphic"
+              ]
+            }
+          ],
+          "src": "conclusion"
+        },
+        "testability": {
+          "value": {
+            "in_principle": "testable",
+            "in_practice": "feasible_now",
+            "justification": "The model is formal; its predictions can be compared with the gene content and gene losses of sex chromosomes in taxa where the ancestral genes and their sex-specific functions are known. Its importance in nature also needs measurements of dominance and of sex-specific fitness costs, which are harder to obtain.",
+            "cheapest_test": {
+              "kind": "literal",
+              "text": "In a taxon with known ancestral sex-chromosome genes, test whether Y-linked genes whose ancestral function mattered most for females decayed fastest."
+            }
+          },
+          "src": "y_rates",
+          "assessment": {
+            "assessor": "ohf-example-conversion 1.0.0",
+            "assessed_at": "2026-10-20T17:04:22Z",
+            "evidence_ref": {
+              "kind": "artifact",
+              "sha256": "sha256:aec24a2447826a7ba21328f44dd243644e621fc0eb07894800e2bf124eadf09e"
+            }
+          }
+        },
+        "first_proposed": {
+          "value": {
+            "source_ref": {
+              "kind": "external",
+              "uri": "https://doi.org/10.1093/molbev/msaf177",
+              "limitation": "The article itself; its full text is not in this repository."
+            },
+            "date": "2025-07-26",
+            "precision": "day",
+            "basis": "author_statement",
+            "note": "The extension is proposed in this article (paragraph 5); the date is its electronic publication date. Muller's original sheltering hypothesis dates from 1914. The article also credits Neuhaus (1939) with the intuition that X-linked male-limited genes might decay, and builds on the model of Mrnjavac et al. (2023) (paragraph 45)."
+          },
+          "src": "pubdate"
+        }
+      },
+      "mechanism": {
+        "summary": {
+          "value": "Once recombination between homologous regions of the X and Y is suppressed, a recessive loss-of-function mutation on one sex chromosome is hidden by the working copy on the other. If the gene matters mainly for one sex, selection against the mutation is weak where it is hidden, and the mutation can become fixed: male-limited genes decay from the X when their loss-of-function alleles are completely recessive, and genes that matter mostly for females decay from the Y.",
+          "src": "conditions"
+        }
+      },
+      "predictions": [
+        {
+          "id": "p_y_female_genes",
+          "system": {
+            "kind": {
+              "value": "clade",
+              "src": "y_rates"
+            }
+          },
+          "endpoint": {
+            "value": "rate of loss-of-function substitution in Y-linked genes",
+            "src": "y_rates",
+            "paraphrase": true,
+            "basis_quote": "substitution rates of LOF alleles should remain the highest among Y-linked genes whose X-linked gametologs are under strong purifying selection in females"
+          },
+          "direction": {
+            "value": "higher in genes whose X-linked copies are under strong purifying selection in females, at a given male fitness cost",
+            "src": "y_rates"
+          },
+          "form": {
+            "value": "directional_contrast",
+            "src": "y_rates"
+          },
+          "epistemic_status": {
+            "value": "novel",
+            "src": "y_rates"
+          },
+          "derives_from_atom_refs": {
+            "value": [
+              "a_y_decay"
+            ],
+            "src": "y_rates"
+          }
+        },
+        {
+          "id": "p_x_lineages",
+          "system": {
+            "kind": {
+              "value": "clade",
+              "src": "x_losses"
+            }
+          },
+          "endpoint": {
+            "value": "decay of male-limited genes from the X",
+            "src": "x_losses",
+            "paraphrase": true,
+            "basis_quote": "the decay of male-limited genes from the X should be most pronounced in genes or lineages with high population-scaled LOF mutation rates"
+          },
+          "form": {
+            "value": "phylogenetic_comparative",
+            "src": "x_losses"
+          },
+          "epistemic_status": {
+            "value": "retrodicted",
+            "src": "x_losses"
+          },
+          "known_result_ref": {
+            "value": {
+              "kind": "card",
+              "pointer": "/added/layers/evidence/lines/1"
+            },
+            "src": "x_losses"
+          },
+          "derives_from_atom_refs": {
+            "value": [
+              "a_x_decay"
+            ],
+            "src": "x_losses"
+          },
+          "direction": {
+            "value": "more pronounced in genes or lineages with higher population-scaled loss-of-function mutation rates (Ne·μ̄)",
+            "src": "x_losses"
+          }
+        },
+        {
+          "id": "p_x_rate",
+          "system": {
+            "taxon": {
+              "value": "Drosophila; the generation time is that of D. melanogaster, and the compared neo-X chromosomes are those of D. miranda, D. americana and D. albomicans",
+              "src": "rate"
+            },
+            "kind": {
+              "value": "population",
+              "src": "rate"
+            },
+            "temporal_scale": {
+              "value": "about 350,000 generations, or about 23,000 years",
+              "src": "rate"
+            }
+          },
+          "endpoint": {
+            "value": "time for recessive loss-of-function alleles of male-limited genes to reach 90% frequency on the X",
+            "src": "rate",
+            "paraphrase": true,
+            "basis_quote": "our model predicts that recessive LOF alleles in male-limited genes will reach frequencies of 90% on the X chromosome within 350,000 generations"
+          },
+          "form": {
+            "value": "parameter_value",
+            "src": "rate"
+          },
+          "epistemic_status": {
+            "value": "retrodicted",
+            "src": "rate"
+          },
+          "known_result_ref": {
+            "value": {
+              "kind": "card",
+              "pointer": "/added/layers/evidence/lines/2"
+            },
+            "src": "rate"
+          },
+          "derives_from_atom_refs": {
+            "value": [
+              "a_x_decay"
+            ],
+            "src": "rate"
+          },
+          "population": {
+            "value": "Populations large enough to evolve deterministically, with a loss-of-function mutation rate of 10^-5 per gene in each sex; recessive loss-of-function alleles of male-limited genes",
+            "src": "rate"
+          }
+        }
+      ],
+      "evidence": {
+        "lines": [
+          {
+            "id": "e_early_models",
+            "target_ref": "a_y_decay",
+            "direction": "neutral",
+            "quote": "Using a deterministic model, Fisher (1935) showed that recessive lethal mutations cannot reach high frequencies on the Y chromosome because similar mutations also arise on the X and render Y-linked sheltering effects incomplete",
+            "study_type": "earlier population-genetic models, as summarized by the article",
+            "study_system": "theoretical X and Y chromosomes",
+            "items": [
+              {
+                "value": {
+                  "artifact": "PMC12342767.xml",
+                  "sha256": "sha256:aec24a2447826a7ba21328f44dd243644e621fc0eb07894800e2bf124eadf09e",
+                  "locator": "XML .//p[7] (1-based document order)"
+                },
+                "src": "rejection"
+              }
+            ],
+            "src": "rejection",
+            "indirectness": {
+              "value": {
+                "system": "none",
+                "endpoint": "some",
+                "intervention": "not_applicable",
+                "comparison": "not_applicable"
+              },
+              "src": "rejection",
+              "assessment": {
+                "assessor": "ohf-example-conversion 1.0.0",
+                "assessed_at": "2026-10-20T17:04:22Z",
+                "evidence_ref": {
+                  "kind": "artifact",
+                  "sha256": "sha256:aec24a2447826a7ba21328f44dd243644e621fc0eb07894800e2bf124eadf09e"
+                }
+              }
+            },
+            "argument_kind": {
+              "value": "derivation",
+              "src": "rejection"
+            }
+          },
+          {
+            "id": "e_x_deficit",
+            "target_ref": "p_x_lineages",
+            "direction": "supports",
+            "quote": "Consistent with our model, X chromosomes often display strong deficits of strongly male-biased genes, particularly so in insects like Drosophila, which have historically large effective population sizes, but less so in mammals, where Ne is considerably smaller",
+            "study_type": "comparison with published gene-content data",
+            "study_system": "Drosophila and mammals",
+            "items": [
+              {
+                "value": {
+                  "artifact": "PMC12342767.xml",
+                  "sha256": "sha256:aec24a2447826a7ba21328f44dd243644e621fc0eb07894800e2bf124eadf09e",
+                  "locator": "XML .//p[45] (1-based document order)"
+                },
+                "src": "x_losses"
+              }
+            ],
+            "src": "x_losses",
+            "indirectness": {
+              "value": {
+                "system": "none",
+                "endpoint": "some",
+                "intervention": "not_applicable",
+                "comparison": "not_applicable"
+              },
+              "src": "x_losses",
+              "assessment": {
+                "assessor": "ohf-example-conversion 1.0.0",
+                "assessed_at": "2026-10-20T17:04:22Z",
+                "evidence_ref": {
+                  "kind": "artifact",
+                  "sha256": "sha256:aec24a2447826a7ba21328f44dd243644e621fc0eb07894800e2bf124eadf09e"
+                }
+              }
+            },
+            "argument_kind": {
+              "value": "empirical",
+              "src": "x_losses"
+            }
+          },
+          {
+            "id": "e_neo_x",
+            "target_ref": "p_x_rate",
+            "direction": "supports",
+            "quote": "consistent with the rapid gene losses observed on the young neo-X chromosomes of Drosophila species",
+            "study_type": "comparison of a model prediction with published gene losses",
+            "study_system": "young neo-X chromosomes of Drosophila species",
+            "items": [
+              {
+                "value": {
+                  "artifact": "PMC12342767.xml",
+                  "sha256": "sha256:aec24a2447826a7ba21328f44dd243644e621fc0eb07894800e2bf124eadf09e",
+                  "locator": "XML .//p[46] (1-based document order)"
+                },
+                "src": "rate"
+              }
+            ],
+            "src": "rate",
+            "indirectness": {
+              "value": {
+                "system": "some",
+                "endpoint": "serious",
+                "intervention": "not_applicable",
+                "comparison": "not_applicable"
+              },
+              "src": "rate",
+              "assessment": {
+                "assessor": "ohf-example-conversion 1.0.0",
+                "assessed_at": "2026-10-20T16:42:46Z",
+                "evidence_ref": {
+                  "kind": "artifact",
+                  "sha256": "sha256:aec24a2447826a7ba21328f44dd243644e621fc0eb07894800e2bf124eadf09e"
+                }
+              }
+            },
+            "argument_kind": {
+              "value": "empirical",
+              "src": "rate"
+            }
+          },
+          {
+            "id": "e_dominance",
+            "target_ref": "a_recessive",
+            "direction": "neutral",
+            "quote": "Data from Drosophila and yeast suggest that mean dominance is h¯≈0.25 for mildly deleterious mutations (Manna et al. 2011; Charlesworth 2015) and within the range of 0.01<h¯<0.05 for lethal and LOF mutations (Simmons and Crow 1977; Crow 1993; Agrawal and Whitlock 2012; Manna et al. 2012)",
+            "study_type": "review of published dominance estimates",
+            "study_system": "Drosophila and yeast mutation data",
+            "items": [
+              {
+                "value": {
+                  "artifact": "PMC12342767.xml",
+                  "sha256": "sha256:aec24a2447826a7ba21328f44dd243644e621fc0eb07894800e2bf124eadf09e",
+                  "locator": "XML .//p[39] (1-based document order)"
+                },
+                "src": "dominance_data"
+              }
+            ],
+            "src": "dominance_data",
+            "indirectness": {
+              "value": {
+                "system": "some",
+                "endpoint": "some",
+                "intervention": "not_applicable",
+                "comparison": "not_applicable"
+              },
+              "src": "dominance_data",
+              "assessment": {
+                "assessor": "ohf-example-conversion 1.0.0",
+                "assessed_at": "2026-10-20T17:04:22Z",
+                "evidence_ref": {
+                  "kind": "artifact",
+                  "sha256": "sha256:aec24a2447826a7ba21328f44dd243644e621fc0eb07894800e2bf124eadf09e"
+                }
+              }
+            },
+            "argument_kind": {
+              "value": "empirical",
+              "src": "dominance_data"
+            }
+          },
+          {
+            "id": "e_dosage",
+            "target_ref": "a_y_decay",
+            "direction": "neutral",
+            "quote": "This argument rules out sheltering as a universal explanation for Y chromosome degeneration in species that have evolved dosage compensation, yet it does not rule out significant contributions of sheltering to sex chromosome evolution alongside other processes",
+            "study_type": "argument from published observations of dosage compensation",
+            "study_system": "species with highly degenerate Y chromosomes",
+            "items": [
+              {
+                "value": {
+                  "artifact": "PMC12342767.xml",
+                  "sha256": "sha256:aec24a2447826a7ba21328f44dd243644e621fc0eb07894800e2bf124eadf09e",
+                  "locator": "XML .//p[9] (1-based document order)"
+                },
+                "src": "dosage"
+              }
+            ],
+            "src": "dosage",
+            "indirectness": {
+              "value": {
+                "system": "none",
+                "endpoint": "serious",
+                "intervention": "not_applicable",
+                "comparison": "not_applicable"
+              },
+              "src": "dosage",
+              "assessment": {
+                "assessor": "ohf-example-conversion 1.0.0",
+                "assessed_at": "2026-10-20T17:04:22Z",
+                "evidence_ref": {
+                  "kind": "artifact",
+                  "sha256": "sha256:aec24a2447826a7ba21328f44dd243644e621fc0eb07894800e2bf124eadf09e"
+                }
+              }
+            },
+            "argument_kind": {
+              "value": "empirical",
+              "src": "dosage"
+            }
+          },
+          {
+            "id": "e_deletions",
+            "target_ref": "a_recessive",
+            "direction": "supports",
+            "quote": "As with lethals, these data are consistent with a high proportion of deletions being near completely recessive, though the direct estimates of fitness from which these inferences are based lack the precision required to rule out evolutionarily meaningful heterozygous fitness effects",
+            "study_type": "published estimates of dominance from whole-gene deletions, as summarized by the article",
+            "study_system": "yeast nonessential genes",
+            "items": [
+              {
+                "value": {
+                  "artifact": "PMC12342767.xml",
+                  "sha256": "sha256:aec24a2447826a7ba21328f44dd243644e621fc0eb07894800e2bf124eadf09e",
+                  "locator": "XML .//p[41] (1-based document order)"
+                },
+                "src": "deletion_data"
+              }
+            ],
+            "src": "deletion_data",
+            "indirectness": {
+              "value": {
+                "system": "some",
+                "endpoint": "some",
+                "intervention": "not_applicable",
+                "comparison": "not_applicable"
+              },
+              "src": "deletion_data",
+              "assessment": {
+                "assessor": "ohf-example-conversion 1.0.0",
+                "assessed_at": "2026-10-20T17:04:22Z",
+                "evidence_ref": {
+                  "kind": "artifact",
+                  "sha256": "sha256:aec24a2447826a7ba21328f44dd243644e621fc0eb07894800e2bf124eadf09e"
+                }
+              }
+            },
+            "argument_kind": {
+              "value": "empirical",
+              "src": "deletion_data"
+            }
+          },
+          {
+            "id": "e_prssly",
+            "target_ref": "p_x_lineages",
+            "direction": "supports",
+            "quote": "The gene PRSSLY was present on the ancestral X and Y of mammals and is currently the only gene known to have been lost from the mammalian X and retained on the Y (Hughes et al. 2022).",
+            "study_type": "comparison with a published gene loss, as summarized by the article",
+            "study_system": "the mammalian gene PRSSLY",
+            "items": [
+              {
+                "value": {
+                  "artifact": "PMC12342767.xml",
+                  "sha256": "sha256:aec24a2447826a7ba21328f44dd243644e621fc0eb07894800e2bf124eadf09e",
+                  "locator": "XML .//p[45] (1-based document order)"
+                },
+                "src": "x_losses"
+              }
+            ],
+            "src": "x_losses",
+            "indirectness": {
+              "value": {
+                "system": "some",
+                "endpoint": "serious",
+                "intervention": "not_applicable",
+                "comparison": "not_applicable"
+              },
+              "src": "x_losses",
+              "assessment": {
+                "assessor": "ohf-example-conversion 1.0.0",
+                "assessed_at": "2026-10-20T16:53:39Z",
+                "evidence_ref": {
+                  "kind": "artifact",
+                  "sha256": "sha256:aec24a2447826a7ba21328f44dd243644e621fc0eb07894800e2bf124eadf09e"
+                }
+              }
+            },
+            "argument_kind": {
+              "value": "empirical",
+              "src": "x_losses"
+            }
+          }
+        ]
+      },
+      "provenance": {
+        "claim_author": {
+          "value": "Andrea Mrnjavac, Beatriz Vicoso, Tim Connallon",
+          "src": "meta"
+        },
+        "author_type": {
+          "value": "human",
+          "src": "meta"
+        },
+        "licence": {
+          "value": "CC-BY-4.0",
+          "src": "meta"
+        },
+        "original_artifact": {
+          "value": "PMC12342767.xml",
+          "src": "meta"
+        },
+        "origin_method": {
+          "value": "published_restatement",
+          "src": "meta"
+        }
+      },
+      "profile": {
+        "domain": "none"
+      },
+      "appendix": {}
+    },
+    "gaps": [
+      {
+        "path": "core.falsification_condition",
+        "disposition": "not_supplied",
+        "reason": "The article states testable predictions but no result that would count against the extended hypothesis.",
+        "query_ids": [],
+        "inspected_artifacts": []
+      },
+      {
+        "path": "predictions[2].discrimination",
+        "disposition": "not_supplied",
+        "reason": "The article does not say whether the rate of loss separates sheltering from the alternatives.",
+        "query_ids": [],
+        "inspected_artifacts": []
+      },
+      {
+        "path": "predictions[2].also_expected_under[]",
+        "disposition": "not_supplied",
+        "reason": "The article names no other process that would also expect this rate of loss.",
+        "query_ids": [],
+        "inspected_artifacts": []
+      },
+      {
+        "path": "predictions[0].also_expected_under[]",
+        "disposition": "not_supplied",
+        "reason": "Table 1 says that under selective interference the mutations fixed on the Y are those with weak effects in males, independent of female fitness effects, so it does not expect this prediction; for regulatory evolution it records no explicit analysis. The article names no process that also expects it.",
+        "query_ids": [],
+        "inspected_artifacts": []
+      },
+      {
+        "path": "predictions[1].also_expected_under[]",
+        "disposition": "not_supplied",
+        "reason": "The article names no other process that expects more X-linked losses of male-limited genes in lineages with higher population-scaled mutation rates.",
+        "query_ids": [],
+        "inspected_artifacts": []
+      },
+      {
+        "path": "predictions[1].discrimination",
+        "disposition": "not_supplied",
+        "reason": "Table 1 contrasts the models on population size: under sheltering, a larger Ne makes the loss of male-limited genes from the X more likely relative to the Y, while under selective interference and regulatory evolution a larger Ne slows Y degeneration; the conclusion says X-linked losses are not as easily explained by the alternatives. The footnote of Table 1 reports simulations combining partial recessivity, regulatory evolution and selective interference in which male-limited genes also decay on the X, which weakens the contrast. The converter does not rate discrimination from this.",
+        "query_ids": [],
+        "inspected_artifacts": []
+      },
+      {
+        "path": "predictions[0].discrimination",
+        "disposition": "not_supplied",
+        "reason": "Table 1 separates this prediction from selective interference only at equal fitness costs in males: under selective interference, mutations with weak effects in males are the most likely to become fixed on the Y, independent of female fitness effects. For regulatory evolution the table records no explicit analysis. The converter does not rate discrimination from this.",
+        "query_ids": [],
+        "inspected_artifacts": []
+      }
+    ],
+    "completeness": {
+      "level": "accepted",
+      "layers_present": [
+        "core",
+        "mechanism",
+        "predictions",
+        "evidence",
+        "provenance",
+        "profile"
+      ],
+      "missing_for_next": [
+        "A falsification condition stated by the authors."
+      ]
+    },
+    "sources": {
+      "abstract": {
+        "source": "https://www.ebi.ac.uk/europepmc/webservices/rest/PMC12342767/fullTextXML",
+        "locator": "XML .//p[1] (1-based document order)",
+        "accessed_at": "2026-10-19T19:10:10.236391+00:00",
+        "tool": "reading of the Europe PMC full-text XML"
+      },
+      "patterns": {
+        "source": "https://www.ebi.ac.uk/europepmc/webservices/rest/PMC12342767/fullTextXML",
+        "locator": "XML .//p[2] (1-based document order)",
+        "accessed_at": "2026-10-19T19:10:10.236391+00:00",
+        "tool": "reading of the Europe PMC full-text XML"
+      },
+      "processes": {
+        "source": "https://www.ebi.ac.uk/europepmc/webservices/rest/PMC12342767/fullTextXML",
+        "locator": "XML .//p[3] (1-based document order)",
+        "accessed_at": "2026-10-19T19:10:10.236391+00:00",
+        "tool": "reading of the Europe PMC full-text XML"
+      },
+      "factors": {
+        "source": "https://www.ebi.ac.uk/europepmc/webservices/rest/PMC12342767/fullTextXML",
+        "locator": "XML .//p[4] (1-based document order)",
+        "accessed_at": "2026-10-19T19:10:10.236391+00:00",
+        "tool": "reading of the Europe PMC full-text XML"
+      },
+      "aim": {
+        "source": "https://www.ebi.ac.uk/europepmc/webservices/rest/PMC12342767/fullTextXML",
+        "locator": "XML .//p[5] (1-based document order)",
+        "accessed_at": "2026-10-19T19:10:10.236391+00:00",
+        "tool": "reading of the Europe PMC full-text XML"
+      },
+      "muller": {
+        "source": "https://www.ebi.ac.uk/europepmc/webservices/rest/PMC12342767/fullTextXML",
+        "locator": "XML .//p[6] (1-based document order)",
+        "accessed_at": "2026-10-19T19:10:10.236391+00:00",
+        "tool": "reading of the Europe PMC full-text XML"
+      },
+      "rejection": {
+        "source": "https://www.ebi.ac.uk/europepmc/webservices/rest/PMC12342767/fullTextXML",
+        "locator": "XML .//p[7] (1-based document order)",
+        "accessed_at": "2026-10-19T19:10:10.236391+00:00",
+        "tool": "reading of the Europe PMC full-text XML"
+      },
+      "dominance_history": {
+        "source": "https://www.ebi.ac.uk/europepmc/webservices/rest/PMC12342767/fullTextXML",
+        "locator": "XML .//p[8] (1-based document order)",
+        "accessed_at": "2026-10-19T19:10:10.236391+00:00",
+        "tool": "reading of the Europe PMC full-text XML"
+      },
+      "dosage": {
+        "source": "https://www.ebi.ac.uk/europepmc/webservices/rest/PMC12342767/fullTextXML",
+        "locator": "XML .//p[9] (1-based document order)",
+        "accessed_at": "2026-10-19T19:10:10.236391+00:00",
+        "tool": "reading of the Europe PMC full-text XML"
+      },
+      "assumptions": {
+        "source": "https://www.ebi.ac.uk/europepmc/webservices/rest/PMC12342767/fullTextXML",
+        "locator": "XML .//p[10] (1-based document order)",
+        "accessed_at": "2026-10-19T19:10:10.236391+00:00",
+        "tool": "reading of the Europe PMC full-text XML"
+      },
+      "model": {
+        "source": "https://www.ebi.ac.uk/europepmc/webservices/rest/PMC12342767/fullTextXML",
+        "locator": "XML .//p[13] (1-based document order)",
+        "accessed_at": "2026-10-19T19:10:10.236391+00:00",
+        "tool": "reading of the Europe PMC full-text XML"
+      },
+      "x_y_fixation": {
+        "source": "https://www.ebi.ac.uk/europepmc/webservices/rest/PMC12342767/fullTextXML",
+        "locator": "XML .//p[16] (1-based document order)",
+        "accessed_at": "2026-10-19T19:10:10.236391+00:00",
+        "tool": "reading of the Europe PMC full-text XML"
+      },
+      "y_fixation": {
+        "source": "https://www.ebi.ac.uk/europepmc/webservices/rest/PMC12342767/fullTextXML",
+        "locator": "XML .//p[17] (1-based document order)",
+        "accessed_at": "2026-10-19T19:10:10.236391+00:00",
+        "tool": "reading of the Europe PMC full-text XML"
+      },
+      "drift": {
+        "source": "https://www.ebi.ac.uk/europepmc/webservices/rest/PMC12342767/fullTextXML",
+        "locator": "XML .//p[21] (1-based document order)",
+        "accessed_at": "2026-10-19T19:10:10.236391+00:00",
+        "tool": "reading of the Europe PMC full-text XML"
+      },
+      "conditions": {
+        "source": "https://www.ebi.ac.uk/europepmc/webservices/rest/PMC12342767/fullTextXML",
+        "locator": "XML .//p[34] (1-based document order)",
+        "accessed_at": "2026-10-19T19:10:10.236391+00:00",
+        "tool": "reading of the Europe PMC full-text XML"
+      },
+      "sex_bias_data": {
+        "source": "https://www.ebi.ac.uk/europepmc/webservices/rest/PMC12342767/fullTextXML",
+        "locator": "XML .//p[35] (1-based document order)",
+        "accessed_at": "2026-10-19T19:10:10.236391+00:00",
+        "tool": "reading of the Europe PMC full-text XML"
+      },
+      "dominance_data": {
+        "source": "https://www.ebi.ac.uk/europepmc/webservices/rest/PMC12342767/fullTextXML",
+        "locator": "XML .//p[39] (1-based document order)",
+        "accessed_at": "2026-10-19T19:10:10.236391+00:00",
+        "tool": "reading of the Europe PMC full-text XML"
+      },
+      "x_losses": {
+        "source": "https://www.ebi.ac.uk/europepmc/webservices/rest/PMC12342767/fullTextXML",
+        "locator": "XML .//p[45] (1-based document order)",
+        "accessed_at": "2026-10-19T19:10:10.236391+00:00",
+        "tool": "reading of the Europe PMC full-text XML"
+      },
+      "rate": {
+        "source": "https://www.ebi.ac.uk/europepmc/webservices/rest/PMC12342767/fullTextXML",
+        "locator": "XML .//p[46] (1-based document order)",
+        "accessed_at": "2026-10-19T19:10:10.236391+00:00",
+        "tool": "reading of the Europe PMC full-text XML"
+      },
+      "y_rates": {
+        "source": "https://www.ebi.ac.uk/europepmc/webservices/rest/PMC12342767/fullTextXML",
+        "locator": "XML .//p[47] (1-based document order)",
+        "accessed_at": "2026-10-19T19:10:10.236391+00:00",
+        "tool": "reading of the Europe PMC full-text XML"
+      },
+      "conclusion": {
+        "source": "https://www.ebi.ac.uk/europepmc/webservices/rest/PMC12342767/fullTextXML",
+        "locator": "XML .//p[48] (1-based document order)",
+        "accessed_at": "2026-10-19T19:10:10.236391+00:00",
+        "tool": "reading of the Europe PMC full-text XML"
+      },
+      "meta": {
+        "source": "https://www.ebi.ac.uk/europepmc/webservices/rest/PMC12342767/fullTextXML",
+        "locator": "XML .//article-meta/contrib-group and .//permissions/license",
+        "accessed_at": "2026-10-19T19:10:10.236391+00:00",
+        "tool": "reading of the Europe PMC full-text XML"
+      },
+      "pubdate": {
+        "source": "https://www.ebi.ac.uk/europepmc/webservices/rest/PMC12342767/fullTextXML",
+        "locator": "XML .//article-meta/pub-date",
+        "accessed_at": "2026-10-19T19:10:10.236391+00:00",
+        "tool": "reading of the Europe PMC full-text XML"
+      },
+      "deletion_data": {
+        "source": "https://www.ebi.ac.uk/europepmc/webservices/rest/PMC12342767/fullTextXML",
+        "locator": "XML .//p[41] (1-based document order)",
+        "accessed_at": "2026-10-19T19:10:10.236391+00:00",
+        "tool": "reading of the Europe PMC full-text XML"
+      },
+      "table1": {
+        "source": "https://www.ebi.ac.uk/europepmc/webservices/rest/PMC12342767/fullTextXML",
+        "locator": "XML .//table-wrap[@id='msaf177-T1'] (Table 1)",
+        "accessed_at": "2026-10-19T19:10:10.236391+00:00",
+        "tool": "reading of the Europe PMC full-text XML"
+      }
+    },
+    "budget": {
+      "model_calls": 0,
+      "http_requests": 0,
+      "input_tokens": null,
+      "output_tokens": null
+    },
+    "produced_by": {
+      "kind": "example_converter",
+      "pipeline": {
+        "name": "ohf-example-conversion",
+        "version": "1.0.0"
+      }
+    },
+    "source_verification": {
+      "status": "refetched_match",
+      "fetched_from": "https://www.ebi.ac.uk/europepmc/webservices/rest/PMC12342767/fullTextXML",
+      "fetched_at": "2026-10-19T22:03:11Z",
+      "sha256": "sha256:aec24a2447826a7ba21328f44dd243644e621fc0eb07894800e2bf124eadf09e",
+      "metadata_check": {
+        "registry": "Crossref REST API",
+        "record_url": "https://api.crossref.org/works/10.1093/molbev/msaf177",
+        "checked_at": "2026-10-19T22:03:12Z",
+        "doi_match": true,
+        "title_match": true,
+        "retracted": false
+      }
+    },
+    "integrity": {
+      "entailment": [
+        {
+          "pointer": "/added/layers/core/kind",
+          "basis": "src",
+          "verdict": "entails",
+          "checker": {
+            "name": "ohf-entailment-check",
+            "version": "1.0.0",
+            "prompt_sha256": "sha256:46716d7b4fc070b952d7ace5ae597c64b9414e63b15e38a94e719a2eb4fae146"
+          },
+          "checked_at": "2026-10-19T22:07:59Z"
+        },
+        {
+          "pointer": "/added/layers/core/scope",
+          "basis": "src",
+          "verdict": "partial",
+          "checker": {
+            "name": "ohf-entailment-check",
+            "version": "1.0.0",
+            "prompt_sha256": "sha256:46716d7b4fc070b952d7ace5ae597c64b9414e63b15e38a94e719a2eb4fae146"
+          },
+          "checked_at": "2026-10-20T16:55:12Z",
+          "note": "The passage supports the X/Y model that also applies to Z/W with sexes switched and concerns LOF mutations, but it does not state that the regions start with the same functional genes, that X fixation requires complete recessivity, that incomplete recessivity narrows Y loss, or that importance depends on the distribution of dominance and sex-specific effects."
+        },
+        {
+          "pointer": "/added/layers/core/atoms/0/statement",
+          "basis": "src",
+          "verdict": "partial",
+          "checker": {
+            "name": "ohf-entailment-check",
+            "version": "1.0.0",
+            "prompt_sha256": "sha256:46716d7b4fc070b952d7ace5ae597c64b9414e63b15e38a94e719a2eb4fae146"
+          },
+          "checked_at": "2026-10-19T22:07:59Z",
+          "note": "The passage says it 'seems plausible' and 'has not yet been systematically tested', while the value states it as fact."
+        },
+        {
+          "pointer": "/added/layers/core/atoms/0/claim_type",
+          "basis": "src",
+          "verdict": "entails",
+          "checker": {
+            "name": "ohf-entailment-check",
+            "version": "1.0.0",
+            "prompt_sha256": "sha256:46716d7b4fc070b952d7ace5ae597c64b9414e63b15e38a94e719a2eb4fae146"
+          },
+          "checked_at": "2026-10-19T22:07:59Z"
+        },
+        {
+          "pointer": "/added/layers/core/atoms/0/role",
+          "basis": "src",
+          "verdict": "entails",
+          "checker": {
+            "name": "ohf-entailment-check",
+            "version": "1.0.0",
+            "prompt_sha256": "sha256:46716d7b4fc070b952d7ace5ae597c64b9414e63b15e38a94e719a2eb4fae146"
+          },
+          "checked_at": "2026-10-20T16:45:58Z"
+        },
+        {
+          "pointer": "/added/layers/core/atoms/0/modality",
+          "basis": "src",
+          "verdict": "entails",
+          "checker": {
+            "name": "ohf-entailment-check",
+            "version": "1.0.0",
+            "prompt_sha256": "sha256:46716d7b4fc070b952d7ace5ae597c64b9414e63b15e38a94e719a2eb4fae146"
+          },
+          "checked_at": "2026-10-19T22:09:36Z"
+        },
+        {
+          "pointer": "/added/layers/core/atoms/0/modality",
+          "basis": "basis_quote",
+          "verdict": "entails",
+          "checker": {
+            "name": "ohf-entailment-check",
+            "version": "1.0.0",
+            "prompt_sha256": "sha256:46716d7b4fc070b952d7ace5ae597c64b9414e63b15e38a94e719a2eb4fae146"
+          },
+          "checked_at": "2026-10-19T22:09:36Z"
+        },
+        {
+          "pointer": "/added/layers/core/atoms/1/statement",
+          "basis": "src",
+          "verdict": "partial",
+          "checker": {
+            "name": "ohf-entailment-check",
+            "version": "1.0.0",
+            "prompt_sha256": "sha256:46716d7b4fc070b952d7ace5ae597c64b9414e63b15e38a94e719a2eb4fae146"
+          },
+          "checked_at": "2026-10-19T22:07:59Z",
+          "note": "The passage only 'leaves open the possibility' that a meaningful fraction 'might be' recessive enough; the value asserts it."
+        },
+        {
+          "pointer": "/added/layers/core/atoms/1/claim_type",
+          "basis": "src",
+          "verdict": "entails",
+          "checker": {
+            "name": "ohf-entailment-check",
+            "version": "1.0.0",
+            "prompt_sha256": "sha256:46716d7b4fc070b952d7ace5ae597c64b9414e63b15e38a94e719a2eb4fae146"
+          },
+          "checked_at": "2026-10-19T22:07:59Z"
+        },
+        {
+          "pointer": "/added/layers/core/atoms/1/role",
+          "basis": "src",
+          "verdict": "entails",
+          "checker": {
+            "name": "ohf-entailment-check",
+            "version": "1.0.0",
+            "prompt_sha256": "sha256:46716d7b4fc070b952d7ace5ae597c64b9414e63b15e38a94e719a2eb4fae146"
+          },
+          "checked_at": "2026-10-20T16:55:12Z"
+        },
+        {
+          "pointer": "/added/layers/core/atoms/1/modality",
+          "basis": "src",
+          "verdict": "entails",
+          "checker": {
+            "name": "ohf-entailment-check",
+            "version": "1.0.0",
+            "prompt_sha256": "sha256:46716d7b4fc070b952d7ace5ae597c64b9414e63b15e38a94e719a2eb4fae146"
+          },
+          "checked_at": "2026-10-19T22:07:59Z"
+        },
+        {
+          "pointer": "/added/layers/core/atoms/1/modality",
+          "basis": "basis_quote",
+          "verdict": "entails",
+          "checker": {
+            "name": "ohf-entailment-check",
+            "version": "1.0.0",
+            "prompt_sha256": "sha256:46716d7b4fc070b952d7ace5ae597c64b9414e63b15e38a94e719a2eb4fae146"
+          },
+          "checked_at": "2026-10-19T22:07:59Z"
+        },
+        {
+          "pointer": "/added/layers/core/atoms/2/statement",
+          "basis": "src",
+          "verdict": "entails",
+          "checker": {
+            "name": "ohf-entailment-check",
+            "version": "1.0.0",
+            "prompt_sha256": "sha256:46716d7b4fc070b952d7ace5ae597c64b9414e63b15e38a94e719a2eb4fae146"
+          },
+          "checked_at": "2026-10-20T16:55:12Z"
+        },
+        {
+          "pointer": "/added/layers/core/atoms/2/claim_type",
+          "basis": "src",
+          "verdict": "entails",
+          "checker": {
+            "name": "ohf-entailment-check",
+            "version": "1.0.0",
+            "prompt_sha256": "sha256:46716d7b4fc070b952d7ace5ae597c64b9414e63b15e38a94e719a2eb4fae146"
+          },
+          "checked_at": "2026-10-20T16:45:58Z"
+        },
+        {
+          "pointer": "/added/layers/core/atoms/2/role",
+          "basis": "src",
+          "verdict": "entails",
+          "checker": {
+            "name": "ohf-entailment-check",
+            "version": "1.0.0",
+            "prompt_sha256": "sha256:46716d7b4fc070b952d7ace5ae597c64b9414e63b15e38a94e719a2eb4fae146"
+          },
+          "checked_at": "2026-10-20T16:45:58Z"
+        },
+        {
+          "pointer": "/added/layers/core/atoms/2/modality",
+          "basis": "src",
+          "verdict": "entails",
+          "checker": {
+            "name": "ohf-entailment-check",
+            "version": "1.0.0",
+            "prompt_sha256": "sha256:46716d7b4fc070b952d7ace5ae597c64b9414e63b15e38a94e719a2eb4fae146"
+          },
+          "checked_at": "2026-10-20T16:45:58Z"
+        },
+        {
+          "pointer": "/added/layers/core/atoms/2/modality",
+          "basis": "basis_quote",
+          "verdict": "entails",
+          "checker": {
+            "name": "ohf-entailment-check",
+            "version": "1.0.0",
+            "prompt_sha256": "sha256:46716d7b4fc070b952d7ace5ae597c64b9414e63b15e38a94e719a2eb4fae146"
+          },
+          "checked_at": "2026-10-20T16:45:58Z"
+        },
+        {
+          "pointer": "/added/layers/core/atoms/3/statement",
+          "basis": "src",
+          "verdict": "entails",
+          "checker": {
+            "name": "ohf-entailment-check",
+            "version": "1.0.0",
+            "prompt_sha256": "sha256:46716d7b4fc070b952d7ace5ae597c64b9414e63b15e38a94e719a2eb4fae146"
+          },
+          "checked_at": "2026-10-20T16:45:58Z"
+        },
+        {
+          "pointer": "/added/layers/core/atoms/3/claim_type",
+          "basis": "src",
+          "verdict": "entails",
+          "checker": {
+            "name": "ohf-entailment-check",
+            "version": "1.0.0",
+            "prompt_sha256": "sha256:46716d7b4fc070b952d7ace5ae597c64b9414e63b15e38a94e719a2eb4fae146"
+          },
+          "checked_at": "2026-10-19T22:07:59Z"
+        },
+        {
+          "pointer": "/added/layers/core/atoms/3/role",
+          "basis": "src",
+          "verdict": "entails",
+          "checker": {
+            "name": "ohf-entailment-check",
+            "version": "1.0.0",
+            "prompt_sha256": "sha256:46716d7b4fc070b952d7ace5ae597c64b9414e63b15e38a94e719a2eb4fae146"
+          },
+          "checked_at": "2026-10-19T22:07:59Z"
+        },
+        {
+          "pointer": "/added/layers/core/atoms/3/modality",
+          "basis": "src",
+          "verdict": "entails",
+          "checker": {
+            "name": "ohf-entailment-check",
+            "version": "1.0.0",
+            "prompt_sha256": "sha256:46716d7b4fc070b952d7ace5ae597c64b9414e63b15e38a94e719a2eb4fae146"
+          },
+          "checked_at": "2026-10-19T22:07:59Z"
+        },
+        {
+          "pointer": "/added/layers/core/atoms/3/modality",
+          "basis": "basis_quote",
+          "verdict": "entails",
+          "checker": {
+            "name": "ohf-entailment-check",
+            "version": "1.0.0",
+            "prompt_sha256": "sha256:46716d7b4fc070b952d7ace5ae597c64b9414e63b15e38a94e719a2eb4fae146"
+          },
+          "checked_at": "2026-10-19T22:07:59Z"
+        },
+        {
+          "pointer": "/added/layers/core/atoms/4/statement",
+          "basis": "src",
+          "verdict": "entails",
+          "checker": {
+            "name": "ohf-entailment-check",
+            "version": "1.0.0",
+            "prompt_sha256": "sha256:46716d7b4fc070b952d7ace5ae597c64b9414e63b15e38a94e719a2eb4fae146"
+          },
+          "checked_at": "2026-10-19T22:07:59Z"
+        },
+        {
+          "pointer": "/added/layers/core/atoms/4/claim_type",
+          "basis": "src",
+          "verdict": "entails",
+          "checker": {
+            "name": "ohf-entailment-check",
+            "version": "1.0.0",
+            "prompt_sha256": "sha256:46716d7b4fc070b952d7ace5ae597c64b9414e63b15e38a94e719a2eb4fae146"
+          },
+          "checked_at": "2026-10-19T22:07:59Z"
+        },
+        {
+          "pointer": "/added/layers/core/atoms/4/role",
+          "basis": "src",
+          "verdict": "entails",
+          "checker": {
+            "name": "ohf-entailment-check",
+            "version": "1.0.0",
+            "prompt_sha256": "sha256:46716d7b4fc070b952d7ace5ae597c64b9414e63b15e38a94e719a2eb4fae146"
+          },
+          "checked_at": "2026-10-19T22:07:59Z"
+        },
+        {
+          "pointer": "/added/layers/core/atoms/4/modality",
+          "basis": "src",
+          "verdict": "entails",
+          "checker": {
+            "name": "ohf-entailment-check",
+            "version": "1.0.0",
+            "prompt_sha256": "sha256:46716d7b4fc070b952d7ace5ae597c64b9414e63b15e38a94e719a2eb4fae146"
+          },
+          "checked_at": "2026-10-19T22:07:59Z"
+        },
+        {
+          "pointer": "/added/layers/core/atoms/4/modality",
+          "basis": "basis_quote",
+          "verdict": "entails",
+          "checker": {
+            "name": "ohf-entailment-check",
+            "version": "1.0.0",
+            "prompt_sha256": "sha256:46716d7b4fc070b952d7ace5ae597c64b9414e63b15e38a94e719a2eb4fae146"
+          },
+          "checked_at": "2026-10-19T22:07:59Z"
+        },
+        {
+          "pointer": "/added/layers/core/alternative_explanations",
+          "basis": "src",
+          "verdict": "partial",
+          "checker": {
+            "name": "ohf-entailment-check",
+            "version": "1.0.0",
+            "prompt_sha256": "sha256:46716d7b4fc070b952d7ace5ae597c64b9414e63b15e38a94e719a2eb4fae146"
+          },
+          "checked_at": "2026-10-20T16:55:12Z",
+          "note": "The passage describes selective interference and regulatory-evolution degeneration, but it does not mention the third set of processes (duplication, translocations, new genes, dosage compensation, meiotic X inactivation) or say that these alternatives act together with sheltering."
+        },
+        {
+          "pointer": "/added/layers/core/uncertainties",
+          "basis": "src",
+          "verdict": "partial",
+          "checker": {
+            "name": "ohf-entailment-check",
+            "version": "1.0.0",
+            "prompt_sha256": "sha256:46716d7b4fc070b952d7ace5ae597c64b9414e63b15e38a94e719a2eb4fae146"
+          },
+          "checked_at": "2026-10-20T16:45:58Z",
+          "note": "The passage supports the X-fixation condition (male-limited and completely recessive) and says dominance needs further study, but says nothing about only the mean and moments being estimated or about missing data on sex-specific fitness costs for genes both sexes express."
+        },
+        {
+          "pointer": "/added/layers/core/explains",
+          "basis": "src",
+          "verdict": "partial",
+          "checker": {
+            "name": "ohf-entailment-check",
+            "version": "1.0.0",
+            "prompt_sha256": "sha256:46716d7b4fc070b952d7ace5ae597c64b9414e63b15e38a94e719a2eb4fae146"
+          },
+          "checked_at": "2026-10-20T16:55:12Z",
+          "note": "The passage supports the observations of Y gene loss and the X deficit of male-expressed genes, but it gives no grounds for the explained/contested/unexplained statuses, and it does not mention faster decay of male-important genes on neo-X or PRSSLY specifically, only that gene losses from the X are reported."
+        },
+        {
+          "pointer": "/added/layers/core/reinterprets",
+          "basis": "src",
+          "verdict": "partial",
+          "checker": {
+            "name": "ohf-entailment-check",
+            "version": "1.0.0",
+            "prompt_sha256": "sha256:46716d7b4fc070b952d7ace5ae597c64b9414e63b15e38a94e719a2eb4fae146"
+          },
+          "checked_at": "2026-10-20T15:54:29Z",
+          "note": "The passage supports only the first entry's finding and current interpretation (early models led to rejecting Muller's hypothesis); it does not give the proposed reinterpretation about sex-differing costs, and it gives nothing about mean dominance or dosage compensation."
+        },
+        {
+          "pointer": "/added/layers/core/opens",
+          "basis": "src",
+          "verdict": "partial",
+          "checker": {
+            "name": "ohf-entailment-check",
+            "version": "1.0.0",
+            "prompt_sha256": "sha256:46716d7b4fc070b952d7ace5ae597c64b9414e63b15e38a94e719a2eb4fae146"
+          },
+          "checked_at": "2026-10-20T16:45:58Z",
+          "note": "The passage supports the two open questions and the enabling method, but not the stated reasons why they cannot be answered today (insufficiency of data beyond the mean, lack of data for genes expressed by both sexes)."
+        },
+        {
+          "pointer": "/added/layers/core/testability",
+          "basis": "src",
+          "verdict": "partial",
+          "checker": {
+            "name": "ohf-entailment-check",
+            "version": "1.0.0",
+            "prompt_sha256": "sha256:46716d7b4fc070b952d7ace5ae597c64b9414e63b15e38a94e719a2eb4fae146"
+          },
+          "checked_at": "2026-10-20T17:04:57Z",
+          "note": "The passage says only that the prediction should be testable in taxa with the needed data; it does not say the model is formal, does not support 'feasible_now', and does not say that importance in nature needs harder dominance and fitness-cost measurements."
+        },
+        {
+          "pointer": "/added/layers/mechanism/summary",
+          "basis": "src",
+          "verdict": "partial",
+          "checker": {
+            "name": "ohf-entailment-check",
+            "version": "1.0.0",
+            "prompt_sha256": "sha256:46716d7b4fc070b952d7ace5ae597c64b9414e63b15e38a94e719a2eb4fae146"
+          },
+          "checked_at": "2026-10-20T16:45:58Z",
+          "note": "The passage gives conditions and outcomes but never says that the mutation is hidden by a working copy on the other chromosome or that selection is weak where it is hidden, and it drops the hedges that LOF mutations must 'often' be recessive and that recessivity 'requires further study'."
+        },
+        {
+          "pointer": "/added/layers/predictions/0/system/kind",
+          "basis": "src",
+          "verdict": "entails",
+          "checker": {
+            "name": "ohf-entailment-check",
+            "version": "1.0.0",
+            "prompt_sha256": "sha256:46716d7b4fc070b952d7ace5ae597c64b9414e63b15e38a94e719a2eb4fae146"
+          },
+          "checked_at": "2026-10-19T22:07:59Z"
+        },
+        {
+          "pointer": "/added/layers/predictions/0/endpoint",
+          "basis": "src",
+          "verdict": "entails",
+          "checker": {
+            "name": "ohf-entailment-check",
+            "version": "1.0.0",
+            "prompt_sha256": "sha256:46716d7b4fc070b952d7ace5ae597c64b9414e63b15e38a94e719a2eb4fae146"
+          },
+          "checked_at": "2026-10-19T22:07:59Z"
+        },
+        {
+          "pointer": "/added/layers/predictions/0/endpoint",
+          "basis": "basis_quote",
+          "verdict": "entails",
+          "checker": {
+            "name": "ohf-entailment-check",
+            "version": "1.0.0",
+            "prompt_sha256": "sha256:46716d7b4fc070b952d7ace5ae597c64b9414e63b15e38a94e719a2eb4fae146"
+          },
+          "checked_at": "2026-10-19T22:07:59Z"
+        },
+        {
+          "pointer": "/added/layers/predictions/0/direction",
+          "basis": "src",
+          "verdict": "partial",
+          "checker": {
+            "name": "ohf-entailment-check",
+            "version": "1.0.0",
+            "prompt_sha256": "sha256:46716d7b4fc070b952d7ace5ae597c64b9414e63b15e38a94e719a2eb4fae146"
+          },
+          "checked_at": "2026-10-20T16:55:12Z",
+          "note": "The passage states this for the case where LOF alleles segregate on both X and Y and says nothing about holding male fitness cost fixed."
+        },
+        {
+          "pointer": "/added/layers/predictions/0/form",
+          "basis": "src",
+          "verdict": "entails",
+          "checker": {
+            "name": "ohf-entailment-check",
+            "version": "1.0.0",
+            "prompt_sha256": "sha256:46716d7b4fc070b952d7ace5ae597c64b9414e63b15e38a94e719a2eb4fae146"
+          },
+          "checked_at": "2026-10-19T22:07:59Z"
+        },
+        {
+          "pointer": "/added/layers/predictions/0/epistemic_status",
+          "basis": "src",
+          "verdict": "entails",
+          "checker": {
+            "name": "ohf-entailment-check",
+            "version": "1.0.0",
+            "prompt_sha256": "sha256:46716d7b4fc070b952d7ace5ae597c64b9414e63b15e38a94e719a2eb4fae146"
+          },
+          "checked_at": "2026-10-19T22:07:59Z"
+        },
+        {
+          "pointer": "/added/layers/predictions/0/derives_from_atom_refs",
+          "basis": "src",
+          "verdict": "entails",
+          "checker": {
+            "name": "ohf-entailment-check",
+            "version": "1.0.0",
+            "prompt_sha256": "sha256:46716d7b4fc070b952d7ace5ae597c64b9414e63b15e38a94e719a2eb4fae146"
+          },
+          "checked_at": "2026-10-19T22:07:59Z"
+        },
+        {
+          "pointer": "/added/layers/predictions/1/system/kind",
+          "basis": "src",
+          "verdict": "entails",
+          "checker": {
+            "name": "ohf-entailment-check",
+            "version": "1.0.0",
+            "prompt_sha256": "sha256:46716d7b4fc070b952d7ace5ae597c64b9414e63b15e38a94e719a2eb4fae146"
+          },
+          "checked_at": "2026-10-19T22:07:59Z"
+        },
+        {
+          "pointer": "/added/layers/predictions/1/endpoint",
+          "basis": "src",
+          "verdict": "entails",
+          "checker": {
+            "name": "ohf-entailment-check",
+            "version": "1.0.0",
+            "prompt_sha256": "sha256:46716d7b4fc070b952d7ace5ae597c64b9414e63b15e38a94e719a2eb4fae146"
+          },
+          "checked_at": "2026-10-19T22:07:59Z"
+        },
+        {
+          "pointer": "/added/layers/predictions/1/endpoint",
+          "basis": "basis_quote",
+          "verdict": "entails",
+          "checker": {
+            "name": "ohf-entailment-check",
+            "version": "1.0.0",
+            "prompt_sha256": "sha256:46716d7b4fc070b952d7ace5ae597c64b9414e63b15e38a94e719a2eb4fae146"
+          },
+          "checked_at": "2026-10-19T22:07:59Z"
+        },
+        {
+          "pointer": "/added/layers/predictions/1/direction",
+          "basis": "src",
+          "verdict": "entails",
+          "checker": {
+            "name": "ohf-entailment-check",
+            "version": "1.0.0",
+            "prompt_sha256": "sha256:46716d7b4fc070b952d7ace5ae597c64b9414e63b15e38a94e719a2eb4fae146"
+          },
+          "checked_at": "2026-10-20T15:54:29Z"
+        },
+        {
+          "pointer": "/added/layers/predictions/1/form",
+          "basis": "src",
+          "verdict": "entails",
+          "checker": {
+            "name": "ohf-entailment-check",
+            "version": "1.0.0",
+            "prompt_sha256": "sha256:46716d7b4fc070b952d7ace5ae597c64b9414e63b15e38a94e719a2eb4fae146"
+          },
+          "checked_at": "2026-10-19T22:07:59Z"
+        },
+        {
+          "pointer": "/added/layers/predictions/1/epistemic_status",
+          "basis": "src",
+          "verdict": "entails",
+          "checker": {
+            "name": "ohf-entailment-check",
+            "version": "1.0.0",
+            "prompt_sha256": "sha256:46716d7b4fc070b952d7ace5ae597c64b9414e63b15e38a94e719a2eb4fae146"
+          },
+          "checked_at": "2026-10-19T22:07:59Z"
+        },
+        {
+          "pointer": "/added/layers/predictions/1/known_result_ref",
+          "basis": "src",
+          "verdict": "entails",
+          "checker": {
+            "name": "ohf-entailment-check",
+            "version": "1.0.0",
+            "prompt_sha256": "sha256:46716d7b4fc070b952d7ace5ae597c64b9414e63b15e38a94e719a2eb4fae146"
+          },
+          "checked_at": "2026-10-19T22:07:59Z"
+        },
+        {
+          "pointer": "/added/layers/predictions/1/derives_from_atom_refs",
+          "basis": "src",
+          "verdict": "entails",
+          "checker": {
+            "name": "ohf-entailment-check",
+            "version": "1.0.0",
+            "prompt_sha256": "sha256:46716d7b4fc070b952d7ace5ae597c64b9414e63b15e38a94e719a2eb4fae146"
+          },
+          "checked_at": "2026-10-19T22:07:59Z"
+        },
+        {
+          "pointer": "/added/layers/predictions/2/system/taxon",
+          "basis": "src",
+          "verdict": "entails",
+          "checker": {
+            "name": "ohf-entailment-check",
+            "version": "1.0.0",
+            "prompt_sha256": "sha256:46716d7b4fc070b952d7ace5ae597c64b9414e63b15e38a94e719a2eb4fae146"
+          },
+          "checked_at": "2026-10-20T16:45:58Z"
+        },
+        {
+          "pointer": "/added/layers/predictions/2/system/kind",
+          "basis": "src",
+          "verdict": "entails",
+          "checker": {
+            "name": "ohf-entailment-check",
+            "version": "1.0.0",
+            "prompt_sha256": "sha256:46716d7b4fc070b952d7ace5ae597c64b9414e63b15e38a94e719a2eb4fae146"
+          },
+          "checked_at": "2026-10-19T22:07:59Z"
+        },
+        {
+          "pointer": "/added/layers/predictions/2/system/temporal_scale",
+          "basis": "src",
+          "verdict": "entails",
+          "checker": {
+            "name": "ohf-entailment-check",
+            "version": "1.0.0",
+            "prompt_sha256": "sha256:46716d7b4fc070b952d7ace5ae597c64b9414e63b15e38a94e719a2eb4fae146"
+          },
+          "checked_at": "2026-10-19T22:07:59Z"
+        },
+        {
+          "pointer": "/added/layers/predictions/2/endpoint",
+          "basis": "src",
+          "verdict": "entails",
+          "checker": {
+            "name": "ohf-entailment-check",
+            "version": "1.0.0",
+            "prompt_sha256": "sha256:46716d7b4fc070b952d7ace5ae597c64b9414e63b15e38a94e719a2eb4fae146"
+          },
+          "checked_at": "2026-10-19T22:07:59Z"
+        },
+        {
+          "pointer": "/added/layers/predictions/2/endpoint",
+          "basis": "basis_quote",
+          "verdict": "entails",
+          "checker": {
+            "name": "ohf-entailment-check",
+            "version": "1.0.0",
+            "prompt_sha256": "sha256:46716d7b4fc070b952d7ace5ae597c64b9414e63b15e38a94e719a2eb4fae146"
+          },
+          "checked_at": "2026-10-19T22:07:59Z"
+        },
+        {
+          "pointer": "/added/layers/predictions/2/form",
+          "basis": "src",
+          "verdict": "entails",
+          "checker": {
+            "name": "ohf-entailment-check",
+            "version": "1.0.0",
+            "prompt_sha256": "sha256:46716d7b4fc070b952d7ace5ae597c64b9414e63b15e38a94e719a2eb4fae146"
+          },
+          "checked_at": "2026-10-19T22:07:59Z"
+        },
+        {
+          "pointer": "/added/layers/predictions/2/epistemic_status",
+          "basis": "src",
+          "verdict": "entails",
+          "checker": {
+            "name": "ohf-entailment-check",
+            "version": "1.0.0",
+            "prompt_sha256": "sha256:46716d7b4fc070b952d7ace5ae597c64b9414e63b15e38a94e719a2eb4fae146"
+          },
+          "checked_at": "2026-10-19T22:07:59Z"
+        },
+        {
+          "pointer": "/added/layers/predictions/2/known_result_ref",
+          "basis": "src",
+          "verdict": "entails",
+          "checker": {
+            "name": "ohf-entailment-check",
+            "version": "1.0.0",
+            "prompt_sha256": "sha256:46716d7b4fc070b952d7ace5ae597c64b9414e63b15e38a94e719a2eb4fae146"
+          },
+          "checked_at": "2026-10-19T22:07:59Z"
+        },
+        {
+          "pointer": "/added/layers/predictions/2/derives_from_atom_refs",
+          "basis": "src",
+          "verdict": "entails",
+          "checker": {
+            "name": "ohf-entailment-check",
+            "version": "1.0.0",
+            "prompt_sha256": "sha256:46716d7b4fc070b952d7ace5ae597c64b9414e63b15e38a94e719a2eb4fae146"
+          },
+          "checked_at": "2026-10-19T22:07:59Z"
+        },
+        {
+          "pointer": "/added/layers/predictions/2/population",
+          "basis": "src",
+          "verdict": "entails",
+          "checker": {
+            "name": "ohf-entailment-check",
+            "version": "1.0.0",
+            "prompt_sha256": "sha256:46716d7b4fc070b952d7ace5ae597c64b9414e63b15e38a94e719a2eb4fae146"
+          },
+          "checked_at": "2026-10-20T16:45:58Z"
+        },
+        {
+          "pointer": "/added/layers/evidence/lines/0/items/0",
+          "basis": "src",
+          "verdict": "entails",
+          "checker": {
+            "name": "ohf-entailment-check",
+            "version": "1.0.0",
+            "prompt_sha256": "sha256:46716d7b4fc070b952d7ace5ae597c64b9414e63b15e38a94e719a2eb4fae146"
+          },
+          "checked_at": "2026-10-19T22:07:59Z"
+        },
+        {
+          "pointer": "/added/layers/evidence/lines/0/indirectness",
+          "basis": "src",
+          "verdict": "entails",
+          "checker": {
+            "name": "ohf-entailment-check",
+            "version": "1.0.0",
+            "prompt_sha256": "sha256:46716d7b4fc070b952d7ace5ae597c64b9414e63b15e38a94e719a2eb4fae146"
+          },
+          "checked_at": "2026-10-20T17:04:57Z"
+        },
+        {
+          "pointer": "/added/layers/evidence/lines/0/argument_kind",
+          "basis": "src",
+          "verdict": "entails",
+          "checker": {
+            "name": "ohf-entailment-check",
+            "version": "1.0.0",
+            "prompt_sha256": "sha256:46716d7b4fc070b952d7ace5ae597c64b9414e63b15e38a94e719a2eb4fae146"
+          },
+          "checked_at": "2026-10-19T22:07:59Z"
+        },
+        {
+          "pointer": "/added/layers/evidence/lines/1/items/0",
+          "basis": "src",
+          "verdict": "entails",
+          "checker": {
+            "name": "ohf-entailment-check",
+            "version": "1.0.0",
+            "prompt_sha256": "sha256:46716d7b4fc070b952d7ace5ae597c64b9414e63b15e38a94e719a2eb4fae146"
+          },
+          "checked_at": "2026-10-19T22:07:59Z"
+        },
+        {
+          "pointer": "/added/layers/evidence/lines/1/indirectness",
+          "basis": "src",
+          "verdict": "entails",
+          "checker": {
+            "name": "ohf-entailment-check",
+            "version": "1.0.0",
+            "prompt_sha256": "sha256:46716d7b4fc070b952d7ace5ae597c64b9414e63b15e38a94e719a2eb4fae146"
+          },
+          "checked_at": "2026-10-20T17:04:57Z"
+        },
+        {
+          "pointer": "/added/layers/evidence/lines/1/argument_kind",
+          "basis": "src",
+          "verdict": "entails",
+          "checker": {
+            "name": "ohf-entailment-check",
+            "version": "1.0.0",
+            "prompt_sha256": "sha256:46716d7b4fc070b952d7ace5ae597c64b9414e63b15e38a94e719a2eb4fae146"
+          },
+          "checked_at": "2026-10-19T22:07:59Z"
+        },
+        {
+          "pointer": "/added/layers/evidence/lines/2/items/0",
+          "basis": "src",
+          "verdict": "entails",
+          "checker": {
+            "name": "ohf-entailment-check",
+            "version": "1.0.0",
+            "prompt_sha256": "sha256:46716d7b4fc070b952d7ace5ae597c64b9414e63b15e38a94e719a2eb4fae146"
+          },
+          "checked_at": "2026-10-19T22:07:59Z"
+        },
+        {
+          "pointer": "/added/layers/evidence/lines/2/indirectness",
+          "basis": "src",
+          "verdict": "entails",
+          "checker": {
+            "name": "ohf-entailment-check",
+            "version": "1.0.0",
+            "prompt_sha256": "sha256:46716d7b4fc070b952d7ace5ae597c64b9414e63b15e38a94e719a2eb4fae146"
+          },
+          "checked_at": "2026-10-20T16:45:58Z"
+        },
+        {
+          "pointer": "/added/layers/evidence/lines/2/argument_kind",
+          "basis": "src",
+          "verdict": "entails",
+          "checker": {
+            "name": "ohf-entailment-check",
+            "version": "1.0.0",
+            "prompt_sha256": "sha256:46716d7b4fc070b952d7ace5ae597c64b9414e63b15e38a94e719a2eb4fae146"
+          },
+          "checked_at": "2026-10-19T22:07:59Z"
+        },
+        {
+          "pointer": "/added/layers/evidence/lines/3/items/0",
+          "basis": "src",
+          "verdict": "entails",
+          "checker": {
+            "name": "ohf-entailment-check",
+            "version": "1.0.0",
+            "prompt_sha256": "sha256:46716d7b4fc070b952d7ace5ae597c64b9414e63b15e38a94e719a2eb4fae146"
+          },
+          "checked_at": "2026-10-19T22:07:59Z"
+        },
+        {
+          "pointer": "/added/layers/evidence/lines/3/indirectness",
+          "basis": "src",
+          "verdict": "entails",
+          "checker": {
+            "name": "ohf-entailment-check",
+            "version": "1.0.0",
+            "prompt_sha256": "sha256:46716d7b4fc070b952d7ace5ae597c64b9414e63b15e38a94e719a2eb4fae146"
+          },
+          "checked_at": "2026-10-20T17:04:57Z"
+        },
+        {
+          "pointer": "/added/layers/evidence/lines/3/argument_kind",
+          "basis": "src",
+          "verdict": "entails",
+          "checker": {
+            "name": "ohf-entailment-check",
+            "version": "1.0.0",
+            "prompt_sha256": "sha256:46716d7b4fc070b952d7ace5ae597c64b9414e63b15e38a94e719a2eb4fae146"
+          },
+          "checked_at": "2026-10-19T22:07:59Z"
+        },
+        {
+          "pointer": "/added/layers/evidence/lines/4/items/0",
+          "basis": "src",
+          "verdict": "entails",
+          "checker": {
+            "name": "ohf-entailment-check",
+            "version": "1.0.0",
+            "prompt_sha256": "sha256:46716d7b4fc070b952d7ace5ae597c64b9414e63b15e38a94e719a2eb4fae146"
+          },
+          "checked_at": "2026-10-19T22:07:59Z"
+        },
+        {
+          "pointer": "/added/layers/evidence/lines/4/indirectness",
+          "basis": "src",
+          "verdict": "entails",
+          "checker": {
+            "name": "ohf-entailment-check",
+            "version": "1.0.0",
+            "prompt_sha256": "sha256:46716d7b4fc070b952d7ace5ae597c64b9414e63b15e38a94e719a2eb4fae146"
+          },
+          "checked_at": "2026-10-20T17:04:57Z"
+        },
+        {
+          "pointer": "/added/layers/evidence/lines/4/argument_kind",
+          "basis": "src",
+          "verdict": "entails",
+          "checker": {
+            "name": "ohf-entailment-check",
+            "version": "1.0.0",
+            "prompt_sha256": "sha256:46716d7b4fc070b952d7ace5ae597c64b9414e63b15e38a94e719a2eb4fae146"
+          },
+          "checked_at": "2026-10-19T22:07:59Z"
+        },
+        {
+          "pointer": "/added/layers/evidence/lines/5/items/0",
+          "basis": "src",
+          "verdict": "entails",
+          "checker": {
+            "name": "ohf-entailment-check",
+            "version": "1.0.0",
+            "prompt_sha256": "sha256:46716d7b4fc070b952d7ace5ae597c64b9414e63b15e38a94e719a2eb4fae146"
+          },
+          "checked_at": "2026-10-20T15:54:29Z"
+        },
+        {
+          "pointer": "/added/layers/evidence/lines/5/indirectness",
+          "basis": "src",
+          "verdict": "entails",
+          "checker": {
+            "name": "ohf-entailment-check",
+            "version": "1.0.0",
+            "prompt_sha256": "sha256:46716d7b4fc070b952d7ace5ae597c64b9414e63b15e38a94e719a2eb4fae146"
+          },
+          "checked_at": "2026-10-20T17:04:57Z"
+        },
+        {
+          "pointer": "/added/layers/evidence/lines/5/argument_kind",
+          "basis": "src",
+          "verdict": "entails",
+          "checker": {
+            "name": "ohf-entailment-check",
+            "version": "1.0.0",
+            "prompt_sha256": "sha256:46716d7b4fc070b952d7ace5ae597c64b9414e63b15e38a94e719a2eb4fae146"
+          },
+          "checked_at": "2026-10-20T15:54:29Z"
+        },
+        {
+          "pointer": "/added/layers/evidence/lines/6/items/0",
+          "basis": "src",
+          "verdict": "entails",
+          "checker": {
+            "name": "ohf-entailment-check",
+            "version": "1.0.0",
+            "prompt_sha256": "sha256:46716d7b4fc070b952d7ace5ae597c64b9414e63b15e38a94e719a2eb4fae146"
+          },
+          "checked_at": "2026-10-20T16:45:58Z"
+        },
+        {
+          "pointer": "/added/layers/evidence/lines/6/indirectness",
+          "basis": "src",
+          "verdict": "partial",
+          "checker": {
+            "name": "ohf-entailment-check",
+            "version": "1.0.0",
+            "prompt_sha256": "sha256:46716d7b4fc070b952d7ace5ae597c64b9414e63b15e38a94e719a2eb4fae146"
+          },
+          "checked_at": "2026-10-20T16:55:12Z",
+          "note": "The passage gives grounds for some indirectness (male-biased expression deficits as a stand-in for male-limited gene decay) but not clearly for 'serious' endpoint indirectness, since neo-X pseudogenization and the PRSSLY loss directly measure gene loss."
+        },
+        {
+          "pointer": "/added/layers/evidence/lines/6/argument_kind",
+          "basis": "src",
+          "verdict": "entails",
+          "checker": {
+            "name": "ohf-entailment-check",
+            "version": "1.0.0",
+            "prompt_sha256": "sha256:46716d7b4fc070b952d7ace5ae597c64b9414e63b15e38a94e719a2eb4fae146"
+          },
+          "checked_at": "2026-10-20T16:45:58Z"
+        }
+      ]
+    }
+  },
+  "facets": {
+    "topic": [
+      "evolution",
+      "population genetics",
+      "sex chromosomes"
+    ],
+    "source_class": "external_published"
+  },
+  "content_hash": "sha256:aadeb2f97c35240d3800180a4f20c3fbc33a04d255ecf80c73e53cc97e7f3086"
+}

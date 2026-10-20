@@ -1,0 +1,24 @@
+{
+  "muller-sheltering": {
+    "id": "h_muller-sheltering-extension",
+    "version": 1,
+    "content_hash": "sha256:aadeb2f97c35240d3800180a4f20c3fbc33a04d255ecf80c73e53cc97e7f3086",
+    "source": {
+      "kind": "paper",
+      "citation": "Mrnjavac A, Vicoso B, Connallon T. An Extension of Muller's Sheltering Hypothesis for the Evolution of Sex Chromosome Gene Content. Mol Biol Evol. 2025;42(8):msaf177",
+      "doi": "10.1093/molbev/msaf177",
+      "url": "https://doi.org/10.1093/molbev/msaf177",
+      "license": "CC-BY-4.0",
+      "rights_basis": "license",
+      "retrieved_at": "2026-10-19T19:10:10.236391+00:00",
+      "source_text_sha256": "sha256:aec24a2447826a7ba21328f44dd243644e621fc0eb07894800e2bf124eadf09e",
+      "language": "en"
+    },
+    "conversion": {
+      "converter": "ohf-example-conversion",
+      "converter_version": "1.0.0",
+      "converter_hash": "sha256:ceaa0747e824f872d331f1ef75af4c0c52c62aae6b2a6079958bea2b04d10ed6",
+      "model": "claude-opus-5-5"
+    }
+  }
+}

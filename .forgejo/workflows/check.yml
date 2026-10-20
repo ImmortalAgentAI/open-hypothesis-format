@@ -1,0 +1,38 @@
+name: OHF checks
+on:
+  pull_request:
+  push:
+    branches: [main]
+jobs:
+  check:
+    runs-on: community-host
+    steps:
+      - name: Require a trusted repository branch
+        if: github.event_name == 'pull_request' && github.event.pull_request.head.repo.full_name != github.repository
+        run: |
+          echo "Fork pull requests require isolated validation before this check can pass."
+          exit 1
+      - uses: https://github.com/actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+        with:
+          persist-credentials: false
+      - name: Install
+        run: |
+          python3.12 -m venv .venv
+          .venv/bin/python -m pip install -r requirements.txt
+      - name: Tests
+        run: .venv/bin/python -m pytest -q
+      - name: Catalogue, mapping and generated files
+        run: |
+          .venv/bin/python tools/check_mapping.py
+          .venv/bin/python tools/build_field_reference.py --check
+          .venv/bin/python tools/build_related_standards.py --check
+          .venv/bin/python tools/validate.py --schema schema/gap-path-policy-1.schema.json spec/gap-path-policy.json
+      - name: Examples
+        shell: bash
+        run: |
+          .venv/bin/python tools/validate.py examples/cards/*.json tests/fixtures/fictional/fx_*.json
+          .venv/bin/python tools/content_hash.py --check examples/cards/*.json tests/fixtures/fictional/fx_*.json
+          .venv/bin/python tools/check_gaps.py examples/cards/*.json tests/fixtures/fictional/fx_*.json
+          .venv/bin/python tools/check_refs.py examples/cards/*.json tests/fixtures/fictional/fx_*.json
+          .venv/bin/python tools/validate.py --schema schema/pair-brief-1.schema.json tests/fixtures/fictional/pair-brief-six-seven.json
+          .venv/bin/python tools/validate.py --schema schema/hypothesis-relations-1.schema.json tests/fixtures/fictional/relations-six-seven.json

@@ -1,0 +1,47 @@
+{
+  "schema": "ohf:hypothesis-relations@1",
+  "id": "rel_fx-six-seven",
+  "revision": 1,
+  "pool": {
+    "id": "pool_fx-six-seven",
+    "sha256": "dc1a78c2f09813757c61950052dac424e4542347148a89a179c8775a36264617"
+  },
+  "edges": [
+    {
+      "id": "e1",
+      "source": {
+        "id": "h_fx-six",
+        "version": 1,
+        "content_hash": "sha256:47217e6ebaf2871a2ef92c563cdb8dd51f82c355ffe00105b7c829b081707a1e"
+      },
+      "target": {
+        "id": "h_fx-seven",
+        "version": 1,
+        "content_hash": "sha256:f1045ce99d911a6e17bd6a3bfaa99bb31326c5dec343269d4199b0a0875a1ff9"
+      },
+      "type": "rival_same_explanandum",
+      "basis": [
+        {
+          "kind": "reference",
+          "applies_to": "both",
+          "ref": {
+            "namespace": "card",
+            "card": {
+              "id": "h_fx-six",
+              "version": 1,
+              "content_hash": "sha256:47217e6ebaf2871a2ef92c563cdb8dd51f82c355ffe00105b7c829b081707a1e"
+            },
+            "pool": {
+              "id": "pool_fx-six-seven",
+              "sha256": "dc1a78c2f09813757c61950052dac424e4542347148a89a179c8775a36264617"
+            },
+            "pointer": "/added/layers/core/explains/value/0"
+          }
+        }
+      ],
+      "rationale": "Both cards explain the oscillation of counter Y by different causes, and each predicts that removing its own cause stops it.",
+      "by": "fixture-builder",
+      "at": "2026-01-01T00:00:00Z"
+    }
+  ]
+}

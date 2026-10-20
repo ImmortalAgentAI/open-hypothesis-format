@@ -1,0 +1,59 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "ohf:gap-path-policy@1",
+  "title": "OHF gap path policy",
+  "description": "For each catalogue path, whether a gap may state that the field is not applicable, and on what condition.",
+  "type": "object",
+  "required": ["schema", "default", "fields"],
+  "additionalProperties": false,
+  "properties": {
+    "schema": {"const": "ohf:gap-path-policy@1"},
+    "default": {"const": "never"},
+    "fields": {
+      "type": "array",
+      "minItems": 1,
+      "items": {"$ref": "#/$defs/row"}
+    }
+  },
+  "$defs": {
+    "text": {"type": "string", "minLength": 1, "pattern": "\\S"},
+    "row": {
+      "type": "object",
+      "required": ["path", "na_allowed", "reason"],
+      "additionalProperties": false,
+      "properties": {
+        "path": {"$ref": "#/$defs/text"},
+        "na_allowed": {"enum": ["never", "contract", "scope"]},
+        "reason": {"$ref": "#/$defs/text"},
+        "condition": {"$ref": "#/$defs/condition"}
+      },
+      "if": {"properties": {"na_allowed": {"enum": ["never", "contract"]}}},
+      "then": {"not": {"required": ["condition"]}}
+    },
+    "condition": {
+      "oneOf": [
+        {
+          "type": "object",
+          "required": ["id", "evidence_path", "expected_value", "requires_source_locator"],
+          "additionalProperties": false,
+          "properties": {
+            "id": {"const": "source_verified_human_author"},
+            "evidence_path": {"const": "provenance.author_type"},
+            "expected_value": {"const": "human"},
+            "requires_source_locator": {"const": true}
+          }
+        },
+        {
+          "type": "object",
+          "required": ["id", "original_language_path", "requires_no_translation"],
+          "additionalProperties": false,
+          "properties": {
+            "id": {"const": "no_translation_with_original_language"},
+            "original_language_path": {"const": "author.source.language"},
+            "requires_no_translation": {"const": true}
+          }
+        }
+      ]
+    }
+  }
+}

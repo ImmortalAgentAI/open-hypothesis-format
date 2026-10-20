@@ -1,0 +1,9 @@
+{
+  "kind": "synthetic_software_fixture",
+  "licence": "CC0-1.0",
+  "statement": "In fictional system eight, counter Z may pulse because part P stores charge and releases it at a threshold.",
+  "observation": "Counter Z pulses about once every forty ticks.",
+  "run_a": "In run A, the pulse interval rose from forty to sixty ticks when the storage of part P was doubled.",
+  "run_b": "In run B, a rerun of the run A log with a second analysis script, the interval was again about sixty ticks.",
+  "prediction": "If part P cannot store charge, Z stops pulsing."
+}

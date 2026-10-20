@@ -1,0 +1,18 @@
+{
+  "kind": "synthetic_software_fixture",
+  "licence": "CC0-1.0",
+  "statement": "In fictional test system four, lowering setting X with agent Q raises counter Y.",
+  "rationale": "Agent Q acts on fictional target T, which limits counter Y.",
+  "benefit": "If true, operators of system four could keep counter Y high for longer.",
+  "prior_work": "Fictional study F1 linked target T to counter Y; agent Q has not been tested.",
+  "open_question": "Does target T limit counter Y in fictional system five as well?",
+  "alternative": "Agent Q may raise counter Y through fictional target U instead of T.",
+  "base_rate": "Of 40 fictional agents screened in system four, 6 raised counter Y.",
+  "replication": "Study F1 was repeated once by an independent fictional group, with the same result.",
+  "funding": "Study F1 was funded by fictional fund G. The authors declare no competing interests.",
+  "dataset": "Fictional dataset D4 records counter Y for 200 runs of system four with and without agent Q.",
+  "cost": "A test run needs about two weeks and one fictional bench, costing 1000 to 1500 EUR in 2026.",
+  "resolution": "The prediction holds if counter Y is at least 10 percent higher with agent Q after 20 cycles.",
+  "human": "The fictional system four has no human counterpart; no human study applies.",
+  "heuristic": "We compared competing explanations for the rise in counter Y."
+}

@@ -1,0 +1,917 @@
+{
+  "schema": "ohf:gap-path-policy@1",
+  "default": "never",
+  "fields": [
+    {
+      "path": "identity.proposition_id",
+      "na_allowed": "never",
+      "reason": "No exception: missing input, unknown scope, exhausted budget or failed search is not scientific inapplicability."
+    },
+    {
+      "path": "identity.version",
+      "na_allowed": "never",
+      "reason": "No exception: missing input, unknown scope, exhausted budget or failed search is not scientific inapplicability."
+    },
+    {
+      "path": "identity.question_refs[]",
+      "na_allowed": "never",
+      "reason": "No exception: missing input, unknown scope, exhausted budget or failed search is not scientific inapplicability."
+    },
+    {
+      "path": "identity.assertions[].id",
+      "na_allowed": "contract",
+      "reason": "This exact catalogue path is an explicitly documented extension outside hypothesis@1; use the versioned mapping, never an invented scientific absence."
+    },
+    {
+      "path": "identity.assertions[].text",
+      "na_allowed": "contract",
+      "reason": "This exact catalogue path is an explicitly documented extension outside hypothesis@1; use the versioned mapping, never an invented scientific absence."
+    },
+    {
+      "path": "identity.assertions[].agent_ref",
+      "na_allowed": "contract",
+      "reason": "This exact catalogue path is an explicitly documented extension outside hypothesis@1; use the versioned mapping, never an invented scientific absence."
+    },
+    {
+      "path": "identity.assertions[].asserted_at",
+      "na_allowed": "contract",
+      "reason": "This exact catalogue path is an explicitly documented extension outside hypothesis@1; use the versioned mapping, never an invented scientific absence."
+    },
+    {
+      "path": "identity.assertions[].stance",
+      "na_allowed": "contract",
+      "reason": "This exact catalogue path is an explicitly documented extension outside hypothesis@1; use the versioned mapping, never an invented scientific absence."
+    },
+    {
+      "path": "identity.assertions[].confidence",
+      "na_allowed": "contract",
+      "reason": "This exact catalogue path is an explicitly documented extension outside hypothesis@1; use the versioned mapping, never an invented scientific absence."
+    },
+    {
+      "path": "identity.duplicate_cluster_ref",
+      "na_allowed": "never",
+      "reason": "No exception: missing input, unknown scope, exhausted budget or failed search is not scientific inapplicability."
+    },
+    {
+      "path": "identity.representative_ref",
+      "na_allowed": "never",
+      "reason": "No exception: missing input, unknown scope, exhausted budget or failed search is not scientific inapplicability."
+    },
+    {
+      "path": "identity.supersedes[]",
+      "na_allowed": "never",
+      "reason": "No exception: missing input, unknown scope, exhausted budget or failed search is not scientific inapplicability."
+    },
+    {
+      "path": "identity.retractions[]",
+      "na_allowed": "never",
+      "reason": "No exception: missing input, unknown scope, exhausted budget or failed search is not scientific inapplicability."
+    },
+    {
+      "path": "identity.lifecycle",
+      "na_allowed": "never",
+      "reason": "No exception: missing input, unknown scope, exhausted budget or failed search is not scientific inapplicability."
+    },
+    {
+      "path": "core.statement",
+      "na_allowed": "never",
+      "reason": "No exception: missing input, unknown scope, exhausted budget or failed search is not scientific inapplicability."
+    },
+    {
+      "path": "core.kind",
+      "na_allowed": "never",
+      "reason": "No exception: missing input, unknown scope, exhausted budget or failed search is not scientific inapplicability."
+    },
+    {
+      "path": "core.explanandum",
+      "na_allowed": "never",
+      "reason": "No exception: missing input, unknown scope, exhausted budget or failed search is not scientific inapplicability."
+    },
+    {
+      "path": "core.scope",
+      "na_allowed": "never",
+      "reason": "No exception: missing input, unknown scope, exhausted budget or failed search is not scientific inapplicability."
+    },
+    {
+      "path": "core.context[]",
+      "na_allowed": "never",
+      "reason": "No exception: missing input, unknown scope, exhausted budget or failed search is not scientific inapplicability."
+    },
+    {
+      "path": "core.assumptions[].id",
+      "na_allowed": "never",
+      "reason": "No exception: missing input, unknown scope, exhausted budget or failed search is not scientific inapplicability."
+    },
+    {
+      "path": "core.assumptions[].text",
+      "na_allowed": "never",
+      "reason": "No exception: missing input, unknown scope, exhausted budget or failed search is not scientific inapplicability."
+    },
+    {
+      "path": "core.assumptions[].fundamental",
+      "na_allowed": "never",
+      "reason": "No exception: missing input, unknown scope, exhausted budget or failed search is not scientific inapplicability."
+    },
+    {
+      "path": "core.assumptions[].assessment",
+      "na_allowed": "never",
+      "reason": "No exception: missing input, unknown scope, exhausted budget or failed search is not scientific inapplicability."
+    },
+    {
+      "path": "core.falsification_condition",
+      "na_allowed": "never",
+      "reason": "No exception: missing input, unknown scope, exhausted budget or failed search is not scientific inapplicability."
+    },
+    {
+      "path": "core.atoms[].id",
+      "na_allowed": "never",
+      "reason": "No exception: missing input, unknown scope, exhausted budget or failed search is not scientific inapplicability."
+    },
+    {
+      "path": "core.atoms[].statement",
+      "na_allowed": "never",
+      "reason": "No exception: missing input, unknown scope, exhausted budget or failed search is not scientific inapplicability."
+    },
+    {
+      "path": "core.atoms[].parent_ref",
+      "na_allowed": "never",
+      "reason": "No exception: missing input, unknown scope, exhausted budget or failed search is not scientific inapplicability."
+    },
+    {
+      "path": "core.atoms[].operator",
+      "na_allowed": "never",
+      "reason": "No exception: missing input, unknown scope, exhausted budget or failed search is not scientific inapplicability."
+    },
+    {
+      "path": "core.atoms[].context_override",
+      "na_allowed": "never",
+      "reason": "No exception: missing input, unknown scope, exhausted budget or failed search is not scientific inapplicability."
+    },
+    {
+      "path": "mechanism.summary",
+      "na_allowed": "never",
+      "reason": "No exception: missing input, unknown scope, exhausted budget or failed search is not scientific inapplicability."
+    },
+    {
+      "path": "mechanism.black_box",
+      "na_allowed": "never",
+      "reason": "No exception: missing input, unknown scope, exhausted budget or failed search is not scientific inapplicability."
+    },
+    {
+      "path": "mechanism.entities[].id",
+      "na_allowed": "never",
+      "reason": "No exception: missing input, unknown scope, exhausted budget or failed search is not scientific inapplicability."
+    },
+    {
+      "path": "mechanism.entities[].label",
+      "na_allowed": "never",
+      "reason": "No exception: missing input, unknown scope, exhausted budget or failed search is not scientific inapplicability."
+    },
+    {
+      "path": "mechanism.steps[].id",
+      "na_allowed": "never",
+      "reason": "No exception: missing input, unknown scope, exhausted budget or failed search is not scientific inapplicability."
+    },
+    {
+      "path": "mechanism.steps[].subject_ref",
+      "na_allowed": "never",
+      "reason": "No exception: missing input, unknown scope, exhausted budget or failed search is not scientific inapplicability."
+    },
+    {
+      "path": "mechanism.steps[].relation",
+      "na_allowed": "never",
+      "reason": "No exception: missing input, unknown scope, exhausted budget or failed search is not scientific inapplicability."
+    },
+    {
+      "path": "mechanism.steps[].sign",
+      "na_allowed": "never",
+      "reason": "No exception: missing input, unknown scope, exhausted budget or failed search is not scientific inapplicability."
+    },
+    {
+      "path": "mechanism.steps[].object_ref",
+      "na_allowed": "never",
+      "reason": "No exception: missing input, unknown scope, exhausted budget or failed search is not scientific inapplicability."
+    },
+    {
+      "path": "mechanism.steps[].evidence_type",
+      "na_allowed": "never",
+      "reason": "No exception: missing input, unknown scope, exhausted budget or failed search is not scientific inapplicability."
+    },
+    {
+      "path": "mechanism.steps[].evidence_refs[]",
+      "na_allowed": "never",
+      "reason": "No exception: missing input, unknown scope, exhausted budget or failed search is not scientific inapplicability."
+    },
+    {
+      "path": "mechanism.steps[].context",
+      "na_allowed": "never",
+      "reason": "No exception: missing input, unknown scope, exhausted budget or failed search is not scientific inapplicability."
+    },
+    {
+      "path": "predictions[].id",
+      "na_allowed": "never",
+      "reason": "No exception: missing input, unknown scope, exhausted budget or failed search is not scientific inapplicability."
+    },
+    {
+      "path": "predictions[].population",
+      "na_allowed": "never",
+      "reason": "No exception: missing input, unknown scope, exhausted budget or failed search is not scientific inapplicability."
+    },
+    {
+      "path": "predictions[].system.taxon",
+      "na_allowed": "never",
+      "reason": "No exception: missing input, unknown scope, exhausted budget or failed search is not scientific inapplicability."
+    },
+    {
+      "path": "predictions[].system.strain_or_line",
+      "na_allowed": "never",
+      "reason": "No exception: missing input, unknown scope, exhausted budget or failed search is not scientific inapplicability."
+    },
+    {
+      "path": "predictions[].system.sex",
+      "na_allowed": "never",
+      "reason": "No exception: missing input, unknown scope, exhausted budget or failed search is not scientific inapplicability."
+    },
+    {
+      "path": "predictions[].system.age_at_start",
+      "na_allowed": "never",
+      "reason": "No exception: missing input, unknown scope, exhausted budget or failed search is not scientific inapplicability."
+    },
+    {
+      "path": "predictions[].experimental_unit",
+      "na_allowed": "never",
+      "reason": "No exception: missing input, unknown scope, exhausted budget or failed search is not scientific inapplicability."
+    },
+    {
+      "path": "predictions[].system.assessment_age",
+      "na_allowed": "never",
+      "reason": "No exception: missing input, unknown scope, exhausted budget or failed search is not scientific inapplicability."
+    },
+    {
+      "path": "predictions[].system.site",
+      "na_allowed": "never",
+      "reason": "No exception: missing input, unknown scope, exhausted budget or failed search is not scientific inapplicability."
+    },
+    {
+      "path": "predictions[].intervention.agent",
+      "na_allowed": "never",
+      "reason": "A field of the intervention-pharmacology domain profile. A card with profile.domain \"none\" leaves it absent and records no gap; a card in that profile has no N/A exception."
+    },
+    {
+      "path": "predictions[].intervention.dose",
+      "na_allowed": "never",
+      "reason": "A field of the intervention-pharmacology domain profile. A card with profile.domain \"none\" leaves it absent and records no gap; a card in that profile has no N/A exception."
+    },
+    {
+      "path": "predictions[].intervention.regimen",
+      "na_allowed": "never",
+      "reason": "A field of the intervention-pharmacology domain profile. A card with profile.domain \"none\" leaves it absent and records no gap; a card in that profile has no N/A exception."
+    },
+    {
+      "path": "predictions[].intervention.duration",
+      "na_allowed": "never",
+      "reason": "A field of the intervention-pharmacology domain profile. A card with profile.domain \"none\" leaves it absent and records no gap; a card in that profile has no N/A exception."
+    },
+    {
+      "path": "predictions[].intervention.route",
+      "na_allowed": "never",
+      "reason": "A field of the intervention-pharmacology domain profile. A card with profile.domain \"none\" leaves it absent and records no gap; a card in that profile has no N/A exception."
+    },
+    {
+      "path": "predictions[].intervention.formulation",
+      "na_allowed": "never",
+      "reason": "A field of the intervention-pharmacology domain profile. A card with profile.domain \"none\" leaves it absent and records no gap; a card in that profile has no N/A exception."
+    },
+    {
+      "path": "predictions[].intervention.nominal_concentration",
+      "na_allowed": "never",
+      "reason": "A field of the intervention-pharmacology domain profile. A card with profile.domain \"none\" leaves it absent and records no gap; a card in that profile has no N/A exception."
+    },
+    {
+      "path": "predictions[].intervention.measured_concentration",
+      "na_allowed": "never",
+      "reason": "A field of the intervention-pharmacology domain profile. A card with profile.domain \"none\" leaves it absent and records no gap; a card in that profile has no N/A exception."
+    },
+    {
+      "path": "predictions[].intervention.intake",
+      "na_allowed": "never",
+      "reason": "A field of the intervention-pharmacology domain profile. A card with profile.domain \"none\" leaves it absent and records no gap; a card in that profile has no N/A exception."
+    },
+    {
+      "path": "predictions[].intervention.systemic_exposure",
+      "na_allowed": "never",
+      "reason": "A field of the intervention-pharmacology domain profile. A card with profile.domain \"none\" leaves it absent and records no gap; a card in that profile has no N/A exception."
+    },
+    {
+      "path": "predictions[].comparator",
+      "na_allowed": "never",
+      "reason": "No exception: missing input, unknown scope, exhausted budget or failed search is not scientific inapplicability."
+    },
+    {
+      "path": "predictions[].control_reference",
+      "na_allowed": "never",
+      "reason": "No exception: missing input, unknown scope, exhausted budget or failed search is not scientific inapplicability."
+    },
+    {
+      "path": "predictions[].control_quality",
+      "na_allowed": "never",
+      "reason": "No exception: missing input, unknown scope, exhausted budget or failed search is not scientific inapplicability."
+    },
+    {
+      "path": "predictions[].endpoint",
+      "na_allowed": "never",
+      "reason": "No exception: missing input, unknown scope, exhausted budget or failed search is not scientific inapplicability."
+    },
+    {
+      "path": "predictions[].endpoint_orientation",
+      "na_allowed": "never",
+      "reason": "No exception: missing input, unknown scope, exhausted budget or failed search is not scientific inapplicability."
+    },
+    {
+      "path": "predictions[].relational_prediction",
+      "na_allowed": "never",
+      "reason": "No exception: missing input, unknown scope, exhausted budget or failed search is not scientific inapplicability."
+    },
+    {
+      "path": "predictions[].endpoint_kind",
+      "na_allowed": "never",
+      "reason": "No exception: missing input, unknown scope, exhausted budget or failed search is not scientific inapplicability."
+    },
+    {
+      "path": "predictions[].summary_measure",
+      "na_allowed": "never",
+      "reason": "No exception: missing input, unknown scope, exhausted budget or failed search is not scientific inapplicability."
+    },
+    {
+      "path": "predictions[].summary_measure.contrast",
+      "na_allowed": "never",
+      "reason": "No exception: missing input, unknown scope, exhausted budget or failed search is not scientific inapplicability."
+    },
+    {
+      "path": "predictions[].summary_measure.scale",
+      "na_allowed": "never",
+      "reason": "No exception: missing input, unknown scope, exhausted budget or failed search is not scientific inapplicability."
+    },
+    {
+      "path": "predictions[].intercurrent_events[].event",
+      "na_allowed": "never",
+      "reason": "A field of the intervention-pharmacology domain profile. A card with profile.domain \"none\" leaves it absent and records no gap; a card in that profile has no N/A exception."
+    },
+    {
+      "path": "predictions[].intercurrent_events[].strategy",
+      "na_allowed": "never",
+      "reason": "A field of the intervention-pharmacology domain profile. A card with profile.domain \"none\" leaves it absent and records no gap; a card in that profile has no N/A exception."
+    },
+    {
+      "path": "predictions[].intercurrent_events[].justification",
+      "na_allowed": "never",
+      "reason": "A field of the intervention-pharmacology domain profile. A card with profile.domain \"none\" leaves it absent and records no gap; a card in that profile has no N/A exception."
+    },
+    {
+      "path": "predictions[].intercurrent_events[]",
+      "na_allowed": "never",
+      "reason": "A field of the intervention-pharmacology domain profile. A card with profile.domain \"none\" leaves it absent and records no gap; a card in that profile has no N/A exception."
+    },
+    {
+      "path": "predictions[].missing_data_plan",
+      "na_allowed": "never",
+      "reason": "No exception: missing input, unknown scope, exhausted budget or failed search is not scientific inapplicability."
+    },
+    {
+      "path": "predictions[].direction",
+      "na_allowed": "never",
+      "reason": "No exception: missing input, unknown scope, exhausted budget or failed search is not scientific inapplicability."
+    },
+    {
+      "path": "predictions[].threshold",
+      "na_allowed": "never",
+      "reason": "No exception: missing input, unknown scope, exhausted budget or failed search is not scientific inapplicability."
+    },
+    {
+      "path": "predictions[].equivalence_bounds",
+      "na_allowed": "never",
+      "reason": "No exception: missing input, unknown scope, exhausted budget or failed search is not scientific inapplicability."
+    },
+    {
+      "path": "predictions[].horizon",
+      "na_allowed": "never",
+      "reason": "No exception: missing input, unknown scope, exhausted budget or failed search is not scientific inapplicability."
+    },
+    {
+      "path": "predictions[].age_window",
+      "na_allowed": "never",
+      "reason": "No exception: missing input, unknown scope, exhausted budget or failed search is not scientific inapplicability."
+    },
+    {
+      "path": "predictions[].effect_modifiers[]",
+      "na_allowed": "never",
+      "reason": "No exception: missing input, unknown scope, exhausted budget or failed search is not scientific inapplicability."
+    },
+    {
+      "path": "predictions[].predictive_uncertainty",
+      "na_allowed": "never",
+      "reason": "No exception: missing input, unknown scope, exhausted budget or failed search is not scientific inapplicability."
+    },
+    {
+      "path": "predictions[].intermediate_tests[].observable",
+      "na_allowed": "never",
+      "reason": "No exception: missing input, unknown scope, exhausted budget or failed search is not scientific inapplicability."
+    },
+    {
+      "path": "predictions[].intermediate_tests[].validity_justification",
+      "na_allowed": "never",
+      "reason": "No exception: missing input, unknown scope, exhausted budget or failed search is not scientific inapplicability."
+    },
+    {
+      "path": "predictions[].test_plan_ref",
+      "na_allowed": "never",
+      "reason": "No exception: missing input, unknown scope, exhausted budget or failed search is not scientific inapplicability."
+    },
+    {
+      "path": "evidence.lines[].id",
+      "na_allowed": "never",
+      "reason": "No exception: missing input, unknown scope, exhausted budget or failed search is not scientific inapplicability."
+    },
+    {
+      "path": "evidence.lines[].target_ref",
+      "na_allowed": "never",
+      "reason": "No exception: missing input, unknown scope, exhausted budget or failed search is not scientific inapplicability."
+    },
+    {
+      "path": "evidence.lines[].direction",
+      "na_allowed": "never",
+      "reason": "No exception: missing input, unknown scope, exhausted budget or failed search is not scientific inapplicability."
+    },
+    {
+      "path": "evidence.lines[].items[]",
+      "na_allowed": "never",
+      "reason": "No exception: missing input, unknown scope, exhausted budget or failed search is not scientific inapplicability."
+    },
+    {
+      "path": "evidence.lines[].quote",
+      "na_allowed": "never",
+      "reason": "No exception: missing input, unknown scope, exhausted budget or failed search is not scientific inapplicability."
+    },
+    {
+      "path": "evidence.lines[].evidence_type",
+      "na_allowed": "never",
+      "reason": "No exception: missing input, unknown scope, exhausted budget or failed search is not scientific inapplicability."
+    },
+    {
+      "path": "evidence.lines[].knowledge_level",
+      "na_allowed": "never",
+      "reason": "No exception: missing input, unknown scope, exhausted budget or failed search is not scientific inapplicability."
+    },
+    {
+      "path": "evidence.lines[].agent_type",
+      "na_allowed": "never",
+      "reason": "No exception: missing input, unknown scope, exhausted budget or failed search is not scientific inapplicability."
+    },
+    {
+      "path": "evidence.lines[].hypothesis_flag",
+      "na_allowed": "never",
+      "reason": "No exception: missing input, unknown scope, exhausted budget or failed search is not scientific inapplicability."
+    },
+    {
+      "path": "evidence.lines[].negated_flag",
+      "na_allowed": "never",
+      "reason": "No exception: missing input, unknown scope, exhausted budget or failed search is not scientific inapplicability."
+    },
+    {
+      "path": "evidence.lines[].study_system",
+      "na_allowed": "never",
+      "reason": "No exception: missing input, unknown scope, exhausted budget or failed search is not scientific inapplicability."
+    },
+    {
+      "path": "evidence.lines[].study_type",
+      "na_allowed": "never",
+      "reason": "No exception: missing input, unknown scope, exhausted budget or failed search is not scientific inapplicability."
+    },
+    {
+      "path": "evidence.lines[].result_estimate",
+      "na_allowed": "never",
+      "reason": "No exception: missing input, unknown scope, exhausted budget or failed search is not scientific inapplicability."
+    },
+    {
+      "path": "evidence.lines[].confidence_interval",
+      "na_allowed": "never",
+      "reason": "No exception: missing input, unknown scope, exhausted budget or failed search is not scientific inapplicability."
+    },
+    {
+      "path": "evidence.lines[].statistical_procedure",
+      "na_allowed": "never",
+      "reason": "No exception: missing input, unknown scope, exhausted budget or failed search is not scientific inapplicability."
+    },
+    {
+      "path": "evidence.lines[].strength",
+      "na_allowed": "never",
+      "reason": "No exception: missing input, unknown scope, exhausted budget or failed search is not scientific inapplicability."
+    },
+    {
+      "path": "evidence.lines[].retraction_status",
+      "na_allowed": "never",
+      "reason": "No exception: missing input, unknown scope, exhausted budget or failed search is not scientific inapplicability."
+    },
+    {
+      "path": "evidence.references[].identifier",
+      "na_allowed": "never",
+      "reason": "No exception: missing input, unknown scope, exhausted budget or failed search is not scientific inapplicability."
+    },
+    {
+      "path": "evidence.references[].citation_relation",
+      "na_allowed": "never",
+      "reason": "No exception: missing input, unknown scope, exhausted budget or failed search is not scientific inapplicability."
+    },
+    {
+      "path": "provenance.claim_author",
+      "na_allowed": "never",
+      "reason": "No exception: missing input, unknown scope, exhausted budget or failed search is not scientific inapplicability."
+    },
+    {
+      "path": "provenance.author_type",
+      "na_allowed": "never",
+      "reason": "No exception: missing input, unknown scope, exhausted budget or failed search is not scientific inapplicability."
+    },
+    {
+      "path": "provenance.model",
+      "na_allowed": "scope",
+      "reason": "Only for source-verified human authorship: provenance.author_type must equal human and its source locator must substantiate that value. Otherwise no N/A exception.",
+      "condition": {
+        "id": "source_verified_human_author",
+        "evidence_path": "provenance.author_type",
+        "expected_value": "human",
+        "requires_source_locator": true
+      }
+    },
+    {
+      "path": "provenance.origin_method",
+      "na_allowed": "never",
+      "reason": "No exception: missing input, unknown scope, exhausted budget or failed search is not scientific inapplicability."
+    },
+    {
+      "path": "provenance.generation_heuristic",
+      "na_allowed": "never",
+      "reason": "No exception: missing input, unknown scope, exhausted budget or failed search is not scientific inapplicability."
+    },
+    {
+      "path": "provenance.parent_refs[]",
+      "na_allowed": "never",
+      "reason": "No exception: missing input, unknown scope, exhausted budget or failed search is not scientific inapplicability."
+    },
+    {
+      "path": "provenance.inspiration_refs[]",
+      "na_allowed": "never",
+      "reason": "No exception: missing input, unknown scope, exhausted budget or failed search is not scientific inapplicability."
+    },
+    {
+      "path": "provenance.foreknowledge",
+      "na_allowed": "never",
+      "reason": "No exception: missing input, unknown scope, exhausted budget or failed search is not scientific inapplicability."
+    },
+    {
+      "path": "provenance.original_artifact",
+      "na_allowed": "never",
+      "reason": "No exception: missing input, unknown scope, exhausted budget or failed search is not scientific inapplicability."
+    },
+    {
+      "path": "provenance.field_sources[]",
+      "na_allowed": "never",
+      "reason": "No exception: missing input, unknown scope, exhausted budget or failed search is not scientific inapplicability."
+    },
+    {
+      "path": "provenance.transformation",
+      "na_allowed": "never",
+      "reason": "No exception: missing input, unknown scope, exhausted budget or failed search is not scientific inapplicability."
+    },
+    {
+      "path": "provenance.translation",
+      "na_allowed": "scope",
+      "reason": "Only when no translation was performed and the original source language is recorded. Missing translation information is not proof that no translation occurred.",
+      "condition": {
+        "id": "no_translation_with_original_language",
+        "original_language_path": "author.source.language",
+        "requires_no_translation": true
+      }
+    },
+    {
+      "path": "provenance.licence",
+      "na_allowed": "never",
+      "reason": "No exception: missing input, unknown scope, exhausted budget or failed search is not scientific inapplicability."
+    },
+    {
+      "path": "provenance.contributions[]",
+      "na_allowed": "never",
+      "reason": "No exception: missing input, unknown scope, exhausted budget or failed search is not scientific inapplicability."
+    },
+    {
+      "path": "provenance.registration",
+      "na_allowed": "never",
+      "reason": "No exception: missing input, unknown scope, exhausted budget or failed search is not scientific inapplicability."
+    },
+    {
+      "path": "profile.dose_response.shape",
+      "na_allowed": "never",
+      "reason": "A field of the intervention-pharmacology domain profile. A card with profile.domain \"none\" leaves it absent and records no gap; a card in that profile has no N/A exception."
+    },
+    {
+      "path": "profile.dose_response.x_axis",
+      "na_allowed": "never",
+      "reason": "A field of the intervention-pharmacology domain profile. A card with profile.domain \"none\" leaves it absent and records no gap; a card in that profile has no N/A exception."
+    },
+    {
+      "path": "profile.dose_response.endpoint_ref",
+      "na_allowed": "never",
+      "reason": "A field of the intervention-pharmacology domain profile. A card with profile.domain \"none\" leaves it absent and records no gap; a card in that profile has no N/A exception."
+    },
+    {
+      "path": "profile.dose_response.range",
+      "na_allowed": "never",
+      "reason": "A field of the intervention-pharmacology domain profile. A card with profile.domain \"none\" leaves it absent and records no gap; a card in that profile has no N/A exception."
+    },
+    {
+      "path": "profile.combination.components[]",
+      "na_allowed": "scope",
+      "reason": "Only if a populated source-bound field establishes that the claim concerns a single intervention, not a combination; scope_ref is required."
+    },
+    {
+      "path": "profile.combination.reference_model",
+      "na_allowed": "scope",
+      "reason": "Only if a populated source-bound field establishes that the claim concerns a single intervention, not a combination; scope_ref is required."
+    },
+    {
+      "path": "profile.combination.effect",
+      "na_allowed": "scope",
+      "reason": "Only if a populated source-bound field establishes that the claim concerns a single intervention, not a combination; scope_ref is required."
+    },
+    {
+      "path": "profile.biomarker.role",
+      "na_allowed": "never",
+      "reason": "No exception: missing input, unknown scope, exhausted budget or failed search is not scientific inapplicability."
+    },
+    {
+      "path": "profile.biomarker.validation",
+      "na_allowed": "never",
+      "reason": "No exception: missing input, unknown scope, exhausted budget or failed search is not scientific inapplicability."
+    },
+    {
+      "path": "profile.harm",
+      "na_allowed": "never",
+      "reason": "No exception: missing input, unknown scope, exhausted budget or failed search is not scientific inapplicability."
+    },
+    {
+      "path": "profile.transfer_scope",
+      "na_allowed": "never",
+      "reason": "No exception: missing input, unknown scope, exhausted budget or failed search is not scientific inapplicability."
+    },
+    {
+      "path": "profile.function_process",
+      "na_allowed": "never",
+      "reason": "No exception: missing input, unknown scope, exhausted budget or failed search is not scientific inapplicability."
+    },
+    {
+      "path": "appendix.rationale",
+      "na_allowed": "never",
+      "reason": "No exception: missing input, unknown scope, exhausted budget or failed search is not scientific inapplicability."
+    },
+    {
+      "path": "appendix.experiment_plan",
+      "na_allowed": "never",
+      "reason": "No exception: missing input, unknown scope, exhausted budget or failed search is not scientific inapplicability."
+    },
+    {
+      "path": "appendix.source_extensions",
+      "na_allowed": "never",
+      "reason": "No exception: missing input, unknown scope, exhausted budget or failed search is not scientific inapplicability."
+    },
+    {
+      "path": "appendix.limitations",
+      "na_allowed": "never",
+      "reason": "No exception: missing input, unknown scope, exhausted budget or failed search is not scientific inapplicability."
+    },
+    {
+      "path": "pair.hypothesis_refs",
+      "na_allowed": "contract",
+      "reason": "This exact catalogue path is an explicitly documented extension outside hypothesis@1; use the versioned mapping, never an invented scientific absence."
+    },
+    {
+      "path": "pair.relation",
+      "na_allowed": "contract",
+      "reason": "This path is stored in a detached relations artifact, not in an individual card; use the versioned mapping, never an invented scientific absence."
+    },
+    {
+      "path": "pair.discriminability",
+      "na_allowed": "contract",
+      "reason": "This exact catalogue path is an explicitly documented extension outside hypothesis@1; use the versioned mapping, never an invented scientific absence."
+    },
+    {
+      "path": "pair.diagnosticity_matrix",
+      "na_allowed": "contract",
+      "reason": "This exact catalogue path is an explicitly documented extension outside hypothesis@1; use the versioned mapping, never an invented scientific absence."
+    },
+    {
+      "path": "pair.decisive_test",
+      "na_allowed": "contract",
+      "reason": "This exact catalogue path is an explicitly documented extension outside hypothesis@1; use the versioned mapping, never an invented scientific absence."
+    },
+    {
+      "path": "pair.assumptions",
+      "na_allowed": "contract",
+      "reason": "This exact catalogue path is an explicitly documented extension outside hypothesis@1; use the versioned mapping, never an invented scientific absence."
+    },
+    {
+      "path": "pair.context_ref",
+      "na_allowed": "contract",
+      "reason": "This exact catalogue path is an explicitly documented extension outside hypothesis@1; use the versioned mapping, never an invented scientific absence."
+    },
+    {
+      "path": "provenance.heuristic_principle[]",
+      "na_allowed": "never",
+      "reason": "No exception: missing input, unknown scope, exhausted budget or failed search is not scientific inapplicability."
+    },
+    {
+      "path": "mechanism.molecular_targets[]",
+      "na_allowed": "never",
+      "reason": "No exception: missing input, unknown scope, exhausted budget or failed search is not scientific inapplicability."
+    },
+    {
+      "path": "predictions[].test_cost",
+      "na_allowed": "never",
+      "reason": "No exception: missing input, unknown scope, exhausted budget or failed search is not scientific inapplicability."
+    },
+    {
+      "path": "predictions[].role",
+      "na_allowed": "never",
+      "reason": "No exception: missing input, unknown scope, exhausted budget or failed search is not scientific inapplicability."
+    },
+    {
+      "path": "core.potential_benefit",
+      "na_allowed": "never",
+      "reason": "No exception: missing input, unknown scope, exhausted budget or failed search is not scientific inapplicability."
+    },
+    {
+      "path": "evidence.references[].access_context",
+      "na_allowed": "never",
+      "reason": "No exception: missing input, unknown scope, exhausted budget or failed search is not scientific inapplicability."
+    },
+    {
+      "path": "core.novelty_assessment",
+      "na_allowed": "never",
+      "reason": "No exception: missing input, unknown scope, exhausted budget or failed search is not scientific inapplicability."
+    },
+    {
+      "path": "core.uncertainties[]",
+      "na_allowed": "never",
+      "reason": "No exception: missing input, unknown scope, exhausted budget or failed search is not scientific inapplicability."
+    },
+    {
+      "path": "core.alternative_explanations[]",
+      "na_allowed": "never",
+      "reason": "No exception: missing input, unknown scope, exhausted budget or failed search is not scientific inapplicability."
+    },
+    {
+      "path": "predictions[].resolution",
+      "na_allowed": "never",
+      "reason": "Missing evidence, unknown components or unresolved outcomes are data gaps, not inapplicability."
+    },
+    {
+      "path": "evidence.lines[].replication",
+      "na_allowed": "never",
+      "reason": "Missing evidence, unknown components or unresolved outcomes are data gaps, not inapplicability."
+    },
+    {
+      "path": "core.base_rate",
+      "na_allowed": "never",
+      "reason": "Missing evidence, unknown components or unresolved outcomes are data gaps, not inapplicability."
+    },
+    {
+      "path": "predictions[].existing_data_tests[]",
+      "na_allowed": "never",
+      "reason": "Missing evidence, unknown components or unresolved outcomes are data gaps, not inapplicability."
+    },
+    {
+      "path": "evidence.references[].funding_coi",
+      "na_allowed": "never",
+      "reason": "Missing evidence, unknown components or unresolved outcomes are data gaps, not inapplicability."
+    },
+    {
+      "path": "profile.human_testability",
+      "na_allowed": "never",
+      "reason": "No exception: missing input, unknown scope, exhausted budget or failed search is not scientific inapplicability."
+    },
+    {
+      "path": "core.explains[]",
+      "na_allowed": "never",
+      "reason": "No exception: missing input, unknown scope, exhausted budget or failed search is not scientific inapplicability."
+    },
+    {
+      "path": "core.reinterprets[]",
+      "na_allowed": "never",
+      "reason": "No exception: missing input, unknown scope, exhausted budget or failed search is not scientific inapplicability."
+    },
+    {
+      "path": "core.opens[]",
+      "na_allowed": "never",
+      "reason": "No exception: missing input, unknown scope, exhausted budget or failed search is not scientific inapplicability."
+    },
+    {
+      "path": "core.testability",
+      "na_allowed": "never",
+      "reason": "No exception: missing input, unknown scope, exhausted budget or failed search is not scientific inapplicability."
+    },
+    {
+      "path": "predictions[].epistemic_status",
+      "na_allowed": "never",
+      "reason": "No exception: missing input, unknown scope, exhausted budget or failed search is not scientific inapplicability."
+    },
+    {
+      "path": "predictions[].known_result_ref",
+      "na_allowed": "never",
+      "reason": "No exception: missing input, unknown scope, exhausted budget or failed search is not scientific inapplicability."
+    },
+    {
+      "path": "predictions[].form",
+      "na_allowed": "never",
+      "reason": "No exception: missing input, unknown scope, exhausted budget or failed search is not scientific inapplicability."
+    },
+    {
+      "path": "predictions[].derives_from_atom_refs[]",
+      "na_allowed": "never",
+      "reason": "No exception: missing input, unknown scope, exhausted budget or failed search is not scientific inapplicability."
+    },
+    {
+      "path": "predictions[].also_expected_under[]",
+      "na_allowed": "never",
+      "reason": "No exception: missing input, unknown scope, exhausted budget or failed search is not scientific inapplicability."
+    },
+    {
+      "path": "predictions[].discrimination",
+      "na_allowed": "never",
+      "reason": "No exception: missing input, unknown scope, exhausted budget or failed search is not scientific inapplicability."
+    },
+    {
+      "path": "predictions[].system.kind",
+      "na_allowed": "never",
+      "reason": "No exception: missing input, unknown scope, exhausted budget or failed search is not scientific inapplicability."
+    },
+    {
+      "path": "predictions[].system.environment",
+      "na_allowed": "never",
+      "reason": "No exception: missing input, unknown scope, exhausted budget or failed search is not scientific inapplicability."
+    },
+    {
+      "path": "predictions[].system.spatial_scale",
+      "na_allowed": "never",
+      "reason": "No exception: missing input, unknown scope, exhausted budget or failed search is not scientific inapplicability."
+    },
+    {
+      "path": "predictions[].system.temporal_scale",
+      "na_allowed": "never",
+      "reason": "No exception: missing input, unknown scope, exhausted budget or failed search is not scientific inapplicability."
+    },
+    {
+      "path": "core.first_proposed",
+      "na_allowed": "never",
+      "reason": "No exception: missing input, unknown scope, exhausted budget or failed search is not scientific inapplicability."
+    },
+    {
+      "path": "core.atoms[].claim_type",
+      "na_allowed": "never",
+      "reason": "No exception: missing input, unknown scope, exhausted budget or failed search is not scientific inapplicability."
+    },
+    {
+      "path": "core.atoms[].role",
+      "na_allowed": "never",
+      "reason": "No exception: missing input, unknown scope, exhausted budget or failed search is not scientific inapplicability."
+    },
+    {
+      "path": "core.atoms[].modality",
+      "na_allowed": "never",
+      "reason": "No exception: missing input, unknown scope, exhausted budget or failed search is not scientific inapplicability."
+    },
+    {
+      "path": "evidence.lines[].indirectness",
+      "na_allowed": "never",
+      "reason": "No exception: missing input, unknown scope, exhausted budget or failed search is not scientific inapplicability."
+    },
+    {
+      "path": "evidence.lines[].risk_of_bias",
+      "na_allowed": "never",
+      "reason": "No exception: missing input, unknown scope, exhausted budget or failed search is not scientific inapplicability."
+    },
+    {
+      "path": "evidence.lines[].independence_group",
+      "na_allowed": "never",
+      "reason": "No exception: missing input, unknown scope, exhausted budget or failed search is not scientific inapplicability."
+    },
+    {
+      "path": "evidence.lines[].argument_kind",
+      "na_allowed": "never",
+      "reason": "No exception: missing input, unknown scope, exhausted budget or failed search is not scientific inapplicability."
+    },
+    {
+      "path": "evidence.selection_record",
+      "na_allowed": "never",
+      "reason": "No exception: missing input, unknown scope, exhausted budget or failed search is not scientific inapplicability."
+    }
+  ]
+}

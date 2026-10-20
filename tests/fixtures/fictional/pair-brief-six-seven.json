@@ -1,0 +1,71 @@
+{
+  "schema": "ohf:pair-brief@1",
+  "id": "pb_fx-six-seven",
+  "hypothesis_refs": [
+    {
+      "id": "h_fx-six",
+      "version": 1,
+      "content_hash": "sha256:47217e6ebaf2871a2ef92c563cdb8dd51f82c355ffe00105b7c829b081707a1e"
+    },
+    {
+      "id": "h_fx-seven",
+      "version": 1,
+      "content_hash": "sha256:f1045ce99d911a6e17bd6a3bfaa99bb31326c5dec343269d4199b0a0875a1ff9"
+    }
+  ],
+  "relation": "rival_same_explanandum",
+  "shared_explananda": [
+    {
+      "a": {
+        "pointer": "/added/layers/core/explains/value/0"
+      },
+      "b": {
+        "pointer": "/added/layers/core/explains/value/0"
+      },
+      "note": "Both cards explain the same ten-tick oscillation of counter Y."
+    }
+  ],
+  "distinguishing_observations": [
+    {
+      "observation": "Y keeps oscillating after the N-to-M link is cut, with the external clock running.",
+      "predicted_by_a": {
+        "expectation": "not_expected",
+        "prediction_id": "p_cut"
+      },
+      "predicted_by_b": {
+        "expectation": "expected"
+      },
+      "source": {
+        "kind": "card",
+        "card": "a",
+        "pointer": "/added/layers/predictions/0"
+      }
+    },
+    {
+      "observation": "Y keeps oscillating after the external clock is stopped, with the N-to-M link intact.",
+      "predicted_by_a": {
+        "expectation": "expected"
+      },
+      "predicted_by_b": {
+        "expectation": "not_expected",
+        "prediction_id": "p_cut"
+      },
+      "source": {
+        "kind": "card",
+        "card": "b",
+        "pointer": "/added/layers/predictions/0"
+      }
+    }
+  ],
+  "decisive_test": {
+    "kind": "test",
+    "description": "Run system six twice: once with the N-to-M link cut, once with the external clock stopped, and record whether Y oscillates in each run.",
+    "source": {
+      "kind": "card",
+      "card": "a",
+      "pointer": "/added/layers/predictions/0"
+    }
+  },
+  "produced_by": "fixture-builder",
+  "produced_at": "2026-01-01T00:00:00Z"
+}

@@ -1,0 +1,6 @@
+{
+  "kind": "synthetic_software_fixture",
+  "statement": "In fictional test system three, increasing setting X changes counter Y.",
+  "license": "CC0-1.0",
+  "scope": "This statement applies only to the fictional test system."
+}

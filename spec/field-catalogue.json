@@ -1,0 +1,1837 @@
+{
+  "status": "release",
+  "version": "1.0.0",
+  "serialization": "Logical paths are mapped to card paths in spec/mapping.json.",
+  "fields": [
+    {
+      "layer": "0 Identity and versions",
+      "path": "identity.proposition_id",
+      "definition": "Stable local identifier for the scientific proposition, distinct from any speaker or publication.",
+      "logical_type": "Identifier",
+      "vocabulary": "OHF namespace, with external identifiers retained separately",
+      "example": "urn:example:proposition-a",
+      "basis": "sepio",
+      "field_class": "system"
+    },
+    {
+      "layer": "0 Identity and versions",
+      "path": "identity.version",
+      "definition": "Immutable version of this proposition record, to which matches bind.",
+      "logical_type": "Version",
+      "vocabulary": "Positive integer",
+      "example": "1",
+      "basis": "ohf",
+      "field_class": "system"
+    },
+    {
+      "layer": "0 Identity and versions",
+      "path": "identity.question_refs[]",
+      "definition": "Optional references to the question, problem or knowledge gap addressed by the claim, retaining source attribution and any earlier bindings. Not required, and not a comparison or ranking key.",
+      "logical_type": "Reference[]",
+      "vocabulary": "References to question or problem records, with source attribution",
+      "example": "problem-context-example@1 (optional)",
+      "basis": "ohf",
+      "field_class": "system"
+    },
+    {
+      "layer": "0 Identity and versions",
+      "path": "identity.assertions[].id",
+      "definition": "Identity of one attributed act of asserting or assessing a proposition.",
+      "logical_type": "Identifier",
+      "vocabulary": "Card-local identifier, separate from the proposition identifier",
+      "example": "urn:example:assertion-a",
+      "basis": "sepio",
+      "field_class": "system"
+    },
+    {
+      "layer": "0 Identity and versions",
+      "path": "identity.assertions[].text",
+      "definition": "Source wording of this particular assertion, separate from canonical proposition text.",
+      "logical_type": "Text",
+      "vocabulary": "SEPIO Statement.statementText",
+      "example": "author's assertion wording",
+      "basis": "sepio",
+      "field_class": "author_only"
+    },
+    {
+      "layer": "0 Identity and versions",
+      "path": "identity.assertions[].agent_ref",
+      "definition": "Person, organization or agent responsible for this assertion, not the converter.",
+      "logical_type": "Reference",
+      "vocabulary": "SEPIO Contribution / Agent identity",
+      "example": "urn:example:author-a",
+      "basis": "sepio",
+      "field_class": "author_only"
+    },
+    {
+      "layer": "0 Identity and versions",
+      "path": "identity.assertions[].asserted_at",
+      "definition": "Time the assertion was made, distinguished from extraction and registration time.",
+      "logical_type": "DateTime",
+      "vocabulary": "ISO 8601 timestamp with stated precision",
+      "example": "2026-10-15T10:00:00Z",
+      "basis": "sepio",
+      "field_class": "author_only"
+    },
+    {
+      "layer": "0 Identity and versions",
+      "path": "identity.assertions[].stance",
+      "definition": "Speaker's stated position on the proposition, with original wording retained.",
+      "logical_type": "Term",
+      "vocabulary": "Source vocabulary plus reviewed OHF mapping",
+      "example": "supports",
+      "basis": "sepio",
+      "field_class": "author_only"
+    },
+    {
+      "layer": "0 Identity and versions",
+      "path": "identity.assertions[].confidence",
+      "definition": "Attributed confidence with scale, elicitation method and calibration status, not a BT score.",
+      "logical_type": "Assessment",
+      "vocabulary": "Declared probability or ordinal scale",
+      "example": "0.6, elicited and uncalibrated",
+      "basis": "hep",
+      "field_class": "author_only"
+    },
+    {
+      "layer": "0 Identity and versions",
+      "path": "identity.duplicate_cluster_ref",
+      "definition": "Curated similarity/deduplication cluster, not proof of identical wording or meaning.",
+      "logical_type": "Reference",
+      "vocabulary": "Reference to a cluster record kept by the publisher, or null",
+      "example": "urn:example:cluster-a",
+      "basis": "micropublications",
+      "field_class": "system"
+    },
+    {
+      "layer": "0 Identity and versions",
+      "path": "identity.representative_ref",
+      "definition": "Versioned representative of that cluster, with selection reason retained.",
+      "logical_type": "Reference",
+      "vocabulary": "Versioned reference to one card of the cluster, or null",
+      "example": "proposition-a@1",
+      "basis": "micropublications",
+      "field_class": "system"
+    },
+    {
+      "layer": "0 Identity and versions",
+      "path": "identity.supersedes[]",
+      "definition": "Earlier versions explicitly superseded by an authorized author act, retaining history.",
+      "logical_type": "VersionReference[]",
+      "vocabulary": "Versioned references to earlier records of the same proposition",
+      "example": "proposition-a@1",
+      "basis": "ohf",
+      "field_class": "system"
+    },
+    {
+      "layer": "0 Identity and versions",
+      "path": "identity.retractions[]",
+      "definition": "Author-issued withdrawal or source retraction with target, actor, time, reason and evidence.",
+      "logical_type": "Retraction[]",
+      "vocabulary": "Retraction records; source notices are recorded separately",
+      "example": "withdrawal of assertion-a with source notice",
+      "basis": "nanopub",
+      "field_class": "system"
+    },
+    {
+      "layer": "0 Identity and versions",
+      "path": "identity.lifecycle",
+      "definition": "The card's state in its publisher's process, as the publisher names it, not inferred from source praise. OHF 1.0 defines no states and no transitions.",
+      "logical_type": "Term",
+      "vocabulary": "The publisher's own label, such as example or fixture; OHF 1.0 defines no lifecycle states or transitions",
+      "example": "example",
+      "basis": "hep",
+      "field_class": "system"
+    },
+    {
+      "layer": "1 Claim core",
+      "path": "core.statement",
+      "definition": "One bounded scientific assertion preserving negation, modality and quantities.",
+      "logical_type": "Text",
+      "vocabulary": "Source wording plus confirmed canonical restatement",
+      "example": "Compound X reduces readout Y in cell system Z at 48 hours.",
+      "basis": "ohf",
+      "field_class": "searchable"
+    },
+    {
+      "layer": "1 Claim core",
+      "path": "core.kind",
+      "definition": "Kind of claim, distinct from evidence type and generation method.",
+      "logical_type": "Term",
+      "vocabulary": "OHF vocabulary: mechanism | association | intervention_effect | prediction",
+      "example": "intervention_effect",
+      "basis": "ohf",
+      "field_class": "searchable"
+    },
+    {
+      "layer": "1 Claim core",
+      "path": "core.explanandum",
+      "definition": "Phenomenon or question the claim attempts to explain, without adding an unstated target. It names an observed phenomenon or an open question, not an intended outcome or the goal of an intervention.",
+      "logical_type": "Text",
+      "vocabulary": "Author wording",
+      "example": "variation of readout Y in system Z",
+      "basis": "ohf",
+      "field_class": "searchable"
+    },
+    {
+      "layer": "1 Claim core",
+      "path": "core.scope",
+      "definition": "Systems and conditions to which the claim applies, including explicit exclusions.",
+      "logical_type": "Text",
+      "vocabulary": "Author wording and domain qualifiers",
+      "example": "cell system Z only, not organism survival",
+      "basis": "biolink",
+      "field_class": "searchable"
+    },
+    {
+      "layer": "1 Claim core",
+      "path": "core.context[]",
+      "definition": "Typed context qualifiers with source locators and context inheritance rules.",
+      "logical_type": "Qualifier[]",
+      "vocabulary": "Typed qualifiers, with the source terms retained",
+      "example": "exposure duration: 48 hours",
+      "basis": "biolink",
+      "field_class": "searchable"
+    },
+    {
+      "layer": "1 Claim core",
+      "path": "core.assumptions[].id",
+      "definition": "Local identifier of one explicitly declared premise.",
+      "logical_type": "Identifier",
+      "vocabulary": "OHF local identifiers",
+      "example": "assumption-a",
+      "basis": "micropublications",
+      "field_class": "system"
+    },
+    {
+      "layer": "1 Claim core",
+      "path": "core.assumptions[].text",
+      "definition": "Author-stated premise, not background supplied by an extractor.",
+      "logical_type": "Text",
+      "vocabulary": "Source wording",
+      "example": "readout Y reflects the stated cellular process",
+      "basis": "micropublications",
+      "field_class": "searchable"
+    },
+    {
+      "layer": "1 Claim core",
+      "path": "core.assumptions[].fundamental",
+      "definition": "Author's explicit fundamental/non-fundamental classification, never guessed.",
+      "logical_type": "Boolean",
+      "vocabulary": "OHF author declaration",
+      "example": "true, only if explicitly declared",
+      "basis": "ohf",
+      "field_class": "author_only"
+    },
+    {
+      "layer": "1 Claim core",
+      "path": "core.assumptions[].assessment",
+      "definition": "Separate attributed assessment of a premise, with direction, scale and evidence.",
+      "logical_type": "Assessment",
+      "vocabulary": "Attributed assessment record",
+      "example": "unassessed",
+      "basis": "sepio",
+      "field_class": "searchable"
+    },
+    {
+      "layer": "1 Claim core",
+      "path": "core.falsification_condition",
+      "definition": "Scoped contrary observation that would count against this claim.",
+      "logical_type": "Text",
+      "vocabulary": "Author-defined resolution rule",
+      "example": "opposite direction under the same stated conditions",
+      "basis": "popper",
+      "field_class": "searchable"
+    },
+    {
+      "layer": "1 Claim core",
+      "path": "core.atoms[].id",
+      "definition": "Identity of a subclaim, retaining its original text and provenance.",
+      "logical_type": "Identifier",
+      "vocabulary": "OHF local identifiers",
+      "example": "atom-a",
+      "basis": "hyque",
+      "field_class": "system"
+    },
+    {
+      "layer": "1 Claim core",
+      "path": "core.atoms[].statement",
+      "definition": "Atomic assertion without losing condition, uncertainty or negation.",
+      "logical_type": "Text",
+      "vocabulary": "Source wording",
+      "example": "X affects Y under condition C",
+      "basis": "hyque",
+      "field_class": "searchable"
+    },
+    {
+      "layer": "1 Claim core",
+      "path": "core.atoms[].parent_ref",
+      "definition": "Parent claim or atomic group from which context may be inherited.",
+      "logical_type": "Reference",
+      "vocabulary": "Reference to the parent claim or atom; null for a root atom",
+      "example": "proposition-a@1",
+      "basis": "hyque",
+      "field_class": "system"
+    },
+    {
+      "layer": "1 Claim core",
+      "path": "core.atoms[].operator",
+      "definition": "Explicit connective among child claims, not an inference from a list.",
+      "logical_type": "Term",
+      "vocabulary": "AND | OR | XOR",
+      "example": "AND",
+      "basis": "hyque",
+      "field_class": "searchable"
+    },
+    {
+      "layer": "1 Claim core",
+      "path": "core.atoms[].context_override",
+      "definition": "Explicit child context differing from its parent, with locator.",
+      "logical_type": "Qualifier[]",
+      "vocabulary": "Typed qualifiers, with a locator",
+      "example": "different exposure duration, when stated",
+      "basis": "ohf",
+      "field_class": "system"
+    },
+    {
+      "layer": "1 Claim core",
+      "path": "core.atoms[].claim_type",
+      "definition": "What kind of claim the atom makes. The value other needs a note that says what the claim is.",
+      "logical_type": "Term",
+      "vocabulary": "OHF vocabulary: existence | distribution | association | causal_effect | mechanism | functional_attribution | evolutionary_explanation | development | constitution | quantitative_law | model_sufficiency | historical_reconstruction | other",
+      "example": "causal_effect",
+      "basis": "ohf",
+      "field_class": "author_only",
+      "zones": [
+        "added"
+      ]
+    },
+    {
+      "layer": "1 Claim core",
+      "path": "core.atoms[].role",
+      "definition": "The part the atom plays in the hypothesis: a core claim, an auxiliary assumption, a consequence of other atoms, or established background knowledge.",
+      "logical_type": "Term",
+      "vocabulary": "OHF vocabulary: core | auxiliary | consequence | background_established",
+      "example": "core",
+      "basis": "ohf",
+      "field_class": "author_only",
+      "zones": [
+        "added"
+      ]
+    },
+    {
+      "layer": "1 Claim core",
+      "path": "core.atoms[].modality",
+      "definition": "How firmly the author asserts the atom, with the exact author wording on which the value rests.",
+      "logical_type": "Term",
+      "vocabulary": "OHF vocabulary: speculative | proposed | likely | claimed_shown",
+      "example": "proposed, \"Here, I hypothesize that\"",
+      "basis": "ohf",
+      "field_class": "author_only",
+      "zones": [
+        "added"
+      ]
+    },
+    {
+      "layer": "1 Claim core",
+      "path": "core.potential_benefit",
+      "definition": "Source-grounded potential benefit, target system, causal bridge, horizon and constraints without an unsupported effect estimate.",
+      "logical_type": "PotentialBenefit",
+      "vocabulary": "OHF record",
+      "example": "outcome \"counter Y stays high for longer\", for operators of system four, constrained to the fictional system",
+      "basis": "ohf",
+      "field_class": "searchable"
+    },
+    {
+      "layer": "1 Claim core",
+      "path": "core.novelty_assessment",
+      "definition": "Bounded, source-grounded assessment of new and shared content with retained search or review evidence.",
+      "logical_type": "NoveltyAssessment",
+      "vocabulary": "OHF record",
+      "example": "new: agent Q as a way to act on target T; shared: the link between T and counter Y",
+      "basis": "ohf",
+      "field_class": "searchable"
+    },
+    {
+      "layer": "1 Claim core",
+      "path": "core.uncertainties[]",
+      "definition": "Explicit unresolved scientific questions and their consequences, targets and possible resolution tests.",
+      "logical_type": "Uncertainty[]",
+      "vocabulary": "OHF record",
+      "example": "question \"does target T limit counter Y in system five?\", consequence: the claim is limited to system four",
+      "basis": "ohf",
+      "field_class": "searchable"
+    },
+    {
+      "layer": "1 Claim core",
+      "path": "core.alternative_explanations[]",
+      "definition": "Source-grounded alternative explanations outside the pinned comparison pool, retaining shared observations and distinguishing predictions. In-pool comparisons use pair-level diagnostics.",
+      "logical_type": "AlternativeExplanation[]",
+      "vocabulary": "OHF record",
+      "example": "agent Q raises counter Y through target U instead of T, told apart by prediction p1",
+      "basis": "ohf",
+      "field_class": "searchable"
+    },
+    {
+      "layer": "1 Claim core",
+      "path": "core.base_rate",
+      "definition": "Source-grounded rate in an explicit reference class, with denominator and source horizon preserving its stated precision.",
+      "logical_type": "BaseRate",
+      "vocabulary": "OHF record",
+      "example": "6 of 40 agents screened in system four raised counter Y (rate 0.15, as of 2026-01-01)",
+      "basis": "ohf",
+      "field_class": "searchable"
+    },
+    {
+      "layer": "1 Claim core",
+      "path": "core.explains[]",
+      "definition": "Observations the hypothesis accounts for. Each item records the observation, its current status (unexplained, contested, explained by a rival hypothesis, or explained by an accepted account), whether the hypothesis explains it directly or as a consequence, and the atoms or predictions that do the explaining. Only unexplained and contested observations count as gaps in knowledge. Serves the question: which gaps in knowledge would the hypothesis close if confirmed?",
+      "logical_type": "Explanandum[]",
+      "vocabulary": "OHF vocabulary: status unexplained | contested | explained_by_rival | explained; mode direct | consequence",
+      "example": "Y-linked gene loss after recombination stops, explained by an accepted account",
+      "basis": "ohf",
+      "field_class": "searchable",
+      "question_part": "gaps_closed"
+    },
+    {
+      "layer": "1 Claim core",
+      "path": "core.reinterprets[]",
+      "definition": "Existing findings that the hypothesis reads differently: the finding, its current interpretation, the proposed interpretation and the atoms that ground it. Serves the question: which existing data would the hypothesis make us reinterpret?",
+      "logical_type": "Reinterpretation[]",
+      "vocabulary": "No fixed vocabulary; each item holds the finding, its current and proposed interpretations and the atom identifiers",
+      "example": "early models read as a rejection of sheltering, reread under sex-specific costs",
+      "basis": "ohf",
+      "field_class": "searchable",
+      "question_part": "data_reinterpreted"
+    },
+    {
+      "layer": "1 Claim core",
+      "path": "core.opens[]",
+      "definition": "New questions that the hypothesis makes worth asking, why they are not asked today and, when known, the method that would answer them. Serves the question: which new directions would the hypothesis open?",
+      "logical_type": "OpenedQuestion[]",
+      "vocabulary": "No fixed vocabulary; each item holds the question, why it could not be asked before, the enabling method and the atom identifiers",
+      "example": "whether ants spread bactericidal fatty acids by grooming",
+      "basis": "ohf",
+      "field_class": "searchable",
+      "question_part": "directions_opened"
+    },
+    {
+      "layer": "1 Claim core",
+      "path": "core.testability",
+      "definition": "Whether the claim can be tested in any system, in principle and in practice, with a justification and the cheapest known test. When a human study is the cheapest test, the test refers to profile.human_testability instead of restating it.",
+      "logical_type": "Testability",
+      "vocabulary": "OHF vocabulary: in_principle testable | not_testable | unclear; in_practice feasible_now | needs_new_method | not_feasible | unclear",
+      "example": "testable and feasible now, cheapest test a chemical disruptor",
+      "basis": "ohf",
+      "field_class": "searchable"
+    },
+    {
+      "layer": "1 Claim core",
+      "path": "core.first_proposed",
+      "definition": "When the idea was first proposed: a date at the stated precision, the record that shows it, and whether the date comes from the author's statement or from a bounded search. A bounded search names its search scope.",
+      "logical_type": "FirstProposal",
+      "vocabulary": "OHF vocabulary: precision year | month | day; basis author_statement | bounded_search",
+      "example": "1971, author statement",
+      "basis": "ohf",
+      "field_class": "searchable"
+    },
+    {
+      "layer": "2 Mechanism",
+      "path": "mechanism.summary",
+      "definition": "Author's narrative mechanism, separate from a verified causal conclusion.",
+      "logical_type": "Text",
+      "vocabulary": "Source wording",
+      "example": "X may alter process Y",
+      "basis": "indra",
+      "field_class": "searchable"
+    },
+    {
+      "layer": "2 Mechanism",
+      "path": "mechanism.black_box",
+      "definition": "Whether mechanism is explicitly treated as unknown/black-box, not merely omitted.",
+      "logical_type": "Boolean",
+      "vocabulary": "OHF author declaration",
+      "example": "true, if author states mechanism unknown",
+      "basis": "ohf",
+      "field_class": "author_only"
+    },
+    {
+      "layer": "2 Mechanism",
+      "path": "mechanism.entities[].id",
+      "definition": "Stable identifier for an explicitly grounded biological entity.",
+      "logical_type": "Identifier",
+      "vocabulary": "Identifiers from ChEBI, UniProt, GO, Reactome or another named registry",
+      "example": "UniProt:P42345 as a vocabulary example only",
+      "basis": "indra",
+      "field_class": "searchable"
+    },
+    {
+      "layer": "2 Mechanism",
+      "path": "mechanism.entities[].label",
+      "definition": "Source name of the entity and any verified normalized label.",
+      "logical_type": "Text",
+      "vocabulary": "Source wording; a normalized label names its registry release",
+      "example": "protein X",
+      "basis": "indra",
+      "field_class": "searchable"
+    },
+    {
+      "layer": "2 Mechanism",
+      "path": "mechanism.steps[].id",
+      "definition": "Identity of one proposed mechanistic step.",
+      "logical_type": "Identifier",
+      "vocabulary": "OHF local identifiers",
+      "example": "step-a",
+      "basis": "indra",
+      "field_class": "system"
+    },
+    {
+      "layer": "2 Mechanism",
+      "path": "mechanism.steps[].subject_ref",
+      "definition": "Grounded subject entity of the proposed step.",
+      "logical_type": "Reference",
+      "vocabulary": "Identifier of an entity in mechanism.entities[]",
+      "example": "entity-a",
+      "basis": "indra",
+      "field_class": "searchable"
+    },
+    {
+      "layer": "2 Mechanism",
+      "path": "mechanism.steps[].relation",
+      "definition": "Typed relation, with its ontology identifier and version when mapped.",
+      "logical_type": "Term",
+      "vocabulary": "RO or a reviewed domain relation mapping",
+      "example": "positively regulates, if stated",
+      "basis": "biolink",
+      "field_class": "searchable"
+    },
+    {
+      "layer": "2 Mechanism",
+      "path": "mechanism.steps[].sign",
+      "definition": "Declared positive, negative or unspecified effect, distinct from truth/negation.",
+      "logical_type": "Term",
+      "vocabulary": "OHF vocabulary: positive | negative | unspecified",
+      "example": "negative",
+      "basis": "indra",
+      "field_class": "searchable"
+    },
+    {
+      "layer": "2 Mechanism",
+      "path": "mechanism.steps[].object_ref",
+      "definition": "Grounded object entity of the proposed step.",
+      "logical_type": "Reference",
+      "vocabulary": "Identifier of an entity in mechanism.entities[]",
+      "example": "entity-b",
+      "basis": "indra",
+      "field_class": "searchable"
+    },
+    {
+      "layer": "2 Mechanism",
+      "path": "mechanism.steps[].evidence_type",
+      "definition": "Type of support for this step, not a numeric confidence invented from a citation.",
+      "logical_type": "Term",
+      "vocabulary": "ECO identifier with release/source locator",
+      "example": "author-stated experimental evidence type",
+      "basis": "eco",
+      "field_class": "searchable"
+    },
+    {
+      "layer": "2 Mechanism",
+      "path": "mechanism.steps[].evidence_refs[]",
+      "definition": "Evidence lines that assess this exact step.",
+      "logical_type": "Reference[]",
+      "vocabulary": "Identifiers of evidence.lines[] in this card",
+      "example": "evidence-line-a",
+      "basis": "sepio",
+      "field_class": "searchable"
+    },
+    {
+      "layer": "2 Mechanism",
+      "path": "mechanism.steps[].context",
+      "definition": "System and conditions of this step, retaining explicit deviations from the claim.",
+      "logical_type": "Qualifier[]",
+      "vocabulary": "Typed qualifiers, with the source terms retained",
+      "example": "cell system Z",
+      "basis": "biolink",
+      "field_class": "searchable"
+    },
+    {
+      "layer": "2 Mechanism",
+      "path": "mechanism.molecular_targets[]",
+      "definition": "Identified molecular targets and their supported roles in the proposed mechanism.",
+      "logical_type": "MolecularTarget[]",
+      "vocabulary": "OHF record",
+      "example": "fictional target T, with the primary role in the mechanism",
+      "basis": "ohf",
+      "field_class": "searchable"
+    },
+    {
+      "layer": "3 Predictions and estimands",
+      "path": "predictions[].id",
+      "definition": "Local identity of one prediction, distinct from an observed outcome.",
+      "logical_type": "Identifier",
+      "vocabulary": "OHF local identifiers",
+      "example": "prediction-a",
+      "basis": "ohf",
+      "field_class": "system"
+    },
+    {
+      "layer": "3 Predictions and estimands",
+      "path": "predictions[].population",
+      "definition": "Target population/system definition, not a convenience sample inferred by the converter.",
+      "logical_type": "Text",
+      "vocabulary": "ICH estimand population, in the source terms",
+      "example": "cell system Z as stated",
+      "basis": "ich",
+      "field_class": "searchable"
+    },
+    {
+      "layer": "3 Predictions and estimands",
+      "path": "predictions[].system.taxon",
+      "definition": "Source-stated organism, with a verified taxonomy mapping when available.",
+      "logical_type": "Term",
+      "vocabulary": "NCBI Taxonomy, otherwise explicit missingness",
+      "example": "NCBITaxon:10090 as a vocabulary example only",
+      "basis": "arrive",
+      "field_class": "searchable"
+    },
+    {
+      "layer": "3 Predictions and estimands",
+      "path": "predictions[].system.strain_or_line",
+      "definition": "Strain, genotype or cell-line identity, keeping supplied identifiers.",
+      "logical_type": "TextOrTerm",
+      "vocabulary": "Free text; use a strain or cell-line registry identifier where one exists",
+      "example": "cell line Z",
+      "basis": "arrive",
+      "field_class": "searchable"
+    },
+    {
+      "layer": "3 Predictions and estimands",
+      "path": "predictions[].system.sex",
+      "definition": "Source-stated sex or applicable population description.",
+      "logical_type": "TextOrTerm",
+      "vocabulary": "Source wording, without defaulting to both sexes",
+      "example": "not stated",
+      "basis": "arrive",
+      "field_class": "searchable"
+    },
+    {
+      "layer": "3 Predictions and estimands",
+      "path": "predictions[].system.age_at_start",
+      "definition": "Age when treatment or observation starts, with units and origin.",
+      "logical_type": "QuantityOrInterval",
+      "vocabulary": "UCUM-compatible units and explicit time origin",
+      "example": "10 weeks, fictional example",
+      "basis": "arrive",
+      "field_class": "searchable"
+    },
+    {
+      "layer": "3 Predictions and estimands",
+      "path": "predictions[].experimental_unit",
+      "definition": "Unit assigned to intervention or observed, distinct from organism label and analysis unit.",
+      "logical_type": "TextOrTerm",
+      "vocabulary": "Source study design",
+      "example": "culture well, fictional",
+      "basis": "arrive",
+      "field_class": "searchable"
+    },
+    {
+      "layer": "3 Predictions and estimands",
+      "path": "predictions[].system.assessment_age",
+      "definition": "Age at endpoint assessment, distinguished from treatment-start age and follow-up.",
+      "logical_type": "QuantityOrInterval",
+      "vocabulary": "Source-defined time origin",
+      "example": "not stated",
+      "basis": "arrive",
+      "field_class": "searchable"
+    },
+    {
+      "layer": "3 Predictions and estimands",
+      "path": "predictions[].system.site",
+      "definition": "Experimental site, laboratory or cohort context when relevant.",
+      "logical_type": "TextOrReference",
+      "vocabulary": "Source identifiers",
+      "example": "site A",
+      "basis": "arrive",
+      "field_class": "searchable"
+    },
+    {
+      "layer": "3 Predictions and estimands",
+      "path": "predictions[].system.kind",
+      "definition": "Level of organization of the test system.",
+      "logical_type": "Term",
+      "vocabulary": "OHF vocabulary: cell | tissue | organism | population | community | ecosystem | clade | in_silico | other",
+      "example": "community",
+      "basis": "ohf",
+      "field_class": "searchable"
+    },
+    {
+      "layer": "3 Predictions and estimands",
+      "path": "predictions[].system.environment",
+      "definition": "Conditions in which the system is studied, such as laboratory culture, a field site or a simulation.",
+      "logical_type": "Text",
+      "vocabulary": "Source text",
+      "example": "laboratory colonies",
+      "basis": "ohf",
+      "field_class": "searchable"
+    },
+    {
+      "layer": "3 Predictions and estimands",
+      "path": "predictions[].system.spatial_scale",
+      "definition": "Spatial extent of the system or of the observation, such as a culture well, a lake or a continent.",
+      "logical_type": "Text",
+      "vocabulary": "Source text",
+      "example": "whole lakes",
+      "basis": "ohf",
+      "field_class": "searchable"
+    },
+    {
+      "layer": "3 Predictions and estimands",
+      "path": "predictions[].system.temporal_scale",
+      "definition": "Time span over which the prediction applies, such as hours, a growing season or evolutionary time.",
+      "logical_type": "Text",
+      "vocabulary": "Source text",
+      "example": "about 350,000 generations",
+      "basis": "ohf",
+      "field_class": "searchable"
+    },
+    {
+      "layer": "3 Predictions and estimands",
+      "path": "predictions[].intervention.agent",
+      "definition": "Intervention identity, preserving mixtures and unresolved names.",
+      "logical_type": "TextOrTerm",
+      "vocabulary": "ChEBI or another named registry, otherwise the source name",
+      "example": "compound X",
+      "basis": "ich",
+      "field_class": "searchable"
+    },
+    {
+      "layer": "3 Predictions and estimands",
+      "path": "predictions[].intervention.dose",
+      "definition": "Dose value or range with unit, denominator and administration basis.",
+      "logical_type": "Quantity",
+      "vocabulary": "UCUM-compatible expression plus original dose string",
+      "example": "5 arbitrary units per culture, fictional",
+      "basis": "ucum",
+      "field_class": "searchable"
+    },
+    {
+      "layer": "3 Predictions and estimands",
+      "path": "predictions[].intervention.regimen",
+      "definition": "Frequency and administration schedule, without deriving it from a dose.",
+      "logical_type": "Text",
+      "vocabulary": "Source wording",
+      "example": "single exposure",
+      "basis": "ich",
+      "field_class": "searchable"
+    },
+    {
+      "layer": "3 Predictions and estimands",
+      "path": "predictions[].intervention.duration",
+      "definition": "Length of intervention, separate from observation horizon.",
+      "logical_type": "QuantityOrInterval",
+      "vocabulary": "UCUM-compatible duration",
+      "example": "48 hours, fictional",
+      "basis": "ucum",
+      "field_class": "searchable"
+    },
+    {
+      "layer": "3 Predictions and estimands",
+      "path": "predictions[].intervention.route",
+      "definition": "Administration route when stated and applicable.",
+      "logical_type": "TextOrTerm",
+      "vocabulary": "Free text; use a domain registry identifier where one exists",
+      "example": "in culture medium, fictional",
+      "basis": "arrive",
+      "field_class": "searchable"
+    },
+    {
+      "layer": "3 Predictions and estimands",
+      "path": "predictions[].intervention.formulation",
+      "definition": "Source-stated formulation and preparation, not inferred from the agent name.",
+      "logical_type": "Text",
+      "vocabulary": "Free text; use a domain registry identifier where one exists",
+      "example": "not stated",
+      "basis": "arrive",
+      "field_class": "searchable"
+    },
+    {
+      "layer": "3 Predictions and estimands",
+      "path": "predictions[].intervention.nominal_concentration",
+      "definition": "Nominal feed/medium concentration, with its own denominator and original unit.",
+      "logical_type": "Quantity",
+      "vocabulary": "UCUM-compatible syntax plus biological basis",
+      "example": "source dietary concentration, not delivered body dose",
+      "basis": "ucum",
+      "field_class": "searchable"
+    },
+    {
+      "layer": "3 Predictions and estimands",
+      "path": "predictions[].intervention.measured_concentration",
+      "definition": "Assayed concentration in the named preparation, with measurement context.",
+      "logical_type": "QuantityAndSource",
+      "vocabulary": "Declared assay/context",
+      "example": "not measured in supplied material",
+      "basis": "ohf",
+      "field_class": "searchable"
+    },
+    {
+      "layer": "3 Predictions and estimands",
+      "path": "predictions[].intervention.intake",
+      "definition": "Consumed quantity and timing when supplied, separate from concentration.",
+      "logical_type": "QuantityAndSource",
+      "vocabulary": "Source intake basis",
+      "example": "not stated",
+      "basis": "ohf",
+      "field_class": "searchable"
+    },
+    {
+      "layer": "3 Predictions and estimands",
+      "path": "predictions[].intervention.systemic_exposure",
+      "definition": "Measured or predicted systemic exposure, retaining specimen/time context.",
+      "logical_type": "QuantityAndSource",
+      "vocabulary": "Source assay, with specimen and time",
+      "example": "blood concentration, if supplied",
+      "basis": "ohf",
+      "field_class": "searchable"
+    },
+    {
+      "layer": "3 Predictions and estimands",
+      "path": "predictions[].comparator",
+      "definition": "Treatment/control condition defining the contrast.",
+      "logical_type": "TextOrRecord",
+      "vocabulary": "ICH treatment conditions, PICO comparator",
+      "example": "vehicle-treated system Z",
+      "basis": "ich",
+      "field_class": "searchable"
+    },
+    {
+      "layer": "3 Predictions and estimands",
+      "path": "predictions[].control_reference",
+      "definition": "Reference control distribution, line or protocol used to assess control quality.",
+      "logical_type": "SourceBoundRecord",
+      "vocabulary": "Source-bound record of the control",
+      "example": "matched control protocol A",
+      "basis": "ohf",
+      "field_class": "searchable"
+    },
+    {
+      "layer": "3 Predictions and estimands",
+      "path": "predictions[].control_quality",
+      "definition": "Attributed assessment of control comparability against that reference.",
+      "logical_type": "Assessment",
+      "vocabulary": "Declared criteria, not an imported p-value",
+      "example": "not assessed",
+      "basis": "ohf",
+      "field_class": "searchable"
+    },
+    {
+      "layer": "3 Predictions and estimands",
+      "path": "predictions[].endpoint",
+      "definition": "Variable measured and its operational definition, not a summary statistic.",
+      "logical_type": "TextOrTerm",
+      "vocabulary": "PATO/MP or reviewed phenotype mapping",
+      "example": "readout Y at 48 hours",
+      "basis": "ich",
+      "field_class": "searchable"
+    },
+    {
+      "layer": "3 Predictions and estimands",
+      "path": "predictions[].endpoint_orientation",
+      "definition": "Meaning of increasing or decreasing this endpoint, without assuming benefit.",
+      "logical_type": "Text",
+      "vocabulary": "Source-defined endpoint semantics",
+      "example": "higher deterioration differs from higher function",
+      "basis": "ohf",
+      "field_class": "searchable"
+    },
+    {
+      "layer": "3 Predictions and estimands",
+      "path": "predictions[].relational_prediction",
+      "definition": "Declared multi-arm ordering or interaction contrast, not invented independent binary effects.",
+      "logical_type": "RelationRecord",
+      "vocabulary": "Author-stated ordering and conditions",
+      "example": "A exceeds B exceeds C, fictional",
+      "basis": "ohf",
+      "field_class": "searchable"
+    },
+    {
+      "layer": "3 Predictions and estimands",
+      "path": "predictions[].endpoint_kind",
+      "definition": "Level/type of endpoint, retaining original distinction from lifespan or efficacy.",
+      "logical_type": "Term",
+      "vocabulary": "Term for the level of the endpoint, such as in_vitro; OHF 1.0 fixes no list",
+      "example": "in_vitro",
+      "basis": "ohf",
+      "field_class": "searchable"
+    },
+    {
+      "layer": "3 Predictions and estimands",
+      "path": "predictions[].summary_measure",
+      "definition": "Population-level summary and contrast, including scale and statistic identity.",
+      "logical_type": "SummaryMeasure",
+      "vocabulary": "ICH estimand, STATO where verified",
+      "example": "difference in mean readout Y",
+      "basis": "ich",
+      "field_class": "searchable"
+    },
+    {
+      "layer": "3 Predictions and estimands",
+      "path": "predictions[].summary_measure.contrast",
+      "definition": "Exact difference, ratio or other contrast and reference direction.",
+      "logical_type": "TextOrTerm",
+      "vocabulary": "Author-defined contrast",
+      "example": "difference versus vehicle",
+      "basis": "ich",
+      "field_class": "searchable"
+    },
+    {
+      "layer": "3 Predictions and estimands",
+      "path": "predictions[].summary_measure.scale",
+      "definition": "Scale of the target summary, not the inferential test used.",
+      "logical_type": "TextOrTerm",
+      "vocabulary": "Source definition and verified STATO mapping when available",
+      "example": "original readout units",
+      "basis": "ich",
+      "field_class": "searchable"
+    },
+    {
+      "layer": "3 Predictions and estimands",
+      "path": "predictions[].intercurrent_events[].event",
+      "definition": "Event affecting interpretation of the stated endpoint.",
+      "logical_type": "TextOrTerm",
+      "vocabulary": "Source event definition",
+      "example": "treatment discontinuation, when relevant",
+      "basis": "ich",
+      "field_class": "searchable"
+    },
+    {
+      "layer": "3 Predictions and estimands",
+      "path": "predictions[].intercurrent_events[].strategy",
+      "definition": "Declared strategy for this particular event.",
+      "logical_type": "Term",
+      "vocabulary": "ICH strategy family only when source-stated",
+      "example": "hypothetical, if explicitly declared",
+      "basis": "ich",
+      "field_class": "author_only"
+    },
+    {
+      "layer": "3 Predictions and estimands",
+      "path": "predictions[].intercurrent_events[].justification",
+      "definition": "Source rationale for the event strategy and target scientific question.",
+      "logical_type": "TextAndSource",
+      "vocabulary": "ICH-informed OHF adaptation",
+      "example": "not stated",
+      "basis": "ich",
+      "field_class": "author_only"
+    },
+    {
+      "layer": "3 Predictions and estimands",
+      "path": "predictions[].intercurrent_events[]",
+      "definition": "Each event affecting interpretation and its declared estimand strategy.",
+      "logical_type": "EventStrategy[]",
+      "vocabulary": "ICH five strategy families",
+      "example": "event E handled by a hypothetical strategy, if stated",
+      "basis": "ich",
+      "field_class": "searchable"
+    },
+    {
+      "layer": "3 Predictions and estimands",
+      "path": "predictions[].missing_data_plan",
+      "definition": "Missing observations and administrative censoring, separate from intercurrent events.",
+      "logical_type": "Text",
+      "vocabulary": "Study/analysis plan",
+      "example": "not stated",
+      "basis": "ich",
+      "field_class": "author_only"
+    },
+    {
+      "layer": "3 Predictions and estimands",
+      "path": "predictions[].direction",
+      "definition": "Source-stated increase, decrease, qualitative no-change, exact-null or bounded equivalence, retaining modality and reference direction. Missing equivalence margins remain an operationalization gap; a non-significant result establishes none of these claims.",
+      "logical_type": "Term",
+      "vocabulary": "Term for one of the directions in the definition; bounded equivalence requires explicit margins, scale and decision rule",
+      "example": "decrease",
+      "basis": "ohf",
+      "field_class": "searchable"
+    },
+    {
+      "layer": "3 Predictions and estimands",
+      "path": "predictions[].threshold",
+      "definition": "Author-stated decision/effect threshold, its units and strictness.",
+      "logical_type": "QuantityOrRule",
+      "vocabulary": "Source wording",
+      "example": "qualitatively lower, no numeric threshold supplied",
+      "basis": "ohf",
+      "field_class": "author_only"
+    },
+    {
+      "layer": "3 Predictions and estimands",
+      "path": "predictions[].equivalence_bounds",
+      "definition": "Prespecified equivalence margins and scale; absence of significance is not equivalence.",
+      "logical_type": "IntervalAndRule",
+      "vocabulary": "Declared SESOI/TOST-style design, not inferred",
+      "example": "lower/upper margins not stated",
+      "basis": "ohf",
+      "field_class": "author_only"
+    },
+    {
+      "layer": "3 Predictions and estimands",
+      "path": "predictions[].horizon",
+      "definition": "Time from an explicitly stated origin to the predicted endpoint.",
+      "logical_type": "QuantityOrInterval",
+      "vocabulary": "UCUM-compatible duration",
+      "example": "48 hours after exposure",
+      "basis": "ich",
+      "field_class": "searchable"
+    },
+    {
+      "layer": "3 Predictions and estimands",
+      "path": "predictions[].age_window",
+      "definition": "Age range in which the effect is asserted, separate from study start age.",
+      "logical_type": "Interval",
+      "vocabulary": "Source wording, with the age unit the source states",
+      "example": "not stated",
+      "basis": "ohf",
+      "field_class": "searchable"
+    },
+    {
+      "layer": "3 Predictions and estimands",
+      "path": "predictions[].effect_modifiers[]",
+      "definition": "Prespecified factors modifying the predicted effect and their stated directions.",
+      "logical_type": "Qualifier[]",
+      "vocabulary": "Typed qualifiers declared by the author",
+      "example": "sex-specific effect, if stated",
+      "basis": "biolink",
+      "field_class": "author_only"
+    },
+    {
+      "layer": "3 Predictions and estimands",
+      "path": "predictions[].predictive_uncertainty",
+      "definition": "Author-stated predictive interval or event probability with target and scale.",
+      "logical_type": "DistributionOrAssessment",
+      "vocabulary": "Explicit method/coverage or elicitation",
+      "example": "interval and coverage not stated",
+      "basis": "ohf",
+      "field_class": "author_only"
+    },
+    {
+      "layer": "3 Predictions and estimands",
+      "path": "predictions[].intermediate_tests[].observable",
+      "definition": "Intermediate observable and null/alternative hypotheses. This path is the sourced observable component; H0, H1, procedure and phase are its TestRecord siblings.",
+      "logical_type": "Text",
+      "vocabulary": "Source text of the observable",
+      "example": "test h0 versus h1 for observable Y",
+      "basis": "popper",
+      "field_class": "searchable"
+    },
+    {
+      "layer": "3 Predictions and estimands",
+      "path": "predictions[].intermediate_tests[].validity_justification",
+      "definition": "Separate justification for the required main-null implies subtest-null relation.",
+      "logical_type": "TextAndSource",
+      "vocabulary": "A declared proof/argument, never inferred from the prompt",
+      "example": "not established",
+      "basis": "popper",
+      "field_class": "searchable"
+    },
+    {
+      "layer": "3 Predictions and estimands",
+      "path": "predictions[].test_plan_ref",
+      "definition": "Source-bound experimental plan, kept separate from actual results.",
+      "logical_type": "Reference",
+      "vocabulary": "Reference to appendix.experiment_plan or to a preregistration",
+      "example": "experiment-plan-a",
+      "basis": "osf",
+      "field_class": "searchable"
+    },
+    {
+      "layer": "3 Predictions and estimands",
+      "path": "predictions[].test_cost",
+      "definition": "Source-grounded basis and confidence for estimated test resources, duration and monetary cost; unavailable components remain gaps.",
+      "logical_type": "TestCost",
+      "vocabulary": "OHF record",
+      "example": "about two weeks on one bench, 1000 to 1500 EUR in 2026",
+      "basis": "ohf",
+      "field_class": "searchable"
+    },
+    {
+      "layer": "3 Predictions and estimands",
+      "path": "predictions[].role",
+      "definition": "Source-grounded primary or secondary role of the prediction.",
+      "logical_type": "primary|secondary",
+      "vocabulary": "OHF record",
+      "example": "primary",
+      "basis": "ohf",
+      "field_class": "searchable"
+    },
+    {
+      "layer": "3 Predictions and estimands",
+      "path": "predictions[].resolution",
+      "definition": "Source-supported resolution criterion, event or check location, official outcome and separately attributed candidate observations; unavailable components remain gaps.",
+      "logical_type": "Resolution",
+      "vocabulary": "OHF record",
+      "example": "holds if counter Y is at least 10 percent higher with agent Q after 20 cycles",
+      "basis": "ohf",
+      "field_class": "searchable"
+    },
+    {
+      "layer": "3 Predictions and estimands",
+      "path": "predictions[].existing_data_tests[]",
+      "definition": "Identified existing datasets and what each could test, with source-supported access and partial duration or cost estimates. Retaining a reference or access record does not imply possession of the dataset.",
+      "logical_type": "ExistingDataTest[]",
+      "vocabulary": "OHF record",
+      "example": "dataset D4: counter Y for 200 runs with and without agent Q",
+      "basis": "ohf",
+      "field_class": "searchable"
+    },
+    {
+      "layer": "3 Predictions and estimands",
+      "path": "predictions[].epistemic_status",
+      "definition": "Whether the prediction was stated before its result was known (novel), derived for a result already known (retrodicted), or adjusted to fit a known result (accommodated).",
+      "logical_type": "Term",
+      "vocabulary": "OHF vocabulary: novel | retrodicted | accommodated",
+      "example": "retrodicted",
+      "basis": "ohf",
+      "field_class": "searchable"
+    },
+    {
+      "layer": "3 Predictions and estimands",
+      "path": "predictions[].known_result_ref",
+      "definition": "The known result that a retrodicted or accommodated prediction was derived for or fitted to: an evidence line of this card or an external record. Required for those two statuses.",
+      "logical_type": "Reference",
+      "vocabulary": "Card pointer or external reference",
+      "example": "a pointer to an evidence line",
+      "basis": "ohf",
+      "field_class": "searchable"
+    },
+    {
+      "layer": "3 Predictions and estimands",
+      "path": "predictions[].form",
+      "definition": "Logical form of the prediction, which says what kind of observation tests it. A direction is needed only for a directional contrast.",
+      "logical_type": "Term",
+      "vocabulary": "OHF vocabulary: directional_contrast | presence_absence | parameter_value | functional_form | pattern | distribution | phylogenetic_comparative | historical_counterfactual",
+      "example": "phylogenetic_comparative",
+      "basis": "ohf",
+      "field_class": "searchable"
+    },
+    {
+      "layer": "3 Predictions and estimands",
+      "path": "predictions[].derives_from_atom_refs[]",
+      "definition": "Identifiers of the claim atoms from which the prediction follows.",
+      "logical_type": "Identifier[]",
+      "vocabulary": "Identifiers of core.atoms[] in this card",
+      "example": "a_bactericide_first",
+      "basis": "ohf",
+      "field_class": "searchable"
+    },
+    {
+      "layer": "3 Predictions and estimands",
+      "path": "predictions[].also_expected_under[]",
+      "definition": "Alternatives under which the same outcome is also expected: a reference to an item of core.alternative_explanations[], or the vocabulary value unspecified_other_mechanism. Free text is not allowed.",
+      "logical_type": "AlternativeReference[]",
+      "vocabulary": "OHF vocabulary: card pointer or unspecified_other_mechanism",
+      "example": "a pointer to an item of core.alternative_explanations",
+      "basis": "ohf",
+      "field_class": "searchable"
+    },
+    {
+      "layer": "3 Predictions and estimands",
+      "path": "predictions[].discrimination",
+      "definition": "How well the outcome separates the hypothesis from the alternatives that also expect it: none, weak or strong. It is the assessment of whoever recorded it, held in the added zone with its assessor, not a statement of the hypothesis author.",
+      "logical_type": "Assessment",
+      "vocabulary": "OHF vocabulary: none | weak | strong",
+      "example": "weak",
+      "basis": "ohf",
+      "field_class": "author_only",
+      "zones": [
+        "added"
+      ]
+    },
+    {
+      "layer": "4 Evidence",
+      "path": "evidence.lines[].id",
+      "definition": "Identity of one evidence assessment about an exact claim, step or prediction.",
+      "logical_type": "Identifier",
+      "vocabulary": "Card-local identifier",
+      "example": "evidence-line-a",
+      "basis": "sepio",
+      "field_class": "system"
+    },
+    {
+      "layer": "4 Evidence",
+      "path": "evidence.lines[].target_ref",
+      "definition": "Versioned proposition, atom, mechanism step or prediction being assessed.",
+      "logical_type": "Reference",
+      "vocabulary": "OHF scoped references",
+      "example": "prediction-a of proposition-a@1",
+      "basis": "sepio",
+      "field_class": "searchable"
+    },
+    {
+      "layer": "4 Evidence",
+      "path": "evidence.lines[].direction",
+      "definition": "Whether the assessed evidence supports, disputes or is neutral toward the target.",
+      "logical_type": "Term",
+      "vocabulary": "SEPIO direction with original source stance retained",
+      "example": "neutral, not a missing-evidence marker",
+      "basis": "sepio",
+      "field_class": "searchable"
+    },
+    {
+      "layer": "4 Evidence",
+      "path": "evidence.lines[].items[]",
+      "definition": "Data, study or passage items supporting the assessment, with versions and locators.",
+      "logical_type": "SourceBoundRecord[]",
+      "vocabulary": "SEPIO evidence items",
+      "example": "source A, passage locator B",
+      "basis": "sepio",
+      "field_class": "searchable"
+    },
+    {
+      "layer": "4 Evidence",
+      "path": "evidence.lines[].quote",
+      "definition": "Exact quoted text with byte/text locator, verification state and reuse basis.",
+      "logical_type": "VerifiedQuotation",
+      "vocabulary": "OHF quotation contract",
+      "example": "short source passage or not supplied",
+      "basis": "ohf",
+      "field_class": "searchable"
+    },
+    {
+      "layer": "4 Evidence",
+      "path": "evidence.lines[].evidence_type",
+      "definition": "Evidence category, not a quality score.",
+      "logical_type": "Term",
+      "vocabulary": "ECO with pinned term/version",
+      "example": "source-stated assay evidence",
+      "basis": "eco",
+      "field_class": "searchable"
+    },
+    {
+      "layer": "4 Evidence",
+      "path": "evidence.lines[].knowledge_level",
+      "definition": "Knowledge-level qualifier for the particular association/assertion.",
+      "logical_type": "Term",
+      "vocabulary": "Pinned Biolink enum",
+      "example": "prediction, only after an explicit reviewed source mapping",
+      "basis": "biolink",
+      "field_class": "searchable"
+    },
+    {
+      "layer": "4 Evidence",
+      "path": "evidence.lines[].agent_type",
+      "definition": "How the evidence assertion was produced, attached to the specific association.",
+      "logical_type": "Term",
+      "vocabulary": "Pinned Biolink enum",
+      "example": "automated_agent, only if explicitly supported",
+      "basis": "biolink",
+      "field_class": "searchable"
+    },
+    {
+      "layer": "4 Evidence",
+      "path": "evidence.lines[].hypothesis_flag",
+      "definition": "Explicit source epistemic hypothesis flag; absence is not false.",
+      "logical_type": "Boolean",
+      "vocabulary": "INDRA optional epistemics",
+      "example": "not stated",
+      "basis": "indra",
+      "field_class": "searchable"
+    },
+    {
+      "layer": "4 Evidence",
+      "path": "evidence.lines[].negated_flag",
+      "definition": "Explicit source negation flag; distinguish negating a relation from negative evidence.",
+      "logical_type": "Boolean",
+      "vocabulary": "INDRA optional epistemics",
+      "example": "true only when stated",
+      "basis": "indra",
+      "field_class": "searchable"
+    },
+    {
+      "layer": "4 Evidence",
+      "path": "evidence.lines[].study_system",
+      "definition": "System, population and context of the evidence, not automatically that of the claim.",
+      "logical_type": "TextOrRecord",
+      "vocabulary": "Source wording of the study system",
+      "example": "cell system Q, distinct from Z",
+      "basis": "arrive",
+      "field_class": "searchable"
+    },
+    {
+      "layer": "4 Evidence",
+      "path": "evidence.lines[].study_type",
+      "definition": "Study design and status, including whether proposed or executed.",
+      "logical_type": "Term",
+      "vocabulary": "Source design vocabulary with reviewed mapping",
+      "example": "in vitro experiment",
+      "basis": "arrive",
+      "field_class": "searchable"
+    },
+    {
+      "layer": "4 Evidence",
+      "path": "evidence.lines[].result_estimate",
+      "definition": "Observed estimate with units, contrast, sample/context and source, separate from its target quantity.",
+      "logical_type": "QuantityAndSource",
+      "vocabulary": "Source analysis output",
+      "example": "estimate not supplied",
+      "basis": "ohf",
+      "field_class": "searchable"
+    },
+    {
+      "layer": "4 Evidence",
+      "path": "evidence.lines[].confidence_interval",
+      "definition": "Interval for an estimate with confidence level/method, not a predictive interval or author belief.",
+      "logical_type": "IntervalAndSource",
+      "vocabulary": "Source statistical report",
+      "example": "not supplied",
+      "basis": "ohf",
+      "field_class": "searchable"
+    },
+    {
+      "layer": "4 Evidence",
+      "path": "evidence.lines[].statistical_procedure",
+      "definition": "Analysis/test actually proposed or performed, with status and assumptions.",
+      "logical_type": "TextAndSource",
+      "vocabulary": "Study analysis report",
+      "example": "test name only when stated",
+      "basis": "arrive",
+      "field_class": "searchable"
+    },
+    {
+      "layer": "4 Evidence",
+      "path": "evidence.lines[].strength",
+      "definition": "Attributed strength/score with scale, assessor and interpretation retained. It is the assessment of whoever recorded it, with that assessor and a justification, not necessarily the hypothesis author.",
+      "logical_type": "Assessment",
+      "vocabulary": "SEPIO strength/score, no automatic OHF scale",
+      "example": "author qualitative assessment",
+      "basis": "sepio",
+      "field_class": "author_only"
+    },
+    {
+      "layer": "4 Evidence",
+      "path": "evidence.lines[].retraction_status",
+      "definition": "Source notices, corrections and retractions with verification date and locator.",
+      "logical_type": "SourceBoundRecord",
+      "vocabulary": "Publisher or registry notices, with the date of the check",
+      "example": "not checked",
+      "basis": "ohf",
+      "field_class": "searchable"
+    },
+    {
+      "layer": "4 Evidence",
+      "path": "evidence.references[].identifier",
+      "definition": "Persistent source identifier or unresolved source reference without fabrication.",
+      "logical_type": "IdentifierOrLocator",
+      "vocabulary": "DOI/PMID/accession when supplied",
+      "example": "urn:example:source-a (reserved illustrative identifier)",
+      "basis": "ohf",
+      "field_class": "searchable"
+    },
+    {
+      "layer": "4 Evidence",
+      "path": "evidence.references[].citation_relation",
+      "definition": "Typed relation of this citation to the current assertion, distinct from biological causation.",
+      "logical_type": "Term",
+      "vocabulary": "CiTO when explicitly reviewed",
+      "example": "source cited as context",
+      "basis": "cito",
+      "field_class": "searchable"
+    },
+    {
+      "layer": "4 Evidence",
+      "path": "evidence.references[].access_context",
+      "definition": "Retained retrieval and inspection context distinguishing available material from material actually inspected.",
+      "logical_type": "AccessContext",
+      "vocabulary": "OHF record",
+      "example": "full text retrieved and inspected on 2026-01-01",
+      "basis": "ohf",
+      "field_class": "system"
+    },
+    {
+      "layer": "4 Evidence",
+      "path": "evidence.lines[].replication",
+      "definition": "Source-supported independent and failed replication evidence with an explicit assessment status.",
+      "logical_type": "Replication",
+      "vocabulary": "OHF record",
+      "example": "repeated once by an independent group with the same result",
+      "basis": "ohf",
+      "field_class": "searchable"
+    },
+    {
+      "layer": "4 Evidence",
+      "path": "evidence.lines[].indirectness",
+      "definition": "How far the evidence is from the claim it is attached to, judged separately for the test system, the endpoint, the intervention and the comparison: none, some, serious or not applicable. It is the assessment of whoever recorded it.",
+      "logical_type": "Assessment",
+      "vocabulary": "OHF vocabulary, not GRADE or RoB 2: a mapping to external schemes follows only after a check against their primary sources; none | some | serious | not_applicable",
+      "example": "system serious (mouse for human), endpoint none",
+      "basis": "ohf",
+      "field_class": "author_only",
+      "zones": [
+        "added"
+      ]
+    },
+    {
+      "layer": "4 Evidence",
+      "path": "evidence.lines[].risk_of_bias",
+      "definition": "Risk that the study behind the line is biased: low, some, high or not assessed, with an optional tool reference and note. It is the assessment of whoever recorded it.",
+      "logical_type": "Assessment",
+      "vocabulary": "OHF vocabulary, not GRADE or RoB 2: a mapping to external schemes follows only after a check against their primary sources; low | some | high | not_assessed",
+      "example": "not_assessed",
+      "basis": "ohf",
+      "field_class": "author_only",
+      "zones": [
+        "added"
+      ]
+    },
+    {
+      "layer": "4 Evidence",
+      "path": "evidence.lines[].independence_group",
+      "definition": "Lines with the same group label rest on the same data, study or laboratory and are not independent of each other.",
+      "logical_type": "Identifier",
+      "vocabulary": "Card-local label",
+      "example": "g_head_extracts",
+      "basis": "ohf",
+      "field_class": "author_only",
+      "zones": [
+        "added"
+      ]
+    },
+    {
+      "layer": "4 Evidence",
+      "path": "evidence.lines[].argument_kind",
+      "definition": "Whether the line rests on observation or experiment (empirical), on a simulation, or on a mathematical derivation or proof.",
+      "logical_type": "Term",
+      "vocabulary": "OHF vocabulary: empirical | simulation | derivation",
+      "example": "derivation",
+      "basis": "ohf",
+      "field_class": "author_only",
+      "zones": [
+        "added"
+      ]
+    },
+    {
+      "layer": "4 Evidence",
+      "path": "evidence.selection_record",
+      "definition": "How the evidence lines were selected: the queries run and the number of records identified, screened and included, with the reasons and counts for exclusions.",
+      "logical_type": "SelectionRecord",
+      "vocabulary": "OHF vocabulary: counts, not a PRISMA flow diagram",
+      "example": "3 queries, 40 identified, 12 screened, 4 included",
+      "basis": "ohf",
+      "field_class": "system",
+      "zones": [
+        "added"
+      ]
+    },
+    {
+      "layer": "4 Evidence",
+      "path": "evidence.references[].funding_coi",
+      "definition": "Source-reported funding and conflict-of-interest declarations, distinguishing explicit absence from unreported information.",
+      "logical_type": "FundingCOI",
+      "vocabulary": "OHF record",
+      "example": "funded by fund G; authors declare no competing interests",
+      "basis": "ohf",
+      "field_class": "searchable"
+    },
+    {
+      "layer": "5 Provenance",
+      "path": "provenance.claim_author",
+      "definition": "Author of the scientific content, separate from whoever entered the record and from any translator.",
+      "logical_type": "AgentReference",
+      "vocabulary": "Declared person/organization/AI identity",
+      "example": "author-a",
+      "basis": "sepio",
+      "field_class": "searchable"
+    },
+    {
+      "layer": "5 Provenance",
+      "path": "provenance.author_type",
+      "definition": "Declared author/agent kind without inferring legal identity.",
+      "logical_type": "Term",
+      "vocabulary": "OHF agent vocabulary, with source declaration",
+      "example": "human",
+      "basis": "ohf",
+      "field_class": "searchable"
+    },
+    {
+      "layer": "5 Provenance",
+      "path": "provenance.model",
+      "definition": "Actual declared model and version used for generation or extraction, with attestation basis.",
+      "logical_type": "SourceBoundRecord",
+      "vocabulary": "Provider report or explicitly client-declared identity",
+      "example": "model declaration not supplied",
+      "basis": "ohf",
+      "field_class": "searchable"
+    },
+    {
+      "layer": "5 Provenance",
+      "path": "provenance.origin_method",
+      "definition": "How this claim arose, distinct from who authored it.",
+      "logical_type": "Term",
+      "vocabulary": "OHF: de_novo, refine, merge, import, published_restatement",
+      "example": "published_restatement",
+      "basis": "hep",
+      "field_class": "searchable"
+    },
+    {
+      "layer": "5 Provenance",
+      "path": "provenance.generation_heuristic",
+      "definition": "Author-declared method such as anomaly, analogy or screening.",
+      "logical_type": "TextOrTerm",
+      "vocabulary": "Method declared by the author, not inferred from writing style",
+      "example": "analogy, if stated",
+      "basis": "ohf",
+      "field_class": "author_only"
+    },
+    {
+      "layer": "5 Provenance",
+      "path": "provenance.parent_refs[]",
+      "definition": "Actual refinement/merge parents with versioned lineage and transformation scope.",
+      "logical_type": "VersionReference[]",
+      "vocabulary": "HEP generation lineage",
+      "example": "proposition-parent@1",
+      "basis": "hep",
+      "field_class": "system"
+    },
+    {
+      "layer": "5 Provenance",
+      "path": "provenance.inspiration_refs[]",
+      "definition": "Attributed inspirations; inspiration does not itself create a descendant relation.",
+      "logical_type": "Reference[]",
+      "vocabulary": "References to attributed sources of inspiration",
+      "example": "source-a",
+      "basis": "moose",
+      "field_class": "searchable"
+    },
+    {
+      "layer": "5 Provenance",
+      "path": "provenance.foreknowledge",
+      "definition": "What relevant data/results the author knew, with declaration time and scope.",
+      "logical_type": "SourceBoundRecord",
+      "vocabulary": "Source-bound declaration of what the author knew",
+      "example": "outcome knowledge not stated",
+      "basis": "osf",
+      "field_class": "searchable"
+    },
+    {
+      "layer": "5 Provenance",
+      "path": "provenance.original_artifact",
+      "definition": "Exact original bytes or retained artifact reference, encoding/media type and byte hash.",
+      "logical_type": "ByteArtifact",
+      "vocabulary": "OHF SHA-256 byte binding, not a Trusty URI",
+      "example": "source artifact A with hash supplied by ingestion",
+      "basis": "nanopub",
+      "field_class": "system"
+    },
+    {
+      "layer": "5 Provenance",
+      "path": "provenance.field_sources[]",
+      "definition": "Field path, exact source artifact hash and locator for each extracted assertion.",
+      "logical_type": "FieldSource[]",
+      "vocabulary": "OHF extraction provenance",
+      "example": "core.statement -> source-a span",
+      "basis": "ohf",
+      "field_class": "system"
+    },
+    {
+      "layer": "5 Provenance",
+      "path": "provenance.transformation",
+      "definition": "Converter versions, prompt or configuration references, and explicit changes.",
+      "logical_type": "SourceBoundRecord",
+      "vocabulary": "OHF immutable component identity",
+      "example": "converter version and exact configuration",
+      "basis": "ohf",
+      "field_class": "system"
+    },
+    {
+      "layer": "5 Provenance",
+      "path": "provenance.translation",
+      "definition": "Original language/text, translated proposal and translator identity/basis.",
+      "logical_type": "TranslationRecord",
+      "vocabulary": "OHF labelled translation contract",
+      "example": "proposed English translation, source retained",
+      "basis": "ohf",
+      "field_class": "searchable"
+    },
+    {
+      "layer": "5 Provenance",
+      "path": "provenance.licence",
+      "definition": "Asset-specific licence/permission and conditions, distinct from source-site software licence.",
+      "logical_type": "RightsRecord",
+      "vocabulary": "SPDX identifier only when verified, otherwise verbatim terms",
+      "example": "reuse basis pending",
+      "basis": "ohf",
+      "field_class": "searchable"
+    },
+    {
+      "layer": "5 Provenance",
+      "path": "provenance.contributions[]",
+      "definition": "Who created, curated, translated or reviewed each record and when.",
+      "logical_type": "Contribution[]",
+      "vocabulary": "SEPIO Contribution, nanopub publication provenance",
+      "example": "curator-a reviewed version 1",
+      "basis": "sepio",
+      "field_class": "system"
+    },
+    {
+      "layer": "5 Provenance",
+      "path": "provenance.registration",
+      "definition": "Registration time and immutable record, distinct from assertion/source times. It records the registration of this hypothesis record itself; registrations of studies cited as evidence, such as trial registry entries, belong in evidence.references.",
+      "logical_type": "SourceBoundRecord",
+      "vocabulary": "Source-bound record of the registration event",
+      "example": "registration pending",
+      "basis": "ohf",
+      "field_class": "system"
+    },
+    {
+      "layer": "5 Provenance",
+      "path": "provenance.heuristic_principle[]",
+      "definition": "Source-grounded heuristic principles used in the claim, with a pinned vocabulary and explicit justification.",
+      "logical_type": "HeuristicPrinciple[]",
+      "vocabulary": "OHF record",
+      "example": "competing-explanations, justified by \"We compared competing explanations\"",
+      "basis": "ohf",
+      "field_class": "searchable"
+    },
+    {
+      "layer": "6 Profile",
+      "path": "profile.dose_response.shape",
+      "definition": "Author-stated form of the dose-response relation, not fitted from prose.",
+      "logical_type": "Term",
+      "vocabulary": "Source wording, such as monotone; OHF 1.0 fixes no list",
+      "example": "monotone, if stated",
+      "basis": "ohf",
+      "field_class": "author_only"
+    },
+    {
+      "layer": "6 Profile",
+      "path": "profile.dose_response.x_axis",
+      "definition": "What varies along the curve: concentration, delivered dose or exposure, with units.",
+      "logical_type": "TextAndQuantity",
+      "vocabulary": "Source declaration",
+      "example": "exposure duration, not automatically dose",
+      "basis": "ohf",
+      "field_class": "searchable"
+    },
+    {
+      "layer": "6 Profile",
+      "path": "profile.dose_response.endpoint_ref",
+      "definition": "Endpoint and system whose response shape is claimed.",
+      "logical_type": "Reference",
+      "vocabulary": "Versioned prediction/context",
+      "example": "prediction-a",
+      "basis": "ohf",
+      "field_class": "searchable"
+    },
+    {
+      "layer": "6 Profile",
+      "path": "profile.dose_response.range",
+      "definition": "Dose range and conditions to which that shape applies.",
+      "logical_type": "QuantityInterval",
+      "vocabulary": "UCUM-compatible quantities with original wording",
+      "example": "not stated",
+      "basis": "ucum",
+      "field_class": "searchable"
+    },
+    {
+      "layer": "6 Profile",
+      "path": "profile.combination.components[]",
+      "definition": "Individual agents/doses and how their combination is administered.",
+      "logical_type": "Intervention[]",
+      "vocabulary": "Intervention records, as in predictions[].intervention",
+      "example": "X plus Y, fictional",
+      "basis": "ohf",
+      "field_class": "searchable"
+    },
+    {
+      "layer": "6 Profile",
+      "path": "profile.combination.reference_model",
+      "definition": "Named reference expectation for the exact endpoint/system, with its assumptions and scale; reference models are not interchangeable additive formulas.",
+      "logical_type": "Term",
+      "vocabulary": "Bliss, Loewe, HSA or ZIP when explicitly supplied",
+      "example": "not stated",
+      "basis": "ohf",
+      "field_class": "searchable"
+    },
+    {
+      "layer": "6 Profile",
+      "path": "profile.combination.effect",
+      "definition": "Observed or predicted combination contrast under that named model.",
+      "logical_type": "Assessment",
+      "vocabulary": "Declared scale and study context",
+      "example": "not assessed",
+      "basis": "ohf",
+      "field_class": "searchable"
+    },
+    {
+      "layer": "6 Profile",
+      "path": "profile.biomarker.role",
+      "definition": "Repeatable attributed roles bound to an explicit readout/prediction reference and context of use; roles may include exposure, target engagement, mediator, prognostic marker, clock, surrogate or direct endpoint.",
+      "logical_type": "Term",
+      "vocabulary": "Source wording of the role; OHF 1.0 fixes no list",
+      "example": "biomarker, not lifespan",
+      "basis": "ohf",
+      "field_class": "searchable"
+    },
+    {
+      "layer": "6 Profile",
+      "path": "profile.biomarker.validation",
+      "definition": "Repeatable validation assessments bound to an explicit readout/prediction reference, target outcome, system/population and intervention context; validation cannot transfer between predictions by proximity.",
+      "logical_type": "EvidenceAssessment",
+      "vocabulary": "Endpoint/population/intervention-specific validation",
+      "example": "not established",
+      "basis": "ohf",
+      "field_class": "searchable"
+    },
+    {
+      "layer": "6 Profile",
+      "path": "profile.harm",
+      "definition": "Predicted or observed adverse effects with dose/system/time context and source.",
+      "logical_type": "PredictionOrOutcomeReference",
+      "vocabulary": "Separate harm endpoint and provenance",
+      "example": "harm not stated",
+      "basis": "ohf",
+      "field_class": "searchable"
+    },
+    {
+      "layer": "6 Profile",
+      "path": "profile.transfer_scope",
+      "definition": "Limits on transfer across sex, strain, species or human populations.",
+      "logical_type": "TextAndEvidence",
+      "vocabulary": "Declared applicability assessment",
+      "example": "no human benefit claim",
+      "basis": "ohf",
+      "field_class": "searchable"
+    },
+    {
+      "layer": "6 Profile",
+      "path": "profile.function_process",
+      "definition": "Function/process under discussion, with optional hallmarks mapping kept separate.",
+      "logical_type": "TextOrTerm",
+      "vocabulary": "Reviewed GO/Reactome mapping, no mandatory hallmarks ontology",
+      "example": "process Y",
+      "basis": "ohf",
+      "field_class": "searchable"
+    },
+    {
+      "layer": "6 Profile",
+      "path": "profile.human_testability",
+      "definition": "Source-supported human feasibility, ethical constraints, regulatory path and prerequisites, preserving unknown components.",
+      "logical_type": "HumanTestability",
+      "vocabulary": "OHF record",
+      "example": "no human counterpart; no human study applies",
+      "basis": "ohf",
+      "field_class": "searchable"
+    },
+    {
+      "layer": "7 Free appendix",
+      "path": "appendix.rationale",
+      "definition": "Source-attributed scientific explanation/background kept separate from field extraction.",
+      "logical_type": "Text",
+      "vocabulary": "Author narrative",
+      "example": "source rationale retained as narrative",
+      "basis": "coscientist",
+      "field_class": "searchable"
+    },
+    {
+      "layer": "7 Free appendix",
+      "path": "appendix.experiment_plan",
+      "definition": "Detailed proposed experiment with design, sampling, controls and analysis plan.",
+      "logical_type": "TextOrArtifact",
+      "vocabulary": "OSF/ARRIVE-informed plan, not a completed study",
+      "example": "planned matched-system assay",
+      "basis": "osf",
+      "field_class": "author_only"
+    },
+    {
+      "layer": "7 Free appendix",
+      "path": "appendix.source_extensions",
+      "definition": "Lossless retained external sections that no card field represents.",
+      "logical_type": "SourceBoundRecord[]",
+      "vocabulary": "Versioned foreign-format extension",
+      "example": "source Risk Factors and Limitations section",
+      "basis": "ai-scientist",
+      "field_class": "system"
+    },
+    {
+      "layer": "7 Free appendix",
+      "path": "appendix.limitations",
+      "definition": "Author-stated limitations and separate curator commentary with clear attribution.",
+      "logical_type": "TextAndAttribution",
+      "vocabulary": "Source narrative",
+      "example": "mechanism not established",
+      "basis": "ai-scientist",
+      "field_class": "searchable"
+    },
+    {
+      "layer": "Pair-level record",
+      "path": "pair.hypothesis_refs",
+      "definition": "The two fixed hypothesis versions being related or compared.",
+      "logical_type": "VersionReference[2]",
+      "vocabulary": "OHF pair record",
+      "example": "proposition-a@1 and proposition-b@1",
+      "basis": "ohf",
+      "field_class": "system"
+    },
+    {
+      "layer": "Pair-level record",
+      "path": "pair.relation",
+      "definition": "Curated relation of claims, not forced mutual exclusivity.",
+      "logical_type": "Term",
+      "vocabulary": "OHF: exclusive, compatible, nested, overlapping, unresolved",
+      "example": "compatible",
+      "basis": "ohf",
+      "field_class": "system"
+    },
+    {
+      "layer": "Pair-level record",
+      "path": "pair.discriminability",
+      "definition": "Whether a scoped observation could distinguish the pair, with assessor/reason.",
+      "logical_type": "Assessment",
+      "vocabulary": "OHF comparison context",
+      "example": "not established",
+      "basis": "ohf",
+      "field_class": "system"
+    },
+    {
+      "layer": "Pair-level record",
+      "path": "pair.diagnosticity_matrix",
+      "definition": "Observation alternatives and each hypothesis's predicted result/likelihood, retaining unknowns.",
+      "logical_type": "DiagnosticityRecord[]",
+      "vocabulary": "OHF adaptation of competing-hypothesis reasoning",
+      "example": "observation O favors A only if stated predictions differ",
+      "basis": "ohf",
+      "field_class": "system"
+    },
+    {
+      "layer": "Pair-level record",
+      "path": "pair.decisive_test",
+      "definition": "Proposed discriminating test with context, predictions and resolution rule.",
+      "logical_type": "TestRecord",
+      "vocabulary": "Declared pair-level design",
+      "example": "test O under matched conditions",
+      "basis": "ohf",
+      "field_class": "system"
+    },
+    {
+      "layer": "Pair-level record",
+      "path": "pair.assumptions",
+      "definition": "Shared and differing assumptions needed to interpret the pair test.",
+      "logical_type": "Reference[]",
+      "vocabulary": "References to separately attributed premises",
+      "example": "assumption-a",
+      "basis": "ohf",
+      "field_class": "system"
+    },
+    {
+      "layer": "Pair-level record",
+      "path": "pair.context_ref",
+      "definition": "Reference to the comparison context binding the pool, criterion version and protocol, together with the exact hypothesis versions and displayed-source/brief contracts. A question is optional claim context, not the comparison key.",
+      "logical_type": "Reference",
+      "vocabulary": "OHF pool / versioned criterion / protocol context",
+      "example": "pool-example / criterion@1 / protocol@1",
+      "basis": "ohf",
+      "field_class": "system"
+    }
+  ]
+}

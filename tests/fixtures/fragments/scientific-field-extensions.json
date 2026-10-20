@@ -1,0 +1,1003 @@
+{
+  "default_added_at": "2026-10-16T12:00:00Z",
+  "default_added_by": {
+    "model": "synthetic-converter",
+    "converter": "fixture-builder",
+    "converter_hash": "sha256:0000000000000000000000000000000000000000000000000000000000000000",
+    "converter_version": "0"
+  },
+  "examples": [
+    {
+      "aggregate_populated_count": 1,
+      "author_source_ref": {
+        "kind": "artifact",
+        "sha256": "sha256:9e3af007dadd055a67f56f212562447c55e94e7c5fcfcca5d5ec244ce2c597d7"
+      },
+      "component_gaps": [],
+      "definition": "author:core.potential_benefit",
+      "fragment": {
+        "locator": "author packet or author-supplied operational appendix",
+        "value": {
+          "beneficiaries_or_system": "synthetic system S",
+          "causal_bridge": "through mechanism M",
+          "constraints": [
+            "under the stated synthetic constraints"
+          ],
+          "horizon": "6 weeks",
+          "magnitude": "5 units",
+          "outcome": "preserve function R",
+          "target_refs": [
+            {
+              "kind": "card",
+              "pointer": "/author/layers/core/statement/value"
+            }
+          ]
+        }
+      },
+      "id": "author:core.potential_benefit:populated",
+      "scope": "Synthetic field fragment; not a complete released card."
+    },
+    {
+      "aggregate_populated_count": 1,
+      "author_source_ref": {
+        "kind": "artifact",
+        "sha256": "sha256:7913ac7c9a33cdf532a8f4dbfc5342dba1c117838ee86675987ce29aa259afcf"
+      },
+      "component_gaps": [
+        {
+          "disposition": "unknown_source_scope",
+          "inspected_artifacts": [],
+          "path": "core.potential_benefit.beneficiaries_or_system",
+          "query_ids": [],
+          "reason": "The retained synthetic source does not establish this component."
+        },
+        {
+          "disposition": "unknown_source_scope",
+          "inspected_artifacts": [],
+          "path": "core.potential_benefit.causal_bridge",
+          "query_ids": [],
+          "reason": "The retained synthetic source does not establish this component."
+        },
+        {
+          "disposition": "unknown_source_scope",
+          "inspected_artifacts": [],
+          "path": "core.potential_benefit.constraints",
+          "query_ids": [],
+          "reason": "The retained synthetic source does not establish this component."
+        },
+        {
+          "disposition": "unknown_source_scope",
+          "inspected_artifacts": [],
+          "path": "core.potential_benefit.target_refs",
+          "query_ids": [],
+          "reason": "The retained synthetic source does not establish this component."
+        }
+      ],
+      "definition": "author:core.potential_benefit",
+      "fragment": {
+        "locator": "author packet or author-supplied operational appendix",
+        "value": {
+          "outcome": "preserve function R"
+        }
+      },
+      "id": "author:core.potential_benefit:partial",
+      "scope": "Synthetic field fragment; not a complete released card."
+    },
+    {
+      "aggregate_populated_count": 1,
+      "author_source_ref": {
+        "kind": "artifact",
+        "sha256": "sha256:9e3af007dadd055a67f56f212562447c55e94e7c5fcfcca5d5ec244ce2c597d7"
+      },
+      "component_gaps": [
+        {
+          "disposition": "unknown_source_scope",
+          "inspected_artifacts": [],
+          "path": "core.novelty_assessment.shared_content",
+          "query_ids": [],
+          "reason": "The retained synthetic source does not establish this component."
+        },
+        {
+          "disposition": "unknown_source_scope",
+          "inspected_artifacts": [],
+          "path": "core.novelty_assessment.search_scope_ref",
+          "query_ids": [],
+          "reason": "The retained synthetic source does not establish this component."
+        },
+        {
+          "disposition": "unknown_source_scope",
+          "inspected_artifacts": [],
+          "path": "core.novelty_assessment.review_ref",
+          "query_ids": [],
+          "reason": "The retained synthetic source does not establish this component."
+        }
+      ],
+      "definition": "author:core.novelty_assessment",
+      "fragment": {
+        "locator": "author packet or author-supplied operational appendix",
+        "value": {
+          "as_of": "2026-10-01T00:00:00Z",
+          "new_content": "We claim that testing mechanism M in synthetic system S is new.",
+          "prior_claim_refs": [],
+          "status": "claimed"
+        }
+      },
+      "id": "author:core.novelty_assessment:populated",
+      "scope": "Synthetic field fragment; not a complete released card."
+    },
+    {
+      "aggregate_populated_count": 1,
+      "author_source_ref": {
+        "kind": "artifact",
+        "sha256": "sha256:2c9b47d07c8a921fbc33dbaea79e17995ed55c973a301a472e10f996693eacc8"
+      },
+      "component_gaps": [
+        {
+          "disposition": "unknown_source_scope",
+          "inspected_artifacts": [],
+          "path": "core.novelty_assessment.prior_claim_refs",
+          "query_ids": [],
+          "reason": "The retained synthetic source does not establish this component."
+        },
+        {
+          "disposition": "unknown_source_scope",
+          "inspected_artifacts": [],
+          "path": "core.novelty_assessment.shared_content",
+          "query_ids": [],
+          "reason": "The retained synthetic source does not establish this component."
+        },
+        {
+          "disposition": "unknown_source_scope",
+          "inspected_artifacts": [],
+          "path": "core.novelty_assessment.search_scope_ref",
+          "query_ids": [],
+          "reason": "The retained synthetic source does not establish this component."
+        },
+        {
+          "disposition": "unknown_source_scope",
+          "inspected_artifacts": [],
+          "path": "core.novelty_assessment.as_of",
+          "query_ids": [],
+          "reason": "The retained synthetic source does not establish this component."
+        },
+        {
+          "disposition": "unknown_source_scope",
+          "inspected_artifacts": [],
+          "path": "core.novelty_assessment.review_ref",
+          "query_ids": [],
+          "reason": "The retained synthetic source does not establish this component."
+        }
+      ],
+      "definition": "author:core.novelty_assessment",
+      "fragment": {
+        "locator": "author packet or author-supplied operational appendix",
+        "value": {
+          "new_content": "We claim that testing mechanism M in synthetic system S is new.",
+          "status": "claimed"
+        }
+      },
+      "id": "author:core.novelty_assessment:partial",
+      "scope": "Synthetic field fragment; not a complete released card."
+    },
+    {
+      "aggregate_populated_count": 1,
+      "author_source_ref": {
+        "kind": "artifact",
+        "sha256": "sha256:9e3af007dadd055a67f56f212562447c55e94e7c5fcfcca5d5ec244ce2c597d7"
+      },
+      "component_gaps": [],
+      "definition": "author:core.uncertainties[]",
+      "fragment": {
+        "locator": "author packet or author-supplied operational appendix",
+        "value": [
+          {
+            "assessment_status": "unresolved",
+            "consequence": "The proposed causal interpretation is unresolved.",
+            "id": "u1",
+            "kind": "causal mechanism",
+            "question": "It remains unknown whether mechanism M causes the change in R.",
+            "resolution_test_ref": {
+              "kind": "artifact",
+              "sha256": "sha256:b5b08b9af956017f7e0598e21d7cb6f9c82b7f17a2deca6fe5424377725cbc66"
+            },
+            "target_ref": {
+              "kind": "card",
+              "pointer": "/author/layers/core/statement/value"
+            }
+          }
+        ]
+      },
+      "id": "author:core.uncertainties[]:populated",
+      "scope": "Synthetic field fragment; not a complete released card."
+    },
+    {
+      "aggregate_populated_count": 1,
+      "author_source_ref": {
+        "kind": "artifact",
+        "sha256": "sha256:2dd24f8024c48827639f25465215cb90a922b9ddc163927eae8dbca64041dbb7"
+      },
+      "component_gaps": [
+        {
+          "disposition": "unknown_source_scope",
+          "inspected_artifacts": [],
+          "path": "core.uncertainties[0].target_ref",
+          "query_ids": [],
+          "reason": "The retained synthetic source does not establish this component."
+        },
+        {
+          "disposition": "unknown_source_scope",
+          "inspected_artifacts": [],
+          "path": "core.uncertainties[0].kind",
+          "query_ids": [],
+          "reason": "The retained synthetic source does not establish this component."
+        },
+        {
+          "disposition": "unknown_source_scope",
+          "inspected_artifacts": [],
+          "path": "core.uncertainties[0].consequence",
+          "query_ids": [],
+          "reason": "The retained synthetic source does not establish this component."
+        },
+        {
+          "disposition": "unknown_source_scope",
+          "inspected_artifacts": [],
+          "path": "core.uncertainties[0].assessment_status",
+          "query_ids": [],
+          "reason": "The retained synthetic source does not establish this component."
+        }
+      ],
+      "definition": "author:core.uncertainties[]",
+      "fragment": {
+        "locator": "author packet or author-supplied operational appendix",
+        "value": [
+          {
+            "id": "u1",
+            "question": "It remains unknown whether mechanism M causes the change in R."
+          }
+        ]
+      },
+      "id": "author:core.uncertainties[]:partial",
+      "scope": "Synthetic field fragment; not a complete released card."
+    },
+    {
+      "aggregate_populated_count": 1,
+      "author_source_ref": {
+        "kind": "artifact",
+        "sha256": "sha256:9e3af007dadd055a67f56f212562447c55e94e7c5fcfcca5d5ec244ce2c597d7"
+      },
+      "component_gaps": [],
+      "definition": "author:core.alternative_explanations[]",
+      "fragment": {
+        "locator": "author packet or author-supplied operational appendix",
+        "value": [
+          {
+            "claim_or_ref": {
+              "kind": "literal",
+              "text": "the unrelated process N"
+            },
+            "distinguishing_prediction_refs": [
+              {
+                "kind": "artifact",
+                "sha256": "sha256:b5b08b9af956017f7e0598e21d7cb6f9c82b7f17a2deca6fe5424377725cbc66"
+              }
+            ],
+            "shared_observation_refs": [
+              {
+                "kind": "card",
+                "pointer": "/added/layers/evidence/lines/0/quote"
+              }
+            ],
+            "unresolved_reason": "The alternatives remain unresolved without that test result."
+          }
+        ]
+      },
+      "id": "author:core.alternative_explanations[]:populated",
+      "scope": "Synthetic field fragment; not a complete released card."
+    },
+    {
+      "aggregate_populated_count": 1,
+      "author_source_ref": {
+        "kind": "artifact",
+        "sha256": "sha256:dfa1f37cae386aef75ea890e83210f7f9a9c3bd1de29fa26a6e5c4c1f334c1de"
+      },
+      "component_gaps": [
+        {
+          "disposition": "unknown_source_scope",
+          "inspected_artifacts": [],
+          "path": "core.alternative_explanations[0].shared_observation_refs",
+          "query_ids": [],
+          "reason": "The retained synthetic source does not establish this component."
+        },
+        {
+          "disposition": "unknown_source_scope",
+          "inspected_artifacts": [],
+          "path": "core.alternative_explanations[0].distinguishing_prediction_refs",
+          "query_ids": [],
+          "reason": "The retained synthetic source does not establish this component."
+        },
+        {
+          "disposition": "unknown_source_scope",
+          "inspected_artifacts": [],
+          "path": "core.alternative_explanations[0].unresolved_reason",
+          "query_ids": [],
+          "reason": "The retained synthetic source does not establish this component."
+        }
+      ],
+      "definition": "author:core.alternative_explanations[]",
+      "fragment": {
+        "locator": "author packet or author-supplied operational appendix",
+        "value": [
+          {
+            "claim_or_ref": {
+              "kind": "literal",
+              "text": "the unrelated process N"
+            }
+          }
+        ]
+      },
+      "id": "author:core.alternative_explanations[]:partial",
+      "scope": "Synthetic field fragment; not a complete released card."
+    },
+    {
+      "aggregate_populated_count": 1,
+      "author_source_ref": {
+        "kind": "artifact",
+        "sha256": "sha256:9e3af007dadd055a67f56f212562447c55e94e7c5fcfcca5d5ec244ce2c597d7"
+      },
+      "component_gaps": [
+        {
+          "disposition": "unknown_source_scope",
+          "inspected_artifacts": [],
+          "path": "evidence.references[0].access_context.limitation",
+          "query_ids": [],
+          "reason": "The retained synthetic source does not establish this component."
+        }
+      ],
+      "definition": "author:evidence.references[].access_context",
+      "fragment": {
+        "locator": "author packet or author-supplied operational appendix",
+        "value": {
+          "alternate_source_refs": [],
+          "inspected_locator_range": [
+            {
+              "end": 68,
+              "start": 0,
+              "unit": "unicode_codepoint"
+            }
+          ],
+          "retrieval_record_ref": {
+            "kind": "artifact",
+            "sha256": "sha256:77217334b294efbd80f1beb8b4a1655684e74f513f8f6c901c1361a91fb0795c"
+          },
+          "retrieval_status": "retrieved",
+          "source_ref": {
+            "kind": "artifact",
+            "sha256": "sha256:025e765af3359d70ec5d8bbc380bf0a3ff5cc9aea3d5d378f5d705e8031ac6cd"
+          },
+          "text_scope": "abstract",
+          "truncated": false
+        }
+      },
+      "id": "author:evidence.references[].access_context:populated",
+      "scope": "Synthetic field fragment; not a complete released card."
+    },
+    {
+      "aggregate_populated_count": 1,
+      "author_source_ref": {
+        "kind": "artifact",
+        "sha256": "sha256:cd80c11e5b124bebfd8edc40987705d938803955037861bd323ac54d512635fd"
+      },
+      "component_gaps": [
+        {
+          "disposition": "unknown_source_scope",
+          "inspected_artifacts": [],
+          "path": "evidence.references[0].access_context.alternate_source_refs",
+          "query_ids": [],
+          "reason": "The retained synthetic source does not establish this component."
+        }
+      ],
+      "definition": "author:evidence.references[].access_context",
+      "fragment": {
+        "locator": "author packet or author-supplied operational appendix",
+        "value": {
+          "inspected_locator_range": null,
+          "limitation": "The author-supplied operational record does not establish the delivered or inspected range.",
+          "retrieval_record_ref": {
+            "kind": "artifact",
+            "sha256": "sha256:d61809d817fe18fffdf04153b039a753ebfae4a96a94375b76b0adddb5e28438"
+          },
+          "retrieval_status": "retrieved",
+          "source_ref": {
+            "kind": "artifact",
+            "sha256": "sha256:025e765af3359d70ec5d8bbc380bf0a3ff5cc9aea3d5d378f5d705e8031ac6cd"
+          },
+          "text_scope": "unknown",
+          "truncated": null
+        }
+      },
+      "id": "author:evidence.references[].access_context:partial",
+      "scope": "Synthetic field fragment; not a complete released card."
+    },
+    {
+      "aggregate_populated_count": 1,
+      "author_source_ref": {
+        "kind": "artifact",
+        "sha256": "sha256:9e3af007dadd055a67f56f212562447c55e94e7c5fcfcca5d5ec244ce2c597d7"
+      },
+      "component_gaps": [],
+      "definition": "added:core.potential_benefit",
+      "fragment": {
+        "src": "author",
+        "value": {
+          "beneficiaries_or_system": "synthetic system S",
+          "causal_bridge": "through mechanism M",
+          "constraints": [
+            "under the stated synthetic constraints"
+          ],
+          "horizon": "6 weeks",
+          "magnitude": "5 units",
+          "outcome": "preserve function R",
+          "target_refs": [
+            {
+              "kind": "card",
+              "pointer": "/author/layers/core/statement/value"
+            }
+          ]
+        }
+      },
+      "id": "added:core.potential_benefit:populated",
+      "scope": "Synthetic field fragment; not a complete released card."
+    },
+    {
+      "aggregate_populated_count": 1,
+      "author_source_ref": {
+        "kind": "artifact",
+        "sha256": "sha256:7913ac7c9a33cdf532a8f4dbfc5342dba1c117838ee86675987ce29aa259afcf"
+      },
+      "component_gaps": [
+        {
+          "disposition": "unknown_source_scope",
+          "inspected_artifacts": [],
+          "path": "core.potential_benefit.beneficiaries_or_system",
+          "query_ids": [],
+          "reason": "The retained synthetic source does not establish this component."
+        },
+        {
+          "disposition": "unknown_source_scope",
+          "inspected_artifacts": [],
+          "path": "core.potential_benefit.causal_bridge",
+          "query_ids": [],
+          "reason": "The retained synthetic source does not establish this component."
+        },
+        {
+          "disposition": "unknown_source_scope",
+          "inspected_artifacts": [],
+          "path": "core.potential_benefit.constraints",
+          "query_ids": [],
+          "reason": "The retained synthetic source does not establish this component."
+        },
+        {
+          "disposition": "unknown_source_scope",
+          "inspected_artifacts": [],
+          "path": "core.potential_benefit.target_refs",
+          "query_ids": [],
+          "reason": "The retained synthetic source does not establish this component."
+        }
+      ],
+      "definition": "added:core.potential_benefit",
+      "fragment": {
+        "src": "partial-potential_benefit",
+        "value": {
+          "outcome": "preserve function R"
+        }
+      },
+      "id": "added:core.potential_benefit:partial",
+      "scope": "Synthetic field fragment; not a complete released card."
+    },
+    {
+      "aggregate_populated_count": 1,
+      "author_source_ref": {
+        "kind": "artifact",
+        "sha256": "sha256:9e3af007dadd055a67f56f212562447c55e94e7c5fcfcca5d5ec244ce2c597d7"
+      },
+      "component_gaps": [
+        {
+          "disposition": "unknown_source_scope",
+          "inspected_artifacts": [],
+          "path": "core.novelty_assessment.shared_content",
+          "query_ids": [],
+          "reason": "The retained synthetic source does not establish this component."
+        },
+        {
+          "disposition": "unknown_source_scope",
+          "inspected_artifacts": [],
+          "path": "core.novelty_assessment.search_scope_ref",
+          "query_ids": [],
+          "reason": "The retained synthetic source does not establish this component."
+        },
+        {
+          "disposition": "unknown_source_scope",
+          "inspected_artifacts": [],
+          "path": "core.novelty_assessment.review_ref",
+          "query_ids": [],
+          "reason": "The retained synthetic source does not establish this component."
+        }
+      ],
+      "definition": "added:core.novelty_assessment",
+      "fragment": {
+        "src": "author",
+        "value": {
+          "as_of": "2026-10-01T00:00:00Z",
+          "new_content": "We claim that testing mechanism M in synthetic system S is new.",
+          "prior_claim_refs": [],
+          "status": "claimed"
+        }
+      },
+      "id": "added:core.novelty_assessment:populated",
+      "scope": "Synthetic field fragment; not a complete released card."
+    },
+    {
+      "aggregate_populated_count": 1,
+      "author_source_ref": {
+        "kind": "artifact",
+        "sha256": "sha256:2c9b47d07c8a921fbc33dbaea79e17995ed55c973a301a472e10f996693eacc8"
+      },
+      "component_gaps": [
+        {
+          "disposition": "unknown_source_scope",
+          "inspected_artifacts": [],
+          "path": "core.novelty_assessment.prior_claim_refs",
+          "query_ids": [],
+          "reason": "The retained synthetic source does not establish this component."
+        },
+        {
+          "disposition": "unknown_source_scope",
+          "inspected_artifacts": [],
+          "path": "core.novelty_assessment.shared_content",
+          "query_ids": [],
+          "reason": "The retained synthetic source does not establish this component."
+        },
+        {
+          "disposition": "unknown_source_scope",
+          "inspected_artifacts": [],
+          "path": "core.novelty_assessment.search_scope_ref",
+          "query_ids": [],
+          "reason": "The retained synthetic source does not establish this component."
+        },
+        {
+          "disposition": "unknown_source_scope",
+          "inspected_artifacts": [],
+          "path": "core.novelty_assessment.as_of",
+          "query_ids": [],
+          "reason": "The retained synthetic source does not establish this component."
+        },
+        {
+          "disposition": "unknown_source_scope",
+          "inspected_artifacts": [],
+          "path": "core.novelty_assessment.review_ref",
+          "query_ids": [],
+          "reason": "The retained synthetic source does not establish this component."
+        }
+      ],
+      "definition": "added:core.novelty_assessment",
+      "fragment": {
+        "src": "partial-novelty_assessment",
+        "value": {
+          "new_content": "We claim that testing mechanism M in synthetic system S is new.",
+          "status": "claimed"
+        }
+      },
+      "id": "added:core.novelty_assessment:partial",
+      "scope": "Synthetic field fragment; not a complete released card."
+    },
+    {
+      "aggregate_populated_count": 1,
+      "author_source_ref": {
+        "kind": "artifact",
+        "sha256": "sha256:9e3af007dadd055a67f56f212562447c55e94e7c5fcfcca5d5ec244ce2c597d7"
+      },
+      "component_gaps": [],
+      "definition": "added:core.uncertainties[]",
+      "fragment": {
+        "src": "author",
+        "value": [
+          {
+            "assessment_status": "unresolved",
+            "consequence": "The proposed causal interpretation is unresolved.",
+            "id": "u1",
+            "kind": "causal mechanism",
+            "question": "It remains unknown whether mechanism M causes the change in R.",
+            "resolution_test_ref": {
+              "kind": "artifact",
+              "sha256": "sha256:b5b08b9af956017f7e0598e21d7cb6f9c82b7f17a2deca6fe5424377725cbc66"
+            },
+            "target_ref": {
+              "kind": "card",
+              "pointer": "/author/layers/core/statement/value"
+            }
+          }
+        ]
+      },
+      "id": "added:core.uncertainties[]:populated",
+      "scope": "Synthetic field fragment; not a complete released card."
+    },
+    {
+      "aggregate_populated_count": 1,
+      "author_source_ref": {
+        "kind": "artifact",
+        "sha256": "sha256:2dd24f8024c48827639f25465215cb90a922b9ddc163927eae8dbca64041dbb7"
+      },
+      "component_gaps": [
+        {
+          "disposition": "unknown_source_scope",
+          "inspected_artifacts": [],
+          "path": "core.uncertainties[0].target_ref",
+          "query_ids": [],
+          "reason": "The retained synthetic source does not establish this component."
+        },
+        {
+          "disposition": "unknown_source_scope",
+          "inspected_artifacts": [],
+          "path": "core.uncertainties[0].kind",
+          "query_ids": [],
+          "reason": "The retained synthetic source does not establish this component."
+        },
+        {
+          "disposition": "unknown_source_scope",
+          "inspected_artifacts": [],
+          "path": "core.uncertainties[0].consequence",
+          "query_ids": [],
+          "reason": "The retained synthetic source does not establish this component."
+        },
+        {
+          "disposition": "unknown_source_scope",
+          "inspected_artifacts": [],
+          "path": "core.uncertainties[0].assessment_status",
+          "query_ids": [],
+          "reason": "The retained synthetic source does not establish this component."
+        }
+      ],
+      "definition": "added:core.uncertainties[]",
+      "fragment": {
+        "src": "partial-uncertainties",
+        "value": [
+          {
+            "id": "u1",
+            "question": "It remains unknown whether mechanism M causes the change in R."
+          }
+        ]
+      },
+      "id": "added:core.uncertainties[]:partial",
+      "scope": "Synthetic field fragment; not a complete released card."
+    },
+    {
+      "aggregate_populated_count": 1,
+      "author_source_ref": {
+        "kind": "artifact",
+        "sha256": "sha256:9e3af007dadd055a67f56f212562447c55e94e7c5fcfcca5d5ec244ce2c597d7"
+      },
+      "component_gaps": [],
+      "definition": "added:core.alternative_explanations[]",
+      "fragment": {
+        "src": "author",
+        "value": [
+          {
+            "claim_or_ref": {
+              "kind": "literal",
+              "text": "the unrelated process N"
+            },
+            "distinguishing_prediction_refs": [
+              {
+                "kind": "artifact",
+                "sha256": "sha256:b5b08b9af956017f7e0598e21d7cb6f9c82b7f17a2deca6fe5424377725cbc66"
+              }
+            ],
+            "shared_observation_refs": [
+              {
+                "kind": "card",
+                "pointer": "/added/layers/evidence/lines/0/quote"
+              }
+            ],
+            "unresolved_reason": "The alternatives remain unresolved without that test result."
+          }
+        ]
+      },
+      "id": "added:core.alternative_explanations[]:populated",
+      "scope": "Synthetic field fragment; not a complete released card."
+    },
+    {
+      "aggregate_populated_count": 1,
+      "author_source_ref": {
+        "kind": "artifact",
+        "sha256": "sha256:dfa1f37cae386aef75ea890e83210f7f9a9c3bd1de29fa26a6e5c4c1f334c1de"
+      },
+      "component_gaps": [
+        {
+          "disposition": "unknown_source_scope",
+          "inspected_artifacts": [],
+          "path": "core.alternative_explanations[0].shared_observation_refs",
+          "query_ids": [],
+          "reason": "The retained synthetic source does not establish this component."
+        },
+        {
+          "disposition": "unknown_source_scope",
+          "inspected_artifacts": [],
+          "path": "core.alternative_explanations[0].distinguishing_prediction_refs",
+          "query_ids": [],
+          "reason": "The retained synthetic source does not establish this component."
+        },
+        {
+          "disposition": "unknown_source_scope",
+          "inspected_artifacts": [],
+          "path": "core.alternative_explanations[0].unresolved_reason",
+          "query_ids": [],
+          "reason": "The retained synthetic source does not establish this component."
+        }
+      ],
+      "definition": "added:core.alternative_explanations[]",
+      "fragment": {
+        "src": "partial-alternative_explanations",
+        "value": [
+          {
+            "claim_or_ref": {
+              "kind": "literal",
+              "text": "the unrelated process N"
+            }
+          }
+        ]
+      },
+      "id": "added:core.alternative_explanations[]:partial",
+      "scope": "Synthetic field fragment; not a complete released card."
+    },
+    {
+      "aggregate_populated_count": 1,
+      "author_source_ref": {
+        "kind": "artifact",
+        "sha256": "sha256:9e3af007dadd055a67f56f212562447c55e94e7c5fcfcca5d5ec244ce2c597d7"
+      },
+      "component_gaps": [],
+      "definition": "added:evidence.references[].access_context",
+      "fragment": {
+        "src": "partial-access",
+        "value": {
+          "alternate_source_refs": [],
+          "inspected_locator_range": [
+            {
+              "end": 80,
+              "start": 0,
+              "unit": "unicode_codepoint"
+            }
+          ],
+          "limitation": "The full retained packet was downloaded; only the supplied partial view is recorded as inspected.",
+          "retrieval_record_ref": {
+            "kind": "artifact",
+            "sha256": "sha256:6025a10f63cd495e0d3c9bae1588fe6148daf91a9cf464244a0658a126496d53"
+          },
+          "retrieval_status": "retrieved",
+          "source_ref": {
+            "kind": "artifact",
+            "sha256": "sha256:9e3af007dadd055a67f56f212562447c55e94e7c5fcfcca5d5ec244ce2c597d7"
+          },
+          "text_scope": "full_text",
+          "truncated": true
+        }
+      },
+      "id": "added:evidence.references[].access_context:populated",
+      "scope": "Synthetic field fragment; not a complete released card."
+    },
+    {
+      "aggregate_populated_count": 1,
+      "author_source_ref": {
+        "kind": "artifact",
+        "sha256": "sha256:cd80c11e5b124bebfd8edc40987705d938803955037861bd323ac54d512635fd"
+      },
+      "component_gaps": [
+        {
+          "disposition": "unknown_source_scope",
+          "inspected_artifacts": [],
+          "path": "evidence.references[0].access_context.alternate_source_refs",
+          "query_ids": [],
+          "reason": "The retained synthetic source does not establish this component."
+        }
+      ],
+      "definition": "added:evidence.references[].access_context",
+      "fragment": {
+        "src": "unknown-access",
+        "value": {
+          "inspected_locator_range": null,
+          "limitation": "The retained bytes exist, but scope, delivered range and inspection are not established.",
+          "retrieval_record_ref": {
+            "kind": "artifact",
+            "sha256": "sha256:917b0c130b028f1979569817b78cf5ace97afda842e735bf3100d79116939d96"
+          },
+          "retrieval_status": "retrieved",
+          "source_ref": {
+            "kind": "artifact",
+            "sha256": "sha256:9e3af007dadd055a67f56f212562447c55e94e7c5fcfcca5d5ec244ce2c597d7"
+          },
+          "text_scope": "unknown",
+          "truncated": null
+        }
+      },
+      "id": "added:evidence.references[].access_context:partial",
+      "scope": "Synthetic field fragment; not a complete released card."
+    },
+    {
+      "aggregate_populated_count": 1,
+      "author_source_ref": {
+        "kind": "artifact",
+        "sha256": "sha256:9e3af007dadd055a67f56f212562447c55e94e7c5fcfcca5d5ec244ce2c597d7"
+      },
+      "component_gaps": [
+        {
+          "disposition": "unknown_source_scope",
+          "inspected_artifacts": [],
+          "path": "core.novelty_assessment.shared_content",
+          "query_ids": [],
+          "reason": "The retained synthetic source does not establish this component."
+        },
+        {
+          "disposition": "unknown_source_scope",
+          "inspected_artifacts": [],
+          "path": "core.novelty_assessment.review_ref",
+          "query_ids": [],
+          "reason": "The retained synthetic source does not establish this component."
+        }
+      ],
+      "definition": "added:core.novelty_assessment",
+      "fragment": {
+        "src": "search-record",
+        "value": {
+          "as_of": "2026-10-01T00:00:00Z",
+          "new_content": "We claim that testing mechanism M in synthetic system S is new.",
+          "prior_claim_refs": [],
+          "search_scope_ref": {
+            "kind": "artifact",
+            "sha256": "sha256:70fd8857796e9d4c0e2ae7bc8d8efbac929ff2fa7f56c232c3f044ab3359a189"
+          },
+          "status": "bounded_search"
+        }
+      },
+      "id": "added:bounded-search"
+    },
+    {
+      "aggregate_populated_count": 1,
+      "author_source_ref": {
+        "kind": "artifact",
+        "sha256": "sha256:9e3af007dadd055a67f56f212562447c55e94e7c5fcfcca5d5ec244ce2c597d7"
+      },
+      "component_gaps": [
+        {
+          "disposition": "unknown_source_scope",
+          "inspected_artifacts": [],
+          "path": "core.novelty_assessment.shared_content",
+          "query_ids": [],
+          "reason": "The retained synthetic source does not establish this component."
+        },
+        {
+          "disposition": "unknown_source_scope",
+          "inspected_artifacts": [],
+          "path": "core.novelty_assessment.search_scope_ref",
+          "query_ids": [],
+          "reason": "The retained synthetic source does not establish this component."
+        }
+      ],
+      "definition": "added:core.novelty_assessment",
+      "fragment": {
+        "assessment": {
+          "assessed_at": "2026-10-16T12:00:00Z",
+          "assessor": "synthetic-reviewer-E",
+          "evidence_ref": {
+            "kind": "artifact",
+            "sha256": "sha256:541c8a70d68067eb386bfd3b36040ae95143f1a3438d8dbe750b71b7886d998c"
+          }
+        },
+        "src": "expert-review",
+        "value": {
+          "as_of": "2026-10-01T00:00:00Z",
+          "new_content": "We claim that testing mechanism M in synthetic system S is new.",
+          "prior_claim_refs": [],
+          "review_ref": {
+            "kind": "artifact",
+            "sha256": "sha256:541c8a70d68067eb386bfd3b36040ae95143f1a3438d8dbe750b71b7886d998c"
+          },
+          "status": "expert_review"
+        }
+      },
+      "id": "added:expert-review"
+    },
+    {
+      "aggregate_populated_count": 1,
+      "author_source_ref": {
+        "kind": "artifact",
+        "sha256": "sha256:9e3af007dadd055a67f56f212562447c55e94e7c5fcfcca5d5ec244ce2c597d7"
+      },
+      "component_gaps": [],
+      "definition": "added:core.potential_benefit",
+      "fragment": {
+        "assessment": {
+          "assessed_at": "2026-10-16T12:00:00Z",
+          "assessor": "synthetic-reviewer-E",
+          "evidence_ref": {
+            "kind": "artifact",
+            "sha256": "sha256:8e553b7ebf9797e46ce1ac6c17d7654362fa3f5240977ddf04b04c682d8293cb"
+          }
+        },
+        "src": "author",
+        "value": {
+          "beneficiaries_or_system": "synthetic system S",
+          "causal_bridge": "through mechanism M",
+          "constraints": [
+            "under the stated synthetic constraints"
+          ],
+          "horizon": "6 weeks",
+          "magnitude": "5 units",
+          "outcome": "preserve function R",
+          "target_refs": [
+            {
+              "kind": "card",
+              "pointer": "/author/layers/core/statement/value"
+            }
+          ]
+        }
+      },
+      "id": "added:separate-assessor"
+    }
+  ],
+  "reference_context": {
+    "author_claim": "Our hypothesis is that intervention Q changes outcome R.",
+    "shared_observation": "The synthetic shared observation is that outcome R changed under intervention Q.",
+    "shared_observation_pointer": "/added/layers/evidence/lines/0/quote"
+  },
+  "scope": "Original synthetic fragments and records. No source retrieval or model calls occurred; not complete card or scientific acceptance.",
+  "source_bindings": {
+    "author": {
+      "kind": "artifact",
+      "sha256": "sha256:9e3af007dadd055a67f56f212562447c55e94e7c5fcfcca5d5ec244ce2c597d7"
+    },
+    "author-access": {
+      "kind": "artifact",
+      "sha256": "sha256:77217334b294efbd80f1beb8b4a1655684e74f513f8f6c901c1361a91fb0795c"
+    },
+    "author-unknown-access": {
+      "kind": "artifact",
+      "sha256": "sha256:d61809d817fe18fffdf04153b039a753ebfae4a96a94375b76b0adddb5e28438"
+    },
+    "expert-review": {
+      "kind": "artifact",
+      "sha256": "sha256:541c8a70d68067eb386bfd3b36040ae95143f1a3438d8dbe750b71b7886d998c"
+    },
+    "partial-access": {
+      "kind": "artifact",
+      "sha256": "sha256:6025a10f63cd495e0d3c9bae1588fe6148daf91a9cf464244a0658a126496d53"
+    },
+    "partial-alternative_explanations": {
+      "kind": "artifact",
+      "sha256": "sha256:dfa1f37cae386aef75ea890e83210f7f9a9c3bd1de29fa26a6e5c4c1f334c1de"
+    },
+    "partial-novelty_assessment": {
+      "kind": "artifact",
+      "sha256": "sha256:2c9b47d07c8a921fbc33dbaea79e17995ed55c973a301a472e10f996693eacc8"
+    },
+    "partial-potential_benefit": {
+      "kind": "artifact",
+      "sha256": "sha256:7913ac7c9a33cdf532a8f4dbfc5342dba1c117838ee86675987ce29aa259afcf"
+    },
+    "partial-references[].access_context": {
+      "kind": "artifact",
+      "sha256": "sha256:cd80c11e5b124bebfd8edc40987705d938803955037861bd323ac54d512635fd"
+    },
+    "partial-uncertainties": {
+      "kind": "artifact",
+      "sha256": "sha256:2dd24f8024c48827639f25465215cb90a922b9ddc163927eae8dbca64041dbb7"
+    },
+    "search-record": {
+      "kind": "artifact",
+      "sha256": "sha256:70fd8857796e9d4c0e2ae7bc8d8efbac929ff2fa7f56c232c3f044ab3359a189"
+    },
+    "unknown-access": {
+      "kind": "artifact",
+      "sha256": "sha256:917b0c130b028f1979569817b78cf5ace97afda842e735bf3100d79116939d96"
+    }
+  }
+}

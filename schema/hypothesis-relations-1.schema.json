@@ -1,0 +1,298 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "ohf:hypothesis-relations@1",
+  "title": "Hypothesis relations, version 2",
+  "description": "Detached typed relations between card versions within a fixed pool. Relation types: rival_same_explanandum, nested, compatible_independent, duplicate, refines, unrelated.",
+  "type": "object",
+  "properties": {
+    "schema": {
+      "const": "ohf:hypothesis-relations@1"
+    },
+    "id": {
+      "type": "string",
+      "minLength": 1,
+      "pattern": "\\S"
+    },
+    "revision": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "pool": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "minLength": 1,
+          "pattern": "\\S"
+        },
+        "sha256": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}(?![\\s\\S])",
+          "minLength": 64,
+          "maxLength": 64
+        }
+      },
+      "required": [
+        "id",
+        "sha256"
+      ],
+      "additionalProperties": false
+    },
+    "edges": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "minLength": 1,
+            "pattern": "\\S"
+          },
+          "source": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string",
+                "pattern": "^h_[a-z0-9-]+(?![\\s\\S])"
+              },
+              "version": {
+                "type": "integer",
+                "minimum": 1
+              },
+              "content_hash": {
+                "type": "string",
+                "pattern": "^sha256:[0-9a-f]{64}(?![\\s\\S])",
+                "minLength": 71,
+                "maxLength": 71
+              }
+            },
+            "required": [
+              "id",
+              "version",
+              "content_hash"
+            ],
+            "additionalProperties": false
+          },
+          "target": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string",
+                "pattern": "^h_[a-z0-9-]+(?![\\s\\S])"
+              },
+              "version": {
+                "type": "integer",
+                "minimum": 1
+              },
+              "content_hash": {
+                "type": "string",
+                "pattern": "^sha256:[0-9a-f]{64}(?![\\s\\S])",
+                "minLength": 71,
+                "maxLength": 71
+              }
+            },
+            "required": [
+              "id",
+              "version",
+              "content_hash"
+            ],
+            "additionalProperties": false
+          },
+          "type": {
+            "enum": [
+              "rival_same_explanandum",
+              "nested",
+              "compatible_independent",
+              "duplicate",
+              "refines",
+              "unrelated"
+            ]
+          },
+          "basis": {
+            "type": "array",
+            "minItems": 1,
+            "items": {
+              "type": "object",
+              "properties": {
+                "kind": {
+                  "enum": [
+                    "quote",
+                    "reference"
+                  ]
+                },
+                "applies_to": {
+                  "enum": [
+                    "source",
+                    "target",
+                    "both"
+                  ]
+                },
+                "ref": {
+                  "oneOf": [
+                    {
+                      "type": "object",
+                      "properties": {
+                        "namespace": {
+                          "const": "card"
+                        },
+                        "card": {
+                          "type": "object",
+                          "properties": {
+                            "id": {
+                              "type": "string",
+                              "pattern": "^h_[a-z0-9-]+(?![\\s\\S])"
+                            },
+                            "version": {
+                              "type": "integer",
+                              "minimum": 1
+                            },
+                            "content_hash": {
+                              "type": "string",
+                              "pattern": "^sha256:[0-9a-f]{64}(?![\\s\\S])",
+                              "minLength": 71,
+                              "maxLength": 71
+                            }
+                          },
+                          "required": [
+                            "id",
+                            "version",
+                            "content_hash"
+                          ],
+                          "additionalProperties": false
+                        },
+                        "pool": {
+                          "type": "object",
+                          "properties": {
+                            "id": {
+                              "type": "string",
+                              "minLength": 1,
+                              "pattern": "\\S"
+                            },
+                            "sha256": {
+                              "type": "string",
+                              "pattern": "^[0-9a-f]{64}(?![\\s\\S])",
+                              "minLength": 64,
+                              "maxLength": 64
+                            }
+                          },
+                          "required": [
+                            "id",
+                            "sha256"
+                          ],
+                          "additionalProperties": false
+                        },
+                        "pointer": {
+                          "type": "string",
+                          "pattern": "^/"
+                        }
+                      },
+                      "required": [
+                        "namespace",
+                        "card",
+                        "pool",
+                        "pointer"
+                      ],
+                      "additionalProperties": false
+                    },
+                    {
+                      "type": "object",
+                      "properties": {
+                        "namespace": {
+                          "const": "artifact"
+                        },
+                        "sha256": {
+                          "type": "string",
+                          "pattern": "^[0-9a-f]{64}(?![\\s\\S])",
+                          "minLength": 64,
+                          "maxLength": 64
+                        },
+                        "locator": {
+                          "type": "string",
+                          "minLength": 1,
+                          "pattern": "\\S"
+                        }
+                      },
+                      "required": [
+                        "namespace",
+                        "sha256",
+                        "locator"
+                      ],
+                      "additionalProperties": false
+                    }
+                  ]
+                },
+                "quote": {
+                  "type": "string",
+                  "minLength": 1,
+                  "pattern": "\\S"
+                }
+              },
+              "required": [
+                "kind",
+                "applies_to",
+                "ref"
+              ],
+              "additionalProperties": false,
+              "allOf": [
+                {
+                  "if": {
+                    "properties": {
+                      "kind": {
+                        "const": "quote"
+                      }
+                    }
+                  },
+                  "then": {
+                    "required": [
+                      "quote"
+                    ]
+                  },
+                  "else": {
+                    "not": {
+                      "required": [
+                        "quote"
+                      ]
+                    }
+                  }
+                }
+              ]
+            }
+          },
+          "rationale": {
+            "type": "string",
+            "minLength": 1,
+            "pattern": "\\S"
+          },
+          "by": {
+            "type": "string",
+            "minLength": 1,
+            "pattern": "\\S"
+          },
+          "at": {
+            "type": "string",
+            "format": "date-time"
+          }
+        },
+        "required": [
+          "id",
+          "source",
+          "target",
+          "type",
+          "basis",
+          "rationale",
+          "by",
+          "at"
+        ],
+        "additionalProperties": false
+      }
+    }
+  },
+  "required": [
+    "schema",
+    "id",
+    "revision",
+    "pool",
+    "edges"
+  ],
+  "additionalProperties": false
+}

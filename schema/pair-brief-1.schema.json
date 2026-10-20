@@ -1,0 +1,434 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "ohf:pair-brief@1",
+  "title": "Pair brief, version 1",
+  "description": "What two card versions share and what would tell them apart. A pair brief describes the pair; it does not judge which hypothesis is better.",
+  "type": "object",
+  "properties": {
+    "schema": {
+      "const": "ohf:pair-brief@1"
+    },
+    "id": {
+      "type": "string",
+      "minLength": 1,
+      "pattern": "\\S"
+    },
+    "hypothesis_refs": {
+      "type": "array",
+      "prefixItems": [
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "pattern": "^h_[a-z0-9-]+(?![\\s\\S])"
+            },
+            "version": {
+              "type": "integer",
+              "minimum": 1
+            },
+            "content_hash": {
+              "type": "string",
+              "pattern": "^sha256:[0-9a-f]{64}(?![\\s\\S])",
+              "minLength": 71,
+              "maxLength": 71
+            }
+          },
+          "required": [
+            "id",
+            "version",
+            "content_hash"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "pattern": "^h_[a-z0-9-]+(?![\\s\\S])"
+            },
+            "version": {
+              "type": "integer",
+              "minimum": 1
+            },
+            "content_hash": {
+              "type": "string",
+              "pattern": "^sha256:[0-9a-f]{64}(?![\\s\\S])",
+              "minLength": 71,
+              "maxLength": 71
+            }
+          },
+          "required": [
+            "id",
+            "version",
+            "content_hash"
+          ],
+          "additionalProperties": false
+        }
+      ],
+      "items": false,
+      "minItems": 2
+    },
+    "relation": {
+      "enum": [
+        "rival_same_explanandum",
+        "nested",
+        "compatible_independent",
+        "duplicate",
+        "refines",
+        "unrelated"
+      ]
+    },
+    "shared_explananda": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "a": {
+            "type": "object",
+            "properties": {
+              "pointer": {
+                "type": "string",
+                "pattern": "^(?:/(?:[^~/]|~[01])*)+$"
+              }
+            },
+            "required": [
+              "pointer"
+            ],
+            "additionalProperties": false
+          },
+          "b": {
+            "type": "object",
+            "properties": {
+              "pointer": {
+                "type": "string",
+                "pattern": "^(?:/(?:[^~/]|~[01])*)+$"
+              }
+            },
+            "required": [
+              "pointer"
+            ],
+            "additionalProperties": false
+          },
+          "note": {
+            "type": "string",
+            "minLength": 1,
+            "pattern": "\\S"
+          }
+        },
+        "required": [
+          "a",
+          "b"
+        ],
+        "additionalProperties": false
+      }
+    },
+    "distinguishing_observations": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "observation": {
+            "type": "string",
+            "minLength": 1,
+            "pattern": "\\S"
+          },
+          "predicted_by_a": {
+            "type": "object",
+            "properties": {
+              "expectation": {
+                "enum": [
+                  "expected",
+                  "not_expected",
+                  "silent"
+                ]
+              },
+              "prediction_id": {
+                "type": "string",
+                "minLength": 1,
+                "pattern": "\\S"
+              }
+            },
+            "required": [
+              "expectation"
+            ],
+            "additionalProperties": false
+          },
+          "predicted_by_b": {
+            "type": "object",
+            "properties": {
+              "expectation": {
+                "enum": [
+                  "expected",
+                  "not_expected",
+                  "silent"
+                ]
+              },
+              "prediction_id": {
+                "type": "string",
+                "minLength": 1,
+                "pattern": "\\S"
+              }
+            },
+            "required": [
+              "expectation"
+            ],
+            "additionalProperties": false
+          },
+          "source": {
+            "oneOf": [
+              {
+                "type": "object",
+                "properties": {
+                  "kind": {
+                    "const": "card"
+                  },
+                  "card": {
+                    "enum": [
+                      "a",
+                      "b"
+                    ]
+                  },
+                  "pointer": {
+                    "type": "string",
+                    "pattern": "^(?:/(?:[^~/]|~[01])*)+$"
+                  }
+                },
+                "required": [
+                  "kind",
+                  "card",
+                  "pointer"
+                ],
+                "additionalProperties": false
+              },
+              {
+                "type": "object",
+                "properties": {
+                  "kind": {
+                    "const": "external"
+                  },
+                  "uri": {
+                    "type": "string",
+                    "minLength": 1,
+                    "pattern": "\\S"
+                  },
+                  "locator": {
+                    "type": "string",
+                    "minLength": 1,
+                    "pattern": "\\S"
+                  }
+                },
+                "required": [
+                  "kind",
+                  "uri"
+                ],
+                "additionalProperties": false
+              }
+            ]
+          }
+        },
+        "required": [
+          "observation",
+          "predicted_by_a",
+          "predicted_by_b",
+          "source"
+        ],
+        "additionalProperties": false,
+        "allOf": [
+          {
+            "not": {
+              "properties": {
+                "predicted_by_a": {
+                  "properties": {
+                    "expectation": {
+                      "const": "expected"
+                    }
+                  }
+                },
+                "predicted_by_b": {
+                  "properties": {
+                    "expectation": {
+                      "const": "expected"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          {
+            "not": {
+              "properties": {
+                "predicted_by_a": {
+                  "properties": {
+                    "expectation": {
+                      "const": "not_expected"
+                    }
+                  }
+                },
+                "predicted_by_b": {
+                  "properties": {
+                    "expectation": {
+                      "const": "not_expected"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          {
+            "not": {
+              "properties": {
+                "predicted_by_a": {
+                  "properties": {
+                    "expectation": {
+                      "const": "silent"
+                    }
+                  }
+                },
+                "predicted_by_b": {
+                  "properties": {
+                    "expectation": {
+                      "const": "silent"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        ],
+        "description": "An observation distinguishes the pair only when the two cards expect it differently."
+      }
+    },
+    "decisive_test": {
+      "oneOf": [
+        {
+          "type": "object",
+          "properties": {
+            "kind": {
+              "const": "test"
+            },
+            "description": {
+              "type": "string",
+              "minLength": 1,
+              "pattern": "\\S"
+            },
+            "source": {
+              "oneOf": [
+                {
+                  "type": "object",
+                  "properties": {
+                    "kind": {
+                      "const": "card"
+                    },
+                    "card": {
+                      "enum": [
+                        "a",
+                        "b"
+                      ]
+                    },
+                    "pointer": {
+                      "type": "string",
+                      "pattern": "^(?:/(?:[^~/]|~[01])*)+$"
+                    }
+                  },
+                  "required": [
+                    "kind",
+                    "card",
+                    "pointer"
+                  ],
+                  "additionalProperties": false
+                },
+                {
+                  "type": "object",
+                  "properties": {
+                    "kind": {
+                      "const": "external"
+                    },
+                    "uri": {
+                      "type": "string",
+                      "minLength": 1,
+                      "pattern": "\\S"
+                    },
+                    "locator": {
+                      "type": "string",
+                      "minLength": 1,
+                      "pattern": "\\S"
+                    }
+                  },
+                  "required": [
+                    "kind",
+                    "uri"
+                  ],
+                  "additionalProperties": false
+                }
+              ]
+            }
+          },
+          "required": [
+            "kind",
+            "description",
+            "source"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "kind": {
+              "const": "gap"
+            },
+            "gap": {
+              "type": "object",
+              "properties": {
+                "disposition": {
+                  "enum": [
+                    "none_known",
+                    "not_supplied",
+                    "budget_exhausted"
+                  ]
+                },
+                "reason": {
+                  "type": "string",
+                  "minLength": 1,
+                  "pattern": "\\S"
+                }
+              },
+              "required": [
+                "disposition",
+                "reason"
+              ],
+              "additionalProperties": false
+            }
+          },
+          "required": [
+            "kind",
+            "gap"
+          ],
+          "additionalProperties": false
+        }
+      ]
+    },
+    "produced_by": {
+      "type": "string",
+      "minLength": 1,
+      "pattern": "\\S"
+    },
+    "produced_at": {
+      "type": "string",
+      "format": "date-time"
+    }
+  },
+  "required": [
+    "schema",
+    "id",
+    "hypothesis_refs",
+    "relation",
+    "shared_explananda",
+    "distinguishing_observations",
+    "decisive_test",
+    "produced_by",
+    "produced_at"
+  ],
+  "additionalProperties": false
+}

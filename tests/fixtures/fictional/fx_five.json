@@ -1,0 +1,138 @@
+{
+  "schema": "ohf:hypothesis@1",
+  "id": "h_fx-five",
+  "version": 1,
+  "standard_version": "1.0",
+  "vocabularies": {
+    "heuristics": {
+      "id": "ohf:heuristics@1",
+      "sha256": "sha256:ef18bd7539c4cf06878be8720cbab9e541d5d41f0c0e369a0274bd1b07e7f5ef"
+    },
+    "profiles": {
+      "id": "ohf:profiles@1",
+      "sha256": "sha256:5c7f2b59712a38c9c03ecfed9ceebe782b0c43b6ac60485ab44396b6e1e681cc"
+    }
+  },
+  "identity": {
+    "proposition_id": "h_fx-five",
+    "version": 1,
+    "lifecycle": "fixture"
+  },
+  "author": {
+    "source": {
+      "kind": "synthetic_software_fixture",
+      "citation": "Fictional software test source five",
+      "url": "https://example.org/fixtures/fx_five.json",
+      "license": "CC0-1.0",
+      "rights_basis": "Synthetic test text authored for this fixture; not scientific evidence.",
+      "retrieved_at": "2026-01-01T00:00:00Z",
+      "source_text_sha256": "sha256:7570c9c85c056871f5cc374814fb8c661a2cf0e137b052df9d4b5955afdf2f99",
+      "language": "en"
+    },
+    "generator": {
+      "kind": "unknown",
+      "system": null,
+      "system_version": null,
+      "model": null
+    },
+    "generation": {
+      "run_id": "fx_software-fixtures",
+      "generated": 3,
+      "submitted": 0,
+      "submits_all": false
+    },
+    "submitted_at": "2026-01-01T00:00:00Z",
+    "layers": {
+      "core": {
+        "statement": {
+          "value": "In fictional system five, counter Y oscillates because part M activates part N and part N represses part M.",
+          "locator": "JSON:/statement"
+        }
+      },
+      "mechanism": {},
+      "predictions": [],
+      "evidence": {},
+      "provenance": {},
+      "profile": {},
+      "appendix": {}
+    }
+  },
+  "added": {
+    "by": {
+      "converter": "fixture-builder",
+      "converter_version": "1.0.0",
+      "converter_hash": "sha256:9804e721523972a24c0d84b49f0e1fb07cf2638612330bda34686e281f4fe229",
+      "model": "none"
+    },
+    "produced_by": {
+      "kind": "submitter",
+      "pipeline": {
+        "name": "fixture-builder",
+        "version": "1.0.0"
+      }
+    },
+    "source_verification": {
+      "status": "refetched_match",
+      "fetched_from": "https://example.org/fixtures/fx_five.json",
+      "fetched_at": "2026-01-01T00:00:00Z",
+      "sha256": "sha256:7570c9c85c056871f5cc374814fb8c661a2cf0e137b052df9d4b5955afdf2f99"
+    },
+    "at": "2026-01-01T00:00:00Z",
+    "cutoff_date": null,
+    "layers": {
+      "core": {
+        "kind": {
+          "value": "mechanism",
+          "src": "statement"
+        }
+      },
+      "mechanism": {},
+      "predictions": [],
+      "evidence": {},
+      "provenance": {},
+      "profile": {
+        "domain": "none"
+      },
+      "appendix": {}
+    },
+    "gaps": [
+      {
+        "path": "mechanism.black_box",
+        "disposition": "not_supplied",
+        "reason": "The author does not say whether the mechanism is treated as unknown.",
+        "query_ids": [],
+        "inspected_artifacts": []
+      }
+    ],
+    "completeness": {
+      "level": "accepted",
+      "layers_present": [
+        "core"
+      ],
+      "missing_for_next": [
+        "Fictional software fixture; not scientific evidence."
+      ]
+    },
+    "sources": {
+      "statement": {
+        "source": "https://example.org/fixtures/fx_five.json",
+        "locator": "JSON:/statement",
+        "accessed_at": "2026-01-01T00:00:00Z",
+        "tool": "fixture"
+      }
+    },
+    "budget": {
+      "model_calls": 0,
+      "http_requests": 0,
+      "input_tokens": null,
+      "output_tokens": null
+    }
+  },
+  "facets": {
+    "topic": [
+      "synthetic software fixture"
+    ],
+    "source_class": "synthetic_software_fixture"
+  },
+  "content_hash": "sha256:caaedabee2d31c0e97596d1e3b6ff9fb60dc250330161d3af4cfcf069b70d42d"
+}

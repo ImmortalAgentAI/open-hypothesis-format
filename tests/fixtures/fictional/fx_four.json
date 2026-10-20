@@ -1,0 +1,409 @@
+{
+  "schema": "ohf:hypothesis@1",
+  "id": "h_fx-four",
+  "version": 1,
+  "standard_version": "1.0",
+  "vocabularies": {
+    "heuristics": {
+      "id": "ohf:heuristics@1",
+      "sha256": "sha256:ef18bd7539c4cf06878be8720cbab9e541d5d41f0c0e369a0274bd1b07e7f5ef"
+    },
+    "profiles": {
+      "id": "ohf:profiles@1",
+      "sha256": "sha256:5c7f2b59712a38c9c03ecfed9ceebe782b0c43b6ac60485ab44396b6e1e681cc"
+    }
+  },
+  "identity": {
+    "proposition_id": "h_fx-four",
+    "version": 1,
+    "lifecycle": "fixture"
+  },
+  "author": {
+    "source": {
+      "kind": "synthetic_software_fixture",
+      "citation": "Fictional software test source four",
+      "url": "https://example.org/fixtures/fx_four.json",
+      "license": "CC0-1.0",
+      "rights_basis": "Synthetic test text authored for this fixture; not scientific evidence.",
+      "retrieved_at": "2026-01-01T00:00:00Z",
+      "source_text_sha256": "sha256:82d82118fca7a79c3837cafa3d89f14cc612ae24e3023e975b45d829dcf9f53d",
+      "language": "en"
+    },
+    "generator": {
+      "kind": "unknown",
+      "system": null,
+      "system_version": null,
+      "model": null
+    },
+    "generation": {
+      "run_id": "fx_software-fixtures",
+      "generated": 3,
+      "submitted": 0,
+      "submits_all": false
+    },
+    "submitted_at": "2026-01-01T00:00:00Z",
+    "layers": {
+      "core": {
+        "statement": {
+          "value": "In fictional test system four, lowering setting X with agent Q raises counter Y.",
+          "locator": "JSON:/statement"
+        },
+        "novelty_assessment": {
+          "value": {
+            "status": "claimed",
+            "new_content": "Agent Q as a way to act on target T.",
+            "shared_content": "The link between target T and counter Y."
+          },
+          "locator": "JSON:/prior_work"
+        }
+      },
+      "mechanism": {},
+      "predictions": [],
+      "evidence": {},
+      "provenance": {},
+      "profile": {},
+      "appendix": {}
+    }
+  },
+  "added": {
+    "by": {
+      "converter": "fixture-builder",
+      "converter_version": "1.0.0",
+      "converter_hash": "sha256:9804e721523972a24c0d84b49f0e1fb07cf2638612330bda34686e281f4fe229",
+      "model": "none"
+    },
+    "produced_by": {
+      "kind": "submitter",
+      "pipeline": {
+        "name": "fixture-builder",
+        "version": "1.0.0"
+      }
+    },
+    "source_verification": {
+      "status": "refetched_match",
+      "fetched_from": "https://example.org/fixtures/fx_four.json",
+      "fetched_at": "2026-01-01T00:00:00Z",
+      "sha256": "sha256:82d82118fca7a79c3837cafa3d89f14cc612ae24e3023e975b45d829dcf9f53d"
+    },
+    "at": "2026-01-01T00:00:00Z",
+    "cutoff_date": null,
+    "layers": {
+      "core": {
+        "kind": {
+          "value": "intervention_effect",
+          "src": "statement"
+        },
+        "potential_benefit": {
+          "value": {
+            "outcome": "Counter Y stays high for longer in system four.",
+            "beneficiaries_or_system": "Operators of fictional system four",
+            "constraints": [
+              "Fictional system only"
+            ]
+          },
+          "src": "benefit"
+        },
+        "uncertainties": {
+          "value": [
+            {
+              "id": "u1",
+              "question": "Does target T limit counter Y in fictional system five as well?",
+              "consequence": "The claim would be limited to system four."
+            }
+          ],
+          "src": "open_question"
+        },
+        "alternative_explanations": {
+          "value": [
+            {
+              "claim_or_ref": {
+                "kind": "literal",
+                "text": "Agent Q may raise counter Y through fictional target U instead of T."
+              },
+              "distinguishing_prediction_refs": [
+                {
+                  "kind": "card",
+                  "pointer": "/added/layers/predictions/0"
+                }
+              ]
+            }
+          ],
+          "src": "alternative"
+        },
+        "base_rate": {
+          "value": {
+            "reference_class": "Fictional agents screened in system four",
+            "rate": 0.15,
+            "denominator": 40,
+            "source": {
+              "kind": "artifact",
+              "sha256": "sha256:82d82118fca7a79c3837cafa3d89f14cc612ae24e3023e975b45d829dcf9f53d",
+              "json_pointer": "/base_rate"
+            },
+            "as_of": "2026-01-01"
+          },
+          "src": "base_rate"
+        }
+      },
+      "mechanism": {
+        "molecular_targets": {
+          "value": [
+            {
+              "label": "Fictional target T",
+              "id": "FICTIONAL-T",
+              "id_scheme": "GO",
+              "role": "primary"
+            }
+          ],
+          "src": "rationale"
+        }
+      },
+      "predictions": [
+        {
+          "id": {
+            "value": "p1",
+            "src": "statement"
+          },
+          "role": {
+            "value": "primary",
+            "src": "statement"
+          },
+          "test_cost": {
+            "value": {
+              "money_range": {
+                "low": 1000,
+                "high": 1500,
+                "currency": "EUR",
+                "year": 2026
+              },
+              "duration": {
+                "value": 2,
+                "unit": "weeks"
+              },
+              "resources": [
+                "One fictional bench"
+              ],
+              "basis": "Cost stated in the fictional source.",
+              "confidence": "medium"
+            },
+            "src": "cost"
+          },
+          "resolution": {
+            "value": {
+              "criterion": "The prediction holds if counter Y is at least 10 percent higher with agent Q after 20 cycles.",
+              "outcome": {
+                "status": "pending"
+              }
+            },
+            "src": "resolution"
+          },
+          "existing_data_tests": {
+            "value": [
+              {
+                "dataset": {
+                  "name": "Fictional dataset D4",
+                  "ref": {
+                    "kind": "artifact",
+                    "sha256": "sha256:82d82118fca7a79c3837cafa3d89f14cc612ae24e3023e975b45d829dcf9f53d",
+                    "json_pointer": "/dataset"
+                  }
+                },
+                "access": "open",
+                "what_it_can_show": "Counter Y with and without agent Q in system four."
+              }
+            ],
+            "src": "dataset"
+          }
+        }
+      ],
+      "evidence": {
+        "lines": [
+          {
+            "id": {
+              "value": "e1",
+              "src": "prior_work"
+            },
+            "replication": {
+              "value": {
+                "status": "replicated",
+                "independent": [
+                  {
+                    "kind": "artifact",
+                    "sha256": "sha256:82d82118fca7a79c3837cafa3d89f14cc612ae24e3023e975b45d829dcf9f53d",
+                    "json_pointer": "/replication"
+                  }
+                ]
+              },
+              "src": "replication"
+            }
+          }
+        ],
+        "references": [
+          {
+            "access_context": {
+              "value": {
+                "source_ref": {
+                  "kind": "artifact",
+                  "sha256": "sha256:82d82118fca7a79c3837cafa3d89f14cc612ae24e3023e975b45d829dcf9f53d",
+                  "json_pointer": ""
+                },
+                "text_scope": "full_text",
+                "truncated": false,
+                "inspected_locator_range": null,
+                "retrieval_status": "retrieved",
+                "retrieval_record_ref": {
+                  "kind": "artifact",
+                  "sha256": "sha256:82d82118fca7a79c3837cafa3d89f14cc612ae24e3023e975b45d829dcf9f53d",
+                  "json_pointer": ""
+                }
+              },
+              "src": "prior_work"
+            },
+            "funding_coi": {
+              "value": {
+                "funders": [
+                  "Fictional fund G"
+                ],
+                "coi_declared": {
+                  "kind": "none_declared"
+                }
+              },
+              "src": "funding"
+            }
+          }
+        ]
+      },
+      "provenance": {
+        "heuristic_principle": {
+          "value": [
+            {
+              "term": "competing-explanations",
+              "basis_quote": "We compared competing explanations for the rise in counter Y."
+            }
+          ],
+          "src": "heuristic"
+        }
+      },
+      "profile": {
+        "domain": "ohf:intervention-pharmacology@1",
+        "human_testability": {
+          "value": {
+            "feasible": "no"
+          },
+          "src": "human"
+        }
+      },
+      "appendix": {}
+    },
+    "gaps": [],
+    "completeness": {
+      "level": "accepted",
+      "layers_present": [
+        "core"
+      ],
+      "missing_for_next": [
+        "Fictional software fixture; not scientific evidence."
+      ]
+    },
+    "sources": {
+      "statement": {
+        "source": "https://example.org/fixtures/fx_four.json",
+        "locator": "JSON:/statement",
+        "accessed_at": "2026-01-01T00:00:00Z",
+        "tool": "fixture"
+      },
+      "rationale": {
+        "source": "https://example.org/fixtures/fx_four.json",
+        "locator": "JSON:/rationale",
+        "accessed_at": "2026-01-01T00:00:00Z",
+        "tool": "fixture"
+      },
+      "benefit": {
+        "source": "https://example.org/fixtures/fx_four.json",
+        "locator": "JSON:/benefit",
+        "accessed_at": "2026-01-01T00:00:00Z",
+        "tool": "fixture"
+      },
+      "prior_work": {
+        "source": "https://example.org/fixtures/fx_four.json",
+        "locator": "JSON:/prior_work",
+        "accessed_at": "2026-01-01T00:00:00Z",
+        "tool": "fixture"
+      },
+      "open_question": {
+        "source": "https://example.org/fixtures/fx_four.json",
+        "locator": "JSON:/open_question",
+        "accessed_at": "2026-01-01T00:00:00Z",
+        "tool": "fixture"
+      },
+      "alternative": {
+        "source": "https://example.org/fixtures/fx_four.json",
+        "locator": "JSON:/alternative",
+        "accessed_at": "2026-01-01T00:00:00Z",
+        "tool": "fixture"
+      },
+      "base_rate": {
+        "source": "https://example.org/fixtures/fx_four.json",
+        "locator": "JSON:/base_rate",
+        "accessed_at": "2026-01-01T00:00:00Z",
+        "tool": "fixture"
+      },
+      "replication": {
+        "source": "https://example.org/fixtures/fx_four.json",
+        "locator": "JSON:/replication",
+        "accessed_at": "2026-01-01T00:00:00Z",
+        "tool": "fixture"
+      },
+      "funding": {
+        "source": "https://example.org/fixtures/fx_four.json",
+        "locator": "JSON:/funding",
+        "accessed_at": "2026-01-01T00:00:00Z",
+        "tool": "fixture"
+      },
+      "dataset": {
+        "source": "https://example.org/fixtures/fx_four.json",
+        "locator": "JSON:/dataset",
+        "accessed_at": "2026-01-01T00:00:00Z",
+        "tool": "fixture"
+      },
+      "cost": {
+        "source": "https://example.org/fixtures/fx_four.json",
+        "locator": "JSON:/cost",
+        "accessed_at": "2026-01-01T00:00:00Z",
+        "tool": "fixture"
+      },
+      "resolution": {
+        "source": "https://example.org/fixtures/fx_four.json",
+        "locator": "JSON:/resolution",
+        "accessed_at": "2026-01-01T00:00:00Z",
+        "tool": "fixture"
+      },
+      "human": {
+        "source": "https://example.org/fixtures/fx_four.json",
+        "locator": "JSON:/human",
+        "accessed_at": "2026-01-01T00:00:00Z",
+        "tool": "fixture"
+      },
+      "heuristic": {
+        "source": "https://example.org/fixtures/fx_four.json",
+        "locator": "JSON:/heuristic",
+        "accessed_at": "2026-01-01T00:00:00Z",
+        "tool": "fixture"
+      }
+    },
+    "budget": {
+      "model_calls": 0,
+      "http_requests": 0,
+      "input_tokens": null,
+      "output_tokens": null
+    }
+  },
+  "facets": {
+    "topic": [
+      "synthetic software fixture"
+    ],
+    "intervention_type": "fictional counter setting",
+    "source_class": "synthetic_software_fixture"
+  },
+  "content_hash": "sha256:d6188c76b233eece2d36bf4c94c2e51c087b3e0fa5181ab4fbf3fe843525d072"
+}

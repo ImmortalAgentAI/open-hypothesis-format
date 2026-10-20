@@ -1,0 +1,130 @@
+{
+  "standard_version": "1.0",
+  "vocabularies": {
+    "heuristics": {
+      "id": "ohf:heuristics@1",
+      "sha256": "sha256:ef18bd7539c4cf06878be8720cbab9e541d5d41f0c0e369a0274bd1b07e7f5ef"
+    }
+  },
+  "author": {
+    "layers": {
+      "provenance": {
+        "heuristic_principle": {
+          "value": [
+            {
+              "term": "competing-explanations",
+              "author_text": "We compare competing explanations."
+            }
+          ],
+          "locator": "text:0:34"
+        }
+      },
+      "mechanism": {
+        "molecular_targets": {
+          "value": [
+            {
+              "label": "ESR1",
+              "id": "P03372",
+              "id_scheme": "UniProt",
+              "role": "primary"
+            }
+          ],
+          "locator": "Methods, target identification"
+        }
+      },
+      "predictions": [
+        {
+          "id": "p1",
+          "role": {
+            "value": "primary",
+            "locator": "Protocol, primary endpoint"
+          },
+          "test_cost": {
+            "value": {
+              "money_range": {
+                "low": 10000,
+                "high": 20000,
+                "currency": "USD",
+                "year": 2026
+              },
+              "duration": {
+                "value": 6,
+                "unit": "months"
+              },
+              "resources": [
+                "Cell culture facility"
+              ],
+              "basis": "Budget stated in the protocol.",
+              "confidence": "medium"
+            },
+            "locator": "Protocol, budget"
+          }
+        }
+      ]
+    }
+  },
+  "added": {
+    "layers": {
+      "provenance": {
+        "heuristic_principle": {
+          "value": [
+            {
+              "term": "competing-explanations",
+              "basis_quote": "We compare competing explanations."
+            }
+          ],
+          "src": "s1"
+        }
+      },
+      "mechanism": {
+        "molecular_targets": {
+          "value": [
+            {
+              "label": "ESR1",
+              "id": "P03372",
+              "id_scheme": "UniProt",
+              "role": "primary"
+            }
+          ],
+          "src": "s2"
+        }
+      },
+      "predictions": [
+        {
+          "id": "p1",
+          "role": {
+            "value": "primary",
+            "src": "s3"
+          },
+          "test_cost": {
+            "value": {
+              "duration": {
+                "value": 6,
+                "unit": "months"
+              },
+              "basis": "Duration reported in a comparable protocol; budget and resources were not reported.",
+              "confidence": "low"
+            },
+            "src": "s4"
+          }
+        }
+      ]
+    },
+    "gaps": [
+      {
+        "path": "predictions[0].test_cost.money_range",
+        "disposition": "not_supplied",
+        "reason": "This component is not supplied in the synthetic example.",
+        "query_ids": [],
+        "inspected_artifacts": []
+      },
+      {
+        "path": "predictions[0].test_cost.resources",
+        "disposition": "not_supplied",
+        "reason": "This component is not supplied in the synthetic example.",
+        "query_ids": [],
+        "inspected_artifacts": []
+      }
+    ]
+  }
+}

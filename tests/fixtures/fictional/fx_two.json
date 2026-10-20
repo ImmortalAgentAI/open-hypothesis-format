@@ -1,0 +1,147 @@
+{
+  "schema": "ohf:hypothesis@1",
+  "id": "h_fx-two",
+  "version": 1,
+  "standard_version": "1.0",
+  "vocabularies": {
+    "heuristics": {
+      "id": "ohf:heuristics@1",
+      "sha256": "sha256:ef18bd7539c4cf06878be8720cbab9e541d5d41f0c0e369a0274bd1b07e7f5ef"
+    },
+    "profiles": {
+      "id": "ohf:profiles@1",
+      "sha256": "sha256:5c7f2b59712a38c9c03ecfed9ceebe782b0c43b6ac60485ab44396b6e1e681cc"
+    }
+  },
+  "identity": {
+    "proposition_id": "h_fx-two",
+    "version": 1,
+    "lifecycle": "fixture"
+  },
+  "author": {
+    "source": {
+      "kind": "synthetic_software_fixture",
+      "citation": "Fictional software test source two",
+      "url": "https://example.org/fixtures/fx_two.json",
+      "license": "CC0-1.0",
+      "rights_basis": "Synthetic test text authored for this fixture; not scientific evidence.",
+      "retrieved_at": "2026-01-01T00:00:00Z",
+      "source_text_sha256": "sha256:63e6b232298df01098a6416233767019114c945a99869a9a299684484bae7769",
+      "language": "en"
+    },
+    "generator": {
+      "kind": "unknown",
+      "system": null,
+      "system_version": null,
+      "model": null
+    },
+    "generation": {
+      "run_id": "fx_software-fixtures",
+      "generated": 3,
+      "submitted": 0,
+      "submits_all": false
+    },
+    "submitted_at": "2026-01-01T00:00:00Z",
+    "layers": {
+      "core": {
+        "statement": {
+          "value": "In fictional test system two, increasing setting X changes counter Y.",
+          "locator": "JSON:/statement"
+        }
+      },
+      "mechanism": {},
+      "predictions": [
+        {
+          "id": "p1",
+          "intermediate_tests": [
+            {
+              "observable": {
+                "value": "The fictional counter Y.",
+                "locator": "JSON:/observable"
+              },
+              "h0": {
+                "value": "The fictional setting has no effect on counter Y.",
+                "locator": "JSON:/h0"
+              },
+              "h1": {
+                "value": "The fictional setting changes counter Y.",
+                "locator": "JSON:/h1"
+              },
+              "test": {
+                "value": "Run the fictional counter procedure.",
+                "locator": "JSON:/test"
+              },
+              "status": {
+                "value": "planned",
+                "locator": "JSON:/status"
+              }
+            }
+          ]
+        }
+      ],
+      "evidence": {},
+      "provenance": {},
+      "profile": {},
+      "appendix": {}
+    }
+  },
+  "added": {
+    "by": {
+      "converter": "fixture-builder",
+      "converter_version": "1.0.0",
+      "converter_hash": "sha256:9804e721523972a24c0d84b49f0e1fb07cf2638612330bda34686e281f4fe229",
+      "model": "none"
+    },
+    "produced_by": {
+      "kind": "submitter",
+      "pipeline": {
+        "name": "fixture-builder",
+        "version": "1.0.0"
+      }
+    },
+    "source_verification": {
+      "status": "refetched_match",
+      "fetched_from": "https://example.org/fixtures/fx_two.json",
+      "fetched_at": "2026-01-01T00:00:00Z",
+      "sha256": "sha256:63e6b232298df01098a6416233767019114c945a99869a9a299684484bae7769"
+    },
+    "at": "2026-01-01T00:00:00Z",
+    "cutoff_date": null,
+    "layers": {
+      "core": {},
+      "mechanism": {},
+      "predictions": [],
+      "evidence": {},
+      "provenance": {},
+      "profile": {
+        "domain": "ohf:intervention-pharmacology@1"
+      },
+      "appendix": {}
+    },
+    "gaps": [],
+    "completeness": {
+      "level": "accepted",
+      "layers_present": [
+        "core"
+      ],
+      "missing_for_next": [
+        "Fictional software fixture; not scientific evidence."
+      ]
+    },
+    "sources": {},
+    "budget": {
+      "model_calls": 0,
+      "http_requests": 0,
+      "input_tokens": null,
+      "output_tokens": null
+    }
+  },
+  "facets": {
+    "topic": [
+      "synthetic software fixture"
+    ],
+    "intervention_type": "fictional counter setting",
+    "source_class": "synthetic_software_fixture"
+  },
+  "content_hash": "sha256:117f53e4abf6bdb0e2eea464d190a8f71c7d7224da20cd5ef38ba891b9295a18"
+}

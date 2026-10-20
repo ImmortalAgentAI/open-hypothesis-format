@@ -1,0 +1,7 @@
+{
+  "kind": "synthetic_software_fixture",
+  "licence": "CC0-1.0",
+  "statement": "In fictional system six, counter Y oscillates because part M activates part N and part N represses part M.",
+  "observation": "Counter Y rises and falls with a period of about ten ticks.",
+  "prediction": "If the link from N to M is cut, Y stops oscillating even while the external clock keeps running."
+}

@@ -1,0 +1,73 @@
+{
+  "schema": "ohf:heuristics@1",
+  "terms": [
+    {
+      "id": "accelerate-then-reverse",
+      "label": "Start with interventions that accelerate dysfunction and test whether the changes can be reversed"
+    },
+    {
+      "id": "shared-cause",
+      "label": "Look for a common causal mechanism across interventions with similar beneficial effects"
+    },
+    {
+      "id": "trigger-vs-maintenance",
+      "label": "Separate mechanisms that trigger dysfunction from those that maintain it"
+    },
+    {
+      "id": "time-divisions-load",
+      "label": "Distinguish the effects of chronological age, the number of cell divisions and accumulated load"
+    },
+    {
+      "id": "cell-state-vs-composition",
+      "label": "Separate improvements within individual cells from changes in tissue cell composition"
+    },
+    {
+      "id": "cross-disease-transfer",
+      "label": "Apply mechanisms established in other diseases to a new context"
+    },
+    {
+      "id": "cell-vs-organism-conflict",
+      "label": "Look for conflicts between benefits to a cell and the function of the organism"
+    },
+    {
+      "id": "precursor-causality",
+      "label": "Identify changes that precede loss of function and test their causal role"
+    },
+    {
+      "id": "amplifier",
+      "label": "Look for amplifiers through which a small local disturbance produces a large systemic effect"
+    },
+    {
+      "id": "competing-explanations",
+      "label": "Formulate competing explanations for the same observation"
+    },
+    {
+      "id": "break-positive-feedback",
+      "label": "Break positive feedback loops"
+    },
+    {
+      "id": "long-lived-species-transfer",
+      "label": "Apply protective mechanisms from long-lived species"
+    },
+    {
+      "id": "split-target-functions",
+      "label": "Separate the beneficial and harmful functions of one target"
+    },
+    {
+      "id": "reuse-developmental-programs",
+      "label": "Reuse developmental programs"
+    },
+    {
+      "id": "antagonistic-pleiotropy",
+      "label": "Processes that are beneficial in youth and harmful in old age"
+    },
+    {
+      "id": "reaction-byproducts",
+      "label": "Reaction byproducts as a cause of damage"
+    },
+    {
+      "id": "other",
+      "label": "Other — describe in note"
+    }
+  ]
+}
