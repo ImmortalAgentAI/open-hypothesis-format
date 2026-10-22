@@ -25,6 +25,7 @@ Not run or not done in 1.1:
 - `tools/check_ledger.py` does not apply to the 1.1 example: it expects a ledger record for every sourced value and rebuilds the value without `term`. Left for 1.2.
 - The acceptance of the rapa base card still has one open condition (a critic pass); the example records the base hash and that condition in `examples/index.json`.
 - The independent reader did not check `target_ref` on lines against an alternative, and checked members of kind (b), resolved against external records, and (c), consistency with the card, only as named in the example's report.
+- `quote_withheld` was checked as a whole value. Its `reason` and `record_ref` are facts about the record, not the content of a paragraph, so they should be decided by resolution and the rest checked member by member. Left for 1.2.
 - Peto as a 1.1 example follows in a separate change.
 
 ## Unreleased
