@@ -19,12 +19,21 @@ sys.path.insert(0, str(Path(__file__).resolve().parent))
 from strict_json import load  # noqa: E402
 from check_gaps import resolve_pointer  # noqa: E402
 
-# The field names that make a pointer a field of each aspect: one segment of the pointer must be one of them.
+# Scientific field boundaries, relative to either zone's layers. Nested system
+# members and sourced values are allowed, but metadata cannot supply the aspect.
 ASPECT_FIELDS = {
     'endpoint': {'endpoint', 'endpoint_kind', 'endpoint_ref'},
     'population': {'sample', 'sample_size', 'study_system', 'population', 'subgroup'},
     'system': {'system', 'study_system', 'taxon', 'taxon_id'},
 }
+SCOPE_CONTEXTS = {
+    ('predictions', '*'): {'endpoint', 'endpoint_kind', 'population', 'system'},
+    ('evidence', 'lines', '*'): {
+        'endpoint_kind', 'sample', 'sample_size', 'study_system', 'system'},
+    ('profile', 'dose_response'): {'endpoint_ref'},
+}
+SCOPE_METADATA = {'src', 'locator', 'assessment', 'assessment_status',
+                  'provenance', 'basis_quote', 'paraphrase', 'confidence'}
 
 
 def issue(code, path, message):
@@ -32,14 +41,40 @@ def issue(code, path, message):
 
 
 def plain(node):
-    """The value with every source wrapper removed."""
+    """Scientific value, without source wrappers or provenance/assessment data."""
     if isinstance(node, dict):
         if 'value' in node and ('src' in node or 'locator' in node):
             return plain(node['value'])
-        return {key: plain(item) for key, item in node.items()}
+        return {key: plain(item) for key, item in node.items() if key not in SCOPE_METADATA}
     if isinstance(node, list):
         return [plain(item) for item in node]
     return node
+
+
+def scientific_scope_field(card, pointer, aspect):
+    """Accept an actual scope field or its value descendants, never metadata."""
+    parts = [part.replace('~1', '/').replace('~0', '~') for part in pointer.split('/')[1:]]
+    if len(parts) < 4 or parts[0] not in ('author', 'added') or parts[1] != 'layers':
+        return False
+    logical = parts[2:]
+    for context, fields in SCOPE_CONTEXTS.items():
+        size = len(context)
+        if len(logical) <= size or any(
+                not actual.isdigit() if expected == '*' else actual != expected
+                for actual, expected in zip(logical, context)):
+            continue
+        if logical[size] not in fields & ASPECT_FIELDS[aspect]:
+            continue
+        node = card
+        for token in parts:
+            if token in SCOPE_METADATA:
+                return False
+            if isinstance(node, dict) and 'value' in node and ('src' in node or 'locator' in node):
+                if token != 'value':
+                    return False
+            node = node[int(token)] if isinstance(node, list) else node[token]
+        return True
+    return False
 
 
 def resolve(card, pointer):
@@ -75,7 +110,7 @@ def check(relations, cards):
                 found, value = resolve(ends[end], pointer)
                 if not found:
                     errors.append(issue('REL_POINTER_UNRESOLVED', f'{path}.{end}_pointer', pointer))
-                elif not ASPECT_FIELDS[item['aspect']] & set(pointer.split('/')):
+                elif not scientific_scope_field(ends[end], pointer, item['aspect']):
                     errors.append(issue('REL_SCOPE_FIELD', f'{path}.{end}_pointer',
                                         f"{pointer} is not a field of the {item['aspect']}"))
                 else:

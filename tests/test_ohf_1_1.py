@@ -984,6 +984,102 @@ def test_scope_difference_must_be_shown_by_the_cards(kwargs, code):
     assert code in relation_codes(*scoped(**kwargs))
 
 
+def bind_scope_cards(edges, cards):
+    """Keep regressions schema- and reference-valid, including exact edge hashes."""
+    for end, card in zip(('source', 'target'), cards):
+        card['content_hash'] = content_hash(card)
+        edges['edges'][0][end]['content_hash'] = card['content_hash']
+        assert not validation_errors(SCHEMA, card)
+        assert check_refs(card)['valid']
+    assert not validation_errors(RELATIONS, edges)
+
+
+@pytest.mark.parametrize('suffix', ['', '/value'])
+def test_scope_endpoint_scientific_value_accepts_difference_and_rejects_same(suffix):
+    path = '/added/layers/predictions/0/endpoint' + suffix
+    edges, cards = scoped(pointer=path)
+    bind_scope_cards(edges, cards)
+    assert check_relations(edges, cards)['valid']
+    edges, cards = scoped(endpoint='oscillation of counter Y', pointer=path)
+    bind_scope_cards(edges, cards)
+    assert relation_codes(edges, cards) == {'REL_SCOPE_SAME'}
+
+
+@pytest.mark.parametrize('aspect,field', [('endpoint', 'endpoint'),
+                                        ('population', 'population'), ('system', 'system/kind')])
+def test_scope_source_metadata_cannot_fake_a_difference(aspect, field):
+    base = '/added/layers/predictions/0/' + field
+    edges, cards = scoped(endpoint='oscillation of counter Y',
+                          aspect=aspect, pointer=base + '/src')
+    for i, card in enumerate(cards):
+        node = card['added']['layers']['predictions'][0]
+        if field == 'population':
+            node['population'] = {'value': 'same population', 'src': 'prediction'}
+        for key in field.split('/'):
+            node = node[key]
+        node['src'] = 'prediction' if i == 0 else 'statement'
+    bind_scope_cards(edges, cards)
+    assert relation_codes(edges, cards) == {'REL_SCOPE_FIELD'}
+    for side in ('source_pointer', 'target_pointer'):
+        edges['edges'][0]['scope_differs'][0][side] = base
+    assert relation_codes(edges, cards) == {'REL_SCOPE_SAME'}
+
+
+def test_scope_author_locator_cannot_fake_a_difference():
+    path = '/author/layers/predictions/0/endpoint/locator'
+    edges, cards = scoped(pointer=path)
+    for i, card in enumerate(cards):
+        card['author']['layers']['predictions'] = [
+            {'id': 'p_author', 'endpoint': {'value': 'same outcome', 'locator': f'paragraph {i + 1}'}}]
+    bind_scope_cards(edges, cards)
+    assert relation_codes(edges, cards) == {'REL_SCOPE_FIELD'}
+
+
+def test_scope_generator_system_is_provenance_not_study_system():
+    # The relations schema already restricts pointers to layers; the standalone
+    # checker must also reject a real, resolvable generator metadata field.
+    edges, cards = scoped(aspect='system', pointer='/author/generator/system')
+    for i, (side, card) in enumerate(zip(('source', 'target'), cards)):
+        card['author']['generator']['system'] = f'generator {i}'
+        card['content_hash'] = content_hash(card)
+        edges['edges'][0][side]['content_hash'] = card['content_hash']
+        assert not validation_errors(SCHEMA, card)
+        assert check_refs(card)['valid']
+    assert validation_errors(RELATIONS, edges)
+    assert relation_codes(edges, cards) == {'REL_SCOPE_FIELD'}
+
+
+@pytest.mark.parametrize('zone', ['author', 'added'])
+@pytest.mark.parametrize('aspect,field', [('population', 'population'), ('system', 'system/taxon')])
+def test_scope_population_and_system_value_descendants_remain_valid(zone, aspect, field):
+    path = f'/{zone}/layers/predictions/0/{field}/value'
+    edges, cards = scoped(aspect=aspect, pointer=path)
+    for i, card in enumerate(cards):
+        fields = card[zone]['layers']['predictions']
+        if not fields:
+            fields.append({'id': 'p_author'})
+        node = fields[0]
+        for key in field.split('/')[:-1]:
+            node = node.setdefault(key, {})
+        node[field.split('/')[-1]] = {'value': f'scientific group {i}',
+                                    'locator' if zone == 'author' else 'src':
+                                    'paragraph 1' if zone == 'author' else 'statement'}
+    bind_scope_cards(edges, cards)
+    assert check_relations(edges, cards)['valid']
+
+
+def test_scope_checker_rejects_assessment_descendants_even_without_prior_schema_check():
+    # The schema already rejects this extra metadata. The standalone checker
+    # must not turn it into a scientific difference if called without that gate.
+    edges, cards = scoped(pointer='/added/layers/predictions/0/endpoint/assessment/assessor')
+    for i, card in enumerate(cards):
+        card['added']['layers']['predictions'][0]['endpoint']['assessment'] = {'assessor': f'reviewer {i}'}
+        card['content_hash'] = content_hash(card)
+        edges['edges'][0]['source' if i == 0 else 'target']['content_hash'] = card['content_hash']
+        assert validation_errors(SCHEMA, card)
+    assert relation_codes(edges, cards) == {'REL_SCOPE_FIELD'}
+
+
 def test_relations_check_needs_the_named_cards():
     edges, cards = scoped()
     assert 'REL_CARD_MISSING' in relation_codes(edges, cards[:1])
