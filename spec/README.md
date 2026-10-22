@@ -178,6 +178,8 @@ Definitions of the relation types, from OHF 1.1. Source and target are card vers
 
 An edge between records describes those records only: two atoms of two cards can be compatible while the cards are rivals.
 
+From OHF 1.1 an edge may list `scope_differs`: the `endpoint`, `population` or `system` on which the two cards differ, each with a pointer to the field in the source card and in the target card. Two rivals that measure different outcomes, or study different taxa, are not in flat contradiction, and the edge says so as data. `tools/check_relations.py` checks a relations artifact against the cards it names: each end names a given card by `content_hash` (`REL_CARD_MISSING`), every pointer resolves (`REL_POINTER_UNRESOLVED`), each `scope_differs` pointer is a field of its aspect (`REL_SCOPE_FIELD`), and the two fields differ once source wrappers are removed (`REL_SCOPE_SAME`).
+
 A pair brief repeats the relation of its two card versions. The relations artifact is the record of that relation: if a pair brief and a relations artifact disagree about the same two card versions, the relations artifact holds and the pair brief must be corrected.
 
 Examples are described in [`examples/README.md`](../examples/README.md).

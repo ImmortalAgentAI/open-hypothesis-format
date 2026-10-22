@@ -8,6 +8,8 @@ import pytest
 from tools.check_completeness import both_sides
 from tools.check_gaps import check as check_gaps
 from tools.check_refs import check as check_refs
+from tools.check_relations import check as check_relations
+from tools.content_hash import content_hash
 from tools.strict_json import load
 from tools.validate import pointer, validation_errors
 
@@ -936,3 +938,54 @@ def test_a_1_0_card_has_no_withheld_quote():
     card = sides_card()
     as_1_0(card)
     assert AGAINST in {pointer(error) for error in validation_errors(SCHEMA, card)}
+
+
+# master THJOB-57b4629e: an edge names the endpoint, population or system on which the two cards differ.
+def scoped(endpoint='mean amplitude of counter Y', aspect='endpoint', pointer='/added/layers/predictions/0/endpoint'):
+    """fx_six and fx_seven, the second measuring another endpoint, with an edge that says so."""
+    six = load(ROOT / 'tests/fixtures/fictional/fx_six.json')
+    seven = load(ROOT / 'tests/fixtures/fictional/fx_seven.json')
+    seven['added']['layers']['predictions'][0]['endpoint']['value'] = endpoint
+    seven['content_hash'] = content_hash(seven)
+    edges = copy.deepcopy(EDGES)
+    edges['edges'][0]['target']['content_hash'] = seven['content_hash']
+    edges['edges'][0]['scope_differs'] = [{'aspect': aspect, 'source_pointer': pointer, 'target_pointer': pointer}]
+    return edges, [six, seven]
+
+
+def relation_codes(edges, cards):
+    return {item['code'] for item in check_relations(edges, cards)['errors']}
+
+
+def test_scope_difference_shown_by_both_cards_is_valid():
+    edges, cards = scoped()
+    assert not validation_errors(RELATIONS, edges)
+    assert check_relations(edges, cards)['valid'], check_relations(edges, cards)['errors']
+
+
+@pytest.mark.parametrize('change', [
+    lambda item: item.__setitem__('aspect', 'outcome'),
+    lambda item: item.pop('target_pointer'),
+    lambda item: item.__setitem__('source_pointer', 'predictions/0/endpoint'),
+], ids=['aspect_not_in_list', 'qualifier_without_basis', 'pointer_not_absolute'])
+def test_scope_difference_form_is_checked(change):
+    edges, _ = scoped()
+    change(edges['edges'][0]['scope_differs'][0])
+    assert validation_errors(RELATIONS, edges)
+
+
+@pytest.mark.parametrize('kwargs,code', [
+    ({'endpoint': 'oscillation of counter Y'}, 'REL_SCOPE_SAME'),
+    ({'pointer': '/added/layers/predictions/0/comparator'}, 'REL_SCOPE_FIELD'),
+    ({'aspect': 'system'}, 'REL_SCOPE_FIELD'),
+    ({'pointer': '/added/layers/predictions/3/endpoint'}, 'REL_POINTER_UNRESOLVED'),
+], ids=['same_values', 'not_a_scope_field', 'endpoint_as_system', 'pointer_resolves_nowhere'])
+def test_scope_difference_must_be_shown_by_the_cards(kwargs, code):
+    assert code in relation_codes(*scoped(**kwargs))
+
+
+def test_relations_check_needs_the_named_cards():
+    edges, cards = scoped()
+    assert 'REL_CARD_MISSING' in relation_codes(edges, cards[:1])
+    edges['edges'][0]['source']['pointer'] = '/added/layers/core/atoms/9'
+    assert 'REL_POINTER_UNRESOLVED' in relation_codes(edges, cards)
