@@ -1226,206 +1226,7 @@
                     ]
                   },
                   "system": {
-                    "type": "object",
-                    "properties": {
-                      "taxon": {
-                        "type": "object",
-                        "properties": {
-                          "value": {
-                            "$ref": "#/$defs/Logical%3ATerm"
-                          },
-                          "locator": {
-                            "type": "string",
-                            "minLength": 1,
-                            "pattern": "\\S"
-                          }
-                        },
-                        "additionalProperties": false,
-                        "required": [
-                          "value",
-                          "locator"
-                        ]
-                      },
-                      "strain_or_line": {
-                        "type": "object",
-                        "properties": {
-                          "value": {
-                            "$ref": "#/$defs/Logical%3ATextOrTerm"
-                          },
-                          "locator": {
-                            "type": "string",
-                            "minLength": 1,
-                            "pattern": "\\S"
-                          }
-                        },
-                        "additionalProperties": false,
-                        "required": [
-                          "value",
-                          "locator"
-                        ]
-                      },
-                      "sex": {
-                        "type": "object",
-                        "properties": {
-                          "value": {
-                            "$ref": "#/$defs/Logical%3ATextOrTerm"
-                          },
-                          "locator": {
-                            "type": "string",
-                            "minLength": 1,
-                            "pattern": "\\S"
-                          }
-                        },
-                        "additionalProperties": false,
-                        "required": [
-                          "value",
-                          "locator"
-                        ]
-                      },
-                      "age_at_start": {
-                        "type": "object",
-                        "properties": {
-                          "value": {
-                            "$ref": "#/$defs/Logical%3AQuantityOrInterval"
-                          },
-                          "locator": {
-                            "type": "string",
-                            "minLength": 1,
-                            "pattern": "\\S"
-                          }
-                        },
-                        "additionalProperties": false,
-                        "required": [
-                          "value",
-                          "locator"
-                        ]
-                      },
-                      "assessment_age": {
-                        "type": "object",
-                        "properties": {
-                          "value": {
-                            "$ref": "#/$defs/Logical%3AQuantityOrInterval"
-                          },
-                          "locator": {
-                            "type": "string",
-                            "minLength": 1,
-                            "pattern": "\\S"
-                          }
-                        },
-                        "additionalProperties": false,
-                        "required": [
-                          "value",
-                          "locator"
-                        ]
-                      },
-                      "site": {
-                        "type": "object",
-                        "properties": {
-                          "value": {
-                            "$ref": "#/$defs/Logical%3ATextOrReference"
-                          },
-                          "locator": {
-                            "type": "string",
-                            "minLength": 1,
-                            "pattern": "\\S"
-                          }
-                        },
-                        "additionalProperties": false,
-                        "required": [
-                          "value",
-                          "locator"
-                        ]
-                      },
-                      "kind": {
-                        "type": "object",
-                        "properties": {
-                          "value": {
-                            "enum": [
-                              "cell",
-                              "tissue",
-                              "organism",
-                              "population",
-                              "community",
-                              "ecosystem",
-                              "clade",
-                              "in_silico",
-                              "other"
-                            ]
-                          },
-                          "locator": {
-                            "type": "string",
-                            "minLength": 1,
-                            "pattern": "\\S"
-                          }
-                        },
-                        "required": [
-                          "value",
-                          "locator"
-                        ],
-                        "additionalProperties": false
-                      },
-                      "environment": {
-                        "type": "object",
-                        "properties": {
-                          "value": {
-                            "type": "string",
-                            "minLength": 1,
-                            "pattern": "\\S"
-                          },
-                          "locator": {
-                            "type": "string",
-                            "minLength": 1,
-                            "pattern": "\\S"
-                          }
-                        },
-                        "required": [
-                          "value",
-                          "locator"
-                        ],
-                        "additionalProperties": false
-                      },
-                      "spatial_scale": {
-                        "type": "object",
-                        "properties": {
-                          "value": {
-                            "type": "string",
-                            "minLength": 1,
-                            "pattern": "\\S"
-                          },
-                          "locator": {
-                            "type": "string",
-                            "minLength": 1,
-                            "pattern": "\\S"
-                          }
-                        },
-                        "required": [
-                          "value",
-                          "locator"
-                        ],
-                        "additionalProperties": false
-                      },
-                      "temporal_scale": {
-                        "type": "object",
-                        "properties": {
-                          "value": {
-                            "type": "string",
-                            "minLength": 1,
-                            "pattern": "\\S"
-                          },
-                          "locator": {
-                            "type": "string",
-                            "minLength": 1,
-                            "pattern": "\\S"
-                          }
-                        },
-                        "required": [
-                          "value",
-                          "locator"
-                        ],
-                        "additionalProperties": false
-                      }
-                    },
-                    "additionalProperties": false
+                    "$ref": "#/$defs/author%3Asystem"
                   },
                   "experimental_unit": {
                     "type": "object",
@@ -1446,190 +1247,7 @@
                     ]
                   },
                   "intervention": {
-                    "type": "object",
-                    "properties": {
-                      "agent": {
-                        "type": "object",
-                        "properties": {
-                          "value": {
-                            "$ref": "#/$defs/Logical%3ATextOrTerm"
-                          },
-                          "locator": {
-                            "type": "string",
-                            "minLength": 1,
-                            "pattern": "\\S"
-                          }
-                        },
-                        "additionalProperties": false,
-                        "required": [
-                          "value",
-                          "locator"
-                        ]
-                      },
-                      "dose": {
-                        "type": "object",
-                        "properties": {
-                          "value": {
-                            "$ref": "#/$defs/Logical%3AQuantity"
-                          },
-                          "locator": {
-                            "type": "string",
-                            "minLength": 1,
-                            "pattern": "\\S"
-                          }
-                        },
-                        "additionalProperties": false,
-                        "required": [
-                          "value",
-                          "locator"
-                        ]
-                      },
-                      "regimen": {
-                        "type": "object",
-                        "properties": {
-                          "value": {
-                            "$ref": "#/$defs/Logical%3AText"
-                          },
-                          "locator": {
-                            "type": "string",
-                            "minLength": 1,
-                            "pattern": "\\S"
-                          }
-                        },
-                        "additionalProperties": false,
-                        "required": [
-                          "value",
-                          "locator"
-                        ]
-                      },
-                      "duration": {
-                        "type": "object",
-                        "properties": {
-                          "value": {
-                            "$ref": "#/$defs/Logical%3AQuantityOrInterval"
-                          },
-                          "locator": {
-                            "type": "string",
-                            "minLength": 1,
-                            "pattern": "\\S"
-                          }
-                        },
-                        "additionalProperties": false,
-                        "required": [
-                          "value",
-                          "locator"
-                        ]
-                      },
-                      "route": {
-                        "type": "object",
-                        "properties": {
-                          "value": {
-                            "$ref": "#/$defs/Logical%3ATextOrTerm"
-                          },
-                          "locator": {
-                            "type": "string",
-                            "minLength": 1,
-                            "pattern": "\\S"
-                          }
-                        },
-                        "additionalProperties": false,
-                        "required": [
-                          "value",
-                          "locator"
-                        ]
-                      },
-                      "formulation": {
-                        "type": "object",
-                        "properties": {
-                          "value": {
-                            "$ref": "#/$defs/Logical%3AText"
-                          },
-                          "locator": {
-                            "type": "string",
-                            "minLength": 1,
-                            "pattern": "\\S"
-                          }
-                        },
-                        "additionalProperties": false,
-                        "required": [
-                          "value",
-                          "locator"
-                        ]
-                      },
-                      "nominal_concentration": {
-                        "type": "object",
-                        "properties": {
-                          "value": {
-                            "$ref": "#/$defs/Logical%3AQuantity"
-                          },
-                          "locator": {
-                            "type": "string",
-                            "minLength": 1,
-                            "pattern": "\\S"
-                          }
-                        },
-                        "additionalProperties": false,
-                        "required": [
-                          "value",
-                          "locator"
-                        ]
-                      },
-                      "measured_concentration": {
-                        "type": "object",
-                        "properties": {
-                          "value": {
-                            "$ref": "#/$defs/Logical%3AQuantityAndSource"
-                          },
-                          "locator": {
-                            "type": "string",
-                            "minLength": 1,
-                            "pattern": "\\S"
-                          }
-                        },
-                        "additionalProperties": false,
-                        "required": [
-                          "value",
-                          "locator"
-                        ]
-                      },
-                      "intake": {
-                        "type": "object",
-                        "properties": {
-                          "value": {
-                            "$ref": "#/$defs/Logical%3AQuantityAndSource"
-                          },
-                          "locator": {
-                            "type": "string",
-                            "minLength": 1,
-                            "pattern": "\\S"
-                          }
-                        },
-                        "additionalProperties": false,
-                        "required": [
-                          "value",
-                          "locator"
-                        ]
-                      },
-                      "systemic_exposure": {
-                        "type": "object",
-                        "properties": {
-                          "value": {
-                            "$ref": "#/$defs/Logical%3AQuantityAndSource"
-                          },
-                          "locator": {
-                            "type": "string",
-                            "minLength": 1,
-                            "pattern": "\\S"
-                          }
-                        },
-                        "additionalProperties": false,
-                        "required": [
-                          "value",
-                          "locator"
-                        ]
-                      }
-                    },
-                    "additionalProperties": false
+                    "$ref": "#/$defs/author%3Aintervention"
                   },
                   "comparator": {
                     "type": "object",
@@ -5482,431 +5100,7 @@
                     }
                   },
                   "system": {
-                    "type": "object",
-                    "properties": {
-                      "taxon": {
-                        "type": "object",
-                        "properties": {
-                          "value": {
-                            "type": "string",
-                            "minLength": 1,
-                            "pattern": "\\S"
-                          },
-                          "src": {
-                            "type": "string",
-                            "minLength": 1,
-                            "pattern": "\\S"
-                          },
-                          "paraphrase": {
-                            "const": true
-                          },
-                          "basis_quote": {
-                            "type": "string",
-                            "minLength": 1,
-                            "pattern": "\\S"
-                          }
-                        },
-                        "additionalProperties": false,
-                        "required": [
-                          "value",
-                          "src"
-                        ],
-                        "allOf": [
-                          {
-                            "if": {
-                              "required": [
-                                "paraphrase"
-                              ]
-                            },
-                            "then": {
-                              "required": [
-                                "basis_quote"
-                              ]
-                            }
-                          }
-                        ],
-                        "dependentRequired": {
-                          "basis_quote": [
-                            "paraphrase"
-                          ]
-                        }
-                      },
-                      "strain_or_line": {
-                        "type": "object",
-                        "properties": {
-                          "value": {
-                            "type": "string",
-                            "minLength": 1,
-                            "pattern": "\\S"
-                          },
-                          "src": {
-                            "type": "string",
-                            "minLength": 1,
-                            "pattern": "\\S"
-                          },
-                          "paraphrase": {
-                            "const": true
-                          },
-                          "basis_quote": {
-                            "type": "string",
-                            "minLength": 1,
-                            "pattern": "\\S"
-                          }
-                        },
-                        "additionalProperties": false,
-                        "required": [
-                          "value",
-                          "src"
-                        ],
-                        "allOf": [
-                          {
-                            "if": {
-                              "required": [
-                                "paraphrase"
-                              ]
-                            },
-                            "then": {
-                              "required": [
-                                "basis_quote"
-                              ]
-                            }
-                          }
-                        ],
-                        "dependentRequired": {
-                          "basis_quote": [
-                            "paraphrase"
-                          ]
-                        }
-                      },
-                      "sex": {
-                        "type": "object",
-                        "properties": {
-                          "value": {
-                            "type": "string",
-                            "minLength": 1,
-                            "pattern": "\\S"
-                          },
-                          "src": {
-                            "type": "string",
-                            "minLength": 1,
-                            "pattern": "\\S"
-                          },
-                          "paraphrase": {
-                            "const": true
-                          },
-                          "basis_quote": {
-                            "type": "string",
-                            "minLength": 1,
-                            "pattern": "\\S"
-                          }
-                        },
-                        "additionalProperties": false,
-                        "required": [
-                          "value",
-                          "src"
-                        ],
-                        "allOf": [
-                          {
-                            "if": {
-                              "required": [
-                                "paraphrase"
-                              ]
-                            },
-                            "then": {
-                              "required": [
-                                "basis_quote"
-                              ]
-                            }
-                          }
-                        ],
-                        "dependentRequired": {
-                          "basis_quote": [
-                            "paraphrase"
-                          ]
-                        }
-                      },
-                      "age_at_start": {
-                        "type": "object",
-                        "properties": {
-                          "value": {
-                            "$ref": "#/$defs/Logical%3AQuantityOrInterval"
-                          },
-                          "src": {
-                            "type": "string",
-                            "minLength": 1,
-                            "pattern": "\\S"
-                          },
-                          "paraphrase": {
-                            "const": true
-                          },
-                          "basis_quote": {
-                            "type": "string",
-                            "minLength": 1,
-                            "pattern": "\\S"
-                          }
-                        },
-                        "additionalProperties": false,
-                        "required": [
-                          "value",
-                          "src"
-                        ],
-                        "dependentRequired": {
-                          "paraphrase": [
-                            "basis_quote"
-                          ],
-                          "basis_quote": [
-                            "paraphrase"
-                          ]
-                        },
-                        "allOf": [
-                          {
-                            "if": {
-                              "required": [
-                                "paraphrase"
-                              ]
-                            },
-                            "then": {
-                              "properties": {
-                                "value": {
-                                  "type": "string"
-                                },
-                                "src": {
-                                  "type": "string",
-                                  "minLength": 1,
-                                  "pattern": "\\S"
-                                }
-                              }
-                            }
-                          }
-                        ]
-                      },
-                      "assessment_age": {
-                        "type": "object",
-                        "properties": {
-                          "value": {
-                            "$ref": "#/$defs/Logical%3AQuantityOrInterval"
-                          },
-                          "src": {
-                            "type": "string",
-                            "minLength": 1,
-                            "pattern": "\\S"
-                          },
-                          "paraphrase": {
-                            "const": true
-                          },
-                          "basis_quote": {
-                            "type": "string",
-                            "minLength": 1,
-                            "pattern": "\\S"
-                          }
-                        },
-                        "additionalProperties": false,
-                        "required": [
-                          "value",
-                          "src"
-                        ],
-                        "dependentRequired": {
-                          "paraphrase": [
-                            "basis_quote"
-                          ],
-                          "basis_quote": [
-                            "paraphrase"
-                          ]
-                        },
-                        "allOf": [
-                          {
-                            "if": {
-                              "required": [
-                                "paraphrase"
-                              ]
-                            },
-                            "then": {
-                              "properties": {
-                                "value": {
-                                  "type": "string"
-                                },
-                                "src": {
-                                  "type": "string",
-                                  "minLength": 1,
-                                  "pattern": "\\S"
-                                }
-                              }
-                            }
-                          }
-                        ]
-                      },
-                      "site": {
-                        "type": "object",
-                        "properties": {
-                          "value": {
-                            "$ref": "#/$defs/Logical%3ATextOrReference"
-                          },
-                          "src": {
-                            "type": "string",
-                            "minLength": 1,
-                            "pattern": "\\S"
-                          }
-                        },
-                        "additionalProperties": false,
-                        "required": [
-                          "value",
-                          "src"
-                        ]
-                      },
-                      "kind": {
-                        "type": "object",
-                        "properties": {
-                          "value": {
-                            "enum": [
-                              "cell",
-                              "tissue",
-                              "organism",
-                              "population",
-                              "community",
-                              "ecosystem",
-                              "clade",
-                              "in_silico",
-                              "other"
-                            ]
-                          },
-                          "src": {
-                            "type": "string",
-                            "minLength": 1,
-                            "pattern": "\\S"
-                          },
-                          "paraphrase": {
-                            "const": true
-                          },
-                          "basis_quote": {
-                            "type": "string",
-                            "minLength": 1,
-                            "pattern": "\\S"
-                          }
-                        },
-                        "additionalProperties": false,
-                        "required": [
-                          "value",
-                          "src"
-                        ],
-                        "dependentRequired": {
-                          "paraphrase": [
-                            "basis_quote"
-                          ],
-                          "basis_quote": [
-                            "paraphrase"
-                          ]
-                        }
-                      },
-                      "environment": {
-                        "type": "object",
-                        "properties": {
-                          "value": {
-                            "type": "string",
-                            "minLength": 1,
-                            "pattern": "\\S"
-                          },
-                          "src": {
-                            "type": "string",
-                            "minLength": 1,
-                            "pattern": "\\S"
-                          },
-                          "paraphrase": {
-                            "const": true
-                          },
-                          "basis_quote": {
-                            "type": "string",
-                            "minLength": 1,
-                            "pattern": "\\S"
-                          }
-                        },
-                        "additionalProperties": false,
-                        "required": [
-                          "value",
-                          "src"
-                        ],
-                        "dependentRequired": {
-                          "paraphrase": [
-                            "basis_quote"
-                          ],
-                          "basis_quote": [
-                            "paraphrase"
-                          ]
-                        }
-                      },
-                      "spatial_scale": {
-                        "type": "object",
-                        "properties": {
-                          "value": {
-                            "type": "string",
-                            "minLength": 1,
-                            "pattern": "\\S"
-                          },
-                          "src": {
-                            "type": "string",
-                            "minLength": 1,
-                            "pattern": "\\S"
-                          },
-                          "paraphrase": {
-                            "const": true
-                          },
-                          "basis_quote": {
-                            "type": "string",
-                            "minLength": 1,
-                            "pattern": "\\S"
-                          }
-                        },
-                        "additionalProperties": false,
-                        "required": [
-                          "value",
-                          "src"
-                        ],
-                        "dependentRequired": {
-                          "paraphrase": [
-                            "basis_quote"
-                          ],
-                          "basis_quote": [
-                            "paraphrase"
-                          ]
-                        }
-                      },
-                      "temporal_scale": {
-                        "type": "object",
-                        "properties": {
-                          "value": {
-                            "type": "string",
-                            "minLength": 1,
-                            "pattern": "\\S"
-                          },
-                          "src": {
-                            "type": "string",
-                            "minLength": 1,
-                            "pattern": "\\S"
-                          },
-                          "paraphrase": {
-                            "const": true
-                          },
-                          "basis_quote": {
-                            "type": "string",
-                            "minLength": 1,
-                            "pattern": "\\S"
-                          }
-                        },
-                        "additionalProperties": false,
-                        "required": [
-                          "value",
-                          "src"
-                        ],
-                        "dependentRequired": {
-                          "paraphrase": [
-                            "basis_quote"
-                          ],
-                          "basis_quote": [
-                            "paraphrase"
-                          ]
-                        }
-                      }
-                    },
-                    "additionalProperties": false
+                    "$ref": "#/$defs/added%3Asystem"
                   },
                   "experimental_unit": {
                     "type": "object",
@@ -5956,528 +5150,7 @@
                     }
                   },
                   "intervention": {
-                    "type": "object",
-                    "properties": {
-                      "agent": {
-                        "type": "object",
-                        "properties": {
-                          "value": {
-                            "type": "string",
-                            "minLength": 1,
-                            "pattern": "\\S"
-                          },
-                          "src": {
-                            "type": "string",
-                            "minLength": 1,
-                            "pattern": "\\S"
-                          },
-                          "paraphrase": {
-                            "const": true
-                          },
-                          "basis_quote": {
-                            "type": "string",
-                            "minLength": 1,
-                            "pattern": "\\S"
-                          }
-                        },
-                        "additionalProperties": false,
-                        "required": [
-                          "value",
-                          "src"
-                        ],
-                        "allOf": [
-                          {
-                            "if": {
-                              "required": [
-                                "paraphrase"
-                              ]
-                            },
-                            "then": {
-                              "required": [
-                                "basis_quote"
-                              ]
-                            }
-                          }
-                        ],
-                        "dependentRequired": {
-                          "basis_quote": [
-                            "paraphrase"
-                          ]
-                        }
-                      },
-                      "dose": {
-                        "type": "object",
-                        "properties": {
-                          "value": {
-                            "$ref": "#/$defs/Logical%3AQuantity"
-                          },
-                          "src": {
-                            "type": "string",
-                            "minLength": 1,
-                            "pattern": "\\S"
-                          },
-                          "paraphrase": {
-                            "const": true
-                          },
-                          "basis_quote": {
-                            "type": "string",
-                            "minLength": 1,
-                            "pattern": "\\S"
-                          }
-                        },
-                        "additionalProperties": false,
-                        "required": [
-                          "value",
-                          "src"
-                        ],
-                        "dependentRequired": {
-                          "paraphrase": [
-                            "basis_quote"
-                          ],
-                          "basis_quote": [
-                            "paraphrase"
-                          ]
-                        },
-                        "allOf": [
-                          {
-                            "if": {
-                              "required": [
-                                "paraphrase"
-                              ]
-                            },
-                            "then": {
-                              "properties": {
-                                "value": {
-                                  "type": "string"
-                                },
-                                "src": {
-                                  "type": "string",
-                                  "minLength": 1,
-                                  "pattern": "\\S"
-                                }
-                              }
-                            }
-                          }
-                        ]
-                      },
-                      "regimen": {
-                        "type": "object",
-                        "properties": {
-                          "value": {
-                            "type": "string",
-                            "minLength": 1,
-                            "pattern": "\\S"
-                          },
-                          "src": {
-                            "type": "string",
-                            "minLength": 1,
-                            "pattern": "\\S"
-                          },
-                          "paraphrase": {
-                            "const": true
-                          },
-                          "basis_quote": {
-                            "type": "string",
-                            "minLength": 1,
-                            "pattern": "\\S"
-                          }
-                        },
-                        "additionalProperties": false,
-                        "required": [
-                          "value",
-                          "src"
-                        ],
-                        "allOf": [
-                          {
-                            "if": {
-                              "required": [
-                                "paraphrase"
-                              ]
-                            },
-                            "then": {
-                              "required": [
-                                "basis_quote"
-                              ]
-                            }
-                          }
-                        ],
-                        "dependentRequired": {
-                          "basis_quote": [
-                            "paraphrase"
-                          ]
-                        }
-                      },
-                      "duration": {
-                        "type": "object",
-                        "properties": {
-                          "value": {
-                            "$ref": "#/$defs/Logical%3AQuantityOrInterval"
-                          },
-                          "src": {
-                            "type": "string",
-                            "minLength": 1,
-                            "pattern": "\\S"
-                          },
-                          "paraphrase": {
-                            "const": true
-                          },
-                          "basis_quote": {
-                            "type": "string",
-                            "minLength": 1,
-                            "pattern": "\\S"
-                          }
-                        },
-                        "additionalProperties": false,
-                        "required": [
-                          "value",
-                          "src"
-                        ],
-                        "dependentRequired": {
-                          "paraphrase": [
-                            "basis_quote"
-                          ],
-                          "basis_quote": [
-                            "paraphrase"
-                          ]
-                        },
-                        "allOf": [
-                          {
-                            "if": {
-                              "required": [
-                                "paraphrase"
-                              ]
-                            },
-                            "then": {
-                              "properties": {
-                                "value": {
-                                  "type": "string"
-                                },
-                                "src": {
-                                  "type": "string",
-                                  "minLength": 1,
-                                  "pattern": "\\S"
-                                }
-                              }
-                            }
-                          }
-                        ]
-                      },
-                      "route": {
-                        "type": "object",
-                        "properties": {
-                          "value": {
-                            "type": "string",
-                            "minLength": 1,
-                            "pattern": "\\S"
-                          },
-                          "src": {
-                            "type": "string",
-                            "minLength": 1,
-                            "pattern": "\\S"
-                          },
-                          "paraphrase": {
-                            "const": true
-                          },
-                          "basis_quote": {
-                            "type": "string",
-                            "minLength": 1,
-                            "pattern": "\\S"
-                          }
-                        },
-                        "additionalProperties": false,
-                        "required": [
-                          "value",
-                          "src"
-                        ],
-                        "allOf": [
-                          {
-                            "if": {
-                              "required": [
-                                "paraphrase"
-                              ]
-                            },
-                            "then": {
-                              "required": [
-                                "basis_quote"
-                              ]
-                            }
-                          }
-                        ],
-                        "dependentRequired": {
-                          "basis_quote": [
-                            "paraphrase"
-                          ]
-                        }
-                      },
-                      "formulation": {
-                        "type": "object",
-                        "properties": {
-                          "value": {
-                            "type": "string",
-                            "minLength": 1,
-                            "pattern": "\\S"
-                          },
-                          "src": {
-                            "type": "string",
-                            "minLength": 1,
-                            "pattern": "\\S"
-                          },
-                          "paraphrase": {
-                            "const": true
-                          },
-                          "basis_quote": {
-                            "type": "string",
-                            "minLength": 1,
-                            "pattern": "\\S"
-                          }
-                        },
-                        "additionalProperties": false,
-                        "required": [
-                          "value",
-                          "src"
-                        ],
-                        "allOf": [
-                          {
-                            "if": {
-                              "required": [
-                                "paraphrase"
-                              ]
-                            },
-                            "then": {
-                              "required": [
-                                "basis_quote"
-                              ]
-                            }
-                          }
-                        ],
-                        "dependentRequired": {
-                          "basis_quote": [
-                            "paraphrase"
-                          ]
-                        }
-                      },
-                      "nominal_concentration": {
-                        "type": "object",
-                        "properties": {
-                          "value": {
-                            "$ref": "#/$defs/Logical%3AQuantity"
-                          },
-                          "src": {
-                            "type": "string",
-                            "minLength": 1,
-                            "pattern": "\\S"
-                          },
-                          "paraphrase": {
-                            "const": true
-                          },
-                          "basis_quote": {
-                            "type": "string",
-                            "minLength": 1,
-                            "pattern": "\\S"
-                          }
-                        },
-                        "additionalProperties": false,
-                        "required": [
-                          "value",
-                          "src"
-                        ],
-                        "dependentRequired": {
-                          "paraphrase": [
-                            "basis_quote"
-                          ],
-                          "basis_quote": [
-                            "paraphrase"
-                          ]
-                        },
-                        "allOf": [
-                          {
-                            "if": {
-                              "required": [
-                                "paraphrase"
-                              ]
-                            },
-                            "then": {
-                              "properties": {
-                                "value": {
-                                  "type": "string"
-                                },
-                                "src": {
-                                  "type": "string",
-                                  "minLength": 1,
-                                  "pattern": "\\S"
-                                }
-                              }
-                            }
-                          }
-                        ]
-                      },
-                      "measured_concentration": {
-                        "type": "object",
-                        "properties": {
-                          "value": {
-                            "$ref": "#/$defs/Logical%3AQuantityAndSource"
-                          },
-                          "src": {
-                            "type": "string",
-                            "minLength": 1,
-                            "pattern": "\\S"
-                          },
-                          "paraphrase": {
-                            "const": true
-                          },
-                          "basis_quote": {
-                            "type": "string",
-                            "minLength": 1,
-                            "pattern": "\\S"
-                          }
-                        },
-                        "additionalProperties": false,
-                        "required": [
-                          "value",
-                          "src"
-                        ],
-                        "dependentRequired": {
-                          "paraphrase": [
-                            "basis_quote"
-                          ],
-                          "basis_quote": [
-                            "paraphrase"
-                          ]
-                        },
-                        "allOf": [
-                          {
-                            "if": {
-                              "required": [
-                                "paraphrase"
-                              ]
-                            },
-                            "then": {
-                              "properties": {
-                                "value": {
-                                  "type": "string"
-                                },
-                                "src": {
-                                  "type": "string",
-                                  "minLength": 1,
-                                  "pattern": "\\S"
-                                }
-                              }
-                            }
-                          }
-                        ]
-                      },
-                      "intake": {
-                        "type": "object",
-                        "properties": {
-                          "value": {
-                            "$ref": "#/$defs/Logical%3AQuantityAndSource"
-                          },
-                          "src": {
-                            "type": "string",
-                            "minLength": 1,
-                            "pattern": "\\S"
-                          },
-                          "paraphrase": {
-                            "const": true
-                          },
-                          "basis_quote": {
-                            "type": "string",
-                            "minLength": 1,
-                            "pattern": "\\S"
-                          }
-                        },
-                        "additionalProperties": false,
-                        "required": [
-                          "value",
-                          "src"
-                        ],
-                        "dependentRequired": {
-                          "paraphrase": [
-                            "basis_quote"
-                          ],
-                          "basis_quote": [
-                            "paraphrase"
-                          ]
-                        },
-                        "allOf": [
-                          {
-                            "if": {
-                              "required": [
-                                "paraphrase"
-                              ]
-                            },
-                            "then": {
-                              "properties": {
-                                "value": {
-                                  "type": "string"
-                                },
-                                "src": {
-                                  "type": "string",
-                                  "minLength": 1,
-                                  "pattern": "\\S"
-                                }
-                              }
-                            }
-                          }
-                        ]
-                      },
-                      "systemic_exposure": {
-                        "type": "object",
-                        "properties": {
-                          "value": {
-                            "$ref": "#/$defs/Logical%3AQuantityAndSource"
-                          },
-                          "src": {
-                            "type": "string",
-                            "minLength": 1,
-                            "pattern": "\\S"
-                          },
-                          "paraphrase": {
-                            "const": true
-                          },
-                          "basis_quote": {
-                            "type": "string",
-                            "minLength": 1,
-                            "pattern": "\\S"
-                          }
-                        },
-                        "additionalProperties": false,
-                        "required": [
-                          "value",
-                          "src"
-                        ],
-                        "dependentRequired": {
-                          "paraphrase": [
-                            "basis_quote"
-                          ],
-                          "basis_quote": [
-                            "paraphrase"
-                          ]
-                        },
-                        "allOf": [
-                          {
-                            "if": {
-                              "required": [
-                                "paraphrase"
-                              ]
-                            },
-                            "then": {
-                              "properties": {
-                                "value": {
-                                  "type": "string"
-                                },
-                                "src": {
-                                  "type": "string",
-                                  "minLength": 1,
-                                  "pattern": "\\S"
-                                }
-                              }
-                            }
-                          }
-                        ]
-                      }
-                    },
-                    "additionalProperties": false
+                    "$ref": "#/$defs/added%3Aintervention"
                   },
                   "comparator": {
                     "type": "object",
@@ -16006,6 +14679,1345 @@
           }
         }
       ]
+    },
+    "author:system": {
+      "type": "object",
+      "properties": {
+        "taxon": {
+          "type": "object",
+          "properties": {
+            "value": {
+              "$ref": "#/$defs/Logical%3ATerm"
+            },
+            "locator": {
+              "type": "string",
+              "minLength": 1,
+              "pattern": "\\S"
+            }
+          },
+          "additionalProperties": false,
+          "required": [
+            "value",
+            "locator"
+          ]
+        },
+        "strain_or_line": {
+          "type": "object",
+          "properties": {
+            "value": {
+              "$ref": "#/$defs/Logical%3ATextOrTerm"
+            },
+            "locator": {
+              "type": "string",
+              "minLength": 1,
+              "pattern": "\\S"
+            }
+          },
+          "additionalProperties": false,
+          "required": [
+            "value",
+            "locator"
+          ]
+        },
+        "sex": {
+          "type": "object",
+          "properties": {
+            "value": {
+              "$ref": "#/$defs/Logical%3ATextOrTerm"
+            },
+            "locator": {
+              "type": "string",
+              "minLength": 1,
+              "pattern": "\\S"
+            }
+          },
+          "additionalProperties": false,
+          "required": [
+            "value",
+            "locator"
+          ]
+        },
+        "age_at_start": {
+          "type": "object",
+          "properties": {
+            "value": {
+              "$ref": "#/$defs/Logical%3AQuantityOrInterval"
+            },
+            "locator": {
+              "type": "string",
+              "minLength": 1,
+              "pattern": "\\S"
+            }
+          },
+          "additionalProperties": false,
+          "required": [
+            "value",
+            "locator"
+          ]
+        },
+        "assessment_age": {
+          "type": "object",
+          "properties": {
+            "value": {
+              "$ref": "#/$defs/Logical%3AQuantityOrInterval"
+            },
+            "locator": {
+              "type": "string",
+              "minLength": 1,
+              "pattern": "\\S"
+            }
+          },
+          "additionalProperties": false,
+          "required": [
+            "value",
+            "locator"
+          ]
+        },
+        "site": {
+          "type": "object",
+          "properties": {
+            "value": {
+              "$ref": "#/$defs/Logical%3ATextOrReference"
+            },
+            "locator": {
+              "type": "string",
+              "minLength": 1,
+              "pattern": "\\S"
+            }
+          },
+          "additionalProperties": false,
+          "required": [
+            "value",
+            "locator"
+          ]
+        },
+        "kind": {
+          "type": "object",
+          "properties": {
+            "value": {
+              "enum": [
+                "cell",
+                "tissue",
+                "organism",
+                "population",
+                "community",
+                "ecosystem",
+                "clade",
+                "in_silico",
+                "other"
+              ]
+            },
+            "locator": {
+              "type": "string",
+              "minLength": 1,
+              "pattern": "\\S"
+            }
+          },
+          "required": [
+            "value",
+            "locator"
+          ],
+          "additionalProperties": false
+        },
+        "environment": {
+          "type": "object",
+          "properties": {
+            "value": {
+              "type": "string",
+              "minLength": 1,
+              "pattern": "\\S"
+            },
+            "locator": {
+              "type": "string",
+              "minLength": 1,
+              "pattern": "\\S"
+            }
+          },
+          "required": [
+            "value",
+            "locator"
+          ],
+          "additionalProperties": false
+        },
+        "spatial_scale": {
+          "type": "object",
+          "properties": {
+            "value": {
+              "type": "string",
+              "minLength": 1,
+              "pattern": "\\S"
+            },
+            "locator": {
+              "type": "string",
+              "minLength": 1,
+              "pattern": "\\S"
+            }
+          },
+          "required": [
+            "value",
+            "locator"
+          ],
+          "additionalProperties": false
+        },
+        "temporal_scale": {
+          "type": "object",
+          "properties": {
+            "value": {
+              "type": "string",
+              "minLength": 1,
+              "pattern": "\\S"
+            },
+            "locator": {
+              "type": "string",
+              "minLength": 1,
+              "pattern": "\\S"
+            }
+          },
+          "required": [
+            "value",
+            "locator"
+          ],
+          "additionalProperties": false
+        }
+      },
+      "additionalProperties": false
+    },
+    "author:intervention": {
+      "type": "object",
+      "properties": {
+        "agent": {
+          "type": "object",
+          "properties": {
+            "value": {
+              "$ref": "#/$defs/Logical%3ATextOrTerm"
+            },
+            "locator": {
+              "type": "string",
+              "minLength": 1,
+              "pattern": "\\S"
+            }
+          },
+          "additionalProperties": false,
+          "required": [
+            "value",
+            "locator"
+          ]
+        },
+        "dose": {
+          "type": "object",
+          "properties": {
+            "value": {
+              "$ref": "#/$defs/Logical%3AQuantity"
+            },
+            "locator": {
+              "type": "string",
+              "minLength": 1,
+              "pattern": "\\S"
+            }
+          },
+          "additionalProperties": false,
+          "required": [
+            "value",
+            "locator"
+          ]
+        },
+        "regimen": {
+          "type": "object",
+          "properties": {
+            "value": {
+              "$ref": "#/$defs/Logical%3AText"
+            },
+            "locator": {
+              "type": "string",
+              "minLength": 1,
+              "pattern": "\\S"
+            }
+          },
+          "additionalProperties": false,
+          "required": [
+            "value",
+            "locator"
+          ]
+        },
+        "duration": {
+          "type": "object",
+          "properties": {
+            "value": {
+              "$ref": "#/$defs/Logical%3AQuantityOrInterval"
+            },
+            "locator": {
+              "type": "string",
+              "minLength": 1,
+              "pattern": "\\S"
+            }
+          },
+          "additionalProperties": false,
+          "required": [
+            "value",
+            "locator"
+          ]
+        },
+        "route": {
+          "type": "object",
+          "properties": {
+            "value": {
+              "$ref": "#/$defs/Logical%3ATextOrTerm"
+            },
+            "locator": {
+              "type": "string",
+              "minLength": 1,
+              "pattern": "\\S"
+            }
+          },
+          "additionalProperties": false,
+          "required": [
+            "value",
+            "locator"
+          ]
+        },
+        "formulation": {
+          "type": "object",
+          "properties": {
+            "value": {
+              "$ref": "#/$defs/Logical%3AText"
+            },
+            "locator": {
+              "type": "string",
+              "minLength": 1,
+              "pattern": "\\S"
+            }
+          },
+          "additionalProperties": false,
+          "required": [
+            "value",
+            "locator"
+          ]
+        },
+        "nominal_concentration": {
+          "type": "object",
+          "properties": {
+            "value": {
+              "$ref": "#/$defs/Logical%3AQuantity"
+            },
+            "locator": {
+              "type": "string",
+              "minLength": 1,
+              "pattern": "\\S"
+            }
+          },
+          "additionalProperties": false,
+          "required": [
+            "value",
+            "locator"
+          ]
+        },
+        "measured_concentration": {
+          "type": "object",
+          "properties": {
+            "value": {
+              "$ref": "#/$defs/Logical%3AQuantityAndSource"
+            },
+            "locator": {
+              "type": "string",
+              "minLength": 1,
+              "pattern": "\\S"
+            }
+          },
+          "additionalProperties": false,
+          "required": [
+            "value",
+            "locator"
+          ]
+        },
+        "intake": {
+          "type": "object",
+          "properties": {
+            "value": {
+              "$ref": "#/$defs/Logical%3AQuantityAndSource"
+            },
+            "locator": {
+              "type": "string",
+              "minLength": 1,
+              "pattern": "\\S"
+            }
+          },
+          "additionalProperties": false,
+          "required": [
+            "value",
+            "locator"
+          ]
+        },
+        "systemic_exposure": {
+          "type": "object",
+          "properties": {
+            "value": {
+              "$ref": "#/$defs/Logical%3AQuantityAndSource"
+            },
+            "locator": {
+              "type": "string",
+              "minLength": 1,
+              "pattern": "\\S"
+            }
+          },
+          "additionalProperties": false,
+          "required": [
+            "value",
+            "locator"
+          ]
+        }
+      },
+      "additionalProperties": false
+    },
+    "added:system": {
+      "type": "object",
+      "properties": {
+        "taxon": {
+          "type": "object",
+          "properties": {
+            "value": {
+              "type": "string",
+              "minLength": 1,
+              "pattern": "\\S"
+            },
+            "src": {
+              "type": "string",
+              "minLength": 1,
+              "pattern": "\\S"
+            },
+            "paraphrase": {
+              "const": true
+            },
+            "basis_quote": {
+              "type": "string",
+              "minLength": 1,
+              "pattern": "\\S"
+            }
+          },
+          "additionalProperties": false,
+          "required": [
+            "value",
+            "src"
+          ],
+          "allOf": [
+            {
+              "if": {
+                "required": [
+                  "paraphrase"
+                ]
+              },
+              "then": {
+                "required": [
+                  "basis_quote"
+                ]
+              }
+            }
+          ],
+          "dependentRequired": {
+            "basis_quote": [
+              "paraphrase"
+            ]
+          }
+        },
+        "strain_or_line": {
+          "type": "object",
+          "properties": {
+            "value": {
+              "type": "string",
+              "minLength": 1,
+              "pattern": "\\S"
+            },
+            "src": {
+              "type": "string",
+              "minLength": 1,
+              "pattern": "\\S"
+            },
+            "paraphrase": {
+              "const": true
+            },
+            "basis_quote": {
+              "type": "string",
+              "minLength": 1,
+              "pattern": "\\S"
+            }
+          },
+          "additionalProperties": false,
+          "required": [
+            "value",
+            "src"
+          ],
+          "allOf": [
+            {
+              "if": {
+                "required": [
+                  "paraphrase"
+                ]
+              },
+              "then": {
+                "required": [
+                  "basis_quote"
+                ]
+              }
+            }
+          ],
+          "dependentRequired": {
+            "basis_quote": [
+              "paraphrase"
+            ]
+          }
+        },
+        "sex": {
+          "type": "object",
+          "properties": {
+            "value": {
+              "type": "string",
+              "minLength": 1,
+              "pattern": "\\S"
+            },
+            "src": {
+              "type": "string",
+              "minLength": 1,
+              "pattern": "\\S"
+            },
+            "paraphrase": {
+              "const": true
+            },
+            "basis_quote": {
+              "type": "string",
+              "minLength": 1,
+              "pattern": "\\S"
+            }
+          },
+          "additionalProperties": false,
+          "required": [
+            "value",
+            "src"
+          ],
+          "allOf": [
+            {
+              "if": {
+                "required": [
+                  "paraphrase"
+                ]
+              },
+              "then": {
+                "required": [
+                  "basis_quote"
+                ]
+              }
+            }
+          ],
+          "dependentRequired": {
+            "basis_quote": [
+              "paraphrase"
+            ]
+          }
+        },
+        "age_at_start": {
+          "type": "object",
+          "properties": {
+            "value": {
+              "$ref": "#/$defs/Logical%3AQuantityOrInterval"
+            },
+            "src": {
+              "type": "string",
+              "minLength": 1,
+              "pattern": "\\S"
+            },
+            "paraphrase": {
+              "const": true
+            },
+            "basis_quote": {
+              "type": "string",
+              "minLength": 1,
+              "pattern": "\\S"
+            }
+          },
+          "additionalProperties": false,
+          "required": [
+            "value",
+            "src"
+          ],
+          "dependentRequired": {
+            "paraphrase": [
+              "basis_quote"
+            ],
+            "basis_quote": [
+              "paraphrase"
+            ]
+          },
+          "allOf": [
+            {
+              "if": {
+                "required": [
+                  "paraphrase"
+                ]
+              },
+              "then": {
+                "properties": {
+                  "value": {
+                    "type": "string"
+                  },
+                  "src": {
+                    "type": "string",
+                    "minLength": 1,
+                    "pattern": "\\S"
+                  }
+                }
+              }
+            }
+          ]
+        },
+        "assessment_age": {
+          "type": "object",
+          "properties": {
+            "value": {
+              "$ref": "#/$defs/Logical%3AQuantityOrInterval"
+            },
+            "src": {
+              "type": "string",
+              "minLength": 1,
+              "pattern": "\\S"
+            },
+            "paraphrase": {
+              "const": true
+            },
+            "basis_quote": {
+              "type": "string",
+              "minLength": 1,
+              "pattern": "\\S"
+            }
+          },
+          "additionalProperties": false,
+          "required": [
+            "value",
+            "src"
+          ],
+          "dependentRequired": {
+            "paraphrase": [
+              "basis_quote"
+            ],
+            "basis_quote": [
+              "paraphrase"
+            ]
+          },
+          "allOf": [
+            {
+              "if": {
+                "required": [
+                  "paraphrase"
+                ]
+              },
+              "then": {
+                "properties": {
+                  "value": {
+                    "type": "string"
+                  },
+                  "src": {
+                    "type": "string",
+                    "minLength": 1,
+                    "pattern": "\\S"
+                  }
+                }
+              }
+            }
+          ]
+        },
+        "site": {
+          "type": "object",
+          "properties": {
+            "value": {
+              "$ref": "#/$defs/Logical%3ATextOrReference"
+            },
+            "src": {
+              "type": "string",
+              "minLength": 1,
+              "pattern": "\\S"
+            }
+          },
+          "additionalProperties": false,
+          "required": [
+            "value",
+            "src"
+          ]
+        },
+        "kind": {
+          "type": "object",
+          "properties": {
+            "value": {
+              "enum": [
+                "cell",
+                "tissue",
+                "organism",
+                "population",
+                "community",
+                "ecosystem",
+                "clade",
+                "in_silico",
+                "other"
+              ]
+            },
+            "src": {
+              "type": "string",
+              "minLength": 1,
+              "pattern": "\\S"
+            },
+            "paraphrase": {
+              "const": true
+            },
+            "basis_quote": {
+              "type": "string",
+              "minLength": 1,
+              "pattern": "\\S"
+            }
+          },
+          "additionalProperties": false,
+          "required": [
+            "value",
+            "src"
+          ],
+          "dependentRequired": {
+            "paraphrase": [
+              "basis_quote"
+            ],
+            "basis_quote": [
+              "paraphrase"
+            ]
+          }
+        },
+        "environment": {
+          "type": "object",
+          "properties": {
+            "value": {
+              "type": "string",
+              "minLength": 1,
+              "pattern": "\\S"
+            },
+            "src": {
+              "type": "string",
+              "minLength": 1,
+              "pattern": "\\S"
+            },
+            "paraphrase": {
+              "const": true
+            },
+            "basis_quote": {
+              "type": "string",
+              "minLength": 1,
+              "pattern": "\\S"
+            }
+          },
+          "additionalProperties": false,
+          "required": [
+            "value",
+            "src"
+          ],
+          "dependentRequired": {
+            "paraphrase": [
+              "basis_quote"
+            ],
+            "basis_quote": [
+              "paraphrase"
+            ]
+          }
+        },
+        "spatial_scale": {
+          "type": "object",
+          "properties": {
+            "value": {
+              "type": "string",
+              "minLength": 1,
+              "pattern": "\\S"
+            },
+            "src": {
+              "type": "string",
+              "minLength": 1,
+              "pattern": "\\S"
+            },
+            "paraphrase": {
+              "const": true
+            },
+            "basis_quote": {
+              "type": "string",
+              "minLength": 1,
+              "pattern": "\\S"
+            }
+          },
+          "additionalProperties": false,
+          "required": [
+            "value",
+            "src"
+          ],
+          "dependentRequired": {
+            "paraphrase": [
+              "basis_quote"
+            ],
+            "basis_quote": [
+              "paraphrase"
+            ]
+          }
+        },
+        "temporal_scale": {
+          "type": "object",
+          "properties": {
+            "value": {
+              "type": "string",
+              "minLength": 1,
+              "pattern": "\\S"
+            },
+            "src": {
+              "type": "string",
+              "minLength": 1,
+              "pattern": "\\S"
+            },
+            "paraphrase": {
+              "const": true
+            },
+            "basis_quote": {
+              "type": "string",
+              "minLength": 1,
+              "pattern": "\\S"
+            }
+          },
+          "additionalProperties": false,
+          "required": [
+            "value",
+            "src"
+          ],
+          "dependentRequired": {
+            "paraphrase": [
+              "basis_quote"
+            ],
+            "basis_quote": [
+              "paraphrase"
+            ]
+          }
+        }
+      },
+      "additionalProperties": false
+    },
+    "added:intervention": {
+      "type": "object",
+      "properties": {
+        "agent": {
+          "type": "object",
+          "properties": {
+            "value": {
+              "type": "string",
+              "minLength": 1,
+              "pattern": "\\S"
+            },
+            "src": {
+              "type": "string",
+              "minLength": 1,
+              "pattern": "\\S"
+            },
+            "paraphrase": {
+              "const": true
+            },
+            "basis_quote": {
+              "type": "string",
+              "minLength": 1,
+              "pattern": "\\S"
+            }
+          },
+          "additionalProperties": false,
+          "required": [
+            "value",
+            "src"
+          ],
+          "allOf": [
+            {
+              "if": {
+                "required": [
+                  "paraphrase"
+                ]
+              },
+              "then": {
+                "required": [
+                  "basis_quote"
+                ]
+              }
+            }
+          ],
+          "dependentRequired": {
+            "basis_quote": [
+              "paraphrase"
+            ]
+          }
+        },
+        "dose": {
+          "type": "object",
+          "properties": {
+            "value": {
+              "$ref": "#/$defs/Logical%3AQuantity"
+            },
+            "src": {
+              "type": "string",
+              "minLength": 1,
+              "pattern": "\\S"
+            },
+            "paraphrase": {
+              "const": true
+            },
+            "basis_quote": {
+              "type": "string",
+              "minLength": 1,
+              "pattern": "\\S"
+            }
+          },
+          "additionalProperties": false,
+          "required": [
+            "value",
+            "src"
+          ],
+          "dependentRequired": {
+            "paraphrase": [
+              "basis_quote"
+            ],
+            "basis_quote": [
+              "paraphrase"
+            ]
+          },
+          "allOf": [
+            {
+              "if": {
+                "required": [
+                  "paraphrase"
+                ]
+              },
+              "then": {
+                "properties": {
+                  "value": {
+                    "type": "string"
+                  },
+                  "src": {
+                    "type": "string",
+                    "minLength": 1,
+                    "pattern": "\\S"
+                  }
+                }
+              }
+            }
+          ]
+        },
+        "regimen": {
+          "type": "object",
+          "properties": {
+            "value": {
+              "type": "string",
+              "minLength": 1,
+              "pattern": "\\S"
+            },
+            "src": {
+              "type": "string",
+              "minLength": 1,
+              "pattern": "\\S"
+            },
+            "paraphrase": {
+              "const": true
+            },
+            "basis_quote": {
+              "type": "string",
+              "minLength": 1,
+              "pattern": "\\S"
+            }
+          },
+          "additionalProperties": false,
+          "required": [
+            "value",
+            "src"
+          ],
+          "allOf": [
+            {
+              "if": {
+                "required": [
+                  "paraphrase"
+                ]
+              },
+              "then": {
+                "required": [
+                  "basis_quote"
+                ]
+              }
+            }
+          ],
+          "dependentRequired": {
+            "basis_quote": [
+              "paraphrase"
+            ]
+          }
+        },
+        "duration": {
+          "type": "object",
+          "properties": {
+            "value": {
+              "$ref": "#/$defs/Logical%3AQuantityOrInterval"
+            },
+            "src": {
+              "type": "string",
+              "minLength": 1,
+              "pattern": "\\S"
+            },
+            "paraphrase": {
+              "const": true
+            },
+            "basis_quote": {
+              "type": "string",
+              "minLength": 1,
+              "pattern": "\\S"
+            }
+          },
+          "additionalProperties": false,
+          "required": [
+            "value",
+            "src"
+          ],
+          "dependentRequired": {
+            "paraphrase": [
+              "basis_quote"
+            ],
+            "basis_quote": [
+              "paraphrase"
+            ]
+          },
+          "allOf": [
+            {
+              "if": {
+                "required": [
+                  "paraphrase"
+                ]
+              },
+              "then": {
+                "properties": {
+                  "value": {
+                    "type": "string"
+                  },
+                  "src": {
+                    "type": "string",
+                    "minLength": 1,
+                    "pattern": "\\S"
+                  }
+                }
+              }
+            }
+          ]
+        },
+        "route": {
+          "type": "object",
+          "properties": {
+            "value": {
+              "type": "string",
+              "minLength": 1,
+              "pattern": "\\S"
+            },
+            "src": {
+              "type": "string",
+              "minLength": 1,
+              "pattern": "\\S"
+            },
+            "paraphrase": {
+              "const": true
+            },
+            "basis_quote": {
+              "type": "string",
+              "minLength": 1,
+              "pattern": "\\S"
+            }
+          },
+          "additionalProperties": false,
+          "required": [
+            "value",
+            "src"
+          ],
+          "allOf": [
+            {
+              "if": {
+                "required": [
+                  "paraphrase"
+                ]
+              },
+              "then": {
+                "required": [
+                  "basis_quote"
+                ]
+              }
+            }
+          ],
+          "dependentRequired": {
+            "basis_quote": [
+              "paraphrase"
+            ]
+          }
+        },
+        "formulation": {
+          "type": "object",
+          "properties": {
+            "value": {
+              "type": "string",
+              "minLength": 1,
+              "pattern": "\\S"
+            },
+            "src": {
+              "type": "string",
+              "minLength": 1,
+              "pattern": "\\S"
+            },
+            "paraphrase": {
+              "const": true
+            },
+            "basis_quote": {
+              "type": "string",
+              "minLength": 1,
+              "pattern": "\\S"
+            }
+          },
+          "additionalProperties": false,
+          "required": [
+            "value",
+            "src"
+          ],
+          "allOf": [
+            {
+              "if": {
+                "required": [
+                  "paraphrase"
+                ]
+              },
+              "then": {
+                "required": [
+                  "basis_quote"
+                ]
+              }
+            }
+          ],
+          "dependentRequired": {
+            "basis_quote": [
+              "paraphrase"
+            ]
+          }
+        },
+        "nominal_concentration": {
+          "type": "object",
+          "properties": {
+            "value": {
+              "$ref": "#/$defs/Logical%3AQuantity"
+            },
+            "src": {
+              "type": "string",
+              "minLength": 1,
+              "pattern": "\\S"
+            },
+            "paraphrase": {
+              "const": true
+            },
+            "basis_quote": {
+              "type": "string",
+              "minLength": 1,
+              "pattern": "\\S"
+            }
+          },
+          "additionalProperties": false,
+          "required": [
+            "value",
+            "src"
+          ],
+          "dependentRequired": {
+            "paraphrase": [
+              "basis_quote"
+            ],
+            "basis_quote": [
+              "paraphrase"
+            ]
+          },
+          "allOf": [
+            {
+              "if": {
+                "required": [
+                  "paraphrase"
+                ]
+              },
+              "then": {
+                "properties": {
+                  "value": {
+                    "type": "string"
+                  },
+                  "src": {
+                    "type": "string",
+                    "minLength": 1,
+                    "pattern": "\\S"
+                  }
+                }
+              }
+            }
+          ]
+        },
+        "measured_concentration": {
+          "type": "object",
+          "properties": {
+            "value": {
+              "$ref": "#/$defs/Logical%3AQuantityAndSource"
+            },
+            "src": {
+              "type": "string",
+              "minLength": 1,
+              "pattern": "\\S"
+            },
+            "paraphrase": {
+              "const": true
+            },
+            "basis_quote": {
+              "type": "string",
+              "minLength": 1,
+              "pattern": "\\S"
+            }
+          },
+          "additionalProperties": false,
+          "required": [
+            "value",
+            "src"
+          ],
+          "dependentRequired": {
+            "paraphrase": [
+              "basis_quote"
+            ],
+            "basis_quote": [
+              "paraphrase"
+            ]
+          },
+          "allOf": [
+            {
+              "if": {
+                "required": [
+                  "paraphrase"
+                ]
+              },
+              "then": {
+                "properties": {
+                  "value": {
+                    "type": "string"
+                  },
+                  "src": {
+                    "type": "string",
+                    "minLength": 1,
+                    "pattern": "\\S"
+                  }
+                }
+              }
+            }
+          ]
+        },
+        "intake": {
+          "type": "object",
+          "properties": {
+            "value": {
+              "$ref": "#/$defs/Logical%3AQuantityAndSource"
+            },
+            "src": {
+              "type": "string",
+              "minLength": 1,
+              "pattern": "\\S"
+            },
+            "paraphrase": {
+              "const": true
+            },
+            "basis_quote": {
+              "type": "string",
+              "minLength": 1,
+              "pattern": "\\S"
+            }
+          },
+          "additionalProperties": false,
+          "required": [
+            "value",
+            "src"
+          ],
+          "dependentRequired": {
+            "paraphrase": [
+              "basis_quote"
+            ],
+            "basis_quote": [
+              "paraphrase"
+            ]
+          },
+          "allOf": [
+            {
+              "if": {
+                "required": [
+                  "paraphrase"
+                ]
+              },
+              "then": {
+                "properties": {
+                  "value": {
+                    "type": "string"
+                  },
+                  "src": {
+                    "type": "string",
+                    "minLength": 1,
+                    "pattern": "\\S"
+                  }
+                }
+              }
+            }
+          ]
+        },
+        "systemic_exposure": {
+          "type": "object",
+          "properties": {
+            "value": {
+              "$ref": "#/$defs/Logical%3AQuantityAndSource"
+            },
+            "src": {
+              "type": "string",
+              "minLength": 1,
+              "pattern": "\\S"
+            },
+            "paraphrase": {
+              "const": true
+            },
+            "basis_quote": {
+              "type": "string",
+              "minLength": 1,
+              "pattern": "\\S"
+            }
+          },
+          "additionalProperties": false,
+          "required": [
+            "value",
+            "src"
+          ],
+          "dependentRequired": {
+            "paraphrase": [
+              "basis_quote"
+            ],
+            "basis_quote": [
+              "paraphrase"
+            ]
+          },
+          "allOf": [
+            {
+              "if": {
+                "required": [
+                  "paraphrase"
+                ]
+              },
+              "then": {
+                "properties": {
+                  "value": {
+                    "type": "string"
+                  },
+                  "src": {
+                    "type": "string",
+                    "minLength": 1,
+                    "pattern": "\\S"
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "additionalProperties": false
     }
   }
 }
