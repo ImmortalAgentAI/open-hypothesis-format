@@ -1555,6 +1555,15 @@
       "coverage": "direct"
     },
     {
+      "catalogue_path": "profile.aging_hallmarks[]",
+      "card_paths": [
+        "added.layers.profile.aging_hallmarks.value[]"
+      ],
+      "status": "scientific field",
+      "extension": null,
+      "coverage": "direct"
+    },
+    {
       "catalogue_path": "appendix.rationale",
       "card_paths": [
         "author.layers.appendix.rationale",

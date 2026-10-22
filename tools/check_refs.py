@@ -109,6 +109,7 @@ REFERENCES = {
     'evidence.excluded[].target_ref': (('atom', 'prediction', 'mechanism step', 'alternative', 'proposition'),
                                        {'id', 'pointer', 'version', 'external'}),
     'profile.dose_response.endpoint_ref': (('prediction',), {'id', 'pointer', 'version', 'external'}),
+    'profile.aging_hallmarks[].atom_refs[]': (('atom',), {'id'}),
 }
 # Lists whose elements may carry their own `src` from OHF 1.1; such an element is a sourced value.
 ELEMENT_SOURCED = tuple(f'/added/layers/core/{name}/value/*'

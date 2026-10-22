@@ -163,6 +163,7 @@ The catalogue distinguishes logical scientific fields from their storage. A dire
 | `profile.harm` | `author.layers.profile.harm`, `added.layers.profile.harm` | scientific field |  |
 | `profile.transfer_scope` | `author.layers.profile.transfer_scope`, `added.layers.profile.transfer_scope` | scientific field |  |
 | `profile.function_process` | `author.layers.profile.function_process`, `added.layers.profile.function_process` | scientific field |  |
+| `profile.aging_hallmarks[]` | `added.layers.profile.aging_hallmarks.value[]` | scientific field |  |
 | `appendix.rationale` | `author.layers.appendix.rationale`, `added.layers.appendix.rationale` | scientific field |  |
 | `appendix.experiment_plan` | `author.layers.appendix.experiment_plan`, `added.layers.appendix.experiment_plan` | scientific field |  |
 | `appendix.source_extensions` | `author.layers.appendix.source_extensions`, `added.layers.appendix.source_extensions` | scientific field |  |

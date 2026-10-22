@@ -729,3 +729,94 @@ def test_a_1_0_card_has_no_prompt():
     card = generated_card()
     as_1_0(card)
     assert '/author/generator' in {pointer(error) for error in validation_errors(SCHEMA, card)}
+
+
+# Item 10: the aging profile, a superset of the intervention profile, with the hallmarks of aging.
+def vocabulary_pin(name):
+    return 'sha256:' + hashlib.sha256((ROOT / 'vocabularies' / name).read_bytes()).hexdigest()
+
+
+def aging_card(hallmark='deregulated_nutrient_sensing', refs=('a1',)):
+    card = atoms_card(atom('a1'))
+    card['vocabularies'].update(profiles={'id': 'ohf:profiles@2', 'sha256': vocabulary_pin('profiles-2.json')},
+                                hallmarks={'id': 'ohf:hallmarks@1', 'sha256': vocabulary_pin('hallmarks-1.json')})
+    profile = card['added']['layers']['profile']
+    profile['domain'] = 'ohf:aging@1'
+    profile['aging_hallmarks'] = {'value': [{'hallmark': hallmark, 'atom_refs': list(refs)}], 'src': 'statement'}
+    return card
+
+
+PROFILE = '/added/layers/profile'
+
+
+def test_aging_card_with_hallmarks_is_valid():
+    card = aging_card()
+    assert not validation_errors(SCHEMA, card)
+    assert check_refs(card)['valid'], check_refs(card)['errors']
+    assert check_gaps(card, POLICY, CATALOGUE, MAPPING)['valid']
+
+
+def test_aging_profile_keeps_the_intervention_fields():
+    card = aging_card()
+    card['added']['gaps'].append({'path': 'profile.harm', 'disposition': 'not_supplied'})
+    assert 'GAP_PROFILE_FIELD' not in gap_codes(card)
+    card['added']['layers']['profile']['domain'] = 'none'
+    del card['added']['layers']['profile']['aging_hallmarks']
+    card['vocabularies'].pop('hallmarks')
+    assert 'GAP_PROFILE_FIELD' in gap_codes(card)
+
+
+def test_hallmarks_outside_the_aging_profile_are_rejected():
+    # M10a: hallmarks with domain none
+    card = aging_card()
+    card['added']['layers']['profile']['domain'] = 'none'
+    assert PROFILE in {pointer(error) for error in validation_errors(SCHEMA, card)}
+    card['added']['gaps'].append({'path': 'profile.aging_hallmarks[]', 'disposition': 'not_supplied'})
+    del card['added']['layers']['profile']['aging_hallmarks']
+    assert 'GAP_PROFILE_FIELD' in gap_codes(card)
+
+
+def test_hallmark_outside_the_vocabulary_is_rejected():
+    # M10b: autophagy is not one of the twelve; disabled_macroautophagy is
+    card = aging_card(hallmark='autophagy')
+    assert PROFILE + '/aging_hallmarks/value/0/hallmark' in {pointer(e) for e in validation_errors(SCHEMA, card)}
+
+
+def test_hallmark_naming_no_atom_is_reported():
+    # M10c: a dangling atom reference
+    assert 'REF_UNKNOWN_ID' in ref_codes(aging_card(refs=('a9',)))
+
+
+@pytest.mark.parametrize('name,pin,at', [
+    ('profiles', {'id': 'ohf:profiles@1', 'sha256': vocabulary_pin('profiles-1.json')}, '/vocabularies/profiles/id'),
+    ('hallmarks', None, '/vocabularies')], ids=['profiles_1', 'no_hallmarks_pin'])
+def test_aging_profile_needs_its_pins(name, pin, at):
+    card = aging_card()
+    if pin is None:
+        card['vocabularies'].pop(name)
+    else:
+        card['vocabularies'][name] = pin
+    assert at in {pointer(error) for error in validation_errors(SCHEMA, card)}
+
+
+def test_hallmarks_pin_needs_the_aging_profile():
+    card = card_1_1()
+    card['vocabularies']['hallmarks'] = {'id': 'ohf:hallmarks@1', 'sha256': vocabulary_pin('hallmarks-1.json')}
+    assert '/vocabularies' in {pointer(error) for error in validation_errors(SCHEMA, card)}
+
+
+def test_profiles_2_is_a_superset_of_profiles_1():
+    one, two = load(ROOT / 'vocabularies/profiles-1.json'), load(ROOT / 'vocabularies/profiles-2.json')
+    pharm = {p['id']: p for p in two['profiles']}
+    assert all(pharm[p['id']] == p for p in one['profiles'])
+    assert set(pharm['ohf:intervention-pharmacology@1']['paths']) < set(pharm['ohf:aging@1']['paths'])
+    assert {t['id'] for t in load(ROOT / 'vocabularies/hallmarks-1.json')['terms']} == set(
+        SCHEMA['properties']['added']['properties']['layers']['properties']['profile']['properties']
+        ['aging_hallmarks']['properties']['value']['items']['properties']['hallmark']['enum'])
+
+
+def test_a_1_0_card_has_no_aging_profile():
+    card = aging_card()
+    as_1_0(card)
+    errors = {pointer(error) for error in validation_errors(SCHEMA, card)}
+    assert PROFILE in errors and '/vocabularies' in errors

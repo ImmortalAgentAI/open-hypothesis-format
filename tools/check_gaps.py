@@ -7,7 +7,8 @@ silently. It does not resolve query records or source artifacts. It assumes a ca
 `tools/validate.py` and does not replace schema validation.
 
 A field of a domain profile the card does not select is absent and needs no gap; a gap
-for it is an error.
+for it is an error. A field the selected profile shares with another profile, as `ohf:aging@1`
+shares the fields of the intervention profile, is selected.
 
 From OHF 1.1 a gap may name a whole list that is empty, such as `core.assumptions`: a list
 whose elements have catalogue paths but which has no row of its own. Such a gap stands for
@@ -137,8 +138,8 @@ def check_condition(card, gap, condition):
 def unselected_paths(card, profiles):
     """Catalogue paths of the domain profiles the card does not select."""
     selected = card.get('added', {}).get('layers', {}).get('profile', {}).get('domain')
-    return {path for profile in profiles['profiles'] if profile['id'] != selected
-            for path in profile['paths']}
+    chosen = {path for profile in profiles['profiles'] if profile['id'] == selected for path in profile['paths']}
+    return {path for profile in profiles['profiles'] for path in profile['paths']} - chosen
 
 
 def check(card, policy, catalogue, mapping, profiles=None):
@@ -146,7 +147,7 @@ def check(card, policy, catalogue, mapping, profiles=None):
     if card.get('standard_version') not in ('1.0', '1.1'):
         return {'valid': False, 'review_required': [], 'errors': [issue(
             'GAP_STANDARD_VERSION', 'standard_version', 'Only OHF 1.0 and 1.1 cards are checked')]}
-    profiles = profiles if profiles is not None else load(ROOT / 'vocabularies/profiles-1.json')
+    profiles = profiles if profiles is not None else load(ROOT / 'vocabularies/profiles-2.json')
     unselected = unselected_paths(card, profiles)
     rows = {row['path']: row for row in catalogue['fields']}
     policies = {row['path']: row for row in policy['fields']}

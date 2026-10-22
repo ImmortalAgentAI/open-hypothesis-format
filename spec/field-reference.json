@@ -2777,6 +2777,19 @@
     },
     {
       "layer": "6 Profile",
+      "path": "profile.aging_hallmarks[]",
+      "definition": "Hallmarks of aging that atoms of this card concern, each with the atoms that concern it. A classification of the card, not a claim of the source; only in the aging profile.",
+      "logical_type": "Term[]",
+      "vocabulary": "ohf:hallmarks@1: the twelve hallmarks of López-Otín et al. 2023",
+      "example": "deregulated_nutrient_sensing: a_mtorc1_inhibition",
+      "basis": "ohf",
+      "field_class": "author_only",
+      "zones": [
+        "added"
+      ]
+    },
+    {
+      "layer": "6 Profile",
       "path": "profile.human_testability",
       "definition": "Source-supported human feasibility, ethical constraints, regulatory path and prerequisites, preserving unknown components.",
       "logical_type": "HumanTestability",

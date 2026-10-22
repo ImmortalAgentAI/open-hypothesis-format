@@ -1,6 +1,6 @@
 # Field reference
 
-This reference lists all 213 logical catalogue paths. Each path has a short example value from the catalogue. Where a card fills the path, a longer example follows: from the example card muller-sheltering, converted from a published article, or from a fictional test card, whose values describe a fictional system and are not scientific evidence. A JSON pointer identifies each card example. An absent concept is illustrated by the card's explicit gap; no missing value is invented. Definitions and logical types describe the concept before provenance wrappers.
+This reference lists all 214 logical catalogue paths. Each path has a short example value from the catalogue. Where a card fills the path, a longer example follows: from the example card muller-sheltering, converted from a published article, or from a fictional test card, whose values describe a fictional system and are not scientific evidence. A JSON pointer identifies each card example. An absent concept is illustrated by the card's explicit gap; no missing value is invented. Definitions and logical types describe the concept before provenance wrappers.
 
 Generated from [the reference data](field-reference.json) with `python tools/build_field_reference.py`. Edit the reference data and regenerate this file.
 
@@ -2385,6 +2385,14 @@ Function/process under discussion, with optional hallmarks mapping kept separate
 Type: `TextOrTerm`. Vocabulary: Reviewed GO/Reactome mapping, no mandatory hallmarks ontology. Basis: `ohf`. Class: `searchable`.
 
 Example value: process Y
+
+### `profile.aging_hallmarks[]`
+
+Hallmarks of aging that atoms of this card concern, each with the atoms that concern it. A classification of the card, not a claim of the source; only in the aging profile.
+
+Type: `Term[]`. Vocabulary: ohf:hallmarks@1: the twelve hallmarks of López-Otín et al. 2023. Basis: `ohf`. Class: `author_only`. Zones: `added`.
+
+Example value: deregulated_nutrient_sensing: a_mtorc1_inhibition
 
 ### `profile.human_testability`
 
