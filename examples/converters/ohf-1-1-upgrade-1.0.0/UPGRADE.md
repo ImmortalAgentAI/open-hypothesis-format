@@ -52,6 +52,6 @@ The upgrade adds OHF 1.1 values to a frozen, accepted OHF 1.0 card. It changes n
     - one CC BY work with no open full text;
     - one CC BY-NC-ND work.
     Each line has the PubMed record, a paraphrase in the added zone, and the abstract sentence that entails the paraphrase. The script asserts that this sentence is in the fetched abstract. The phase 1 trial gave rapamycin daily, so its line is `neutral` on the intermittent atom.
-14. **Entailment.** The new values are checked by an independent pass, not by this upgrade. Until that check returns, they carry no entailment records.
+14. **Entailment.** The verdicts of the independent check (ohf-examples, prompt `ENTAILMENT-PROMPT.md`, sha256 46716d7b…) are written to `integrity.entailment` with the time they were delivered, including the `partial` verdict and its note. Values the check has not yet returned carry no record. A record of the base card whose value the upgrade changed is dropped until that value is checked again: the three prediction routes, which gained a term. An identifier given to an alternative is not content a paragraph supports, so the record on the alternatives stands.
 
 `added.by.converter_hash` is the hash of this directory, computed by `tools/converter_hash.py`.

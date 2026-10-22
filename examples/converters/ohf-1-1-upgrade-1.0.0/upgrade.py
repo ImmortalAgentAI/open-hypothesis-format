@@ -291,6 +291,41 @@ for (ident, pmid, target, direction, reason, study_system, words, taxon_id, endp
     added['gaps'].append({**copy.deepcopy(whole), 'path': f'evidence.lines[{len(lines) - 1}].result_estimate',
                           'reason': 'The quote is withheld; the result is carried by the paraphrase, which gives no figure.'})
 
+# Verdicts of the independent entailment check (ohf-examples), one file per batch in INPUT/verdicts with its
+# time in a sidecar. A verdict is written only where its pointer resolves; the checker is the base card's.
+checker = added['integrity']['entailment'][0]['checker']
+base = json.loads((INPUT / 'intermittent-rapamycin-mtorc2.json').read_text())
+
+
+def resolve(document, pointer):
+    node = document
+    for token in pointer.split('/')[1:]:
+        node = node[int(token)] if isinstance(node, list) else node[token]
+    return node
+
+
+def content(node):
+    """The value a paragraph check judged: identifiers given to list elements are not part of it."""
+    if isinstance(node, dict):
+        return {k: content(v) for k, v in node.items() if k != 'id' or 'claim_or_ref' not in node}
+    if isinstance(node, list):
+        return [content(v) for v in node]
+    return node
+
+
+# A base record whose checked content the upgrade changed no longer holds; it is dropped until checked again.
+added['integrity']['entailment'] = [r for r in added['integrity']['entailment']
+                                    if content(resolve(base, r['pointer'])) == content(resolve(card, r['pointer']))]
+for path in sorted((INPUT / 'verdicts').glob('*.json')) if (INPUT / 'verdicts').is_dir() else []:
+    checked_at = Path(f'{path}.checked_at').read_text().strip()
+    for verdict in json.loads(path.read_text()):
+        resolve(card, verdict['pointer'])
+        record = {'pointer': verdict['pointer'], 'basis': verdict['basis'], 'verdict': verdict['verdict'],
+                  'checker': dict(checker), 'checked_at': checked_at}
+        if verdict.get('note'):
+            record['note'] = verdict['note']
+        added['integrity']['entailment'].append(record)
+
 identity = card['identity']
 identity['supersedes'] = [f"{identity['proposition_id']}@{identity['version']}"]
 identity['version'] += 1

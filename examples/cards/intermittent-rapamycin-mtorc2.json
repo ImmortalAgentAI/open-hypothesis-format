@@ -85,10 +85,10 @@
     "by": {
       "converter": "ohf-1-1-upgrade",
       "converter_version": "1.0.0",
-      "converter_hash": "sha256:5b6bbca3cd2d4523531106873cfdb91be82d936bee96a957e14f740d5da4d9b1",
+      "converter_hash": "sha256:3fbaf0e47210c89fa94580e842362a404a74789219bd104d67cd51e274c71e36",
       "model": "claude-opus-5-5"
     },
-    "at": "2026-10-22T05:57:49Z",
+    "at": "2026-10-22T06:00:44Z",
     "cutoff_date": "2026-10-21",
     "layers": {
       "core": {
@@ -8528,17 +8528,6 @@
           "checked_at": "2026-10-22T00:10:33Z"
         },
         {
-          "pointer": "/added/layers/predictions/0/intervention/route",
-          "basis": "src",
-          "verdict": "entails",
-          "checker": {
-            "name": "ohf-entailment-check",
-            "version": "1.0.0",
-            "prompt_sha256": "sha256:46716d7b4fc070b952d7ace5ae597c64b9414e63b15e38a94e719a2eb4fae146"
-          },
-          "checked_at": "2026-10-22T00:10:33Z"
-        },
-        {
           "pointer": "/added/layers/predictions/0/intervention/formulation",
           "basis": "src",
           "verdict": "entails",
@@ -8727,17 +8716,6 @@
         },
         {
           "pointer": "/added/layers/predictions/1/intervention/regimen",
-          "basis": "src",
-          "verdict": "entails",
-          "checker": {
-            "name": "ohf-entailment-check",
-            "version": "1.0.0",
-            "prompt_sha256": "sha256:46716d7b4fc070b952d7ace5ae597c64b9414e63b15e38a94e719a2eb4fae146"
-          },
-          "checked_at": "2026-10-20T20:54:28Z"
-        },
-        {
-          "pointer": "/added/layers/predictions/1/intervention/route",
           "basis": "src",
           "verdict": "entails",
           "checker": {
@@ -9013,17 +8991,6 @@
         },
         {
           "pointer": "/added/layers/predictions/3/intervention/regimen",
-          "basis": "src",
-          "verdict": "entails",
-          "checker": {
-            "name": "ohf-entailment-check",
-            "version": "1.0.0",
-            "prompt_sha256": "sha256:46716d7b4fc070b952d7ace5ae597c64b9414e63b15e38a94e719a2eb4fae146"
-          },
-          "checked_at": "2026-10-22T00:10:33Z"
-        },
-        {
-          "pointer": "/added/layers/predictions/3/intervention/route",
           "basis": "src",
           "verdict": "entails",
           "checker": {
@@ -13485,6 +13452,1217 @@
             "prompt_sha256": "sha256:46716d7b4fc070b952d7ace5ae597c64b9414e63b15e38a94e719a2eb4fae146"
           },
           "checked_at": "2026-10-20T20:54:28Z"
+        },
+        {
+          "pointer": "/added/layers/evidence/lines/0/system/taxon",
+          "basis": "src",
+          "verdict": "entails",
+          "checker": {
+            "name": "ohf-entailment-check",
+            "version": "1.0.0",
+            "prompt_sha256": "sha256:46716d7b4fc070b952d7ace5ae597c64b9414e63b15e38a94e719a2eb4fae146"
+          },
+          "checked_at": "2026-10-22T05:58:12Z"
+        },
+        {
+          "pointer": "/added/layers/evidence/lines/0/endpoint_kind",
+          "basis": "src",
+          "verdict": "entails",
+          "checker": {
+            "name": "ohf-entailment-check",
+            "version": "1.0.0",
+            "prompt_sha256": "sha256:46716d7b4fc070b952d7ace5ae597c64b9414e63b15e38a94e719a2eb4fae146"
+          },
+          "checked_at": "2026-10-22T05:58:12Z"
+        },
+        {
+          "pointer": "/added/layers/evidence/lines/1/system/taxon",
+          "basis": "src",
+          "verdict": "entails",
+          "checker": {
+            "name": "ohf-entailment-check",
+            "version": "1.0.0",
+            "prompt_sha256": "sha256:46716d7b4fc070b952d7ace5ae597c64b9414e63b15e38a94e719a2eb4fae146"
+          },
+          "checked_at": "2026-10-22T05:58:12Z"
+        },
+        {
+          "pointer": "/added/layers/evidence/lines/1/endpoint_kind",
+          "basis": "src",
+          "verdict": "entails",
+          "checker": {
+            "name": "ohf-entailment-check",
+            "version": "1.0.0",
+            "prompt_sha256": "sha256:46716d7b4fc070b952d7ace5ae597c64b9414e63b15e38a94e719a2eb4fae146"
+          },
+          "checked_at": "2026-10-22T05:58:12Z"
+        },
+        {
+          "pointer": "/added/layers/evidence/lines/2/system/taxon",
+          "basis": "src",
+          "verdict": "entails",
+          "checker": {
+            "name": "ohf-entailment-check",
+            "version": "1.0.0",
+            "prompt_sha256": "sha256:46716d7b4fc070b952d7ace5ae597c64b9414e63b15e38a94e719a2eb4fae146"
+          },
+          "checked_at": "2026-10-22T05:58:12Z"
+        },
+        {
+          "pointer": "/added/layers/evidence/lines/2/endpoint_kind",
+          "basis": "src",
+          "verdict": "entails",
+          "checker": {
+            "name": "ohf-entailment-check",
+            "version": "1.0.0",
+            "prompt_sha256": "sha256:46716d7b4fc070b952d7ace5ae597c64b9414e63b15e38a94e719a2eb4fae146"
+          },
+          "checked_at": "2026-10-22T05:58:12Z"
+        },
+        {
+          "pointer": "/added/layers/evidence/lines/3/system/taxon",
+          "basis": "src",
+          "verdict": "entails",
+          "checker": {
+            "name": "ohf-entailment-check",
+            "version": "1.0.0",
+            "prompt_sha256": "sha256:46716d7b4fc070b952d7ace5ae597c64b9414e63b15e38a94e719a2eb4fae146"
+          },
+          "checked_at": "2026-10-22T05:58:12Z"
+        },
+        {
+          "pointer": "/added/layers/evidence/lines/3/endpoint_kind",
+          "basis": "src",
+          "verdict": "entails",
+          "checker": {
+            "name": "ohf-entailment-check",
+            "version": "1.0.0",
+            "prompt_sha256": "sha256:46716d7b4fc070b952d7ace5ae597c64b9414e63b15e38a94e719a2eb4fae146"
+          },
+          "checked_at": "2026-10-22T05:58:12Z"
+        },
+        {
+          "pointer": "/added/layers/evidence/lines/4/system/taxon",
+          "basis": "src",
+          "verdict": "entails",
+          "checker": {
+            "name": "ohf-entailment-check",
+            "version": "1.0.0",
+            "prompt_sha256": "sha256:46716d7b4fc070b952d7ace5ae597c64b9414e63b15e38a94e719a2eb4fae146"
+          },
+          "checked_at": "2026-10-22T05:58:12Z"
+        },
+        {
+          "pointer": "/added/layers/evidence/lines/4/endpoint_kind",
+          "basis": "src",
+          "verdict": "entails",
+          "checker": {
+            "name": "ohf-entailment-check",
+            "version": "1.0.0",
+            "prompt_sha256": "sha256:46716d7b4fc070b952d7ace5ae597c64b9414e63b15e38a94e719a2eb4fae146"
+          },
+          "checked_at": "2026-10-22T05:58:12Z"
+        },
+        {
+          "pointer": "/added/layers/evidence/lines/5/system/taxon",
+          "basis": "src",
+          "verdict": "entails",
+          "checker": {
+            "name": "ohf-entailment-check",
+            "version": "1.0.0",
+            "prompt_sha256": "sha256:46716d7b4fc070b952d7ace5ae597c64b9414e63b15e38a94e719a2eb4fae146"
+          },
+          "checked_at": "2026-10-22T05:58:12Z"
+        },
+        {
+          "pointer": "/added/layers/evidence/lines/5/endpoint_kind",
+          "basis": "src",
+          "verdict": "entails",
+          "checker": {
+            "name": "ohf-entailment-check",
+            "version": "1.0.0",
+            "prompt_sha256": "sha256:46716d7b4fc070b952d7ace5ae597c64b9414e63b15e38a94e719a2eb4fae146"
+          },
+          "checked_at": "2026-10-22T05:58:12Z"
+        },
+        {
+          "pointer": "/added/layers/evidence/lines/6/system/taxon",
+          "basis": "src",
+          "verdict": "entails",
+          "checker": {
+            "name": "ohf-entailment-check",
+            "version": "1.0.0",
+            "prompt_sha256": "sha256:46716d7b4fc070b952d7ace5ae597c64b9414e63b15e38a94e719a2eb4fae146"
+          },
+          "checked_at": "2026-10-22T05:58:12Z"
+        },
+        {
+          "pointer": "/added/layers/evidence/lines/6/endpoint_kind",
+          "basis": "src",
+          "verdict": "entails",
+          "checker": {
+            "name": "ohf-entailment-check",
+            "version": "1.0.0",
+            "prompt_sha256": "sha256:46716d7b4fc070b952d7ace5ae597c64b9414e63b15e38a94e719a2eb4fae146"
+          },
+          "checked_at": "2026-10-22T05:58:12Z"
+        },
+        {
+          "pointer": "/added/layers/evidence/lines/7/system/taxon",
+          "basis": "src",
+          "verdict": "entails",
+          "checker": {
+            "name": "ohf-entailment-check",
+            "version": "1.0.0",
+            "prompt_sha256": "sha256:46716d7b4fc070b952d7ace5ae597c64b9414e63b15e38a94e719a2eb4fae146"
+          },
+          "checked_at": "2026-10-22T05:58:12Z"
+        },
+        {
+          "pointer": "/added/layers/evidence/lines/7/endpoint_kind",
+          "basis": "src",
+          "verdict": "partial",
+          "checker": {
+            "name": "ohf-entailment-check",
+            "version": "1.0.0",
+            "prompt_sha256": "sha256:46716d7b4fc070b952d7ace5ae597c64b9414e63b15e38a94e719a2eb4fae146"
+          },
+          "checked_at": "2026-10-22T05:58:12Z",
+          "note": "The passage reports an impact on T cells and the immune system but gives no molecular measurement, so it does not support classifying this endpoint as \"molecular\"."
+        },
+        {
+          "pointer": "/added/layers/evidence/lines/8/endpoint_kind",
+          "basis": "src",
+          "verdict": "entails",
+          "checker": {
+            "name": "ohf-entailment-check",
+            "version": "1.0.0",
+            "prompt_sha256": "sha256:46716d7b4fc070b952d7ace5ae597c64b9414e63b15e38a94e719a2eb4fae146"
+          },
+          "checked_at": "2026-10-22T05:58:12Z"
+        },
+        {
+          "pointer": "/added/layers/evidence/lines/9/system/taxon",
+          "basis": "src",
+          "verdict": "entails",
+          "checker": {
+            "name": "ohf-entailment-check",
+            "version": "1.0.0",
+            "prompt_sha256": "sha256:46716d7b4fc070b952d7ace5ae597c64b9414e63b15e38a94e719a2eb4fae146"
+          },
+          "checked_at": "2026-10-22T05:58:12Z"
+        },
+        {
+          "pointer": "/added/layers/evidence/lines/10/endpoint_kind",
+          "basis": "src",
+          "verdict": "entails",
+          "checker": {
+            "name": "ohf-entailment-check",
+            "version": "1.0.0",
+            "prompt_sha256": "sha256:46716d7b4fc070b952d7ace5ae597c64b9414e63b15e38a94e719a2eb4fae146"
+          },
+          "checked_at": "2026-10-22T05:58:12Z"
+        },
+        {
+          "pointer": "/added/layers/evidence/lines/11/system/taxon",
+          "basis": "src",
+          "verdict": "entails",
+          "checker": {
+            "name": "ohf-entailment-check",
+            "version": "1.0.0",
+            "prompt_sha256": "sha256:46716d7b4fc070b952d7ace5ae597c64b9414e63b15e38a94e719a2eb4fae146"
+          },
+          "checked_at": "2026-10-22T05:58:12Z"
+        },
+        {
+          "pointer": "/added/layers/evidence/lines/12/system/taxon",
+          "basis": "src",
+          "verdict": "entails",
+          "checker": {
+            "name": "ohf-entailment-check",
+            "version": "1.0.0",
+            "prompt_sha256": "sha256:46716d7b4fc070b952d7ace5ae597c64b9414e63b15e38a94e719a2eb4fae146"
+          },
+          "checked_at": "2026-10-22T05:58:12Z"
+        },
+        {
+          "pointer": "/added/layers/evidence/lines/12/endpoint_kind",
+          "basis": "src",
+          "verdict": "entails",
+          "checker": {
+            "name": "ohf-entailment-check",
+            "version": "1.0.0",
+            "prompt_sha256": "sha256:46716d7b4fc070b952d7ace5ae597c64b9414e63b15e38a94e719a2eb4fae146"
+          },
+          "checked_at": "2026-10-22T05:58:12Z"
+        },
+        {
+          "pointer": "/added/layers/evidence/lines/13/endpoint_kind",
+          "basis": "src",
+          "verdict": "entails",
+          "checker": {
+            "name": "ohf-entailment-check",
+            "version": "1.0.0",
+            "prompt_sha256": "sha256:46716d7b4fc070b952d7ace5ae597c64b9414e63b15e38a94e719a2eb4fae146"
+          },
+          "checked_at": "2026-10-22T05:58:12Z"
+        },
+        {
+          "pointer": "/added/layers/evidence/lines/14/system/taxon",
+          "basis": "src",
+          "verdict": "entails",
+          "checker": {
+            "name": "ohf-entailment-check",
+            "version": "1.0.0",
+            "prompt_sha256": "sha256:46716d7b4fc070b952d7ace5ae597c64b9414e63b15e38a94e719a2eb4fae146"
+          },
+          "checked_at": "2026-10-22T05:58:12Z"
+        },
+        {
+          "pointer": "/added/layers/evidence/lines/14/endpoint_kind",
+          "basis": "src",
+          "verdict": "entails",
+          "checker": {
+            "name": "ohf-entailment-check",
+            "version": "1.0.0",
+            "prompt_sha256": "sha256:46716d7b4fc070b952d7ace5ae597c64b9414e63b15e38a94e719a2eb4fae146"
+          },
+          "checked_at": "2026-10-22T05:58:12Z"
+        },
+        {
+          "pointer": "/added/layers/evidence/lines/15/system/taxon",
+          "basis": "src",
+          "verdict": "entails",
+          "checker": {
+            "name": "ohf-entailment-check",
+            "version": "1.0.0",
+            "prompt_sha256": "sha256:46716d7b4fc070b952d7ace5ae597c64b9414e63b15e38a94e719a2eb4fae146"
+          },
+          "checked_at": "2026-10-22T05:58:12Z"
+        },
+        {
+          "pointer": "/added/layers/evidence/lines/15/endpoint_kind",
+          "basis": "src",
+          "verdict": "entails",
+          "checker": {
+            "name": "ohf-entailment-check",
+            "version": "1.0.0",
+            "prompt_sha256": "sha256:46716d7b4fc070b952d7ace5ae597c64b9414e63b15e38a94e719a2eb4fae146"
+          },
+          "checked_at": "2026-10-22T05:58:12Z"
+        },
+        {
+          "pointer": "/added/layers/evidence/lines/16/system/taxon",
+          "basis": "src",
+          "verdict": "entails",
+          "checker": {
+            "name": "ohf-entailment-check",
+            "version": "1.0.0",
+            "prompt_sha256": "sha256:46716d7b4fc070b952d7ace5ae597c64b9414e63b15e38a94e719a2eb4fae146"
+          },
+          "checked_at": "2026-10-22T05:58:12Z"
+        },
+        {
+          "pointer": "/added/layers/evidence/lines/16/endpoint_kind",
+          "basis": "src",
+          "verdict": "entails",
+          "checker": {
+            "name": "ohf-entailment-check",
+            "version": "1.0.0",
+            "prompt_sha256": "sha256:46716d7b4fc070b952d7ace5ae597c64b9414e63b15e38a94e719a2eb4fae146"
+          },
+          "checked_at": "2026-10-22T05:58:12Z"
+        },
+        {
+          "pointer": "/added/layers/evidence/lines/17/system/taxon",
+          "basis": "src",
+          "verdict": "entails",
+          "checker": {
+            "name": "ohf-entailment-check",
+            "version": "1.0.0",
+            "prompt_sha256": "sha256:46716d7b4fc070b952d7ace5ae597c64b9414e63b15e38a94e719a2eb4fae146"
+          },
+          "checked_at": "2026-10-22T05:58:12Z"
+        },
+        {
+          "pointer": "/added/layers/evidence/lines/17/endpoint_kind",
+          "basis": "src",
+          "verdict": "entails",
+          "checker": {
+            "name": "ohf-entailment-check",
+            "version": "1.0.0",
+            "prompt_sha256": "sha256:46716d7b4fc070b952d7ace5ae597c64b9414e63b15e38a94e719a2eb4fae146"
+          },
+          "checked_at": "2026-10-22T05:58:12Z"
+        },
+        {
+          "pointer": "/added/layers/evidence/lines/18/system/taxon",
+          "basis": "src",
+          "verdict": "entails",
+          "checker": {
+            "name": "ohf-entailment-check",
+            "version": "1.0.0",
+            "prompt_sha256": "sha256:46716d7b4fc070b952d7ace5ae597c64b9414e63b15e38a94e719a2eb4fae146"
+          },
+          "checked_at": "2026-10-22T05:58:12Z"
+        },
+        {
+          "pointer": "/added/layers/evidence/lines/18/endpoint_kind",
+          "basis": "src",
+          "verdict": "entails",
+          "checker": {
+            "name": "ohf-entailment-check",
+            "version": "1.0.0",
+            "prompt_sha256": "sha256:46716d7b4fc070b952d7ace5ae597c64b9414e63b15e38a94e719a2eb4fae146"
+          },
+          "checked_at": "2026-10-22T05:58:12Z"
+        },
+        {
+          "pointer": "/added/layers/evidence/lines/18/sample",
+          "basis": "src",
+          "verdict": "entails",
+          "checker": {
+            "name": "ohf-entailment-check",
+            "version": "1.0.0",
+            "prompt_sha256": "sha256:46716d7b4fc070b952d7ace5ae597c64b9414e63b15e38a94e719a2eb4fae146"
+          },
+          "checked_at": "2026-10-22T05:58:12Z"
+        },
+        {
+          "pointer": "/added/layers/evidence/lines/18/intervention/agent",
+          "basis": "src",
+          "verdict": "entails",
+          "checker": {
+            "name": "ohf-entailment-check",
+            "version": "1.0.0",
+            "prompt_sha256": "sha256:46716d7b4fc070b952d7ace5ae597c64b9414e63b15e38a94e719a2eb4fae146"
+          },
+          "checked_at": "2026-10-22T05:58:12Z"
+        },
+        {
+          "pointer": "/added/layers/evidence/lines/18/intervention/dose",
+          "basis": "src",
+          "verdict": "entails",
+          "checker": {
+            "name": "ohf-entailment-check",
+            "version": "1.0.0",
+            "prompt_sha256": "sha256:46716d7b4fc070b952d7ace5ae597c64b9414e63b15e38a94e719a2eb4fae146"
+          },
+          "checked_at": "2026-10-22T05:58:12Z"
+        },
+        {
+          "pointer": "/added/layers/evidence/lines/19/system/taxon",
+          "basis": "src",
+          "verdict": "entails",
+          "checker": {
+            "name": "ohf-entailment-check",
+            "version": "1.0.0",
+            "prompt_sha256": "sha256:46716d7b4fc070b952d7ace5ae597c64b9414e63b15e38a94e719a2eb4fae146"
+          },
+          "checked_at": "2026-10-22T05:58:12Z"
+        },
+        {
+          "pointer": "/added/layers/evidence/lines/20/system/taxon",
+          "basis": "src",
+          "verdict": "entails",
+          "checker": {
+            "name": "ohf-entailment-check",
+            "version": "1.0.0",
+            "prompt_sha256": "sha256:46716d7b4fc070b952d7ace5ae597c64b9414e63b15e38a94e719a2eb4fae146"
+          },
+          "checked_at": "2026-10-22T05:58:12Z"
+        },
+        {
+          "pointer": "/added/layers/evidence/lines/20/endpoint_kind",
+          "basis": "src",
+          "verdict": "entails",
+          "checker": {
+            "name": "ohf-entailment-check",
+            "version": "1.0.0",
+            "prompt_sha256": "sha256:46716d7b4fc070b952d7ace5ae597c64b9414e63b15e38a94e719a2eb4fae146"
+          },
+          "checked_at": "2026-10-22T05:58:12Z"
+        },
+        {
+          "pointer": "/added/layers/evidence/lines/21/system/taxon",
+          "basis": "src",
+          "verdict": "entails",
+          "checker": {
+            "name": "ohf-entailment-check",
+            "version": "1.0.0",
+            "prompt_sha256": "sha256:46716d7b4fc070b952d7ace5ae597c64b9414e63b15e38a94e719a2eb4fae146"
+          },
+          "checked_at": "2026-10-22T05:58:12Z"
+        },
+        {
+          "pointer": "/added/layers/evidence/lines/22/endpoint_kind",
+          "basis": "src",
+          "verdict": "entails",
+          "checker": {
+            "name": "ohf-entailment-check",
+            "version": "1.0.0",
+            "prompt_sha256": "sha256:46716d7b4fc070b952d7ace5ae597c64b9414e63b15e38a94e719a2eb4fae146"
+          },
+          "checked_at": "2026-10-22T05:58:12Z"
+        },
+        {
+          "pointer": "/added/layers/evidence/lines/23/system/taxon",
+          "basis": "src",
+          "verdict": "entails",
+          "checker": {
+            "name": "ohf-entailment-check",
+            "version": "1.0.0",
+            "prompt_sha256": "sha256:46716d7b4fc070b952d7ace5ae597c64b9414e63b15e38a94e719a2eb4fae146"
+          },
+          "checked_at": "2026-10-22T05:58:12Z"
+        },
+        {
+          "pointer": "/added/layers/evidence/lines/24/system/taxon",
+          "basis": "src",
+          "verdict": "entails",
+          "checker": {
+            "name": "ohf-entailment-check",
+            "version": "1.0.0",
+            "prompt_sha256": "sha256:46716d7b4fc070b952d7ace5ae597c64b9414e63b15e38a94e719a2eb4fae146"
+          },
+          "checked_at": "2026-10-22T05:58:12Z"
+        },
+        {
+          "pointer": "/added/layers/evidence/lines/24/endpoint_kind",
+          "basis": "src",
+          "verdict": "entails",
+          "checker": {
+            "name": "ohf-entailment-check",
+            "version": "1.0.0",
+            "prompt_sha256": "sha256:46716d7b4fc070b952d7ace5ae597c64b9414e63b15e38a94e719a2eb4fae146"
+          },
+          "checked_at": "2026-10-22T05:58:12Z"
+        },
+        {
+          "pointer": "/added/layers/evidence/lines/25/system/taxon",
+          "basis": "src",
+          "verdict": "entails",
+          "checker": {
+            "name": "ohf-entailment-check",
+            "version": "1.0.0",
+            "prompt_sha256": "sha256:46716d7b4fc070b952d7ace5ae597c64b9414e63b15e38a94e719a2eb4fae146"
+          },
+          "checked_at": "2026-10-22T05:58:12Z"
+        },
+        {
+          "pointer": "/added/layers/evidence/lines/25/endpoint_kind",
+          "basis": "src",
+          "verdict": "entails",
+          "checker": {
+            "name": "ohf-entailment-check",
+            "version": "1.0.0",
+            "prompt_sha256": "sha256:46716d7b4fc070b952d7ace5ae597c64b9414e63b15e38a94e719a2eb4fae146"
+          },
+          "checked_at": "2026-10-22T05:58:12Z"
+        },
+        {
+          "pointer": "/added/layers/evidence/lines/27/system/taxon",
+          "basis": "src",
+          "verdict": "entails",
+          "checker": {
+            "name": "ohf-entailment-check",
+            "version": "1.0.0",
+            "prompt_sha256": "sha256:46716d7b4fc070b952d7ace5ae597c64b9414e63b15e38a94e719a2eb4fae146"
+          },
+          "checked_at": "2026-10-22T05:58:12Z"
+        },
+        {
+          "pointer": "/added/layers/evidence/lines/27/endpoint_kind",
+          "basis": "src",
+          "verdict": "entails",
+          "checker": {
+            "name": "ohf-entailment-check",
+            "version": "1.0.0",
+            "prompt_sha256": "sha256:46716d7b4fc070b952d7ace5ae597c64b9414e63b15e38a94e719a2eb4fae146"
+          },
+          "checked_at": "2026-10-22T05:58:12Z"
+        },
+        {
+          "pointer": "/added/layers/evidence/lines/28/system/taxon",
+          "basis": "src",
+          "verdict": "entails",
+          "checker": {
+            "name": "ohf-entailment-check",
+            "version": "1.0.0",
+            "prompt_sha256": "sha256:46716d7b4fc070b952d7ace5ae597c64b9414e63b15e38a94e719a2eb4fae146"
+          },
+          "checked_at": "2026-10-22T05:58:12Z"
+        },
+        {
+          "pointer": "/added/layers/evidence/lines/28/endpoint_kind",
+          "basis": "src",
+          "verdict": "entails",
+          "checker": {
+            "name": "ohf-entailment-check",
+            "version": "1.0.0",
+            "prompt_sha256": "sha256:46716d7b4fc070b952d7ace5ae597c64b9414e63b15e38a94e719a2eb4fae146"
+          },
+          "checked_at": "2026-10-22T05:58:12Z"
+        },
+        {
+          "pointer": "/added/layers/evidence/lines/28/result_estimate",
+          "basis": "src",
+          "verdict": "entails",
+          "checker": {
+            "name": "ohf-entailment-check",
+            "version": "1.0.0",
+            "prompt_sha256": "sha256:46716d7b4fc070b952d7ace5ae597c64b9414e63b15e38a94e719a2eb4fae146"
+          },
+          "checked_at": "2026-10-22T05:58:12Z"
+        },
+        {
+          "pointer": "/added/layers/evidence/lines/29/system/taxon",
+          "basis": "src",
+          "verdict": "entails",
+          "checker": {
+            "name": "ohf-entailment-check",
+            "version": "1.0.0",
+            "prompt_sha256": "sha256:46716d7b4fc070b952d7ace5ae597c64b9414e63b15e38a94e719a2eb4fae146"
+          },
+          "checked_at": "2026-10-22T05:58:12Z"
+        },
+        {
+          "pointer": "/added/layers/evidence/lines/29/endpoint_kind",
+          "basis": "src",
+          "verdict": "entails",
+          "checker": {
+            "name": "ohf-entailment-check",
+            "version": "1.0.0",
+            "prompt_sha256": "sha256:46716d7b4fc070b952d7ace5ae597c64b9414e63b15e38a94e719a2eb4fae146"
+          },
+          "checked_at": "2026-10-22T05:58:12Z"
+        },
+        {
+          "pointer": "/added/layers/evidence/lines/30/system/taxon",
+          "basis": "src",
+          "verdict": "entails",
+          "checker": {
+            "name": "ohf-entailment-check",
+            "version": "1.0.0",
+            "prompt_sha256": "sha256:46716d7b4fc070b952d7ace5ae597c64b9414e63b15e38a94e719a2eb4fae146"
+          },
+          "checked_at": "2026-10-22T05:58:12Z"
+        },
+        {
+          "pointer": "/added/layers/evidence/lines/30/endpoint_kind",
+          "basis": "src",
+          "verdict": "entails",
+          "checker": {
+            "name": "ohf-entailment-check",
+            "version": "1.0.0",
+            "prompt_sha256": "sha256:46716d7b4fc070b952d7ace5ae597c64b9414e63b15e38a94e719a2eb4fae146"
+          },
+          "checked_at": "2026-10-22T05:58:12Z"
+        },
+        {
+          "pointer": "/added/layers/evidence/lines/30/result_estimate",
+          "basis": "src",
+          "verdict": "entails",
+          "checker": {
+            "name": "ohf-entailment-check",
+            "version": "1.0.0",
+            "prompt_sha256": "sha256:46716d7b4fc070b952d7ace5ae597c64b9414e63b15e38a94e719a2eb4fae146"
+          },
+          "checked_at": "2026-10-22T05:58:12Z"
+        },
+        {
+          "pointer": "/added/layers/evidence/lines/31/system/taxon",
+          "basis": "src",
+          "verdict": "entails",
+          "checker": {
+            "name": "ohf-entailment-check",
+            "version": "1.0.0",
+            "prompt_sha256": "sha256:46716d7b4fc070b952d7ace5ae597c64b9414e63b15e38a94e719a2eb4fae146"
+          },
+          "checked_at": "2026-10-22T05:58:12Z"
+        },
+        {
+          "pointer": "/added/layers/evidence/lines/31/endpoint_kind",
+          "basis": "src",
+          "verdict": "entails",
+          "checker": {
+            "name": "ohf-entailment-check",
+            "version": "1.0.0",
+            "prompt_sha256": "sha256:46716d7b4fc070b952d7ace5ae597c64b9414e63b15e38a94e719a2eb4fae146"
+          },
+          "checked_at": "2026-10-22T05:58:12Z"
+        },
+        {
+          "pointer": "/added/layers/evidence/lines/32/system/taxon",
+          "basis": "src",
+          "verdict": "entails",
+          "checker": {
+            "name": "ohf-entailment-check",
+            "version": "1.0.0",
+            "prompt_sha256": "sha256:46716d7b4fc070b952d7ace5ae597c64b9414e63b15e38a94e719a2eb4fae146"
+          },
+          "checked_at": "2026-10-22T05:58:12Z"
+        },
+        {
+          "pointer": "/added/layers/evidence/lines/32/endpoint_kind",
+          "basis": "src",
+          "verdict": "entails",
+          "checker": {
+            "name": "ohf-entailment-check",
+            "version": "1.0.0",
+            "prompt_sha256": "sha256:46716d7b4fc070b952d7ace5ae597c64b9414e63b15e38a94e719a2eb4fae146"
+          },
+          "checked_at": "2026-10-22T05:58:12Z"
+        },
+        {
+          "pointer": "/added/layers/evidence/lines/33/system/taxon",
+          "basis": "src",
+          "verdict": "entails",
+          "checker": {
+            "name": "ohf-entailment-check",
+            "version": "1.0.0",
+            "prompt_sha256": "sha256:46716d7b4fc070b952d7ace5ae597c64b9414e63b15e38a94e719a2eb4fae146"
+          },
+          "checked_at": "2026-10-22T05:58:12Z"
+        },
+        {
+          "pointer": "/added/layers/evidence/lines/33/endpoint_kind",
+          "basis": "src",
+          "verdict": "entails",
+          "checker": {
+            "name": "ohf-entailment-check",
+            "version": "1.0.0",
+            "prompt_sha256": "sha256:46716d7b4fc070b952d7ace5ae597c64b9414e63b15e38a94e719a2eb4fae146"
+          },
+          "checked_at": "2026-10-22T05:58:12Z"
+        },
+        {
+          "pointer": "/added/layers/evidence/lines/34/system/taxon",
+          "basis": "src",
+          "verdict": "entails",
+          "checker": {
+            "name": "ohf-entailment-check",
+            "version": "1.0.0",
+            "prompt_sha256": "sha256:46716d7b4fc070b952d7ace5ae597c64b9414e63b15e38a94e719a2eb4fae146"
+          },
+          "checked_at": "2026-10-22T05:58:12Z"
+        },
+        {
+          "pointer": "/added/layers/evidence/lines/34/endpoint_kind",
+          "basis": "src",
+          "verdict": "entails",
+          "checker": {
+            "name": "ohf-entailment-check",
+            "version": "1.0.0",
+            "prompt_sha256": "sha256:46716d7b4fc070b952d7ace5ae597c64b9414e63b15e38a94e719a2eb4fae146"
+          },
+          "checked_at": "2026-10-22T05:58:12Z"
+        },
+        {
+          "pointer": "/added/layers/evidence/lines/35/system/taxon",
+          "basis": "src",
+          "verdict": "entails",
+          "checker": {
+            "name": "ohf-entailment-check",
+            "version": "1.0.0",
+            "prompt_sha256": "sha256:46716d7b4fc070b952d7ace5ae597c64b9414e63b15e38a94e719a2eb4fae146"
+          },
+          "checked_at": "2026-10-22T05:58:12Z"
+        },
+        {
+          "pointer": "/added/layers/evidence/lines/35/endpoint_kind",
+          "basis": "src",
+          "verdict": "entails",
+          "checker": {
+            "name": "ohf-entailment-check",
+            "version": "1.0.0",
+            "prompt_sha256": "sha256:46716d7b4fc070b952d7ace5ae597c64b9414e63b15e38a94e719a2eb4fae146"
+          },
+          "checked_at": "2026-10-22T05:58:12Z"
+        },
+        {
+          "pointer": "/added/layers/evidence/lines/36/system/taxon",
+          "basis": "src",
+          "verdict": "entails",
+          "checker": {
+            "name": "ohf-entailment-check",
+            "version": "1.0.0",
+            "prompt_sha256": "sha256:46716d7b4fc070b952d7ace5ae597c64b9414e63b15e38a94e719a2eb4fae146"
+          },
+          "checked_at": "2026-10-22T05:58:12Z"
+        },
+        {
+          "pointer": "/added/layers/evidence/lines/36/endpoint_kind",
+          "basis": "src",
+          "verdict": "entails",
+          "checker": {
+            "name": "ohf-entailment-check",
+            "version": "1.0.0",
+            "prompt_sha256": "sha256:46716d7b4fc070b952d7ace5ae597c64b9414e63b15e38a94e719a2eb4fae146"
+          },
+          "checked_at": "2026-10-22T05:58:12Z"
+        },
+        {
+          "pointer": "/added/layers/evidence/lines/36/sample",
+          "basis": "src",
+          "verdict": "entails",
+          "checker": {
+            "name": "ohf-entailment-check",
+            "version": "1.0.0",
+            "prompt_sha256": "sha256:46716d7b4fc070b952d7ace5ae597c64b9414e63b15e38a94e719a2eb4fae146"
+          },
+          "checked_at": "2026-10-22T05:58:12Z"
+        },
+        {
+          "pointer": "/added/layers/evidence/lines/36/result_estimate",
+          "basis": "src",
+          "verdict": "entails",
+          "checker": {
+            "name": "ohf-entailment-check",
+            "version": "1.0.0",
+            "prompt_sha256": "sha256:46716d7b4fc070b952d7ace5ae597c64b9414e63b15e38a94e719a2eb4fae146"
+          },
+          "checked_at": "2026-10-22T05:58:12Z"
+        },
+        {
+          "pointer": "/added/layers/evidence/lines/36/intervention/dose",
+          "basis": "src",
+          "verdict": "entails",
+          "checker": {
+            "name": "ohf-entailment-check",
+            "version": "1.0.0",
+            "prompt_sha256": "sha256:46716d7b4fc070b952d7ace5ae597c64b9414e63b15e38a94e719a2eb4fae146"
+          },
+          "checked_at": "2026-10-22T05:58:12Z"
+        },
+        {
+          "pointer": "/added/layers/evidence/lines/37/system/taxon",
+          "basis": "src",
+          "verdict": "entails",
+          "checker": {
+            "name": "ohf-entailment-check",
+            "version": "1.0.0",
+            "prompt_sha256": "sha256:46716d7b4fc070b952d7ace5ae597c64b9414e63b15e38a94e719a2eb4fae146"
+          },
+          "checked_at": "2026-10-22T05:58:12Z"
+        },
+        {
+          "pointer": "/added/layers/evidence/lines/37/endpoint_kind",
+          "basis": "src",
+          "verdict": "entails",
+          "checker": {
+            "name": "ohf-entailment-check",
+            "version": "1.0.0",
+            "prompt_sha256": "sha256:46716d7b4fc070b952d7ace5ae597c64b9414e63b15e38a94e719a2eb4fae146"
+          },
+          "checked_at": "2026-10-22T05:58:12Z"
+        },
+        {
+          "pointer": "/added/layers/evidence/lines/37/system/age_at_start",
+          "basis": "src",
+          "verdict": "entails",
+          "checker": {
+            "name": "ohf-entailment-check",
+            "version": "1.0.0",
+            "prompt_sha256": "sha256:46716d7b4fc070b952d7ace5ae597c64b9414e63b15e38a94e719a2eb4fae146"
+          },
+          "checked_at": "2026-10-22T05:58:12Z"
+        },
+        {
+          "pointer": "/added/layers/evidence/lines/38/system/taxon",
+          "basis": "src",
+          "verdict": "entails",
+          "checker": {
+            "name": "ohf-entailment-check",
+            "version": "1.0.0",
+            "prompt_sha256": "sha256:46716d7b4fc070b952d7ace5ae597c64b9414e63b15e38a94e719a2eb4fae146"
+          },
+          "checked_at": "2026-10-22T05:58:12Z"
+        },
+        {
+          "pointer": "/added/layers/evidence/lines/38/endpoint_kind",
+          "basis": "src",
+          "verdict": "entails",
+          "checker": {
+            "name": "ohf-entailment-check",
+            "version": "1.0.0",
+            "prompt_sha256": "sha256:46716d7b4fc070b952d7ace5ae597c64b9414e63b15e38a94e719a2eb4fae146"
+          },
+          "checked_at": "2026-10-22T05:58:12Z"
+        },
+        {
+          "pointer": "/added/layers/evidence/lines/38/result_estimate",
+          "basis": "src",
+          "verdict": "entails",
+          "checker": {
+            "name": "ohf-entailment-check",
+            "version": "1.0.0",
+            "prompt_sha256": "sha256:46716d7b4fc070b952d7ace5ae597c64b9414e63b15e38a94e719a2eb4fae146"
+          },
+          "checked_at": "2026-10-22T05:58:12Z"
+        },
+        {
+          "pointer": "/added/layers/evidence/lines/38/intervention/agent",
+          "basis": "src",
+          "verdict": "entails",
+          "checker": {
+            "name": "ohf-entailment-check",
+            "version": "1.0.0",
+            "prompt_sha256": "sha256:46716d7b4fc070b952d7ace5ae597c64b9414e63b15e38a94e719a2eb4fae146"
+          },
+          "checked_at": "2026-10-22T05:58:12Z"
+        },
+        {
+          "pointer": "/added/layers/evidence/lines/38/intervention/dose",
+          "basis": "src",
+          "verdict": "entails",
+          "checker": {
+            "name": "ohf-entailment-check",
+            "version": "1.0.0",
+            "prompt_sha256": "sha256:46716d7b4fc070b952d7ace5ae597c64b9414e63b15e38a94e719a2eb4fae146"
+          },
+          "checked_at": "2026-10-22T05:58:12Z"
+        },
+        {
+          "pointer": "/added/layers/evidence/lines/39/system/taxon",
+          "basis": "src",
+          "verdict": "entails",
+          "checker": {
+            "name": "ohf-entailment-check",
+            "version": "1.0.0",
+            "prompt_sha256": "sha256:46716d7b4fc070b952d7ace5ae597c64b9414e63b15e38a94e719a2eb4fae146"
+          },
+          "checked_at": "2026-10-22T05:58:12Z"
+        },
+        {
+          "pointer": "/added/layers/evidence/lines/39/endpoint_kind",
+          "basis": "src",
+          "verdict": "entails",
+          "checker": {
+            "name": "ohf-entailment-check",
+            "version": "1.0.0",
+            "prompt_sha256": "sha256:46716d7b4fc070b952d7ace5ae597c64b9414e63b15e38a94e719a2eb4fae146"
+          },
+          "checked_at": "2026-10-22T05:58:12Z"
+        },
+        {
+          "pointer": "/added/layers/evidence/lines/40/system/taxon",
+          "basis": "src",
+          "verdict": "entails",
+          "checker": {
+            "name": "ohf-entailment-check",
+            "version": "1.0.0",
+            "prompt_sha256": "sha256:46716d7b4fc070b952d7ace5ae597c64b9414e63b15e38a94e719a2eb4fae146"
+          },
+          "checked_at": "2026-10-22T05:58:12Z"
+        },
+        {
+          "pointer": "/added/layers/evidence/lines/40/endpoint_kind",
+          "basis": "src",
+          "verdict": "entails",
+          "checker": {
+            "name": "ohf-entailment-check",
+            "version": "1.0.0",
+            "prompt_sha256": "sha256:46716d7b4fc070b952d7ace5ae597c64b9414e63b15e38a94e719a2eb4fae146"
+          },
+          "checked_at": "2026-10-22T05:58:12Z"
+        },
+        {
+          "pointer": "/added/layers/evidence/lines/41/system/taxon",
+          "basis": "src",
+          "verdict": "entails",
+          "checker": {
+            "name": "ohf-entailment-check",
+            "version": "1.0.0",
+            "prompt_sha256": "sha256:46716d7b4fc070b952d7ace5ae597c64b9414e63b15e38a94e719a2eb4fae146"
+          },
+          "checked_at": "2026-10-22T05:58:12Z"
+        },
+        {
+          "pointer": "/added/layers/evidence/lines/41/endpoint_kind",
+          "basis": "src",
+          "verdict": "entails",
+          "checker": {
+            "name": "ohf-entailment-check",
+            "version": "1.0.0",
+            "prompt_sha256": "sha256:46716d7b4fc070b952d7ace5ae597c64b9414e63b15e38a94e719a2eb4fae146"
+          },
+          "checked_at": "2026-10-22T05:58:12Z"
+        },
+        {
+          "pointer": "/added/layers/evidence/lines/41/intervention/agent",
+          "basis": "src",
+          "verdict": "entails",
+          "checker": {
+            "name": "ohf-entailment-check",
+            "version": "1.0.0",
+            "prompt_sha256": "sha256:46716d7b4fc070b952d7ace5ae597c64b9414e63b15e38a94e719a2eb4fae146"
+          },
+          "checked_at": "2026-10-22T05:58:12Z"
+        },
+        {
+          "pointer": "/added/layers/evidence/lines/41/intervention/dose",
+          "basis": "src",
+          "verdict": "entails",
+          "checker": {
+            "name": "ohf-entailment-check",
+            "version": "1.0.0",
+            "prompt_sha256": "sha256:46716d7b4fc070b952d7ace5ae597c64b9414e63b15e38a94e719a2eb4fae146"
+          },
+          "checked_at": "2026-10-22T05:58:12Z"
+        },
+        {
+          "pointer": "/added/layers/evidence/lines/42/system/taxon",
+          "basis": "src",
+          "verdict": "entails",
+          "checker": {
+            "name": "ohf-entailment-check",
+            "version": "1.0.0",
+            "prompt_sha256": "sha256:46716d7b4fc070b952d7ace5ae597c64b9414e63b15e38a94e719a2eb4fae146"
+          },
+          "checked_at": "2026-10-22T05:58:12Z"
+        },
+        {
+          "pointer": "/added/layers/evidence/lines/42/endpoint_kind",
+          "basis": "src",
+          "verdict": "entails",
+          "checker": {
+            "name": "ohf-entailment-check",
+            "version": "1.0.0",
+            "prompt_sha256": "sha256:46716d7b4fc070b952d7ace5ae597c64b9414e63b15e38a94e719a2eb4fae146"
+          },
+          "checked_at": "2026-10-22T05:58:12Z"
+        },
+        {
+          "pointer": "/added/layers/evidence/lines/43/system/taxon",
+          "basis": "src",
+          "verdict": "entails",
+          "checker": {
+            "name": "ohf-entailment-check",
+            "version": "1.0.0",
+            "prompt_sha256": "sha256:46716d7b4fc070b952d7ace5ae597c64b9414e63b15e38a94e719a2eb4fae146"
+          },
+          "checked_at": "2026-10-22T05:58:12Z"
+        },
+        {
+          "pointer": "/added/layers/evidence/lines/43/endpoint_kind",
+          "basis": "src",
+          "verdict": "entails",
+          "checker": {
+            "name": "ohf-entailment-check",
+            "version": "1.0.0",
+            "prompt_sha256": "sha256:46716d7b4fc070b952d7ace5ae597c64b9414e63b15e38a94e719a2eb4fae146"
+          },
+          "checked_at": "2026-10-22T05:58:12Z"
+        },
+        {
+          "pointer": "/added/layers/evidence/lines/44/system/taxon",
+          "basis": "src",
+          "verdict": "entails",
+          "checker": {
+            "name": "ohf-entailment-check",
+            "version": "1.0.0",
+            "prompt_sha256": "sha256:46716d7b4fc070b952d7ace5ae597c64b9414e63b15e38a94e719a2eb4fae146"
+          },
+          "checked_at": "2026-10-22T05:58:12Z"
+        },
+        {
+          "pointer": "/added/layers/evidence/lines/45/system/taxon",
+          "basis": "src",
+          "verdict": "entails",
+          "checker": {
+            "name": "ohf-entailment-check",
+            "version": "1.0.0",
+            "prompt_sha256": "sha256:46716d7b4fc070b952d7ace5ae597c64b9414e63b15e38a94e719a2eb4fae146"
+          },
+          "checked_at": "2026-10-22T05:58:12Z"
+        },
+        {
+          "pointer": "/added/layers/evidence/lines/45/endpoint_kind",
+          "basis": "src",
+          "verdict": "entails",
+          "checker": {
+            "name": "ohf-entailment-check",
+            "version": "1.0.0",
+            "prompt_sha256": "sha256:46716d7b4fc070b952d7ace5ae597c64b9414e63b15e38a94e719a2eb4fae146"
+          },
+          "checked_at": "2026-10-22T05:58:12Z"
+        },
+        {
+          "pointer": "/added/layers/evidence/lines/45/result_estimate",
+          "basis": "src",
+          "verdict": "entails",
+          "checker": {
+            "name": "ohf-entailment-check",
+            "version": "1.0.0",
+            "prompt_sha256": "sha256:46716d7b4fc070b952d7ace5ae597c64b9414e63b15e38a94e719a2eb4fae146"
+          },
+          "checked_at": "2026-10-22T05:58:12Z"
+        },
+        {
+          "pointer": "/added/layers/evidence/lines/46/system/taxon",
+          "basis": "src",
+          "verdict": "entails",
+          "checker": {
+            "name": "ohf-entailment-check",
+            "version": "1.0.0",
+            "prompt_sha256": "sha256:46716d7b4fc070b952d7ace5ae597c64b9414e63b15e38a94e719a2eb4fae146"
+          },
+          "checked_at": "2026-10-22T05:58:12Z"
+        },
+        {
+          "pointer": "/added/layers/evidence/lines/46/endpoint_kind",
+          "basis": "src",
+          "verdict": "entails",
+          "checker": {
+            "name": "ohf-entailment-check",
+            "version": "1.0.0",
+            "prompt_sha256": "sha256:46716d7b4fc070b952d7ace5ae597c64b9414e63b15e38a94e719a2eb4fae146"
+          },
+          "checked_at": "2026-10-22T05:58:12Z"
+        },
+        {
+          "pointer": "/added/layers/evidence/lines/47/system/taxon",
+          "basis": "src",
+          "verdict": "entails",
+          "checker": {
+            "name": "ohf-entailment-check",
+            "version": "1.0.0",
+            "prompt_sha256": "sha256:46716d7b4fc070b952d7ace5ae597c64b9414e63b15e38a94e719a2eb4fae146"
+          },
+          "checked_at": "2026-10-22T05:58:12Z"
+        },
+        {
+          "pointer": "/added/layers/evidence/lines/48/system/taxon",
+          "basis": "src",
+          "verdict": "entails",
+          "checker": {
+            "name": "ohf-entailment-check",
+            "version": "1.0.0",
+            "prompt_sha256": "sha256:46716d7b4fc070b952d7ace5ae597c64b9414e63b15e38a94e719a2eb4fae146"
+          },
+          "checked_at": "2026-10-22T05:58:12Z"
+        },
+        {
+          "pointer": "/added/layers/evidence/lines/48/endpoint_kind",
+          "basis": "src",
+          "verdict": "entails",
+          "checker": {
+            "name": "ohf-entailment-check",
+            "version": "1.0.0",
+            "prompt_sha256": "sha256:46716d7b4fc070b952d7ace5ae597c64b9414e63b15e38a94e719a2eb4fae146"
+          },
+          "checked_at": "2026-10-22T05:58:12Z"
+        },
+        {
+          "pointer": "/added/layers/evidence/lines/48/sample",
+          "basis": "src",
+          "verdict": "entails",
+          "checker": {
+            "name": "ohf-entailment-check",
+            "version": "1.0.0",
+            "prompt_sha256": "sha256:46716d7b4fc070b952d7ace5ae597c64b9414e63b15e38a94e719a2eb4fae146"
+          },
+          "checked_at": "2026-10-22T05:58:12Z"
+        },
+        {
+          "pointer": "/added/layers/evidence/lines/49/system/taxon",
+          "basis": "src",
+          "verdict": "entails",
+          "checker": {
+            "name": "ohf-entailment-check",
+            "version": "1.0.0",
+            "prompt_sha256": "sha256:46716d7b4fc070b952d7ace5ae597c64b9414e63b15e38a94e719a2eb4fae146"
+          },
+          "checked_at": "2026-10-22T05:58:12Z"
+        },
+        {
+          "pointer": "/added/layers/evidence/lines/49/endpoint_kind",
+          "basis": "src",
+          "verdict": "entails",
+          "checker": {
+            "name": "ohf-entailment-check",
+            "version": "1.0.0",
+            "prompt_sha256": "sha256:46716d7b4fc070b952d7ace5ae597c64b9414e63b15e38a94e719a2eb4fae146"
+          },
+          "checked_at": "2026-10-22T05:58:12Z"
+        },
+        {
+          "pointer": "/added/layers/evidence/lines/50/system/taxon",
+          "basis": "src",
+          "verdict": "entails",
+          "checker": {
+            "name": "ohf-entailment-check",
+            "version": "1.0.0",
+            "prompt_sha256": "sha256:46716d7b4fc070b952d7ace5ae597c64b9414e63b15e38a94e719a2eb4fae146"
+          },
+          "checked_at": "2026-10-22T05:58:12Z"
+        },
+        {
+          "pointer": "/added/layers/evidence/lines/50/endpoint_kind",
+          "basis": "src",
+          "verdict": "entails",
+          "checker": {
+            "name": "ohf-entailment-check",
+            "version": "1.0.0",
+            "prompt_sha256": "sha256:46716d7b4fc070b952d7ace5ae597c64b9414e63b15e38a94e719a2eb4fae146"
+          },
+          "checked_at": "2026-10-22T05:58:12Z"
+        },
+        {
+          "pointer": "/added/layers/evidence/lines/51/system/taxon",
+          "basis": "src",
+          "verdict": "entails",
+          "checker": {
+            "name": "ohf-entailment-check",
+            "version": "1.0.0",
+            "prompt_sha256": "sha256:46716d7b4fc070b952d7ace5ae597c64b9414e63b15e38a94e719a2eb4fae146"
+          },
+          "checked_at": "2026-10-22T05:58:12Z"
+        },
+        {
+          "pointer": "/added/layers/evidence/lines/51/endpoint_kind",
+          "basis": "src",
+          "verdict": "entails",
+          "checker": {
+            "name": "ohf-entailment-check",
+            "version": "1.0.0",
+            "prompt_sha256": "sha256:46716d7b4fc070b952d7ace5ae597c64b9414e63b15e38a94e719a2eb4fae146"
+          },
+          "checked_at": "2026-10-22T05:58:12Z"
+        },
+        {
+          "pointer": "/added/layers/predictions/0/intervention/route",
+          "basis": "src",
+          "verdict": "entails",
+          "checker": {
+            "name": "ohf-entailment-check",
+            "version": "1.0.0",
+            "prompt_sha256": "sha256:46716d7b4fc070b952d7ace5ae597c64b9414e63b15e38a94e719a2eb4fae146"
+          },
+          "checked_at": "2026-10-22T05:58:12Z"
+        },
+        {
+          "pointer": "/added/layers/predictions/1/intervention/route",
+          "basis": "src",
+          "verdict": "entails",
+          "checker": {
+            "name": "ohf-entailment-check",
+            "version": "1.0.0",
+            "prompt_sha256": "sha256:46716d7b4fc070b952d7ace5ae597c64b9414e63b15e38a94e719a2eb4fae146"
+          },
+          "checked_at": "2026-10-22T05:58:12Z"
+        },
+        {
+          "pointer": "/added/layers/predictions/3/intervention/route",
+          "basis": "src",
+          "verdict": "entails",
+          "checker": {
+            "name": "ohf-entailment-check",
+            "version": "1.0.0",
+            "prompt_sha256": "sha256:46716d7b4fc070b952d7ace5ae597c64b9414e63b15e38a94e719a2eb4fae146"
+          },
+          "checked_at": "2026-10-22T05:58:12Z"
         }
       ]
     }
@@ -13498,5 +14676,5 @@
     "source_class": "external_published",
     "intervention_type": "small-molecule drug"
   },
-  "content_hash": "sha256:4baee968e65385f0b5fad004b40d779ca95e6c7cf7596a4cdcc3d07094cc1ad9"
+  "content_hash": "sha256:a638048b8d7e6b3128b8a32296e80acfd45a5425de9b8673e90053f1e8a5bab6"
 }
