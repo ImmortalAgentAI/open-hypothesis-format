@@ -360,6 +360,19 @@
     },
     {
       "layer": "1 Claim core",
+      "path": "core.atoms[].triple",
+      "definition": "The atom as subject, relation and object for machine linking. The statement stays the claim; the triple is a reading of it and may be coarser. Subject and object are ontology terms or mechanism entities of this card.",
+      "logical_type": "Triple",
+      "vocabulary": "Relation from RO (RO:nnnnnnn) or the Biolink Model (biolink:slot); subject and object as CURIEs; qualifiers as Biolink qualifier slots",
+      "example": "rapamycin RO:0002212 negatively regulates mTORC1",
+      "basis": "ohf",
+      "field_class": "author_only",
+      "zones": [
+        "added"
+      ]
+    },
+    {
+      "layer": "1 Claim core",
       "path": "core.potential_benefit",
       "definition": "Source-grounded potential benefit, target system, causal bridge, horizon and constraints without an unsupported effect estimate.",
       "logical_type": "PotentialBenefit",

@@ -1,6 +1,6 @@
 # Field reference
 
-This reference lists all 214 logical catalogue paths. Each path has a short example value from the catalogue. Where a card fills the path, a longer example follows: from the example card muller-sheltering, converted from a published article, or from a fictional test card, whose values describe a fictional system and are not scientific evidence. A JSON pointer identifies each card example. An absent concept is illustrated by the card's explicit gap; no missing value is invented. Definitions and logical types describe the concept before provenance wrappers.
+This reference lists all 215 logical catalogue paths. Each path has a short example value from the catalogue. Where a card fills the path, a longer example follows: from the example card muller-sheltering, converted from a published article, or from a fictional test card, whose values describe a fictional system and are not scientific evidence. A JSON pointer identifies each card example. An absent concept is illustrated by the card's explicit gap; no missing value is invented. Definitions and logical types describe the concept before provenance wrappers.
 
 Generated from [the reference data](field-reference.json) with `python tools/build_field_reference.py`. Edit the reference data and regenerate this file.
 
@@ -382,6 +382,14 @@ Atoms of this card that cannot hold together with this atom as stated, such as a
 Type: `Reference`. Vocabulary: Identifiers of atoms of this card. Basis: `ohf`. Class: `author_only`. Zones: `added`.
 
 Example value: a_mtorc1_inhibition
+
+### `core.atoms[].triple`
+
+The atom as subject, relation and object for machine linking. The statement stays the claim; the triple is a reading of it and may be coarser. Subject and object are ontology terms or mechanism entities of this card.
+
+Type: `Triple`. Vocabulary: Relation from RO (RO:nnnnnnn) or the Biolink Model (biolink:slot); subject and object as CURIEs; qualifiers as Biolink qualifier slots. Basis: `ohf`. Class: `author_only`. Zones: `added`.
+
+Example value: rapamycin RO:0002212 negatively regulates mTORC1
 
 ### `core.potential_benefit`
 

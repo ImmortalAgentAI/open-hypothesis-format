@@ -91,6 +91,8 @@ REFERENCES = {
     'core.explains[].atom_refs[]': (('atom',), {'id'}),
     'core.atoms[].requires[]': (('atom',), {'id'}),
     'core.atoms[].contradicts[]': (('atom',), {'id'}),
+    'core.atoms[].triple.subject.entity_ref': (('mechanism entity',), {'id'}),
+    'core.atoms[].triple.object.entity_ref': (('mechanism entity',), {'id'}),
     'core.explains[].prediction_refs[]': (('prediction',), {'id'}),
     'core.reinterprets[].atom_refs[]': (('atom',), {'id'}),
     'core.opens[].atom_refs[]': (('atom',), {'id'}),

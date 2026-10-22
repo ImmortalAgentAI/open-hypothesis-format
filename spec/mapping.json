@@ -2034,6 +2034,15 @@
       "coverage": "direct"
     },
     {
+      "catalogue_path": "core.atoms[].triple",
+      "card_paths": [
+        "added.layers.core.atoms[].triple"
+      ],
+      "status": "scientific field",
+      "extension": null,
+      "coverage": "direct"
+    },
+    {
       "catalogue_path": "evidence.lines[].indirectness",
       "card_paths": [
         "added.layers.evidence.lines[].indirectness"

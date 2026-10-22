@@ -820,3 +820,58 @@ def test_a_1_0_card_has_no_aging_profile():
     as_1_0(card)
     errors = {pointer(error) for error in validation_errors(SCHEMA, card)}
     assert PROFILE in errors and '/vocabularies' in errors
+
+
+# Item 4: an optional typed triple on an atom. The relation ids were checked against RO in OLS
+# (RO:0002212 negatively regulates) and the Biolink Model slots (affects).
+def triple(relation='RO:0002212', subject=None, **extra):
+    value = {'subject': subject or {'id': 'CHEBI:9168', 'label': 'sirolimus'},
+             'relation': {'id': relation, 'label': 'negatively regulates'},
+             'object': {'entity_ref': 'm_target'}}
+    value.update(extra)
+    return {'value': value, 'src': 'statement'}
+
+
+def triple_card(**kwargs):
+    record = atom('a1')
+    record['triple'] = triple(**kwargs)
+    card = atoms_card(record)
+    card['added']['layers']['mechanism']['entities'] = [
+        {'id': 'm_target', 'label': {'value': 'fictional complex T', 'src': 'statement'}}]
+    return card
+
+
+TRIPLE = '/added/layers/core/atoms/0/triple/value'
+
+
+@pytest.mark.parametrize('kwargs', [{}, {'relation': 'biolink:affects'},
+                                    {'qualifiers': [{'type': 'biolink:object_direction_qualifier',
+                                                     'value': 'decreased'}]}],
+                         ids=['ro', 'biolink', 'qualifier'])
+def test_atom_triple_is_valid(kwargs):
+    card = triple_card(**kwargs)
+    assert not validation_errors(SCHEMA, card)
+    assert check_refs(card)['valid'], check_refs(card)['errors']
+
+
+@pytest.mark.parametrize('relation', ['slows_aging_in', 'GO:0008150', 'RO:123', 'biolink:Affects'],
+                         ids=['M4a_free_word', 'M4b_not_a_relation_ontology', 'ro_short', 'biolink_class'])
+def test_triple_relation_outside_ro_and_biolink_is_rejected(relation):
+    assert TRIPLE + '/relation/id' in {pointer(e) for e in validation_errors(SCHEMA, triple_card(relation=relation))}
+
+
+def test_triple_subject_needs_a_curie_or_an_entity():
+    card = triple_card(subject={'id': 'sirolimus', 'label': 'sirolimus'})
+    assert TRIPLE + '/subject' in {pointer(e) for e in validation_errors(SCHEMA, card)}
+
+
+@pytest.mark.parametrize('ref,code', [('m_missing', 'REF_UNKNOWN_ID'), ('a1', 'REF_WRONG_TARGET')],
+                         ids=['M4c_dangling_entity', 'atom_as_entity'])
+def test_triple_entity_reference_is_resolved(ref, code):
+    assert code in ref_codes(triple_card(subject={'entity_ref': ref}))
+
+
+def test_a_1_0_card_has_no_triple():
+    card = triple_card()
+    as_1_0(card)
+    assert '/added/layers/core/atoms/0' in {pointer(error) for error in validation_errors(SCHEMA, card)}
