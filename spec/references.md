@@ -20,12 +20,13 @@ An identifier is unique within its namespace and zone (`REF_DUPLICATE_ID`). The 
 | explained observations | `core.explains[].id` | |
 | reinterpretations | `core.reinterprets[].id` | |
 | opened questions | `core.opens[].id` | |
+| alternatives (OHF 1.1) | `core.alternative_explanations[].id` | `/<zone>/layers/core/alternative_explanations/value/N` |
 
 These records have no identifier and are named by card pointer only:
 
 | Record | Card pointer |
 | --- | --- |
-| an alternative explanation | `/<zone>/layers/core/alternative_explanations/value/N` |
+| an alternative explanation without an identifier (OHF 1.0) | `/<zone>/layers/core/alternative_explanations/value/N` |
 | the proposition of the card | `/<zone>/layers/core/statement` |
 | the experiment plan | `/<zone>/layers/appendix/experiment_plan` |
 
@@ -59,7 +60,7 @@ A form that a field does not allow is the wrong target. A card pointer in a fiel
 | `predictions[].known_result_ref` | an evidence line | card pointer, external |
 | `predictions[].also_expected_under[]` (`kind: "alternative"`) | an alternative explanation | card pointer, external |
 | `predictions[].test_plan_ref` | the experiment plan, or a preregistration | card pointer, external, text |
-| `evidence.lines[].target_ref` | an atom, a prediction, a mechanism step or the proposition | identifier, card pointer, versioned proposition, external |
+| `evidence.lines[].target_ref` | an atom, a prediction, a mechanism step, an alternative explanation (OHF 1.1) or the proposition | identifier, card pointer, versioned proposition, external |
 | `evidence.lines[].items[].line_id` | an evidence line | identifier |
 | `profile.dose_response.endpoint_ref` | a prediction | identifier, card pointer, versioned proposition, external |
 | `added.challenge_search.evidence_refs[]` | an evidence line | card pointer |
@@ -93,7 +94,7 @@ The vocabulary of these fields names no namespace. A card pointer must resolve; 
 | --- | --- | --- |
 | `src` of an added-zone value or record | a key of `added.sources` (`REF_SOURCE_UNKNOWN`); an empty `added.sources` with any `src` is also `REF_SOURCES_EMPTY` | `check_refs.py` |
 | `locator` of an author-zone value | a place in the text of `author.source`. OHF 1.0 defines no locator syntax, so locators are not resolved. | none |
-| `added.integrity.entailment[].pointer` | a sourced added-zone value, once per basis | `check_refs.py` |
+| `added.integrity.entailment[].pointer` | a sourced added-zone value, once per basis; from OHF 1.1 also an element of `core.alternative_explanations`, `core.uncertainties`, `core.opens` or `core.explains` that carries its own `src` | `check_refs.py` |
 | `added.gaps[].scope_ref` | filled scientific card content | `check_gaps.py` |
 | `provenance.parent_refs[]`, `identity.supersedes[]` | other versions of propositions, `h_<id>@<version>` | not resolved |
 | `identity.duplicate_cluster_ref`, `identity.representative_ref` | records kept by the publisher | not resolved |

@@ -1,6 +1,6 @@
 # Field reference
 
-This reference lists all 206 logical catalogue paths. Each path has a short example value from the catalogue. Where a card fills the path, a longer example follows: from the example card muller-sheltering, converted from a published article, or from a fictional test card, whose values describe a fictional system and are not scientific evidence. A JSON pointer identifies each card example. An absent concept is illustrated by the card's explicit gap; no missing value is invented. Definitions and logical types describe the concept before provenance wrappers.
+This reference lists all 207 logical catalogue paths. Each path has a short example value from the catalogue. Where a card fills the path, a longer example follows: from the example card muller-sheltering, converted from a published article, or from a fictional test card, whose values describe a fictional system and are not scientific evidence. A JSON pointer identifies each card example. An absent concept is illustrated by the card's explicit gap; no missing value is invented. Definitions and logical types describe the concept before provenance wrappers.
 
 Generated from [the reference data](field-reference.json) with `python tools/build_field_reference.py`. Edit the reference data and regenerate this file.
 
@@ -463,6 +463,14 @@ Example from fictional card fx_four at `/added/layers/core/alternative_explanati
   "src": "alternative"
 }
 ```
+
+### `core.alternative_explanations[].id`
+
+Identifier of the alternative explanation, so that an evidence line or a prediction can name it without depending on its position in the list.
+
+Type: `Identifier`. Vocabulary: Card-local identifier, unique among alternatives. Basis: `ohf`. Class: `system`.
+
+Example value: alt_cr_mimetic
 
 ### `core.base_rate`
 

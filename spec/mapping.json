@@ -1743,6 +1743,16 @@
       "coverage": "direct"
     },
     {
+      "catalogue_path": "core.alternative_explanations[].id",
+      "card_paths": [
+        "author.layers.core.alternative_explanations.value[].id",
+        "added.layers.core.alternative_explanations.value[].id"
+      ],
+      "status": "scientific field",
+      "extension": null,
+      "coverage": "direct"
+    },
+    {
       "catalogue_path": "predictions[].resolution",
       "card_paths": [
         "author.layers.predictions[].resolution",

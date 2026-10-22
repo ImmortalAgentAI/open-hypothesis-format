@@ -521,6 +521,16 @@
     },
     {
       "layer": "1 Claim core",
+      "path": "core.alternative_explanations[].id",
+      "definition": "Identifier of the alternative explanation, so that an evidence line or a prediction can name it without depending on its position in the list.",
+      "logical_type": "Identifier",
+      "vocabulary": "Card-local identifier, unique among alternatives",
+      "example": "alt_cr_mimetic",
+      "basis": "ohf",
+      "field_class": "system"
+    },
+    {
+      "layer": "1 Claim core",
       "path": "core.base_rate",
       "definition": "Source-grounded rate in an explicit reference class, with denominator and source horizon preserving its stated precision.",
       "logical_type": "BaseRate",

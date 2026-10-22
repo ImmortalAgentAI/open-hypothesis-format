@@ -67,6 +67,7 @@ NAMESPACES = {
     'explained observation': 'core.explains[]',
     'reinterpretation': 'core.reinterprets[]',
     'opened question': 'core.opens[]',
+    'alternative': 'core.alternative_explanations[]',
 }
 # The card pointer of one record of each kind a typed reference can name; `*` is an array index.
 POINTERS = {
@@ -97,11 +98,14 @@ REFERENCES = {
     'predictions[].known_result_ref': (('evidence line',), {'pointer', 'external'}),
     'predictions[].also_expected_under[].ref': (('alternative',), {'pointer', 'external'}),
     'predictions[].test_plan_ref': (('experiment plan',), {'pointer', 'external', 'text'}),
-    'evidence.lines[].target_ref': (('atom', 'prediction', 'mechanism step', 'proposition'),
+    'evidence.lines[].target_ref': (('atom', 'prediction', 'mechanism step', 'alternative', 'proposition'),
                                     {'id', 'pointer', 'version', 'external'}),
     'evidence.lines[].items[].line_id': (('evidence line',), {'id'}),
     'profile.dose_response.endpoint_ref': (('prediction',), {'id', 'pointer', 'version', 'external'}),
 }
+# Lists whose elements may carry their own `src` from OHF 1.1; such an element is a sourced value.
+ELEMENT_SOURCED = tuple(f'/added/layers/core/{name}/value/*'
+                        for name in ('alternative_explanations', 'uncertainties', 'opens', 'explains'))
 # Reference fields whose vocabulary names no namespace: a card pointer must resolve.
 OPEN_REFERENCES = (
     'core.explains[].observation_ref', 'core.explains[].rival_ref', 'core.reinterprets[].finding_ref',
@@ -459,7 +463,9 @@ def check_integrity(card, errors, warnings):
         except KeyError:
             errors.append(issue('REF_UNRESOLVED', path, f"Card pointer does not resolve: {record['pointer']}"))
             continue
-        if not (isinstance(node, dict) and 'src' in node and 'value' in node):
+        element = isinstance(node, dict) and 'src' in node and any(
+            _under(record['pointer'], pattern) for pattern in ELEMENT_SOURCED)
+        if not (isinstance(node, dict) and 'src' in node and 'value' in node or element):
             errors.append(issue('REF_WRONG_TARGET', path, 'An entailment record names a sourced added-zone value'))
             continue
         if record['basis'] == 'basis_quote' and 'basis_quote' not in node:

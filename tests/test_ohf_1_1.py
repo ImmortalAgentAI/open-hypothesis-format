@@ -324,3 +324,82 @@ def test_a_1_0_card_cannot_gap_a_whole_list():
     card['added']['gaps'].append(dict(LIST_GAP))
     assert 'GAP_PATH_UNKNOWN' in gap_codes(card)
     assert validation_errors(SCHEMA, card)
+
+
+# Item 3 and D2: an alternative has an identifier and can be a line's target; list elements carry their src.
+def alternatives_card():
+    card = card_1_1()
+    core = card['added']['layers']['core']
+    core['alternative_explanations']['value'][0].update({'id': 'alt_u', 'src': 'alternative'})
+    core['uncertainties']['value'][0]['src'] = 'open_question'
+    line(card)['target_ref'] = {'value': 'alt_u', 'src': 'prior_work'}
+    return card
+
+
+def entailment(pointer):
+    return {'pointer': pointer, 'basis': 'src', 'verdict': 'entails',
+            'checker': {'name': 'fictional-checker', 'version': '1.0.0', 'prompt_sha256': 'sha256:' + '1' * 64},
+            'checked_at': '2026-01-01T00:00:00Z'}
+
+
+ALTERNATIVE = '/added/layers/core/alternative_explanations/value/0'
+
+
+def test_line_can_target_an_alternative():
+    card = alternatives_card()
+    assert not validation_errors(SCHEMA, card)
+    assert check_refs(card)['valid'], check_refs(card)['errors']
+    line(card)['target_ref']['value'] = {'kind': 'card', 'pointer': ALTERNATIVE}
+    assert check_refs(card)['valid'], check_refs(card)['errors']
+
+
+@pytest.mark.parametrize('target,code', [
+    ({'kind': 'card', 'pointer': '/added/layers/core/alternative_explanations/value/9'}, 'REF_UNRESOLVED'),
+    ('u1', 'REF_WRONG_TARGET'),
+    ('alt_none', 'REF_UNKNOWN_ID'),
+])
+def test_line_target_must_name_an_existing_alternative(target, code):
+    card = alternatives_card()
+    line(card)['target_ref']['value'] = target
+    assert code in ref_codes(card)
+
+
+def test_alternative_id_shared_with_a_prediction_is_ambiguous():
+    card = alternatives_card()
+    card['added']['layers']['core']['alternative_explanations']['value'][0]['id'] = 'p1'
+    line(card)['target_ref']['value'] = 'p1'
+    assert 'REF_WRONG_TARGET' in ref_codes(card)
+
+
+def test_duplicate_alternative_id_is_rejected():
+    card = alternatives_card()
+    alternatives = card['added']['layers']['core']['alternative_explanations']['value']
+    alternatives.append(copy.deepcopy(alternatives[0]))
+    assert 'REF_DUPLICATE_ID' in ref_codes(card)
+
+
+def test_element_src_must_name_a_source():
+    card = alternatives_card()
+    card['added']['layers']['core']['uncertainties']['value'][0]['src'] = 'no_such_source'
+    assert 'REF_SOURCE_UNKNOWN' in ref_codes(card)
+
+
+def test_entailment_record_may_name_an_element_with_its_own_src():
+    card = alternatives_card()
+    card['added']['integrity'] = {'entailment': [entailment(ALTERNATIVE)]}
+    assert not validation_errors(SCHEMA, card)
+    assert check_refs(card)['valid'], check_refs(card)['errors']
+
+
+def test_entailment_record_cannot_name_an_element_without_src():
+    card = alternatives_card()
+    card['added']['layers']['core']['alternative_explanations']['value'][0].pop('src')
+    card['added']['integrity'] = {'entailment': [entailment(ALTERNATIVE)]}
+    assert 'REF_WRONG_TARGET' in ref_codes(card)
+
+
+@pytest.mark.parametrize('member', ['id', 'src'])
+def test_a_1_0_card_has_no_element_id_or_src(member):
+    card = load(ROOT / 'tests/fixtures/fictional/fx_four.json')
+    card['added']['layers']['core']['alternative_explanations']['value'][0][member] = 'alternative'
+    assert ALTERNATIVE in {pointer(error) for error in validation_errors(SCHEMA, card)}

@@ -899,6 +899,11 @@
       "reason": "No exception: missing input, unknown scope, exhausted budget or failed search is not scientific inapplicability."
     },
     {
+      "path": "core.alternative_explanations[].id",
+      "na_allowed": "never",
+      "reason": "No exception: missing input, unknown scope, exhausted budget or failed search is not scientific inapplicability."
+    },
+    {
       "path": "predictions[].resolution",
       "na_allowed": "never",
       "reason": "Missing evidence, unknown components or unresolved outcomes are data gaps, not inapplicability."

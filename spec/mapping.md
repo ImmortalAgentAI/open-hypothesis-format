@@ -181,6 +181,7 @@ The catalogue distinguishes logical scientific fields from their storage. A dire
 | `core.novelty_assessment` | `author.layers.core.novelty_assessment`, `added.layers.core.novelty_assessment` | scientific field |  |
 | `core.uncertainties[]` | `author.layers.core.uncertainties.value[]`, `added.layers.core.uncertainties.value[]` | scientific field |  |
 | `core.alternative_explanations[]` | `author.layers.core.alternative_explanations.value[]`, `added.layers.core.alternative_explanations.value[]` | scientific field |  |
+| `core.alternative_explanations[].id` | `author.layers.core.alternative_explanations.value[].id`, `added.layers.core.alternative_explanations.value[].id` | scientific field |  |
 | `predictions[].resolution` | `author.layers.predictions[].resolution`, `added.layers.predictions[].resolution` | scientific field |  |
 | `evidence.lines[].replication` | `author.layers.evidence.lines[].replication`, `added.layers.evidence.lines[].replication` | scientific field |  |
 | `core.base_rate` | `author.layers.core.base_rate`, `added.layers.core.base_rate` | scientific field |  |
