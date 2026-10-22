@@ -41,6 +41,17 @@ The upgrade adds OHF 1.1 values to a frozen, accepted OHF 1.0 card. It changes n
    - `profile.domain` becomes `ohf:aging@1`, a superset of the intervention profile.
    - `profile.aging_hallmarks` lists each hallmark whose hints name at least one atom of this card, with those atoms. The hints come from Open Genes. A hallmark with no atom is left out.
 9. **Routes.** Each prediction route gets its `term` from its wording.
-10. **Entailment.** The new values are checked by an independent pass, not by this upgrade. Until that check returns, they carry no entailment records.
+10. **Atoms and alternatives.**
+    - The one atom that states the direct action, `a_acute_chronic`, gets a triple: sirolimus (CHEBI:9168) RO:0002212 *negatively regulates* TORC1 complex (GO:0031931).
+    - `requires` records the chain that the general atom states. The selective inhibition rests on the acute and chronic difference. The fewer side effects rest on the mTORC2 cause and the selective inhibition. The general atom rests on both and on mTORC1 sufficiency.
+    - The alternatives get identifiers. No passage disputes one, and the target of an accepted line is not changed, so no line targets an alternative.
+11. **Multi-site programme.** `e_itp_low_dose` gets the Interventions Testing Program with three sites, from p[5] of the same article, which names both.
+12. **Excluded.** The review's C. elegans clause in p[23] is recorded with its reason and is not carried as a line. The base card's report gives that reason: the cited work is already read at first hand.
+13. **Withheld quotes.** The four works that the base card names against itself and may not quote each become a line with `quote_withheld`:
+    - two with no licence in the record;
+    - one CC BY work with no open full text;
+    - one CC BY-NC-ND work.
+    Each line has the PubMed record, a paraphrase in the added zone, and the abstract sentence that entails the paraphrase. The script asserts that this sentence is in the fetched abstract. The phase 1 trial gave rapamycin daily, so its line is `neutral` on the intermittent atom.
+14. **Entailment.** The new values are checked by an independent pass, not by this upgrade. Until that check returns, they carry no entailment records.
 
 `added.by.converter_hash` is the hash of this directory, computed by `tools/converter_hash.py`.

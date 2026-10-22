@@ -85,10 +85,10 @@
     "by": {
       "converter": "ohf-1-1-upgrade",
       "converter_version": "1.0.0",
-      "converter_hash": "sha256:2691db32fc7032d070ab3578b9b8a2b00f0991faf670a68657ceed24e18885e6",
+      "converter_hash": "sha256:5b6bbca3cd2d4523531106873cfdb91be82d936bee96a957e14f740d5da4d9b1",
       "model": "claude-opus-5-5"
     },
-    "at": "2026-10-22T05:48:29Z",
+    "at": "2026-10-22T05:57:49Z",
     "cutoff_date": "2026-10-21",
     "layers": {
       "core": {
@@ -201,6 +201,23 @@
               "value": "claimed_shown",
               "src": "frb",
               "basis_quote": "This can be seen in most mouse tissues as well as in human cells in culture"
+            },
+            "triple": {
+              "value": {
+                "subject": {
+                  "id": "CHEBI:9168",
+                  "label": "sirolimus"
+                },
+                "relation": {
+                  "id": "RO:0002212",
+                  "label": "negatively regulates"
+                },
+                "object": {
+                  "id": "GO:0031931",
+                  "label": "TORC1 complex"
+                }
+              },
+              "src": "frb"
             }
           },
           {
@@ -301,6 +318,12 @@
               "value": "claimed_shown",
               "src": "hypothesis",
               "basis_quote": "we have shown that this is true in mice"
+            },
+            "requires": {
+              "value": [
+                "a_acute_chronic"
+              ],
+              "src": "hypothesis"
             }
           },
           {
@@ -321,6 +344,13 @@
               "value": "claimed_shown",
               "src": "hypothesis",
               "basis_quote": "we have shown that this is true in mice"
+            },
+            "requires": {
+              "value": [
+                "a_side_mtorc2",
+                "a_intermittent_selective"
+              ],
+              "src": "hypothesis"
             }
           },
           {
@@ -341,6 +371,12 @@
               "value": "speculative",
               "src": "immune",
               "basis_quote": "intermittent rapamycin treatment may be less immunosuppressive due to reduced inhibition of mTORC2"
+            },
+            "requires": {
+              "value": [
+                "a_intermittent_selective"
+              ],
+              "src": "immune"
             }
           },
           {
@@ -421,6 +457,14 @@
               "value": "likely",
               "src": "hypothesis",
               "basis_quote": "are likely to"
+            },
+            "requires": {
+              "value": [
+                "a_intermittent_selective",
+                "a_side_mtorc2",
+                "a_mtorc1_sufficient"
+              ],
+              "src": "hypothesis"
             }
           }
         ],
@@ -431,21 +475,24 @@
                 "kind": "literal",
                 "text": "The impact on T cells that remains under intermittent rapamycin may be primarily the result of mTORC1 inhibition, or may also reflect residual inhibition of mTORC2, because mTORC2 in T cells may be extremely sensitive to rapamycin."
               },
-              "unresolved_reason": "The authors of the mouse study say it is not clear which of the two it is."
+              "unresolved_reason": "The authors of the mouse study say it is not clear which of the two it is.",
+              "id": "alt_tcell_mtorc1_or_mtorc2"
             },
             {
               "claim_or_ref": {
                 "kind": "literal",
                 "text": "Rapamycin works as a calorie-restriction mimetic: it is robust to changes in conditions and likely engages at least some molecular pathways that calorie restriction also engages, which has led some to call it a CR mimetic."
               },
-              "unresolved_reason": "The article reports the label without settling it, and states elsewhere that calorie restriction and rapamycin give very different, non-overlapping molecular signatures in mice (paragraph 11)."
+              "unresolved_reason": "The article reports the label without settling it, and states elsewhere that calorie restriction and rapamycin give very different, non-overlapping molecular signatures in mice (paragraph 11).",
+              "id": "alt_cr_mimetic"
             },
             {
               "claim_or_ref": {
                 "kind": "literal",
                 "text": "Inhibiting mTORC1 more broadly than rapamycin does, rather than sparing mTORC2, is what matters: such compounds could activate beneficial processes like autophagy more effectively, or be detrimental by interfering with processes rapamycin leaves alone."
               },
-              "unresolved_reason": "The article states both outcomes as possible and names compounds in development (NR1, Rapalink-1, RMC-5552) rather than a result (paragraph 92)."
+              "unresolved_reason": "The article states both outcomes as possible and names compounds in development (NR1, Rapalink-1, RMC-5552) rather than a result (paragraph 92).",
+              "id": "alt_broad_mtorc1"
             }
           ],
           "src": "ac_tcell"
@@ -3873,6 +3920,13 @@
                 "scale": "not_stated"
               },
               "src": "itp_low_dose"
+            },
+            "multi_site_program": {
+              "value": {
+                "program": "Interventions Testing Program (ITP)",
+                "sites": 3
+              },
+              "src": "itp_programme"
             }
           },
           {
@@ -4977,6 +5031,200 @@
               "value": "human_marker",
               "src": "biodb_1272a10cf166"
             }
+          },
+          {
+            "id": "e_withheld_strains",
+            "target_ref": "a_liver_mtorc2",
+            "direction": {
+              "value": "disputes",
+              "src": "pubmed_31276577"
+            },
+            "quote_withheld": {
+              "value": {
+                "reason": "licence_unknown",
+                "locator": "abstract",
+                "record_ref": {
+                  "scheme": "pmid",
+                  "id": "31276577"
+                },
+                "paraphrase": "Across the strains surveyed, rapamycin delayed glucose clearance but had no main effect on systemic insulin sensitivity.",
+                "abstract_quote": "Across all strains, rapamycin significantly delayed glucose clearance after challenge. However, rapamycin showed no main effect on systemic insulin sensitivity."
+              },
+              "src": "pubmed_31276577"
+            },
+            "study_system": {
+              "value": "nine inbred strains of mice",
+              "src": "pubmed_31276577"
+            },
+            "system": {
+              "taxon": {
+                "value": "mice",
+                "src": "pubmed_31276577"
+              },
+              "taxon_id": {
+                "value": "NCBITaxon:10090",
+                "src": "biodb_5c456c648524"
+              }
+            },
+            "endpoint_kind": {
+              "value": "systemic insulin sensitivity",
+              "src": "pubmed_31276577",
+              "term": "physiological"
+            },
+            "human_proximity": {
+              "value": "mammal",
+              "src": "biodb_5c456c648524"
+            },
+            "src": "pubmed_31276577"
+          },
+          {
+            "id": "e_withheld_het3",
+            "target_ref": "a_liver_mtorc2",
+            "direction": {
+              "value": "disputes",
+              "src": "pubmed_23648089"
+            },
+            "quote_withheld": {
+              "value": {
+                "reason": "licence_unknown",
+                "locator": "abstract",
+                "record_ref": {
+                  "scheme": "pmid",
+                  "id": "23648089"
+                },
+                "paraphrase": "Dietary rapamycin made young and old HET3 mice glucose intolerant, yet they responded normally in an insulin tolerance test.",
+                "abstract_quote": "We find that rapamycin treatment leads to glucose intolerance in both young and old HET3 mice, but in contrast to the previously reported effect of injected rapamycin in C57BL/6 mice, HET3 mice treated with dietary rapamycin responded normally in an insulin tolerance test."
+              },
+              "src": "pubmed_23648089"
+            },
+            "study_system": {
+              "value": "young and old HET3 mice",
+              "src": "pubmed_23648089"
+            },
+            "system": {
+              "taxon": {
+                "value": "mice",
+                "src": "pubmed_23648089"
+              },
+              "taxon_id": {
+                "value": "NCBITaxon:10090",
+                "src": "biodb_5c456c648524"
+              }
+            },
+            "endpoint_kind": {
+              "value": "insulin tolerance test",
+              "src": "pubmed_23648089",
+              "term": "physiological"
+            },
+            "human_proximity": {
+              "value": "mammal",
+              "src": "biodb_5c456c648524"
+            },
+            "src": "pubmed_23648089"
+          },
+          {
+            "id": "e_withheld_bone",
+            "target_ref": "a_fewer_side_effects",
+            "direction": {
+              "value": "disputes",
+              "src": "pubmed_34389472"
+            },
+            "quote_withheld": {
+              "value": {
+                "reason": "no_open_text",
+                "locator": "abstract",
+                "record_ref": {
+                  "scheme": "pmid",
+                  "id": "34389472"
+                },
+                "paraphrase": "Rapamycin injected every other day for 12 weeks lowered femur bone mineral content, bone mineral density and bone volume in mice, compared with vehicle.",
+                "abstract_quote": "Rapamycin (4 mg/kg bodyweight) was administered by intraperitoneal injection every other day for 12 weeks. Mice treated with rapamycin exhibited lower femur bone mineral content, bone mineral density, and bone volume compared to vehicle-treated mice."
+              },
+              "src": "pubmed_34389472"
+            },
+            "study_system": {
+              "value": "female wild-type (ICR) and Nrf2-/- mice",
+              "src": "pubmed_34389472"
+            },
+            "system": {
+              "taxon": {
+                "value": "mice",
+                "src": "pubmed_34389472"
+              },
+              "taxon_id": {
+                "value": "NCBITaxon:10090",
+                "src": "biodb_5c456c648524"
+              }
+            },
+            "endpoint_kind": {
+              "value": "bone mineral density",
+              "src": "pubmed_34389472",
+              "term": "physiological"
+            },
+            "human_proximity": {
+              "value": "mammal",
+              "src": "biodb_5c456c648524"
+            },
+            "src": "pubmed_34389472"
+          },
+          {
+            "id": "e_withheld_phase1",
+            "target_ref": "a_humans_few_adverse",
+            "direction": {
+              "value": "neutral",
+              "src": "pubmed_40394335"
+            },
+            "quote_withheld": {
+              "value": {
+                "reason": "nc_nd",
+                "locator": "abstract",
+                "record_ref": {
+                  "scheme": "pmid",
+                  "id": "40394335"
+                },
+                "paraphrase": "After treatment, twenty mostly mild adverse events occurred, and systolic blood pressure and hemoglobin A1c rose.",
+                "abstract_quote": "After treatment, we find that twenty, mostly mild adverse events occur, systolic blood pressure and hemoglobin A1c increase, multiple erythrocyte parameters decrease, and there are no significant cognitive changes."
+              },
+              "src": "pubmed_40394335"
+            },
+            "study_system": {
+              "value": "people 55-85 years old with mild cognitive impairment or early-stage dementia",
+              "src": "pubmed_40394335"
+            },
+            "system": {
+              "taxon": {
+                "value": "people",
+                "src": "pubmed_40394335"
+              },
+              "taxon_id": {
+                "value": "NCBITaxon:9606",
+                "src": "biodb_1272a10cf166"
+              }
+            },
+            "endpoint_kind": {
+              "value": "adverse events",
+              "src": "pubmed_40394335",
+              "term": "adverse_event"
+            },
+            "human_proximity": {
+              "value": "human_clinical",
+              "src": "biodb_1272a10cf166"
+            },
+            "src": "pubmed_40394335"
+          }
+        ],
+        "excluded": [
+          {
+            "id": "x_celegans_review_clause",
+            "target_ref": {
+              "kind": "card",
+              "pointer": "/added/layers/core/atoms/4"
+            },
+            "reason": "other",
+            "note": "Reference 65 of this sentence is PMC4172656, which the card reads at first hand as e_celegans_mtorc2; a line quoting the review would put one work on both sides of one atom.",
+            "quote": "inhibition of mTORC2 also negatively impacts survival in C. elegans [65, 66]",
+            "record": "PMC13355979 p[23]",
+            "src": "side_mtorc2"
           }
         ]
       },
@@ -6680,6 +6928,54 @@
             "sha256": "sha256:a839cc772f42ad22517fbcc60e73c7c88361d3a8fbf0dae417f9791c4bb148b1"
           }
         ]
+      },
+      {
+        "path": "evidence.lines[52].result_estimate",
+        "disposition": "not_supplied",
+        "reason": "The quote is withheld; the result is carried by the paraphrase, which gives no figure.",
+        "query_ids": [],
+        "inspected_artifacts": [
+          {
+            "kind": "artifact",
+            "sha256": "sha256:a839cc772f42ad22517fbcc60e73c7c88361d3a8fbf0dae417f9791c4bb148b1"
+          }
+        ]
+      },
+      {
+        "path": "evidence.lines[53].result_estimate",
+        "disposition": "not_supplied",
+        "reason": "The quote is withheld; the result is carried by the paraphrase, which gives no figure.",
+        "query_ids": [],
+        "inspected_artifacts": [
+          {
+            "kind": "artifact",
+            "sha256": "sha256:a839cc772f42ad22517fbcc60e73c7c88361d3a8fbf0dae417f9791c4bb148b1"
+          }
+        ]
+      },
+      {
+        "path": "evidence.lines[54].result_estimate",
+        "disposition": "not_supplied",
+        "reason": "The quote is withheld; the result is carried by the paraphrase, which gives no figure.",
+        "query_ids": [],
+        "inspected_artifacts": [
+          {
+            "kind": "artifact",
+            "sha256": "sha256:a839cc772f42ad22517fbcc60e73c7c88361d3a8fbf0dae417f9791c4bb148b1"
+          }
+        ]
+      },
+      {
+        "path": "evidence.lines[55].result_estimate",
+        "disposition": "not_supplied",
+        "reason": "The quote is withheld; the result is carried by the paraphrase, which gives no figure.",
+        "query_ids": [],
+        "inspected_artifacts": [
+          {
+            "kind": "artifact",
+            "sha256": "sha256:a839cc772f42ad22517fbcc60e73c7c88361d3a8fbf0dae417f9791c4bb148b1"
+          }
+        ]
       }
     ],
     "completeness": {
@@ -7122,6 +7418,36 @@
         "locator": "hallmarks of aging: MTOR",
         "accessed_at": "2026-10-22T05:44:39Z",
         "tool": "arena-biodb biodb.py (eaf6f4c), call a68e90ff911c"
+      },
+      "itp_programme": {
+        "source": "https://www.ebi.ac.uk/europepmc/webservices/rest/PMC4032600/fullTextXML",
+        "locator": "XML .//p[5] (1-based document order)",
+        "accessed_at": "2026-10-22T01:34:45Z",
+        "tool": "reading of the Europe PMC full-text XML"
+      },
+      "pubmed_31276577": {
+        "source": "https://eutils.ncbi.nlm.nih.gov/entrez/eutils/efetch.fcgi?db=pubmed&id=31276577&retmode=xml",
+        "locator": "PubMed record, abstract",
+        "accessed_at": "2026-10-22T05:55:35Z",
+        "tool": "PubMed E-utilities, read by the OHF 1.1 upgrade"
+      },
+      "pubmed_23648089": {
+        "source": "https://eutils.ncbi.nlm.nih.gov/entrez/eutils/efetch.fcgi?db=pubmed&id=23648089&retmode=xml",
+        "locator": "PubMed record, abstract",
+        "accessed_at": "2026-10-22T05:55:43Z",
+        "tool": "PubMed E-utilities, read by the OHF 1.1 upgrade"
+      },
+      "pubmed_34389472": {
+        "source": "https://eutils.ncbi.nlm.nih.gov/entrez/eutils/efetch.fcgi?db=pubmed&id=34389472&retmode=xml",
+        "locator": "PubMed record, abstract",
+        "accessed_at": "2026-10-22T05:55:45Z",
+        "tool": "PubMed E-utilities, read by the OHF 1.1 upgrade"
+      },
+      "pubmed_40394335": {
+        "source": "https://eutils.ncbi.nlm.nih.gov/entrez/eutils/efetch.fcgi?db=pubmed&id=40394335&retmode=xml",
+        "locator": "PubMed record, abstract",
+        "accessed_at": "2026-10-22T05:55:47Z",
+        "tool": "PubMed E-utilities, read by the OHF 1.1 upgrade"
       }
     },
     "budget": {
@@ -13172,5 +13498,5 @@
     "source_class": "external_published",
     "intervention_type": "small-molecule drug"
   },
-  "content_hash": "sha256:3b12cde22f8302d32f29c56b7bcb4870711d0b6295b9bd3265fd0e6cc35628fb"
+  "content_hash": "sha256:4baee968e65385f0b5fad004b40d779ca95e6c7cf7596a4cdcc3d07094cc1ad9"
 }

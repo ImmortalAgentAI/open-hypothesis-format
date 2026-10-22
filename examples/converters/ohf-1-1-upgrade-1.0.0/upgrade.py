@@ -187,6 +187,110 @@ L['profile']['domain'] = 'ohf:aging@1'
 L['profile']['aging_hallmarks'] = {
     'value': [{'hallmark': h['hallmark'], 'atom_refs': h['atom_refs_hint']} for h in hallmarks], 'src': key}
 
+# Atoms: the typed reading of the one atom that states rapamycin's direct action, and the chain of the
+# hypothesis as its general atom states it (category: consistency with the card's own atoms).
+atoms_by_id = {a['id']: a for a in L['core']['atoms']}
+acute = atoms_by_id['a_acute_chronic']
+assert 'Rapamycin acutely inhibits mTORC1' in acute['statement']['value']
+acute['triple'] = {'value': {'subject': {'id': 'CHEBI:9168', 'label': 'sirolimus'},
+                             'relation': {'id': 'RO:0002212', 'label': 'negatively regulates'},
+                             'object': {'id': 'GO:0031931', 'label': 'TORC1 complex'}},
+                   'src': acute['statement']['src']}
+REQUIRES = {'a_intermittent_selective': ['a_acute_chronic'],
+            'a_fewer_side_effects': ['a_side_mtorc2', 'a_intermittent_selective'],
+            'a_less_immunosuppressive': ['a_intermittent_selective'],
+            'a_general': ['a_intermittent_selective', 'a_side_mtorc2', 'a_mtorc1_sufficient']}
+for ident, required in REQUIRES.items():
+    atoms_by_id[ident]['requires'] = {'value': required, 'src': atoms_by_id[ident]['statement']['src']}
+
+# Alternatives get identifiers, so lines and excluded records can name them.
+for alt, ident in zip(L['core']['alternative_explanations']['value'],
+                      ('alt_tcell_mtorc1_or_mtorc2', 'alt_cr_mimetic', 'alt_broad_mtorc1')):
+    alt['id'] = ident
+
+# The ITP: Miller et al. 2014 p[5] names the programme and its three institutions.
+sources['itp_programme'] = {**sources['itp_low_dose'], 'locator': 'XML .//p[5] (1-based document order)'}
+itp = next(l for l in lines if l['id'] == 'e_itp_low_dose')
+itp['multi_site_program'] = {'value': {'program': 'Interventions Testing Program (ITP)', 'sites': 3},
+                             'src': 'itp_programme'}
+
+# What the review says and the card does not carry, with the reason the base card's report gives.
+L['evidence']['excluded'] = [{
+    'id': 'x_celegans_review_clause',
+    'target_ref': {'kind': 'card', 'pointer': '/added/layers/core/atoms/4'},
+    'reason': 'other',
+    'note': 'Reference 65 of this sentence is PMC4172656, which the card reads at first hand as e_celegans_mtorc2; '
+            'a line quoting the review would put one work on both sides of one atom.',
+    'quote': 'inhibition of mTORC2 also negatively impacts survival in C. elegans [65, 66]',
+    'record': 'PMC13355979 p[23]', 'src': 'side_mtorc2'}]
+assert atoms_by_id['a_mtorc2_negative'] is L['core']['atoms'][4]
+
+# Four works the base card names against it that may not be quoted: a line each, with the quote withheld,
+# a paraphrase and the sentence of the PubMed abstract that entails it.
+import re as _re
+import xml.etree.ElementTree as ET
+
+
+def abstract(pmid):
+    root = ET.parse(INPUT / 'pubmed' / f'{pmid}.xml').getroot()
+    return ' '.join(_re.sub(r'\s+', ' ', ''.join(a.itertext())).strip() for a in root.iter('AbstractText'))
+
+
+WITHHELD = [
+    ('e_withheld_strains', '31276577', 'a_liver_mtorc2', 'disputes', 'licence_unknown', 'nine inbred strains of mice',
+     'mice', 'NCBITaxon:10090', 'systemic insulin sensitivity', 'physiological',
+     'Across all strains, rapamycin significantly delayed glucose clearance after challenge. However, rapamycin '
+     'showed no main effect on systemic insulin sensitivity.',
+     'Across the strains surveyed, rapamycin delayed glucose clearance but had no main effect on systemic insulin '
+     'sensitivity.'),
+    ('e_withheld_het3', '23648089', 'a_liver_mtorc2', 'disputes', 'licence_unknown', 'young and old HET3 mice',
+     'mice', 'NCBITaxon:10090', 'insulin tolerance test', 'physiological',
+     'We find that rapamycin treatment leads to glucose intolerance in both young and old HET3 mice, but in '
+     'contrast to the previously reported effect of injected rapamycin in C57BL/6 mice, HET3 mice treated with '
+     'dietary rapamycin responded normally in an insulin tolerance test.',
+     'Dietary rapamycin made young and old HET3 mice glucose intolerant, yet they responded normally in an insulin '
+     'tolerance test.'),
+    ('e_withheld_bone', '34389472', 'a_fewer_side_effects', 'disputes', 'no_open_text',
+     'female wild-type (ICR) and Nrf2-/- mice', 'mice', 'NCBITaxon:10090', 'bone mineral density', 'physiological',
+     'Rapamycin (4 mg/kg bodyweight) was administered by intraperitoneal injection every other day for 12 weeks. '
+     'Mice treated with rapamycin exhibited lower femur bone mineral content, bone mineral density, and bone volume '
+     'compared to vehicle-treated mice.',
+     'Rapamycin injected every other day for 12 weeks lowered femur bone mineral content, bone mineral density and '
+     'bone volume in mice, compared with vehicle.'),
+    ('e_withheld_phase1', '40394335', 'a_humans_few_adverse', 'neutral', 'nc_nd',
+     'people 55-85 years old with mild cognitive impairment or early-stage dementia', 'people', 'NCBITaxon:9606',
+     'adverse events', 'adverse_event',
+     'After treatment, we find that twenty, mostly mild adverse events occur, systolic blood pressure and '
+     'hemoglobin A1c increase, multiple erythrocyte parameters decrease, and there are no significant cognitive '
+     'changes.',
+     'After treatment, twenty mostly mild adverse events occurred, and systolic blood pressure and hemoglobin A1c '
+     'rose.'),
+]
+TAXON_SOURCE = {'NCBITaxon:10090': 'biodb_5c456c648524', 'NCBITaxon:9606': 'biodb_1272a10cf166'}
+for (ident, pmid, target, direction, reason, study_system, words, taxon_id, endpoint, term,
+     abstract_quote, paraphrase) in WITHHELD:
+    text = abstract(pmid)
+    assert abstract_quote in text and study_system in text and endpoint in abstract_quote, ident
+    key = f'pubmed_{pmid}'
+    sources[key] = {'source': f'https://eutils.ncbi.nlm.nih.gov/entrez/eutils/efetch.fcgi?db=pubmed&id={pmid}&retmode=xml',
+                    'locator': 'PubMed record, abstract',
+                    'accessed_at': (INPUT / 'pubmed' / f'{pmid}.retrieved').read_text().strip(),
+                    'tool': 'PubMed E-utilities, read by the OHF 1.1 upgrade'}
+    human = taxon_id == 'NCBITaxon:9606'
+    lines.append({
+        'id': ident, 'target_ref': target, 'direction': {'value': direction, 'src': key},
+        'quote_withheld': {'value': {'reason': reason, 'locator': 'abstract',
+                                     'record_ref': {'scheme': 'pmid', 'id': pmid},
+                                     'paraphrase': paraphrase, 'abstract_quote': abstract_quote}, 'src': key},
+        'study_system': {'value': study_system, 'src': key},
+        'system': {'taxon': {'value': words, 'src': key}, 'taxon_id': {'value': taxon_id, 'src': TAXON_SOURCE[taxon_id]}},
+        'endpoint_kind': {'value': endpoint, 'src': key, 'term': term},
+        'human_proximity': {'value': ('human_clinical' if term in CLINICAL else 'human_marker') if human else 'mammal',
+                            'src': TAXON_SOURCE[taxon_id]},
+        'src': key})
+    added['gaps'].append({**copy.deepcopy(whole), 'path': f'evidence.lines[{len(lines) - 1}].result_estimate',
+                          'reason': 'The quote is withheld; the result is carried by the paraphrase, which gives no figure.'})
+
 identity = card['identity']
 identity['supersedes'] = [f"{identity['proposition_id']}@{identity['version']}"]
 identity['version'] += 1
