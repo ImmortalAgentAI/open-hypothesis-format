@@ -1776,6 +1776,19 @@
     },
     {
       "layer": "4 Evidence",
+      "path": "evidence.lines[].quote_withheld",
+      "definition": "The quote of the line is not reproduced because the text may not be quoted: its licence is unknown, it forbids derivatives (NC-ND), or no open text exists. The line keeps the locator and the record of the source, a paraphrase in the added zone, and the sentence of the abstract that entails the paraphrase. Such a line counts in the card and is shown to judges, but it does not make the disputing side for completeness full.",
+      "logical_type": "WithheldQuotation",
+      "vocabulary": "reason licence_unknown | nc_nd | no_open_text; record_ref scheme doi | pmid",
+      "example": "nc_nd, Table 2, doi 10.1000/fictional, paraphrase and abstract sentence",
+      "basis": "ohf",
+      "field_class": "searchable",
+      "zones": [
+        "added"
+      ]
+    },
+    {
+      "layer": "4 Evidence",
       "path": "evidence.lines[].evidence_type",
       "definition": "Evidence category, not a quality score.",
       "logical_type": "Term",

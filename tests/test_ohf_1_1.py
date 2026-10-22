@@ -5,6 +5,7 @@ from pathlib import Path
 
 import pytest
 
+from tools.check_completeness import both_sides
 from tools.check_gaps import check as check_gaps
 from tools.check_refs import check as check_refs
 from tools.strict_json import load
@@ -875,3 +876,63 @@ def test_a_1_0_card_has_no_triple():
     card = triple_card()
     as_1_0(card)
     assert '/added/layers/core/atoms/0' in {pointer(error) for error in validation_errors(SCHEMA, card)}
+
+
+# master THJOB-3bbef129: a line whose quote is withheld counts, but not as the disputing side for full.
+WITHHELD = {'reason': 'nc_nd', 'locator': 'Table 2', 'record_ref': {'scheme': 'doi', 'id': '10.1000/fictional.1'},
+            'paraphrase': 'Agent Q did not change counter Y in the fictional cohort.',
+            'abstract_quote': 'Counter Y was unchanged by agent Q, fictional.'}
+
+
+def sides_card(withheld=True):
+    card = card_1_1()
+    lines = card['added']['layers']['evidence']['lines']
+    lines.append({'id': {'value': 'e_for', 'src': 'prior_work'}, 'direction': {'value': 'supports', 'src': 'prior_work'},
+                  'quote': {'value': 'Counter Y rose under agent Q, fictional.', 'src': 'prior_work'}})
+    against = {'id': {'value': 'e_against', 'src': 'prior_work'}, 'direction': {'value': 'disputes', 'src': 'prior_work'}}
+    if withheld:
+        against['quote_withheld'] = {'value': copy.deepcopy(WITHHELD), 'src': 'prior_work'}
+    else:
+        against['quote'] = {'value': 'Counter Y was unchanged by agent Q, fictional.', 'src': 'prior_work'}
+    lines.append(against)
+    return card
+
+
+AGAINST = LINE[:-1] + '2'
+
+
+def test_withheld_quote_line_is_valid_but_not_the_disputing_side():
+    card = sides_card()
+    assert not validation_errors(SCHEMA, card)
+    assert check_refs(card)['valid'], check_refs(card)['errors']
+    status, reason = both_sides(card)
+    assert status == 'unmet' and 'withheld' in reason
+
+
+def test_quoted_disputing_line_makes_the_disputing_side():
+    assert both_sides(sides_card(withheld=False))[0] == 'met'
+
+
+@pytest.mark.parametrize('change,at', [
+    (lambda w: w.__setitem__('reason', 'paywall'), '/reason'),
+    (lambda w: w['record_ref'].__setitem__('id', '0123') or w['record_ref'].__setitem__('scheme', 'pmid'),
+     '/record_ref/id'),
+    (lambda w: w.pop('abstract_quote'), ''),
+    (lambda w: w.pop('locator'), ''),
+], ids=['reason_not_in_list', 'pmid_with_zero', 'no_abstract_quote', 'no_locator'])
+def test_withheld_quote_mutation_is_rejected(change, at):
+    card = sides_card()
+    change(card['added']['layers']['evidence']['lines'][2]['quote_withheld']['value'])
+    assert AGAINST + '/quote_withheld/value' + at in {pointer(e) for e in validation_errors(SCHEMA, card)}
+
+
+def test_line_has_a_quote_or_a_withheld_quote_not_both():
+    card = sides_card()
+    card['added']['layers']['evidence']['lines'][2]['quote'] = {'value': 'Counter Y, fictional.', 'src': 'prior_work'}
+    assert AGAINST in {pointer(error) for error in validation_errors(SCHEMA, card)}
+
+
+def test_a_1_0_card_has_no_withheld_quote():
+    card = sides_card()
+    as_1_0(card)
+    assert AGAINST in {pointer(error) for error in validation_errors(SCHEMA, card)}

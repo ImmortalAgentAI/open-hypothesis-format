@@ -96,6 +96,7 @@ The catalogue distinguishes logical scientific fields from their storage. A dire
 | `evidence.lines[].direction` | `author.layers.evidence.lines[].direction`, `added.layers.evidence.lines[].direction` | scientific field |  |
 | `evidence.lines[].items[]` | `author.layers.evidence.lines[].items[]`, `added.layers.evidence.lines[].items[]` | scientific field |  |
 | `evidence.lines[].quote` | `author.layers.evidence.lines[].quote`, `added.layers.evidence.lines[].quote` | scientific field |  |
+| `evidence.lines[].quote_withheld` | `added.layers.evidence.lines[].quote_withheld` | scientific field |  |
 | `evidence.lines[].evidence_type` | `author.layers.evidence.lines[].evidence_type`, `added.layers.evidence.lines[].evidence_type` | scientific field |  |
 | `evidence.lines[].knowledge_level` | `author.layers.evidence.lines[].knowledge_level`, `added.layers.evidence.lines[].knowledge_level` | scientific field |  |
 | `evidence.lines[].agent_type` | `author.layers.evidence.lines[].agent_type`, `added.layers.evidence.lines[].agent_type` | scientific field |  |

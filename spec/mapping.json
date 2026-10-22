@@ -891,6 +891,15 @@
       "coverage": "direct"
     },
     {
+      "catalogue_path": "evidence.lines[].quote_withheld",
+      "card_paths": [
+        "added.layers.evidence.lines[].quote_withheld"
+      ],
+      "status": "scientific field",
+      "extension": null,
+      "coverage": "direct"
+    },
+    {
       "catalogue_path": "evidence.lines[].evidence_type",
       "card_paths": [
         "author.layers.evidence.lines[].evidence_type",

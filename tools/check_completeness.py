@@ -14,7 +14,8 @@ The conditions are those of the specification, section Completeness:
   with the outcome `not_found` and its query identifiers; OHF 1.0 has no gap path
   for a missing disputing line, so no gap stands for that search.
   `added.challenge_search` is optional; when it is recorded with the outcome `found`,
-  it names a disputing line.
+  it names a disputing line. From OHF 1.1 a disputing line whose quote is withheld
+  (`quote_withheld`) is counted and shown but does not make the disputing side.
 
 The level is computed from the card's own records; the tools fetch nothing. The
 condition on source bytes relies on the source verification the card records
@@ -148,13 +149,23 @@ def evidence_lines(card):
                 yield f'/{zone}/layers/evidence/lines/{i}', unwrap(line.get('direction'))
 
 
+def withheld(card):
+    """Pointers of the evidence lines whose quote is withheld (OHF 1.1)."""
+    lines = unwrap(layers(card, 'added').get('evidence', {}).get('lines')) or []
+    return {f'/added/layers/evidence/lines/{i}' for i, line in enumerate(lines)
+            if isinstance(line, dict) and 'quote_withheld' in line}
+
+
 def both_sides(card):
     directions = {direction for _, direction in evidence_lines(card)}
+    quoted = {direction for pointer, direction in evidence_lines(card) if pointer not in withheld(card)}
     search = card.get('added', {}).get('challenge_search') or {}
     if 'supports' not in directions:
         return 'unmet', 'No evidence line supports the hypothesis.'
-    if 'disputes' in directions:
+    if 'disputes' in quoted:
         return 'met', 'Evidence lines support and dispute the hypothesis.'
+    if 'disputes' in directions:
+        return 'unmet', 'The only disputing lines have their quote withheld; they do not make the disputing side.'
     if search.get('outcome') == 'not_found' and search.get('query_ids'):
         return 'met', 'No line disputes the hypothesis, and added.challenge_search records the search with its queries.'
     if search.get('outcome') == 'incomplete':

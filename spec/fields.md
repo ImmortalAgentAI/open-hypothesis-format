@@ -1,6 +1,6 @@
 # Field reference
 
-This reference lists all 215 logical catalogue paths. Each path has a short example value from the catalogue. Where a card fills the path, a longer example follows: from the example card muller-sheltering, converted from a published article, or from a fictional test card, whose values describe a fictional system and are not scientific evidence. A JSON pointer identifies each card example. An absent concept is illustrated by the card's explicit gap; no missing value is invented. Definitions and logical types describe the concept before provenance wrappers.
+This reference lists all 216 logical catalogue paths. Each path has a short example value from the catalogue. Where a card fills the path, a longer example follows: from the example card muller-sheltering, converted from a published article, or from a fictional test card, whose values describe a fictional system and are not scientific evidence. A JSON pointer identifies each card example. An absent concept is illustrated by the card's explicit gap; no missing value is invented. Definitions and logical types describe the concept before provenance wrappers.
 
 Generated from [the reference data](field-reference.json) with `python tools/build_field_reference.py`. Edit the reference data and regenerate this file.
 
@@ -1554,6 +1554,14 @@ Example from card muller-sheltering at `/added/layers/evidence/lines/0/quote`:
 ```json
 "Using a deterministic model, Fisher (1935) showed that recessive lethal mutations cannot reach high frequencies on the Y chromosome because similar mutations also arise on the X and render Y-linked sheltering effects incomplete"
 ```
+
+### `evidence.lines[].quote_withheld`
+
+The quote of the line is not reproduced because the text may not be quoted: its licence is unknown, it forbids derivatives (NC-ND), or no open text exists. The line keeps the locator and the record of the source, a paraphrase in the added zone, and the sentence of the abstract that entails the paraphrase. Such a line counts in the card and is shown to judges, but it does not make the disputing side for completeness full.
+
+Type: `WithheldQuotation`. Vocabulary: reason licence_unknown | nc_nd | no_open_text; record_ref scheme doi | pmid. Basis: `ohf`. Class: `searchable`. Zones: `added`.
+
+Example value: nc_nd, Table 2, doi 10.1000/fictional, paraphrase and abstract sentence
 
 ### `evidence.lines[].evidence_type`
 
