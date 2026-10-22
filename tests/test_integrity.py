@@ -198,7 +198,9 @@ def test_converted_cards_pass_integrity_checks(path):
     document = load(path)
     result = check_refs(document)
     assert result['valid'], result['errors']
-    assert not result['warnings']
+    # A rung recorded for a line whose taxon is free text, such as "flies", cannot be derived; the
+    # warning discloses it and is the only one a converted card may carry.
+    assert not [w for w in result['warnings'] if w['code'] != 'REF_PROXIMITY_NOT_DERIVED']
     verification = document['added']['source_verification']
     assert verification['status'] == 'refetched_match'
     assert verification['sha256'] == document['author']['source']['source_text_sha256']

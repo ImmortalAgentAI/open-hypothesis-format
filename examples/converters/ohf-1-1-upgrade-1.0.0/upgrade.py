@@ -319,7 +319,12 @@ added['integrity']['entailment'] = [r for r in added['integrity']['entailment']
 for path in sorted((INPUT / 'verdicts').glob('*.json')) if (INPUT / 'verdicts').is_dir() else []:
     checked_at = Path(f'{path}.checked_at').read_text().strip()
     for verdict in json.loads(path.read_text()):
-        resolve(card, verdict['pointer'])
+        node = resolve(card, verdict['pointer'])
+        # A record names a sourced value. The target of a line and the quote of an excluded record are not
+        # one: the first is a reading of the card, the second is checked by containment; their verdicts
+        # stay in the verdict file.
+        if not (isinstance(node, dict) and 'value' in node and 'src' in node):
+            continue
         record = {'pointer': verdict['pointer'], 'basis': verdict['basis'], 'verdict': verdict['verdict'],
                   'checker': dict(checker), 'checked_at': checked_at}
         if verdict.get('note'):

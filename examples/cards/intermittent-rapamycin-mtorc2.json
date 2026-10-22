@@ -85,10 +85,10 @@
     "by": {
       "converter": "ohf-1-1-upgrade",
       "converter_version": "1.0.0",
-      "converter_hash": "sha256:3fbaf0e47210c89fa94580e842362a404a74789219bd104d67cd51e274c71e36",
+      "converter_hash": "sha256:51d4607a1369780d540bf0d1ae58358a8f8fc818d567b281327b33d9c2943162",
       "model": "claude-opus-5-5"
     },
-    "at": "2026-10-22T06:00:44Z",
+    "at": "2026-10-22T06:09:56Z",
     "cutoff_date": "2026-10-21",
     "layers": {
       "core": {
@@ -13454,6 +13454,238 @@
           "checked_at": "2026-10-20T20:54:28Z"
         },
         {
+          "pointer": "/added/layers/evidence/lines/38/multi_site_program",
+          "basis": "src",
+          "verdict": "entails",
+          "checker": {
+            "name": "ohf-entailment-check",
+            "version": "1.0.0",
+            "prompt_sha256": "sha256:46716d7b4fc070b952d7ace5ae597c64b9414e63b15e38a94e719a2eb4fae146"
+          },
+          "checked_at": "2026-10-22T06:05:23Z"
+        },
+        {
+          "pointer": "/added/layers/evidence/lines/52/direction",
+          "basis": "src",
+          "verdict": "entails",
+          "checker": {
+            "name": "ohf-entailment-check",
+            "version": "1.0.0",
+            "prompt_sha256": "sha256:46716d7b4fc070b952d7ace5ae597c64b9414e63b15e38a94e719a2eb4fae146"
+          },
+          "checked_at": "2026-10-22T06:05:23Z"
+        },
+        {
+          "pointer": "/added/layers/evidence/lines/52/quote_withheld",
+          "basis": "src",
+          "verdict": "entails",
+          "checker": {
+            "name": "ohf-entailment-check",
+            "version": "1.0.0",
+            "prompt_sha256": "sha256:46716d7b4fc070b952d7ace5ae597c64b9414e63b15e38a94e719a2eb4fae146"
+          },
+          "checked_at": "2026-10-22T06:05:23Z"
+        },
+        {
+          "pointer": "/added/layers/evidence/lines/52/study_system",
+          "basis": "src",
+          "verdict": "entails",
+          "checker": {
+            "name": "ohf-entailment-check",
+            "version": "1.0.0",
+            "prompt_sha256": "sha256:46716d7b4fc070b952d7ace5ae597c64b9414e63b15e38a94e719a2eb4fae146"
+          },
+          "checked_at": "2026-10-22T06:05:23Z"
+        },
+        {
+          "pointer": "/added/layers/evidence/lines/52/system/taxon",
+          "basis": "src",
+          "verdict": "entails",
+          "checker": {
+            "name": "ohf-entailment-check",
+            "version": "1.0.0",
+            "prompt_sha256": "sha256:46716d7b4fc070b952d7ace5ae597c64b9414e63b15e38a94e719a2eb4fae146"
+          },
+          "checked_at": "2026-10-22T06:05:23Z"
+        },
+        {
+          "pointer": "/added/layers/evidence/lines/52/endpoint_kind",
+          "basis": "src",
+          "verdict": "entails",
+          "checker": {
+            "name": "ohf-entailment-check",
+            "version": "1.0.0",
+            "prompt_sha256": "sha256:46716d7b4fc070b952d7ace5ae597c64b9414e63b15e38a94e719a2eb4fae146"
+          },
+          "checked_at": "2026-10-22T06:05:23Z"
+        },
+        {
+          "pointer": "/added/layers/evidence/lines/53/direction",
+          "basis": "src",
+          "verdict": "entails",
+          "checker": {
+            "name": "ohf-entailment-check",
+            "version": "1.0.0",
+            "prompt_sha256": "sha256:46716d7b4fc070b952d7ace5ae597c64b9414e63b15e38a94e719a2eb4fae146"
+          },
+          "checked_at": "2026-10-22T06:05:23Z"
+        },
+        {
+          "pointer": "/added/layers/evidence/lines/53/quote_withheld",
+          "basis": "src",
+          "verdict": "entails",
+          "checker": {
+            "name": "ohf-entailment-check",
+            "version": "1.0.0",
+            "prompt_sha256": "sha256:46716d7b4fc070b952d7ace5ae597c64b9414e63b15e38a94e719a2eb4fae146"
+          },
+          "checked_at": "2026-10-22T06:05:23Z"
+        },
+        {
+          "pointer": "/added/layers/evidence/lines/53/study_system",
+          "basis": "src",
+          "verdict": "entails",
+          "checker": {
+            "name": "ohf-entailment-check",
+            "version": "1.0.0",
+            "prompt_sha256": "sha256:46716d7b4fc070b952d7ace5ae597c64b9414e63b15e38a94e719a2eb4fae146"
+          },
+          "checked_at": "2026-10-22T06:05:23Z"
+        },
+        {
+          "pointer": "/added/layers/evidence/lines/53/system/taxon",
+          "basis": "src",
+          "verdict": "entails",
+          "checker": {
+            "name": "ohf-entailment-check",
+            "version": "1.0.0",
+            "prompt_sha256": "sha256:46716d7b4fc070b952d7ace5ae597c64b9414e63b15e38a94e719a2eb4fae146"
+          },
+          "checked_at": "2026-10-22T06:05:23Z"
+        },
+        {
+          "pointer": "/added/layers/evidence/lines/53/endpoint_kind",
+          "basis": "src",
+          "verdict": "entails",
+          "checker": {
+            "name": "ohf-entailment-check",
+            "version": "1.0.0",
+            "prompt_sha256": "sha256:46716d7b4fc070b952d7ace5ae597c64b9414e63b15e38a94e719a2eb4fae146"
+          },
+          "checked_at": "2026-10-22T06:05:23Z"
+        },
+        {
+          "pointer": "/added/layers/evidence/lines/54/direction",
+          "basis": "src",
+          "verdict": "entails",
+          "checker": {
+            "name": "ohf-entailment-check",
+            "version": "1.0.0",
+            "prompt_sha256": "sha256:46716d7b4fc070b952d7ace5ae597c64b9414e63b15e38a94e719a2eb4fae146"
+          },
+          "checked_at": "2026-10-22T06:05:23Z"
+        },
+        {
+          "pointer": "/added/layers/evidence/lines/54/quote_withheld",
+          "basis": "src",
+          "verdict": "entails",
+          "checker": {
+            "name": "ohf-entailment-check",
+            "version": "1.0.0",
+            "prompt_sha256": "sha256:46716d7b4fc070b952d7ace5ae597c64b9414e63b15e38a94e719a2eb4fae146"
+          },
+          "checked_at": "2026-10-22T06:05:23Z"
+        },
+        {
+          "pointer": "/added/layers/evidence/lines/54/study_system",
+          "basis": "src",
+          "verdict": "entails",
+          "checker": {
+            "name": "ohf-entailment-check",
+            "version": "1.0.0",
+            "prompt_sha256": "sha256:46716d7b4fc070b952d7ace5ae597c64b9414e63b15e38a94e719a2eb4fae146"
+          },
+          "checked_at": "2026-10-22T06:05:23Z"
+        },
+        {
+          "pointer": "/added/layers/evidence/lines/54/system/taxon",
+          "basis": "src",
+          "verdict": "entails",
+          "checker": {
+            "name": "ohf-entailment-check",
+            "version": "1.0.0",
+            "prompt_sha256": "sha256:46716d7b4fc070b952d7ace5ae597c64b9414e63b15e38a94e719a2eb4fae146"
+          },
+          "checked_at": "2026-10-22T06:05:23Z"
+        },
+        {
+          "pointer": "/added/layers/evidence/lines/54/endpoint_kind",
+          "basis": "src",
+          "verdict": "entails",
+          "checker": {
+            "name": "ohf-entailment-check",
+            "version": "1.0.0",
+            "prompt_sha256": "sha256:46716d7b4fc070b952d7ace5ae597c64b9414e63b15e38a94e719a2eb4fae146"
+          },
+          "checked_at": "2026-10-22T06:05:23Z"
+        },
+        {
+          "pointer": "/added/layers/evidence/lines/55/direction",
+          "basis": "src",
+          "verdict": "partial",
+          "checker": {
+            "name": "ohf-entailment-check",
+            "version": "1.0.0",
+            "prompt_sha256": "sha256:46716d7b4fc070b952d7ace5ae597c64b9414e63b15e38a94e719a2eb4fae146"
+          },
+          "checked_at": "2026-10-22T06:05:23Z",
+          "note": "The passage gives no grounds for a neutral direction overall: alongside the absence of cognitive change it reports significant increases in CSF tau-181, GFAP and neurofilament light, plus higher systolic blood pressure and HbA1c and lower erythrocyte parameters."
+        },
+        {
+          "pointer": "/added/layers/evidence/lines/55/quote_withheld",
+          "basis": "src",
+          "verdict": "entails",
+          "checker": {
+            "name": "ohf-entailment-check",
+            "version": "1.0.0",
+            "prompt_sha256": "sha256:46716d7b4fc070b952d7ace5ae597c64b9414e63b15e38a94e719a2eb4fae146"
+          },
+          "checked_at": "2026-10-22T06:05:23Z"
+        },
+        {
+          "pointer": "/added/layers/evidence/lines/55/study_system",
+          "basis": "src",
+          "verdict": "entails",
+          "checker": {
+            "name": "ohf-entailment-check",
+            "version": "1.0.0",
+            "prompt_sha256": "sha256:46716d7b4fc070b952d7ace5ae597c64b9414e63b15e38a94e719a2eb4fae146"
+          },
+          "checked_at": "2026-10-22T06:05:23Z"
+        },
+        {
+          "pointer": "/added/layers/evidence/lines/55/system/taxon",
+          "basis": "src",
+          "verdict": "entails",
+          "checker": {
+            "name": "ohf-entailment-check",
+            "version": "1.0.0",
+            "prompt_sha256": "sha256:46716d7b4fc070b952d7ace5ae597c64b9414e63b15e38a94e719a2eb4fae146"
+          },
+          "checked_at": "2026-10-22T06:05:23Z"
+        },
+        {
+          "pointer": "/added/layers/evidence/lines/55/endpoint_kind",
+          "basis": "src",
+          "verdict": "entails",
+          "checker": {
+            "name": "ohf-entailment-check",
+            "version": "1.0.0",
+            "prompt_sha256": "sha256:46716d7b4fc070b952d7ace5ae597c64b9414e63b15e38a94e719a2eb4fae146"
+          },
+          "checked_at": "2026-10-22T06:05:23Z"
+        },
+        {
           "pointer": "/added/layers/evidence/lines/0/system/taxon",
           "basis": "src",
           "verdict": "entails",
@@ -14676,5 +14908,5 @@
     "source_class": "external_published",
     "intervention_type": "small-molecule drug"
   },
-  "content_hash": "sha256:a638048b8d7e6b3128b8a32296e80acfd45a5425de9b8673e90053f1e8a5bab6"
+  "content_hash": "sha256:44fa3cb812b6c5bcf740ca4d3a69cf75428182f599f7c46722c8d5cd25aab72d"
 }
