@@ -278,3 +278,49 @@ def test_estimate_form_follows_the_version(value, version):
     if version == '1.0':
         as_1_0(card)
     assert LINE + '/result_estimate/value' in {pointer(error) for error in validation_errors(SCHEMA, card)}
+
+
+# Item 11a: a gap for a whole empty list.
+LIST_GAP = {'path': 'core.assumptions', 'disposition': 'not_supplied',
+            'reason': 'The fictional source states no assumption.', 'query_ids': [], 'inspected_artifacts': []}
+
+
+def gap_codes(card):
+    return {item['code'] for item in check_gaps(card, POLICY, CATALOGUE, MAPPING)['errors']}
+
+
+def test_gap_for_an_empty_list_is_accepted():
+    card = card_1_1()
+    assert not card['added']['layers']['core'].get('assumptions')
+    card['added']['gaps'].append(dict(LIST_GAP))
+    assert not validation_errors(SCHEMA, card)
+    assert not gap_codes(card)
+
+
+def test_gap_for_a_list_with_an_element_is_populated():
+    card = card_1_1()
+    card['added']['layers']['core']['assumptions'] = [
+        {'id': {'value': 'as1', 'src': 'statement'}, 'text': {'value': 'A fictional premise.', 'src': 'statement'}}]
+    card['added']['gaps'].append(dict(LIST_GAP))
+    assert 'GAP_PATH_POPULATED' in gap_codes(card)
+
+
+def test_gap_for_a_list_that_is_not_one_is_unknown():
+    card = card_1_1()
+    card['added']['gaps'].append(dict(LIST_GAP, path='core.assumptionz'))
+    assert 'GAP_PATH_UNKNOWN' in gap_codes(card)
+    assert '/added/gaps/' + str(len(card['added']['gaps']) - 1) + '/path' in {
+        pointer(error) for error in validation_errors(SCHEMA, card)}
+
+
+def test_identity_lists_take_no_gap():
+    card = card_1_1()
+    card['added']['gaps'].append(dict(LIST_GAP, path='identity.supersedes'))
+    assert 'GAP_PATH_UNKNOWN' in gap_codes(card)
+
+
+def test_a_1_0_card_cannot_gap_a_whole_list():
+    card = load(ROOT / 'tests/fixtures/fictional/fx_eight.json')
+    card['added']['gaps'].append(dict(LIST_GAP))
+    assert 'GAP_PATH_UNKNOWN' in gap_codes(card)
+    assert validation_errors(SCHEMA, card)
