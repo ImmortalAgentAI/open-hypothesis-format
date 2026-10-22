@@ -211,5 +211,6 @@ The catalogue distinguishes logical scientific fields from their storage. A dire
 | `evidence.lines[].independence_group` | `added.layers.evidence.lines[].independence_group` | scientific field |  |
 | `evidence.lines[].argument_kind` | `added.layers.evidence.lines[].argument_kind` | scientific field |  |
 | `evidence.selection_record` | `added.layers.evidence.selection_record` | scientific field |  |
+| `evidence.excluded[]` | `added.layers.evidence.excluded[]` | scientific field |  |
 
 The intermediate-test record additionally stores sourced H0, H1, procedure and phase components in both zones. These refine the existing TestRecord and add no catalogue rows. The checker audits all sourced scientific wrapper locations in the card schema against direct targets and these explicit components. Operational metadata and source proof are separate contracts.

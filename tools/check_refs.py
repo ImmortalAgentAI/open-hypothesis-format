@@ -68,6 +68,7 @@ NAMESPACES = {
     'reinterpretation': 'core.reinterprets[]',
     'opened question': 'core.opens[]',
     'alternative': 'core.alternative_explanations[]',
+    'excluded record': 'evidence.excluded[]',
 }
 # The card pointer of one record of each kind a typed reference can name; `*` is an array index.
 POINTERS = {
@@ -101,11 +102,14 @@ REFERENCES = {
     'evidence.lines[].target_ref': (('atom', 'prediction', 'mechanism step', 'alternative', 'proposition'),
                                     {'id', 'pointer', 'version', 'external'}),
     'evidence.lines[].items[].line_id': (('evidence line',), {'id'}),
+    'evidence.excluded[].target_ref': (('atom', 'prediction', 'mechanism step', 'alternative', 'proposition'),
+                                       {'id', 'pointer', 'version', 'external'}),
     'profile.dose_response.endpoint_ref': (('prediction',), {'id', 'pointer', 'version', 'external'}),
 }
 # Lists whose elements may carry their own `src` from OHF 1.1; such an element is a sourced value.
 ELEMENT_SOURCED = tuple(f'/added/layers/core/{name}/value/*'
-                        for name in ('alternative_explanations', 'uncertainties', 'opens', 'explains'))
+                        for name in ('alternative_explanations', 'uncertainties', 'opens', 'explains')
+                        ) + ('/added/layers/evidence/excluded/*',)
 # Reference fields whose vocabulary names no namespace: a card pointer must resolve.
 OPEN_REFERENCES = (
     'core.explains[].observation_ref', 'core.explains[].rival_ref', 'core.reinterprets[].finding_ref',

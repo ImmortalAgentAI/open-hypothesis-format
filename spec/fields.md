@@ -1,6 +1,6 @@
 # Field reference
 
-This reference lists all 207 logical catalogue paths. Each path has a short example value from the catalogue. Where a card fills the path, a longer example follows: from the example card muller-sheltering, converted from a published article, or from a fictional test card, whose values describe a fictional system and are not scientific evidence. A JSON pointer identifies each card example. An absent concept is illustrated by the card's explicit gap; no missing value is invented. Definitions and logical types describe the concept before provenance wrappers.
+This reference lists all 208 logical catalogue paths. Each path has a short example value from the catalogue. Where a card fills the path, a longer example follows: from the example card muller-sheltering, converted from a published article, or from a fictional test card, whose values describe a fictional system and are not scientific evidence. A JSON pointer identifies each card example. An absent concept is illustrated by the card's explicit gap; no missing value is invented. Definitions and logical types describe the concept before provenance wrappers.
 
 Generated from [the reference data](field-reference.json) with `python tools/build_field_reference.py`. Edit the reference data and regenerate this file.
 
@@ -2026,6 +2026,14 @@ Example from fictional card fx_eight at `/added/layers/evidence/selection_record
   "src": "run_b"
 }
 ```
+
+### `evidence.excluded[]`
+
+A record that was found for a target and not used as an evidence line, with the type of the mismatch, its quotation and where it stands; the counts stay in selection_record.
+
+Type: `Record`. Vocabulary: reason from ohf:terms@1, exclusion_reason: species_mismatch | direction_mismatch | endpoint_mismatch | type_mismatch | inherited_mismatch | other (with a note). Basis: `ohf`. Class: `searchable`. Zones: `added`.
+
+Example value: inherited_mismatch: a mouse finding against a claim about humans
 
 ### `evidence.references[].funding_coi`
 

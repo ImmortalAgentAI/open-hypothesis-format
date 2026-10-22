@@ -453,3 +453,58 @@ def test_a_1_0_card_cannot_state_a_known_result():
     card = known_result_card()
     as_1_0(card)
     assert NOVELTY + '/status' in {pointer(error) for error in validation_errors(SCHEMA, card)}
+
+
+# Item 5: evidence found and not used, one record each.
+def excluded_card():
+    card = alternatives_card()
+    card['added']['layers']['evidence']['excluded'] = [{
+        'id': 'x1', 'target_ref': 'p1', 'reason': 'inherited_mismatch',
+        'quote': 'In fictional system six, agent Q left counter Y unchanged.',
+        'artifact': {'artifact': 'fx_four.json', 'sha256': 'sha256:' + '3' * 64, 'locator': 'JSON:/excluded'},
+        'record': 'doi:10.0000/fictional', 'src': 'prior_work'}]
+    return card
+
+
+def excluded(card):
+    return card['added']['layers']['evidence']['excluded'][0]
+
+
+EXCLUDED = '/added/layers/evidence/excluded/0'
+
+
+def test_excluded_record_is_valid():
+    card = excluded_card()
+    assert not validation_errors(SCHEMA, card)
+    assert check_refs(card)['valid'], check_refs(card)['errors']
+
+
+@pytest.mark.parametrize('mutate,where', [
+    (lambda record: record.__setitem__('reason', 'irrelevant'), EXCLUDED + '/reason'),
+    (lambda record: record.pop('quote'), EXCLUDED),
+    (lambda record: record.__setitem__('reason', 'other'), EXCLUDED),
+    (lambda record: record.__setitem__('note', 'a note without other'), EXCLUDED),
+], ids=['reason_not_a_term', 'no_quote', 'other_without_note', 'note_without_other'])
+def test_excluded_schema_mutation_is_rejected(mutate, where):
+    card = excluded_card()
+    mutate(excluded(card))
+    assert where in {pointer(error) for error in validation_errors(SCHEMA, card)}
+
+
+@pytest.mark.parametrize('target,code', [('p9', 'REF_UNKNOWN_ID'), ('u1', 'REF_WRONG_TARGET')])
+def test_excluded_target_must_resolve(target, code):
+    card = excluded_card()
+    excluded(card)['target_ref'] = target
+    assert code in ref_codes(card)
+
+
+def test_excluded_ids_are_unique():
+    card = excluded_card()
+    card['added']['layers']['evidence']['excluded'].append(copy.deepcopy(excluded(card)))
+    assert 'REF_DUPLICATE_ID' in ref_codes(card)
+
+
+def test_a_1_0_card_has_no_excluded_records():
+    card = excluded_card()
+    as_1_0(card)
+    assert '/added/layers/evidence' in {pointer(error) for error in validation_errors(SCHEMA, card)}

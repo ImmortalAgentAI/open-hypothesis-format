@@ -2032,6 +2032,15 @@
       "status": "scientific field",
       "extension": null,
       "coverage": "direct"
+    },
+    {
+      "catalogue_path": "evidence.excluded[]",
+      "card_paths": [
+        "added.layers.evidence.excluded[]"
+      ],
+      "status": "scientific field",
+      "extension": null,
+      "coverage": "direct"
     }
   ],
   "supplemental_fields": [

@@ -2341,6 +2341,19 @@
     },
     {
       "layer": "4 Evidence",
+      "path": "evidence.excluded[]",
+      "definition": "A record that was found for a target and not used as an evidence line, with the type of the mismatch, its quotation and where it stands; the counts stay in selection_record.",
+      "logical_type": "Record",
+      "vocabulary": "reason from ohf:terms@1, exclusion_reason: species_mismatch | direction_mismatch | endpoint_mismatch | type_mismatch | inherited_mismatch | other (with a note)",
+      "example": "inherited_mismatch: a mouse finding against a claim about humans",
+      "basis": "ohf",
+      "field_class": "searchable",
+      "zones": [
+        "added"
+      ]
+    },
+    {
+      "layer": "4 Evidence",
       "path": "evidence.references[].funding_coi",
       "definition": "Source-reported funding and conflict-of-interest declarations, distinguishing explicit absence from unreported information.",
       "logical_type": "FundingCOI",
