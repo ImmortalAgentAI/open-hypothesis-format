@@ -7351,7 +7351,46 @@
                             "type": "object",
                             "properties": {
                               "value": {
-                                "$ref": "#/$defs/Logical%3AQuantityAndSource"
+                                "anyOf": [
+                                  {
+                                    "$ref": "#/$defs/Logical%3AQuantityAndSource"
+                                  },
+                                  {
+                                    "type": "object",
+                                    "properties": {
+                                      "reported": {
+                                        "type": "string",
+                                        "minLength": 1,
+                                        "pattern": "\\S"
+                                      },
+                                      "measure": {
+                                        "description": "As the source states it, or not_stated",
+                                        "type": "string",
+                                        "minLength": 1,
+                                        "pattern": "\\S"
+                                      },
+                                      "contrast": {
+                                        "description": "As the source states it, or not_stated",
+                                        "type": "string",
+                                        "minLength": 1,
+                                        "pattern": "\\S"
+                                      },
+                                      "scale": {
+                                        "description": "As the source states it, or not_stated",
+                                        "type": "string",
+                                        "minLength": 1,
+                                        "pattern": "\\S"
+                                      }
+                                    },
+                                    "required": [
+                                      "reported",
+                                      "measure",
+                                      "contrast",
+                                      "scale"
+                                    ],
+                                    "additionalProperties": false
+                                  }
+                                ]
                               },
                               "src": {
                                 "type": "string",
@@ -10235,6 +10274,36 @@
                 }
               }
             }
+          },
+          {
+            "properties": {
+              "added": {
+                "properties": {
+                  "layers": {
+                    "properties": {
+                      "evidence": {
+                        "properties": {
+                          "lines": {
+                            "items": {
+                              "properties": {
+                                "result_estimate": {
+                                  "type": "object",
+                                  "properties": {
+                                    "value": {
+                                      "type": "object"
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
           }
         ]
       }
@@ -10458,6 +10527,35 @@
                                 "required": [
                                   "taxon_id"
                                 ]
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          {
+            "properties": {
+              "added": {
+                "properties": {
+                  "layers": {
+                    "properties": {
+                      "evidence": {
+                        "properties": {
+                          "lines": {
+                            "items": {
+                              "properties": {
+                                "result_estimate": {
+                                  "properties": {
+                                    "value": {
+                                      "type": "string"
+                                    }
+                                  }
+                                }
                               }
                             }
                           }

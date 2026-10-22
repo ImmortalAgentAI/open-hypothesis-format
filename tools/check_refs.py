@@ -25,7 +25,10 @@ checker is not the pass that wrote the added zone; the counts of `author.generat
 agree; an entailment record is not older than the access time of the source record
 its value names or than the nearest assessment of that value; and no added-zone
 assessment is later than `added.at`. A card whose kind is mechanism while every atom
-only states existence, distribution or association gets a warning. The completeness
+only states existence, distribution or association gets a warning. In an OHF 1.1 card, an
+evidence line whose quote reports a result in numbers has a result estimate quoting those
+words, or a gap that says why not; a dose or an age in the quote that the line does not
+record gets a warning (`check_quotes`). The completeness
 level is computed by `check_completeness.py` and compared with the declared one.
 It assumes a card that already passes `tools/validate.py`.
 """
@@ -45,6 +48,12 @@ from strict_json import load  # noqa: E402
 ZONES = ('author', 'added')
 COMPARABLE = ('system', 'endpoint', 'form', 'epistemic_status')
 VERSIONED = re.compile(r'h_[a-z0-9-]+@[1-9][0-9]*')
+# Numbers in an evidence line's quote (OHF 1.1): a reported result, a dose, an age.
+RESULT_NUMBER = re.compile(r'\d(?:[.,]\d+)?\s?%|\b[pP]\s?[<=>≤≥]\s?0?[.,]\d|\b\d{2}\s?%\s?CI\b|\bCI\b|\d\s?-?fold\b'
+                           r'|\b(?:HR|OR|RR|IRR|SMD)\s?[=:(]|η\s?p?2|\bmd\s?=|\bβ\s?=|\br\s?=\s?-?0?[.,]\d')
+DOSE_NUMBER = re.compile(r'\d(?:[.,]\d+)?\s?(?:mg/kg|mg|µg|μg|ppm|[µμnm]M|IU)\b')
+AGE_NUMBER = re.compile(r'\b\d+\s?(?:days?|weeks?|months?|years?)\s+(?:of\s+age|old)\b'
+                        r'|\b(?:starting|beginning|started|from)\s+at\s+\d+\s?(?:days?|weeks?|months?|years?)\b')
 
 # Identifier namespaces: the record list that holds the identifiers.
 NAMESPACES = {
@@ -339,6 +348,45 @@ def check_times(card, errors):
                                 'assessed_at is later than added.at, when the added zone was written'))
 
 
+def gap_dispositions(card, index, member):
+    """Dispositions of the gaps that cover member of evidence line index."""
+    paths = {f'evidence.lines[].{member}', f'evidence.lines[{index}].{member}'}
+    return [gap.get('disposition') for gap in card.get('added', {}).get('gaps', []) if gap.get('path') in paths]
+
+
+def check_quotes(card, errors, warnings):
+    """OHF 1.1: what a line's quote reports in numbers is also in the line's fields, or a gap says why not.
+
+    A result number (a percentage, a p value, a confidence interval, an effect measure) needs a
+    result estimate or a gap whose disposition is not not_supplied: the estimate can say not_stated
+    for a measure, contrast or scale the source does not give, so not supplying it is no longer a
+    reason. The reported words of the estimate are in the quote. A dose or an age in the quote
+    without the matching condition or a gap is a warning, because the pattern is a heuristic.
+    """
+    if card.get('standard_version') != '1.1':
+        return
+    for index, line in enumerate(layers(card, 'added').get('evidence', {}).get('lines', [])):
+        quote = unwrap(line.get('quote'))
+        if not isinstance(quote, str):
+            continue
+        path = f'evidence.lines[{index}]'
+        estimate = unwrap(line.get('result_estimate'))
+        if isinstance(estimate, dict):
+            if ' '.join(estimate.get('reported', '').split()) not in ' '.join(quote.split()):
+                errors.append(issue('REF_ESTIMATE_NOT_QUOTED', f'{path}.result_estimate',
+                                    'the reported words of the estimate are not in the quote'))
+        elif RESULT_NUMBER.search(quote) and not [d for d in gap_dispositions(card, index, 'result_estimate')
+                                                  if d != 'not_supplied']:
+            errors.append(issue('REF_ESTIMATE_IN_QUOTE', f'{path}.result_estimate',
+                                'the quote reports a result in numbers; give a result estimate, with not_stated '
+                                'where the source does not say, or a gap that says why it cannot be given'))
+        for pattern, member, holder in ((DOSE_NUMBER, 'dose', 'intervention'), (AGE_NUMBER, 'age_at_start', 'system')):
+            stated = isinstance(line.get(holder), dict) and filled(unwrap(line[holder].get(member)))
+            if pattern.search(quote) and not stated and not gap_dispositions(card, index, f'{holder}.{member}'):
+                warnings.append(issue('REF_CONDITION_IN_QUOTE', f'{path}.{holder}.{member}',
+                                      f'the quote names a {member.replace("_", " ")} the line does not record'))
+
+
 def check(card):
     errors, warnings, external, comparable, not_comparable = [], [], [], [], []
     fields = {}
@@ -360,6 +408,7 @@ def check(card):
                            if filled(unwrap(value))})
     check_integrity(card, errors, warnings)
     check_times(card, errors)
+    check_quotes(card, errors, warnings)
     for ident, prediction in fields.items():
         missing = [key for key in COMPARABLE if key not in prediction]
         if prediction.get('form') == 'directional_contrast' and 'direction' not in prediction:

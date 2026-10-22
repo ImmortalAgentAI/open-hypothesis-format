@@ -1779,7 +1779,7 @@ Example from card muller-sheltering at `/added/layers/evidence/lines/0/study_typ
 
 Observed estimate with units, contrast, sample/context and source, separate from its target quantity.
 
-Type: `QuantityAndSource`. Vocabulary: Source analysis output. Basis: `ohf`. Class: `searchable`.
+Type: `QuantityAndSource`. Vocabulary: Source analysis output. In the added zone of a 1.1 card a record: reported, the words of the quote that give the result; measure, contrast and scale, each as the source states it or not_stated. Basis: `ohf`. Class: `searchable`.
 
 Example value: estimate not supplied
 

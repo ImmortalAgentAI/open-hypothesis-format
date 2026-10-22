@@ -1538,7 +1538,7 @@
       "path": "evidence.lines[].result_estimate",
       "definition": "Observed estimate with units, contrast, sample/context and source, separate from its target quantity.",
       "logical_type": "QuantityAndSource",
-      "vocabulary": "Source analysis output",
+      "vocabulary": "Source analysis output. In the added zone of a 1.1 card a record: reported, the words of the quote that give the result; measure, contrast and scale, each as the source states it or not_stated",
       "example": "estimate not supplied",
       "basis": "ohf",
       "field_class": "searchable"

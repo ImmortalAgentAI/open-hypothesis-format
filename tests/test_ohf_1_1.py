@@ -173,3 +173,91 @@ def test_line_conditions_need_no_domain_profile():
         'agent': {'value': 'agent Q, fictional', 'src': source},
         'route': {'value': 'released in the field', 'src': source, 'term': 'environmental_release'}}
     assert not validation_errors(SCHEMA, card)
+
+
+# D3: numbers in the quote of an evidence line, both sides of each rule.
+RESULT_QUOTE = 'Counter Y rose by 12% with agent Q at 2 mg/kg (p = 0.01), fictional.'
+
+
+def quoted_card(quote=RESULT_QUOTE, estimate=True):
+    card = card_1_1()
+    line(card)['quote'] = {'value': quote, 'src': 'prior_work'}
+    if estimate:
+        line(card)['result_estimate'] = {'value': {'reported': 'rose by 12%', 'measure': 'percentage change',
+                                                   'contrast': 'agent Q against vehicle', 'scale': 'not_stated'},
+                                         'src': 'prior_work'}
+    return card
+
+
+def ref_codes(card, kind='errors'):
+    return {item['code'] for item in check_refs(card)[kind]}
+
+
+def gap(path, disposition):
+    return {'path': path, 'disposition': disposition, 'reason': 'fictional reason', 'query_ids': [],
+            'inspected_artifacts': []}
+
+
+def test_quoted_result_with_estimate_passes():
+    card = quoted_card()
+    assert not validation_errors(SCHEMA, card)
+    assert not ref_codes(card)
+    assert 'REF_CONDITION_IN_QUOTE' not in ref_codes(card, 'warnings')
+
+
+def test_quoted_result_without_estimate_is_an_error():
+    assert 'REF_ESTIMATE_IN_QUOTE' in ref_codes(quoted_card(estimate=False))
+
+
+def test_not_supplied_gap_does_not_excuse_a_quoted_result():
+    card = quoted_card(estimate=False)
+    card['added']['gaps'].append(gap('evidence.lines[].result_estimate', 'not_supplied'))
+    assert 'REF_ESTIMATE_IN_QUOTE' in ref_codes(card)
+
+
+def test_gap_with_another_reason_excuses_a_quoted_result():
+    card = quoted_card(estimate=False)
+    card['added']['gaps'].append(gap('evidence.lines[0].result_estimate', 'blocked'))
+    assert 'REF_ESTIMATE_IN_QUOTE' not in ref_codes(card)
+
+
+def test_estimate_must_quote_its_words():
+    card = quoted_card()
+    line(card)['result_estimate']['value']['reported'] = 'rose by 21%'
+    assert 'REF_ESTIMATE_NOT_QUOTED' in ref_codes(card)
+
+
+@pytest.mark.parametrize('quote', ['Counter Y rose with agent Q in system four, fictional.',
+                                   'Agent Q was given at 2 mg/kg from 6 months of age, fictional.'])
+def test_quote_without_a_result_number_needs_no_estimate(quote):
+    assert 'REF_ESTIMATE_IN_QUOTE' not in ref_codes(quoted_card(quote, estimate=False))
+
+
+def test_dose_and_age_in_quote_are_warnings_only():
+    card = quoted_card('Agent Q was given at 2 mg/kg from 6 months of age, fictional.', estimate=False)
+    line(card)['intervention'].pop('dose')
+    warnings = [item['path'] for item in check_refs(card)['warnings'] if item['code'] == 'REF_CONDITION_IN_QUOTE']
+    assert warnings == ['evidence.lines[0].intervention.dose', 'evidence.lines[0].system.age_at_start']
+    assert check_refs(card)['valid']
+
+
+def test_recorded_dose_silences_the_warning():
+    card = quoted_card('Agent Q was given at 2 mg/kg, fictional.', estimate=False)
+    assert 'REF_CONDITION_IN_QUOTE' not in ref_codes(card, 'warnings')
+
+
+def test_a_1_0_card_is_not_held_to_the_quote_rules():
+    card = load(ROOT / 'tests/fixtures/fictional/fx_eight.json')
+    card['added']['layers']['evidence']['lines'][0]['quote'] = {'value': RESULT_QUOTE, 'src': 'prior_work'}
+    assert 'REF_ESTIMATE_IN_QUOTE' not in ref_codes(card)
+
+
+@pytest.mark.parametrize('value,version', [
+    ('rose by 12%', '1.1'),
+    ({'reported': 'rose by 12%', 'measure': 'x', 'contrast': 'x', 'scale': 'x'}, '1.0')])
+def test_estimate_form_follows_the_version(value, version):
+    card = quoted_card()
+    line(card)['result_estimate']['value'] = value
+    if version == '1.0':
+        as_1_0(card)
+    assert LINE + '/result_estimate/value' in {pointer(error) for error in validation_errors(SCHEMA, card)}
