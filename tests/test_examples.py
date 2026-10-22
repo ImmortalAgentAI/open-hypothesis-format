@@ -26,14 +26,16 @@ def test_one_profile():
 @pytest.mark.parametrize('path', CARDS + FICTIONAL, ids=lambda p: p.name)
 def test_cards_validate(path):
     card = load(path)
-    assert card['standard_version'] == '1.0'
+    assert card['standard_version'] in ('1.0', '1.1')
     assert not validation_errors(SCHEMA, card)
 
 
 @pytest.mark.parametrize('path', CARDS, ids=lambda p: p.name)
 def test_example_cards_are_licensed_and_without_domain(path):
     card = load(path)
-    assert card['added']['layers']['profile']['domain'] == 'none'
+    # The OHF 1.1 example shows the aging profile; a 1.0 example selects no domain.
+    expected = {'1.0': 'none', '1.1': 'ohf:aging@1'}[card['standard_version']]
+    assert card['added']['layers']['profile']['domain'] == expected
     assert card['author']['source']['license'] in ('CC-BY-4.0', 'CC-BY-3.0')
 
 
