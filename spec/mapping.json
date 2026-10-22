@@ -603,6 +603,15 @@
       "coverage": "direct"
     },
     {
+      "catalogue_path": "predictions[].control_type",
+      "card_paths": [
+        "added.layers.predictions[].control_type"
+      ],
+      "status": "scientific field",
+      "extension": null,
+      "coverage": "direct"
+    },
+    {
       "catalogue_path": "predictions[].endpoint",
       "card_paths": [
         "author.layers.predictions[].endpoint",

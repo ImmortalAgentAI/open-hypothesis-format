@@ -342,8 +342,8 @@ def check_times(card, errors):
 def check(card):
     errors, warnings, external, comparable, not_comparable = [], [], [], [], []
     fields = {}
-    if card.get('standard_version') != '1.0':
-        return {'valid': False, 'errors': [issue('REF_STANDARD_VERSION', 'standard_version', 'Only OHF 1.0 cards are checked')],
+    if card.get('standard_version') not in ('1.0', '1.1'):
+        return {'valid': False, 'errors': [issue('REF_STANDARD_VERSION', 'standard_version', 'Only OHF 1.0 and 1.1 cards are checked')],
                 'warnings': [], 'external': [], 'comparable': [], 'not_comparable': [], 'completeness': None}
     ids = identifiers(card, errors)
     domains = {zone: layers(card, zone).get('profile', {}).get('domain') for zone in ZONES}

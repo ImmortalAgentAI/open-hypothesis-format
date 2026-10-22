@@ -19,7 +19,7 @@ FICTIONAL = sorted((ROOT / 'tests/fixtures/fictional').glob('fx_*.json'))
 
 def test_one_profile():
     assert 'oneOf' not in SCHEMA
-    assert SCHEMA['properties']['standard_version'] == {'const': '1.0'}
+    assert SCHEMA['properties']['standard_version'] == {'enum': ['1.0', '1.1']}
     assert 'standard_version' in SCHEMA['required']
 
 
@@ -72,7 +72,7 @@ def test_vocabulary_hash_matches_schema_pin():
     assert pinned == 'sha256:' + hashlib.sha256(data).hexdigest()
 
 
-@pytest.mark.parametrize('version', ['1.1', '1.2', '2.0', '1', '1.0.0', None])
+@pytest.mark.parametrize('version', ['1.2', '2.0', '1', '1.0.0', '1.1.0', None])
 def test_unknown_selector_rejects(version):
     card = load(FICTIONAL[0])
     card['standard_version'] = version

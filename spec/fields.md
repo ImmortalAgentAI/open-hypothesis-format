@@ -1,6 +1,6 @@
 # Field reference
 
-This reference lists all 180 logical catalogue paths. Each path has a short example value from the catalogue. Where a card fills the path, a longer example follows: from the example card muller-sheltering, converted from a published article, or from a fictional test card, whose values describe a fictional system and are not scientific evidence. A JSON pointer identifies each card example. An absent concept is illustrated by the card's explicit gap; no missing value is invented. Definitions and logical types describe the concept before provenance wrappers.
+This reference lists all 181 logical catalogue paths. Each path has a short example value from the catalogue. Where a card fills the path, a longer example follows: from the example card muller-sheltering, converted from a published article, or from a fictional test card, whose values describe a fictional system and are not scientific evidence. A JSON pointer identifies each card example. An absent concept is illustrated by the card's explicit gap; no missing value is invented. Definitions and logical types describe the concept before provenance wrappers.
 
 Generated from [the reference data](field-reference.json) with `python tools/build_field_reference.py`. Edit the reference data and regenerate this file.
 
@@ -941,7 +941,7 @@ Example value: 48 hours, fictional
 
 Administration route when stated and applicable.
 
-Type: `TextOrTerm`. Vocabulary: Free text; use a domain registry identifier where one exists. Basis: `arrive`. Class: `searchable`.
+Type: `TextOrTerm`. Vocabulary: Source wording in value; in the added zone also a closed term (ohf:terms@1, route), required from OHF 1.1, with a note for other. Basis: `arrive`. Class: `searchable`.
 
 Example value: in culture medium, fictional
 
@@ -1018,6 +1018,14 @@ Type: `Assessment`. Vocabulary: Declared criteria, not an imported p-value. Basi
 
 Example value: not assessed
 
+### `predictions[].control_type`
+
+Kind of each control condition of the comparator, as closed terms. The value other needs a note that says what the control is.
+
+Type: `Term`. Vocabulary: OHF terms vocabulary (ohf:terms@1, control_type): placebo | vehicle | untreated | wild_type | active_comparator | baseline | historical | none | not_stated | other. Basis: `ohf`. Class: `searchable`. Zones: `added`.
+
+Example value: vehicle, active_comparator
+
 ### `predictions[].endpoint`
 
 Variable measured and its operational definition, not a summary statistic.
@@ -1055,11 +1063,11 @@ Example value: A exceeds B exceeds C, fictional
 
 ### `predictions[].endpoint_kind`
 
-Level/type of endpoint, retaining original distinction from lifespan or efficacy.
+Kind of endpoint: what is measured, such as lifespan, function or a biomarker. The level of the system, such as in vitro, is evidence.lines[].human_proximity.
 
-Type: `Term`. Vocabulary: Term for the level of the endpoint, such as in_vitro; OHF 1.0 fixes no list. Basis: `ohf`. Class: `searchable`.
+Type: `Term`. Vocabulary: Source wording in value; in the added zone also a closed term (ohf:terms@1, endpoint_kind), required from OHF 1.1, with a note for other. Basis: `ohf`. Class: `searchable`.
 
-Example value: in_vitro
+Example value: biomarker
 
 ### `predictions[].summary_measure`
 

@@ -67,6 +67,7 @@ The catalogue distinguishes logical scientific fields from their storage. A dire
 | `predictions[].comparator` | `author.layers.predictions[].comparator`, `added.layers.predictions[].comparator` | scientific field |  |
 | `predictions[].control_reference` | `author.layers.predictions[].control_reference`, `added.layers.predictions[].control_reference` | scientific field |  |
 | `predictions[].control_quality` | `author.layers.predictions[].control_quality`, `added.layers.predictions[].control_quality` | scientific field |  |
+| `predictions[].control_type` | `added.layers.predictions[].control_type` | scientific field |  |
 | `predictions[].endpoint` | `author.layers.predictions[].endpoint`, `added.layers.predictions[].endpoint` | scientific field |  |
 | `predictions[].endpoint_orientation` | `author.layers.predictions[].endpoint_orientation`, `added.layers.predictions[].endpoint_orientation` | scientific field |  |
 | `predictions[].relational_prediction` | `author.layers.predictions[].relational_prediction`, `added.layers.predictions[].relational_prediction` | scientific field |  |
