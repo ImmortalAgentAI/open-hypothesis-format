@@ -1178,6 +1178,24 @@
       "coverage": "direct"
     },
     {
+      "catalogue_path": "evidence.lines[].endpoint_kind",
+      "card_paths": [
+        "added.layers.evidence.lines[].endpoint_kind"
+      ],
+      "status": "scientific field",
+      "extension": null,
+      "coverage": "direct"
+    },
+    {
+      "catalogue_path": "evidence.lines[].human_proximity",
+      "card_paths": [
+        "added.layers.evidence.lines[].human_proximity"
+      ],
+      "status": "scientific field",
+      "extension": null,
+      "coverage": "direct"
+    },
+    {
       "catalogue_path": "evidence.lines[].sample_size",
       "card_paths": [
         "added.layers.evidence.lines[].sample_size"

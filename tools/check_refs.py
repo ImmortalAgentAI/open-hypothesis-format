@@ -28,7 +28,8 @@ assessment is later than `added.at`. A card whose kind is mechanism while every 
 only states existence, distribution or association gets a warning. In an OHF 1.1 card, an
 evidence line whose quote reports a result in numbers has a result estimate quoting those
 words, or a gap that says why not; a dose or an age in the quote that the line does not
-record gets a warning (`check_quotes`). The completeness
+record gets a warning (`check_quotes`); a declared `human_proximity` follows from the line's
+taxon and endpoint kind where the pinned taxon table allows it (`check_proximity`). The completeness
 level is computed by `check_completeness.py` and compared with the declared one.
 It assumes a card that already passes `tools/validate.py`.
 """
@@ -45,6 +46,7 @@ import check_completeness  # noqa: E402
 from check_gaps import filled, resolve_pointer, unwrap  # noqa: E402
 from strict_json import load  # noqa: E402
 
+ROOT = Path(__file__).resolve().parents[1]
 ZONES = ('author', 'added')
 COMPARABLE = ('system', 'endpoint', 'form', 'epistemic_status')
 VERSIONED = re.compile(r'h_[a-z0-9-]+@[1-9][0-9]*')
@@ -362,6 +364,49 @@ def gap_dispositions(card, index, member):
     return [gap.get('disposition') for gap in card.get('added', {}).get('gaps', []) if gap.get('path') in paths]
 
 
+# Rung of an evidence line's system (OHF 1.1): human endpoints by kind; other taxa by the pinned table.
+HUMAN_MARKER = {'biomarker', 'physiological', 'molecular'}
+HUMAN_CLINICAL = {'lifespan', 'mortality', 'function', 'disease', 'adverse_event'}
+STATED_ONLY = {'in_vitro', 'ex_vivo'}
+
+
+def derived_proximity(line, taxa):
+    """The rungs a line may declare, from its taxon and endpoint kind; None when they cannot be derived."""
+    system = line.get('system') if isinstance(line.get('system'), dict) else {}
+    taxon = taxa.get(unwrap(system.get('taxon_id')))
+    if taxon is None:
+        return None
+    if taxon != 'human':
+        return {taxon} | STATED_ONLY
+    kind = line.get('endpoint_kind') if isinstance(line.get('endpoint_kind'), dict) else {}
+    term = kind.get('term')
+    if term in HUMAN_MARKER:
+        return {'human_marker'} | STATED_ONLY
+    if term in HUMAN_CLINICAL:
+        return {'human_clinical'} | STATED_ONLY
+    return {'human_marker', 'human_clinical'} | STATED_ONLY
+
+
+def check_proximity(card, errors, warnings, terms=None):
+    """A declared human_proximity agrees with the rung its taxon and endpoint kind give."""
+    terms = terms if terms is not None else load(ROOT / 'vocabularies/terms-1.json')
+    taxa = {row['id']: row['proximity'] for row in terms['taxa']}
+    for index, line in enumerate(layers(card, 'added').get('evidence', {}).get('lines', [])):
+        declared = unwrap(line.get('human_proximity'))
+        if declared is None:
+            continue
+        path = f'evidence.lines[{index}].human_proximity'
+        allowed = derived_proximity(line, taxa)
+        if allowed is None:
+            if declared not in STATED_ONLY:
+                warnings.append(issue('REF_PROXIMITY_NOT_DERIVED', path,
+                                      'no taxon of the pinned table, so the rung cannot be checked'))
+        elif declared not in allowed:
+            errors.append(issue('REF_PROXIMITY_MISMATCH', path,
+                                f'{declared} does not follow from the taxon and endpoint kind: '
+                                + ' or '.join(sorted(allowed - STATED_ONLY))))
+
+
 def check_quotes(card, errors, warnings):
     """OHF 1.1: what a line's quote reports in numbers is also in the line's fields, or a gap says why not.
 
@@ -417,6 +462,7 @@ def check(card):
     check_integrity(card, errors, warnings)
     check_times(card, errors)
     check_quotes(card, errors, warnings)
+    check_proximity(card, errors, warnings)
     for ident, prediction in fields.items():
         missing = [key for key in COMPARABLE if key not in prediction]
         if prediction.get('form') == 'directional_contrast' and 'direction' not in prediction:

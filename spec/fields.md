@@ -1,6 +1,6 @@
 # Field reference
 
-This reference lists all 208 logical catalogue paths. Each path has a short example value from the catalogue. Where a card fills the path, a longer example follows: from the example card muller-sheltering, converted from a published article, or from a fictional test card, whose values describe a fictional system and are not scientific evidence. A JSON pointer identifies each card example. An absent concept is illustrated by the card's explicit gap; no missing value is invented. Definitions and logical types describe the concept before provenance wrappers.
+This reference lists all 210 logical catalogue paths. Each path has a short example value from the catalogue. Where a card fills the path, a longer example follows: from the example card muller-sheltering, converted from a published article, or from a fictional test card, whose values describe a fictional system and are not scientific evidence. A JSON pointer identifies each card example. An absent concept is illustrated by the card's explicit gap; no missing value is invented. Definitions and logical types describe the concept before provenance wrappers.
 
 Generated from [the reference data](field-reference.json) with `python tools/build_field_reference.py`. Edit the reference data and regenerate this file.
 
@@ -1768,6 +1768,22 @@ Which part of the study the result comes from: the whole sample or a named subgr
 Type: `Record`. Vocabulary: population: whole_sample | subgroup (with the subgroup named); outcome: primary | secondary | not_stated; analysis: pre_specified | post_hoc | not_stated. Basis: `ohf`. Class: `searchable`. Zones: `added`.
 
 Example value: subgroup: males on the lower dose; secondary outcome; analysis not stated
+
+### `evidence.lines[].endpoint_kind`
+
+Kind of endpoint the evidence line measures, as for predictions[].endpoint_kind.
+
+Type: `Term`. Vocabulary: Source wording in value and a closed term (ohf:terms@1, endpoint_kind), with a note for other. Basis: `ohf`. Class: `searchable`. Zones: `added`.
+
+Example value: biomarker
+
+### `evidence.lines[].human_proximity`
+
+How close the system of the evidence is to humans. Derived where it can be: from the taxon (ohf:terms@1, taxa) and the endpoint kind, by the rule in spec/README.md; in vitro and ex vivo are stated, not derived.
+
+Type: `Term`. Vocabulary: ohf:terms@1, human_proximity: in_vitro | ex_vivo | invertebrate | non_mammal_vertebrate | mammal | human_marker | human_clinical. Basis: `ohf`. Class: `searchable`. Zones: `added`.
+
+Example value: human_marker
 
 ### `evidence.lines[].sample_size`
 

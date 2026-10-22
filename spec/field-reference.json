@@ -2041,6 +2041,32 @@
     },
     {
       "layer": "4 Evidence",
+      "path": "evidence.lines[].endpoint_kind",
+      "definition": "Kind of endpoint the evidence line measures, as for predictions[].endpoint_kind.",
+      "logical_type": "Term",
+      "vocabulary": "Source wording in value and a closed term (ohf:terms@1, endpoint_kind), with a note for other",
+      "example": "biomarker",
+      "basis": "ohf",
+      "field_class": "searchable",
+      "zones": [
+        "added"
+      ]
+    },
+    {
+      "layer": "4 Evidence",
+      "path": "evidence.lines[].human_proximity",
+      "definition": "How close the system of the evidence is to humans. Derived where it can be: from the taxon (ohf:terms@1, taxa) and the endpoint kind, by the rule in spec/README.md; in vitro and ex vivo are stated, not derived.",
+      "logical_type": "Term",
+      "vocabulary": "ohf:terms@1, human_proximity: in_vitro | ex_vivo | invertebrate | non_mammal_vertebrate | mammal | human_marker | human_clinical",
+      "example": "human_marker",
+      "basis": "ohf",
+      "field_class": "searchable",
+      "zones": [
+        "added"
+      ]
+    },
+    {
+      "layer": "4 Evidence",
       "path": "evidence.lines[].sample_size",
       "definition": "Number of experimental units the result rests on, as the source states it.",
       "logical_type": "Quantity",

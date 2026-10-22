@@ -508,3 +508,61 @@ def test_a_1_0_card_has_no_excluded_records():
     card = excluded_card()
     as_1_0(card)
     assert '/added/layers/evidence' in {pointer(error) for error in validation_errors(SCHEMA, card)}
+
+
+# Item 6: rung of proximity to humans, derived from the taxon and the endpoint kind.
+def proximity_card(taxon_id, term, declared):
+    card = card_1_1()
+    line(card)['system']['taxon_id']['value'] = taxon_id
+    line(card)['endpoint_kind'] = {'value': 'fictional readout', 'src': 'prior_work', 'term': term}
+    line(card)['human_proximity'] = {'value': declared, 'src': 'prior_work'}
+    return card
+
+
+@pytest.mark.parametrize('taxon_id,term,declared', [
+    ('NCBITaxon:10090', 'lifespan', 'mammal'),
+    ('NCBITaxon:10090', 'molecular', 'in_vitro'),
+    ('NCBITaxon:9606', 'biomarker', 'human_marker'),
+    ('NCBITaxon:9606', 'function', 'human_clinical'),
+    ('NCBITaxon:9606', 'behaviour', 'human_clinical'),
+    ('NCBITaxon:7955', 'lifespan', 'non_mammal_vertebrate'),
+    ('NCBITaxon:6239', 'lifespan', 'invertebrate'),
+])
+def test_rung_that_follows_is_accepted(taxon_id, term, declared):
+    card = proximity_card(taxon_id, term, declared)
+    assert not validation_errors(SCHEMA, card)
+    assert 'REF_PROXIMITY_MISMATCH' not in ref_codes(card)
+
+
+@pytest.mark.parametrize('taxon_id,term,declared', [
+    ('NCBITaxon:10090', 'lifespan', 'human_clinical'),
+    ('NCBITaxon:9606', 'biomarker', 'human_clinical'),
+    ('NCBITaxon:9606', 'disease', 'human_marker'),
+    ('NCBITaxon:7955', 'lifespan', 'mammal'),
+    ('NCBITaxon:9606', 'lifespan', 'mammal'),
+], ids=['mouse_as_human', 'marker_as_clinical', 'clinical_as_marker', 'fish_as_mammal', 'human_as_mammal'])
+def test_rung_that_does_not_follow_is_an_error(taxon_id, term, declared):
+    assert 'REF_PROXIMITY_MISMATCH' in ref_codes(proximity_card(taxon_id, term, declared))
+
+
+def test_rung_outside_the_taxon_table_is_a_warning():
+    card = proximity_card('NCBITaxon:9999999', 'lifespan', 'mammal')
+    assert 'REF_PROXIMITY_NOT_DERIVED' in ref_codes(card, 'warnings')
+    assert 'REF_PROXIMITY_MISMATCH' not in ref_codes(card)
+
+
+def test_line_endpoint_kind_needs_its_term_in_1_1():
+    card = proximity_card('NCBITaxon:10090', 'lifespan', 'mammal')
+    line(card)['endpoint_kind'].pop('term')
+    assert LINE + '/endpoint_kind' in {pointer(error) for error in validation_errors(SCHEMA, card)}
+
+
+def test_rung_not_a_term_is_rejected():
+    card = proximity_card('NCBITaxon:10090', 'lifespan', 'rodent')
+    assert LINE + '/human_proximity/value' in {pointer(error) for error in validation_errors(SCHEMA, card)}
+
+
+def test_taxon_table_ids_are_ncbi_and_rungs_are_terms():
+    rungs = {term['id'] for term in TERMS['vocabularies']['human_proximity']} | {'human'}
+    for row in TERMS['taxa']:
+        assert row['id'].startswith('NCBITaxon:') and row['proximity'] in rungs
