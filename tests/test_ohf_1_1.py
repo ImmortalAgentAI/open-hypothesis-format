@@ -47,6 +47,9 @@ LINE_CONDITIONS = {
                      'route': {'value': 'in the feed', 'src': 'prior_work', 'term': 'diet'}},
     'sample_size': {'value': 48, 'src': 'prior_work'},
     'multi_site_program': {'value': {'program': 'fictional programme P', 'sites': 3}, 'src': 'prior_work'},
+    # Item 2: a subgroup result on a secondary outcome, as PEARL's HbA1c in males on the lower dose
+    'sample': {'value': {'population': 'subgroup', 'subgroup': 'females on the lower dose, fictional',
+                         'outcome': 'secondary', 'analysis': 'not_stated'}, 'src': 'prior_work'},
 }
 
 
@@ -85,13 +88,22 @@ MUTATIONS = {
     'v1_0_with_line_system': lambda card: (as_1_0(card), card['vocabularies'].pop('terms'),
                                            card['added']['layers']['predictions'].clear(),
                                            [line(card).pop(key) for key in ('intervention', 'sample_size',
-                                                                            'multi_site_program')],
+                                                                            'multi_site_program', 'sample')],
                                            line(card)['system'].pop('taxon_id')),
     'taxon_id_not_ncbi': lambda card: line(card)['system']['taxon_id'].__setitem__('value', 'NCBITaxon:mouse'),
     'line_route_without_term': lambda card: line(card)['intervention']['route'].pop('term'),
     'line_unknown_condition': lambda card: line(card)['system'].__setitem__('cage', {'value': 'x', 'src': 'x'}),
     'sample_size_zero': lambda card: line(card)['sample_size'].__setitem__('value', 0),
     'single_site_program': lambda card: line(card)['multi_site_program']['value'].__setitem__('sites', 1),
+    # M2: the sample of a result
+    'subgroup_unnamed': lambda card: line(card)['sample']['value'].pop('subgroup'),
+    'whole_sample_with_subgroup': lambda card: line(card)['sample']['value'].__setitem__('population', 'whole_sample'),
+    'sample_not_a_term': lambda card: line(card)['sample']['value'].__setitem__('population', 'subgroup_only'),
+    'sample_outcome_missing': lambda card: line(card)['sample']['value'].pop('outcome'),
+    'v1_0_with_sample': lambda card: (as_1_0(card), card['vocabularies'].pop('terms'),
+                                      card['added']['layers']['predictions'].clear(),
+                                      [line(card).pop(key) for key in ('system', 'intervention', 'sample_size',
+                                                                       'multi_site_program')]),
 }
 PREDICTION = '/added/layers/predictions/0'
 LINE = '/added/layers/evidence/lines/0'
@@ -115,6 +127,11 @@ EXPECTED = {
     'line_unknown_condition': LINE + '/system',
     'sample_size_zero': LINE + '/sample_size/value',
     'single_site_program': LINE + '/multi_site_program/value/sites',
+    'subgroup_unnamed': LINE + '/sample/value',
+    'whole_sample_with_subgroup': LINE + '/sample/value',
+    'sample_not_a_term': LINE + '/sample/value/population',
+    'sample_outcome_missing': LINE + '/sample/value',
+    'v1_0_with_sample': LINE,
 }
 
 

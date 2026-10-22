@@ -124,6 +124,7 @@ The catalogue distinguishes logical scientific fields from their storage. A dire
 | `evidence.lines[].intervention.intake` | `author.layers.evidence.lines[].intervention.intake`, `added.layers.evidence.lines[].intervention.intake` | scientific field |  |
 | `evidence.lines[].intervention.systemic_exposure` | `author.layers.evidence.lines[].intervention.systemic_exposure`, `added.layers.evidence.lines[].intervention.systemic_exposure` | scientific field |  |
 | `evidence.lines[].multi_site_program` | `added.layers.evidence.lines[].multi_site_program` | scientific field |  |
+| `evidence.lines[].sample` | `added.layers.evidence.lines[].sample` | scientific field |  |
 | `evidence.lines[].sample_size` | `added.layers.evidence.lines[].sample_size` | scientific field |  |
 | `evidence.lines[].study_type` | `author.layers.evidence.lines[].study_type`, `added.layers.evidence.lines[].study_type` | scientific field |  |
 | `evidence.lines[].result_estimate` | `author.layers.evidence.lines[].result_estimate`, `added.layers.evidence.lines[].result_estimate` | scientific field |  |

@@ -1,6 +1,6 @@
 # Field reference
 
-This reference lists all 205 logical catalogue paths. Each path has a short example value from the catalogue. Where a card fills the path, a longer example follows: from the example card muller-sheltering, converted from a published article, or from a fictional test card, whose values describe a fictional system and are not scientific evidence. A JSON pointer identifies each card example. An absent concept is illustrated by the card's explicit gap; no missing value is invented. Definitions and logical types describe the concept before provenance wrappers.
+This reference lists all 206 logical catalogue paths. Each path has a short example value from the catalogue. Where a card fills the path, a longer example follows: from the example card muller-sheltering, converted from a published article, or from a fictional test card, whose values describe a fictional system and are not scientific evidence. A JSON pointer identifies each card example. An absent concept is illustrated by the card's explicit gap; no missing value is invented. Definitions and logical types describe the concept before provenance wrappers.
 
 Generated from [the reference data](field-reference.json) with `python tools/build_field_reference.py`. Edit the reference data and regenerate this file.
 
@@ -1752,6 +1752,14 @@ The result comes from a programme that runs the same protocol at several sites, 
 Type: `Record`. Vocabulary: Programme name and number of sites, at least 2. Basis: `ohf`. Class: `searchable`. Zones: `added`.
 
 Example value: ITP, 3 sites
+
+### `evidence.lines[].sample`
+
+Which part of the study the result comes from: the whole sample or a named subgroup; a primary or secondary outcome; a pre-specified or post hoc analysis.
+
+Type: `Record`. Vocabulary: population: whole_sample | subgroup (with the subgroup named); outcome: primary | secondary | not_stated; analysis: pre_specified | post_hoc | not_stated. Basis: `ohf`. Class: `searchable`. Zones: `added`.
+
+Example value: subgroup: males on the lower dose; secondary outcome; analysis not stated
 
 ### `evidence.lines[].sample_size`
 

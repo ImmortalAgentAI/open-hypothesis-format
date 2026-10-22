@@ -2018,6 +2018,19 @@
     },
     {
       "layer": "4 Evidence",
+      "path": "evidence.lines[].sample",
+      "definition": "Which part of the study the result comes from: the whole sample or a named subgroup; a primary or secondary outcome; a pre-specified or post hoc analysis.",
+      "logical_type": "Record",
+      "vocabulary": "population: whole_sample | subgroup (with the subgroup named); outcome: primary | secondary | not_stated; analysis: pre_specified | post_hoc | not_stated",
+      "example": "subgroup: males on the lower dose; secondary outcome; analysis not stated",
+      "basis": "ohf",
+      "field_class": "searchable",
+      "zones": [
+        "added"
+      ]
+    },
+    {
+      "layer": "4 Evidence",
       "path": "evidence.lines[].sample_size",
       "definition": "Number of experimental units the result rests on, as the source states it.",
       "logical_type": "Quantity",

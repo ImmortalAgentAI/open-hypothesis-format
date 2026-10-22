@@ -1169,6 +1169,15 @@
       "coverage": "direct"
     },
     {
+      "catalogue_path": "evidence.lines[].sample",
+      "card_paths": [
+        "added.layers.evidence.lines[].sample"
+      ],
+      "status": "scientific field",
+      "extension": null,
+      "coverage": "direct"
+    },
+    {
       "catalogue_path": "evidence.lines[].sample_size",
       "card_paths": [
         "added.layers.evidence.lines[].sample_size"
