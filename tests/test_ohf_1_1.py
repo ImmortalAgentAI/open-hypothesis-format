@@ -698,3 +698,34 @@ def test_a_1_0_card_has_no_group_key():
     card = keyed_card()
     as_1_0(card)
     assert LINE + '/independence_group' in {pointer(error) for error in validation_errors(SCHEMA, card)}
+
+
+# Item 11c: prompt and time of a machine author's generation.
+def generated_card(kind='ai_system'):
+    card = card_1_1()
+    card['author']['generator'].update({'kind': kind, 'prompt': {'kind': 'artifact', 'sha256': 'sha256:' + '4' * 64},
+                                        'generated_at': '2025-12-31T23:00:00Z'})
+    return card
+
+
+def test_machine_generation_with_prompt_and_time_is_valid():
+    card = generated_card()
+    assert not validation_errors(SCHEMA, card)
+    assert 'REF_TIME_ORDER' not in ref_codes(card)
+
+
+@pytest.mark.parametrize('kind', ['human', 'unknown'])
+def test_prompt_needs_a_machine_author(kind):
+    assert '/author/generator' in {pointer(error) for error in validation_errors(SCHEMA, generated_card(kind))}
+
+
+def test_generation_after_submission_is_rejected():
+    card = generated_card()
+    card['author']['generator']['generated_at'] = '2099-01-01T00:00:00Z'
+    assert 'REF_TIME_ORDER' in ref_codes(card)
+
+
+def test_a_1_0_card_has_no_prompt():
+    card = generated_card()
+    as_1_0(card)
+    assert '/author/generator' in {pointer(error) for error in validation_errors(SCHEMA, card)}

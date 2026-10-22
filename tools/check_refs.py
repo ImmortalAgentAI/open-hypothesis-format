@@ -395,7 +395,12 @@ def nearest_assessment(card, pointer):
 
 
 def check_times(card, errors):
-    """No added-zone assessment is later than `added.at`."""
+    """No added-zone assessment is later than `added.at`; a generation is not later than its submission."""
+    generator = card.get('author', {}).get('generator', {})
+    generated, submitted = moment(generator.get('generated_at')), moment(card.get('author', {}).get('submitted_at'))
+    if generated and submitted and generated > submitted:
+        errors.append(issue('REF_TIME_ORDER', 'author.generator.generated_at',
+                            'generated_at is later than author.submitted_at'))
     written = moment(card.get('added', {}).get('at'))
     for _, path, node in zone_nodes(card, 'added'):
         if not (isinstance(node, dict) and isinstance(node.get('assessment'), dict)):

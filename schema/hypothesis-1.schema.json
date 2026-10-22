@@ -160,6 +160,13 @@
                   "type": "null"
                 }
               ]
+            },
+            "prompt": {
+              "$ref": "#/$defs/artifact_ref"
+            },
+            "generated_at": {
+              "type": "string",
+              "format": "date-time"
             }
           },
           "additionalProperties": false,
@@ -168,6 +175,39 @@
             "system",
             "system_version",
             "model"
+          ],
+          "allOf": [
+            {
+              "if": {
+                "properties": {
+                  "kind": {
+                    "enum": [
+                      "human",
+                      "unknown"
+                    ]
+                  }
+                },
+                "required": [
+                  "kind"
+                ]
+              },
+              "then": {
+                "not": {
+                  "anyOf": [
+                    {
+                      "required": [
+                        "prompt"
+                      ]
+                    },
+                    {
+                      "required": [
+                        "generated_at"
+                      ]
+                    }
+                  ]
+                }
+              }
+            }
           ]
         },
         "generation": {
@@ -11502,6 +11542,30 @@
                           }
                         }
                       }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          {
+            "properties": {
+              "author": {
+                "properties": {
+                  "generator": {
+                    "not": {
+                      "anyOf": [
+                        {
+                          "required": [
+                            "prompt"
+                          ]
+                        },
+                        {
+                          "required": [
+                            "generated_at"
+                          ]
+                        }
+                      ]
                     }
                   }
                 }
