@@ -1,6 +1,6 @@
 # Field reference
 
-This reference lists all 210 logical catalogue paths. Each path has a short example value from the catalogue. Where a card fills the path, a longer example follows: from the example card muller-sheltering, converted from a published article, or from a fictional test card, whose values describe a fictional system and are not scientific evidence. A JSON pointer identifies each card example. An absent concept is illustrated by the card's explicit gap; no missing value is invented. Definitions and logical types describe the concept before provenance wrappers.
+This reference lists all 212 logical catalogue paths. Each path has a short example value from the catalogue. Where a card fills the path, a longer example follows: from the example card muller-sheltering, converted from a published article, or from a fictional test card, whose values describe a fictional system and are not scientific evidence. A JSON pointer identifies each card example. An absent concept is illustrated by the card's explicit gap; no missing value is invented. Definitions and logical types describe the concept before provenance wrappers.
 
 Generated from [the reference data](field-reference.json) with `python tools/build_field_reference.py`. Edit the reference data and regenerate this file.
 
@@ -366,6 +366,22 @@ Example from card muller-sheltering at `/added/layers/core/atoms/0/modality`:
   "basis_quote": "It therefore seems plausible for LOF alleles to differentially affect the fitness of each sex, though this has not yet been systematically tested."
 }
 ```
+
+### `core.atoms[].requires`
+
+Atoms of this card that must hold for this atom to hold.
+
+Type: `Reference`. Vocabulary: Identifiers of atoms of this card. Basis: `ohf`. Class: `author_only`. Zones: `added`.
+
+Example value: a_mtorc1_inhibition
+
+### `core.atoms[].contradicts`
+
+Atoms of this card that cannot hold together with this atom as stated, such as a version the card states and rejects. Not a relation between hypotheses: that is evidence.
+
+Type: `Reference`. Vocabulary: Identifiers of atoms of this card. Basis: `ohf`. Class: `author_only`. Zones: `added`.
+
+Example value: a_mtorc1_inhibition
 
 ### `core.potential_benefit`
 
@@ -2429,9 +2445,9 @@ Example value: proposition-a@1 and proposition-b@1
 
 Curated relation of claims, not forced mutual exclusivity.
 
-Type: `Term`. Vocabulary: OHF: exclusive, compatible, nested, overlapping, unresolved. Basis: `ohf`. Class: `system`.
+Type: `Term`. Vocabulary: The relation types of ohf:hypothesis-relations@1: rival_same_explanandum | nested | compatible_independent | duplicate | refines | unrelated | analog | mechanism_neighbour. Basis: `ohf`. Class: `system`.
 
-Example value: compatible
+Example value: rival_same_explanandum
 
 ### `pair.discriminability`
 

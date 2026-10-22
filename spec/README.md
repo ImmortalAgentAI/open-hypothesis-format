@@ -160,8 +160,23 @@ A verdict concerns the source passage, not the truth of the claim. For an assess
 
 These artifacts are separate from cards.
 
-- `ohf:hypothesis-relations@1` ([schema](../schema/hypothesis-relations-1.schema.json)) records typed edges between card versions in a fixed pool: `rival_same_explanandum`, `nested`, `compatible_independent`, `duplicate`, `refines`, `unrelated`. Support and contradiction are evidence relations, not relations between hypotheses, and are not included.
+- `ohf:hypothesis-relations@1` ([schema](../schema/hypothesis-relations-1.schema.json)) records typed edges between card versions in a fixed pool: `rival_same_explanandum`, `nested`, `compatible_independent`, `duplicate`, `refines`, `unrelated`, and from OHF 1.1 `analog` and `mechanism_neighbour`. Support and contradiction are evidence relations, not relations between hypotheses, and are not included. Within one card, from OHF 1.1, `core.atoms[].requires` and `core.atoms[].contradicts` link atoms of that card.
 - `ohf:pair-brief@1` ([schema](../schema/pair-brief-1.schema.json)) describes two card versions side by side: their relation, the observations both explain, the observations they expect differently, and a decisive test or a gap saying why none is known. It does not judge which hypothesis is better.
+
+Definitions of the relation types, from OHF 1.1. Source and target are card versions, or from OHF 1.1 one record of each, such as an atom, named by `pointer`:
+
+| Type | The source and the target |
+| --- | --- |
+| `rival_same_explanandum` | explain the same observation, and as stated they cannot both be its main explanation |
+| `nested` | the source is a special case of the target: what the source states, the target states for a wider scope |
+| `compatible_independent` | can both hold, and neither depends on the other |
+| `duplicate` | state the same claim for the same scope |
+| `refines` | the source is a revision of the target: the same claim stated more precisely, more narrowly or corrected |
+| `unrelated` | were compared and stand in none of the other relations |
+| `analog` | make the same kind of claim about different agents or systems that share what the claim depends on, such as two compounds with the same molecular target and class (OHF 1.1) |
+| `mechanism_neighbour` | make different claims that act through the same or an adjacent mechanism, without being rivals or nested (OHF 1.1) |
+
+An edge between records describes those records only: two atoms of two cards can be compatible while the cards are rivals.
 
 A pair brief repeats the relation of its two card versions. The relations artifact is the record of that relation: if a pair brief and a relations artifact disagree about the same two card versions, the relations artifact holds and the pair brief must be corrected.
 

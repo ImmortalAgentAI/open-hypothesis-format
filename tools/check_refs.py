@@ -89,6 +89,8 @@ POINTERS = {
 REFERENCES = {
     'core.atoms[].parent_ref': (('atom',), {'id', 'pointer', 'version', 'external', 'null'}),
     'core.explains[].atom_refs[]': (('atom',), {'id'}),
+    'core.atoms[].requires[]': (('atom',), {'id'}),
+    'core.atoms[].contradicts[]': (('atom',), {'id'}),
     'core.explains[].prediction_refs[]': (('prediction',), {'id'}),
     'core.reinterprets[].atom_refs[]': (('atom',), {'id'}),
     'core.opens[].atom_refs[]': (('atom',), {'id'}),
@@ -291,6 +293,36 @@ def check_parents(card, errors):
             errors.append(issue('REF_WRONG_TARGET', parents[start][1], f'Atom {start!r} is its own ancestor'))
 
 
+def check_atom_links(card, errors):
+    """An atom neither requires nor contradicts itself, and requires has no cycle (OHF 1.1)."""
+    atoms = layers(card, 'added').get('core', {}).get('atoms', [])
+    requires = {}
+    for i, atom in enumerate(atoms):
+        ident = unwrap(atom.get('id'))
+        for name in ('requires', 'contradicts'):
+            linked = unwrap(atom.get(name)) or []
+            if ident in linked:
+                errors.append(issue('REF_ATOM_LINK', f'added.core.atoms[{i}].{name}', f'An atom cannot {name[:-1]} itself'))
+        requires[ident] = [ref for ref in unwrap(atom.get('requires')) or [] if ref != ident]
+    state = {}
+
+    def visit(ident, trail):
+        if state.get(ident) == 'done':
+            return
+        if state.get(ident) == 'open':
+            errors.append(issue('REF_ATOM_LINK', 'added.core.atoms', 'requires forms a cycle: '
+                                + ' -> '.join(trail[trail.index(ident):] + [ident])))
+            return
+        state[ident] = 'open'
+        for target in requires.get(ident, []):
+            if target in requires:
+                visit(target, trail + [ident])
+        state[ident] = 'done'
+
+    for ident in requires:
+        visit(ident, [])
+
+
 def check_sources(card, errors):
     """Every `src` in the added zone names a record of `added.sources`."""
     added = card.get('added', {})
@@ -387,20 +419,28 @@ def derived_proximity(line, taxa):
     return {'human_marker', 'human_clinical'} | STATED_ONLY
 
 
-def check_proximity(card, errors, warnings, terms=None):
-    """A declared human_proximity agrees with the rung its taxon and endpoint kind give."""
+def check_proximity(card, errors, warnings, taxa=None, terms=None):
+    """A declared human_proximity agrees with the rung its taxon and endpoint kind give.
+
+    `taxa` is an optional list of further rows of the form of the pinned table, such as a
+    converter's taxa.json; a row adds a taxon the pinned table lacks and never overrides one.
+    A row whose proximity is null names a taxon that has no rung, such as one outside the animals.
+    """
     terms = terms if terms is not None else load(ROOT / 'vocabularies/terms-1.json')
-    taxa = {row['id']: row['proximity'] for row in terms['taxa']}
+    table = {row['id']: row['proximity'] for row in terms['taxa']}
+    for row in taxa or []:
+        table.setdefault(row['id'], row.get('proximity'))
+    known = {ident: rung for ident, rung in table.items() if rung is not None}
     for index, line in enumerate(layers(card, 'added').get('evidence', {}).get('lines', [])):
         declared = unwrap(line.get('human_proximity'))
         if declared is None:
             continue
         path = f'evidence.lines[{index}].human_proximity'
-        allowed = derived_proximity(line, taxa)
+        allowed = derived_proximity(line, known)
         if allowed is None:
             if declared not in STATED_ONLY:
                 warnings.append(issue('REF_PROXIMITY_NOT_DERIVED', path,
-                                      'no taxon of the pinned table, so the rung cannot be checked'))
+                                      'the taxon has no rung in the pinned table or the given taxa'))
         elif declared not in allowed:
             errors.append(issue('REF_PROXIMITY_MISMATCH', path,
                                 f'{declared} does not follow from the taxon and endpoint kind: '
@@ -440,7 +480,7 @@ def check_quotes(card, errors, warnings):
                                       f'the quote names a {member.replace("_", " ")} the line does not record'))
 
 
-def check(card):
+def check(card, taxa=None):
     errors, warnings, external, comparable, not_comparable = [], [], [], [], []
     fields = {}
     if card.get('standard_version') not in ('1.0', '1.1'):
@@ -453,6 +493,7 @@ def check(card):
                             'author and added zones select different domain profiles'))
     check_references(card, ids, errors, external)
     check_sources(card, errors)
+    check_atom_links(card, errors)
     check_generation(card, errors)
     for zone in ZONES:
         for prediction in layers(card, zone).get('predictions', []):
@@ -462,7 +503,7 @@ def check(card):
     check_integrity(card, errors, warnings)
     check_times(card, errors)
     check_quotes(card, errors, warnings)
-    check_proximity(card, errors, warnings)
+    check_proximity(card, errors, warnings, taxa)
     for ident, prediction in fields.items():
         missing = [key for key in COMPARABLE if key not in prediction]
         if prediction.get('form') == 'directional_contrast' and 'direction' not in prediction:
@@ -533,10 +574,12 @@ def check_integrity(card, errors, warnings):
 def main():
     parser = argparse.ArgumentParser(description=__doc__.split('\n')[0])
     parser.add_argument('cards', type=Path, nargs='+')
+    parser.add_argument('--taxa', type=Path, help='further taxon rows for human_proximity, such as taxa.json')
     args = parser.parse_args()
+    taxa = load(args.taxa)['taxa'] if args.taxa else None
     failed = False
     for path in args.cards:
-        result = check(load(path))
+        result = check(load(path), taxa)
         print(json.dumps({'card': str(path), **result}, ensure_ascii=False))
         failed |= not result['valid']
     return int(failed)

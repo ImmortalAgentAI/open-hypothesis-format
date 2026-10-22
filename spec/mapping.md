@@ -208,6 +208,8 @@ The catalogue distinguishes logical scientific fields from their storage. A dire
 | `core.atoms[].claim_type` | `added.layers.core.atoms[].claim_type` | scientific field |  |
 | `core.atoms[].role` | `added.layers.core.atoms[].role` | scientific field |  |
 | `core.atoms[].modality` | `added.layers.core.atoms[].modality` | scientific field |  |
+| `core.atoms[].requires` | `added.layers.core.atoms[].requires` | scientific field |  |
+| `core.atoms[].contradicts` | `added.layers.core.atoms[].contradicts` | scientific field |  |
 | `evidence.lines[].indirectness` | `added.layers.evidence.lines[].indirectness` | scientific field |  |
 | `evidence.lines[].risk_of_bias` | `added.layers.evidence.lines[].risk_of_bias` | scientific field |  |
 | `evidence.lines[].independence_group` | `added.layers.evidence.lines[].independence_group` | scientific field |  |

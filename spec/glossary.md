@@ -94,7 +94,7 @@ This glossary defines the terms the Open Hypothesis Format (OHF) specification u
 
 **Reference checker.** `tools/check_refs.py`: resolves the internal references of a schema-valid card, applies the integrity rules the schema cannot express, and reports which predictions are comparable. See the [checker](../tools/check_refs.py).
 
-**Relations artifact.** A detached artifact, [`ohf:hypothesis-relations@1`](../schema/hypothesis-relations-1.schema.json), that records typed edges between card versions in a fixed pool: `rival_same_explanandum`, `nested`, `compatible_independent`, `duplicate`, `refines` or `unrelated`. Support and contradiction are evidence relations and are not included. See [relations and pair briefs](README.md#relations-and-pair-briefs).
+**Relations artifact.** A detached artifact, [`ohf:hypothesis-relations@1`](../schema/hypothesis-relations-1.schema.json), that records typed edges between card versions in a fixed pool: `rival_same_explanandum`, `nested`, `compatible_independent`, `duplicate`, `refines`, `unrelated`, and from OHF 1.1 `analog` or `mechanism_neighbour`; from OHF 1.1 an edge may join single records, such as atoms, of the two card versions. Support and contradiction are evidence relations and are not included. See [relations and pair briefs](README.md#relations-and-pair-briefs).
 
 **Risk of bias.** `evidence.lines[].risk_of_bias`: the risk that the study behind an evidence line is biased: `low`, `some`, `high` or `not_assessed`, with an optional tool reference and note. It is an assessment in OHF's own vocabulary, not mapped to RoB 2. See [fields](fields.md).
 

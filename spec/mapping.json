@@ -2007,6 +2007,24 @@
       "coverage": "direct"
     },
     {
+      "catalogue_path": "core.atoms[].requires",
+      "card_paths": [
+        "added.layers.core.atoms[].requires"
+      ],
+      "status": "scientific field",
+      "extension": null,
+      "coverage": "direct"
+    },
+    {
+      "catalogue_path": "core.atoms[].contradicts",
+      "card_paths": [
+        "added.layers.core.atoms[].contradicts"
+      ],
+      "status": "scientific field",
+      "extension": null,
+      "coverage": "direct"
+    },
+    {
       "catalogue_path": "evidence.lines[].indirectness",
       "card_paths": [
         "added.layers.evidence.lines[].indirectness"

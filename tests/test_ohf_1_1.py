@@ -566,3 +566,87 @@ def test_taxon_table_ids_are_ncbi_and_rungs_are_terms():
     rungs = {term['id'] for term in TERMS['vocabularies']['human_proximity']} | {'human'}
     for row in TERMS['taxa']:
         assert row['id'].startswith('NCBITaxon:') and row['proximity'] in rungs
+
+
+# Item 9: links between atoms of a card; atom-level edges and two new types between cards.
+RELATIONS = load(ROOT / 'schema/hypothesis-relations-1.schema.json')
+PAIR_BRIEF = load(ROOT / 'schema/pair-brief-1.schema.json')
+EDGES = load(ROOT / 'tests/fixtures/fictional/relations-six-seven.json')
+
+
+def atom(ident, **links):
+    record = {'id': ident, 'statement': {'value': f'Fictional claim {ident}.', 'src': 'statement'},
+              'claim_type': {'value': 'causal_effect', 'src': 'statement'},
+              'role': {'value': 'core', 'src': 'statement'},
+              'modality': {'value': 'proposed', 'src': 'statement', 'basis_quote': 'It is proposed, fictional.'}}
+    record.update({name: {'value': refs, 'src': 'statement'} for name, refs in links.items()})
+    return record
+
+
+def atoms_card(*atoms):
+    card = card_1_1()
+    card['added']['layers']['core']['atoms'] = list(atoms)
+    return card
+
+
+def test_atom_links_are_valid():
+    card = atoms_card(atom('a1', requires=['a2']), atom('a2'), atom('a3', contradicts=['a1']))
+    assert not validation_errors(SCHEMA, card)
+    assert check_refs(card)['valid'], check_refs(card)['errors']
+
+
+@pytest.mark.parametrize('atoms,code', [
+    ((atom('a1', requires=['a1']),), 'REF_ATOM_LINK'),
+    ((atom('a1', contradicts=['a1']),), 'REF_ATOM_LINK'),
+    ((atom('a1', requires=['a2']), atom('a2', requires=['a3']), atom('a3', requires=['a1'])), 'REF_ATOM_LINK'),
+    ((atom('a1', contradicts=['a9']),), 'REF_UNKNOWN_ID'),
+    ((atom('a1', requires=['p1']),), 'REF_WRONG_TARGET'),
+], ids=['requires_itself', 'contradicts_itself', 'requires_cycle', 'contradicts_nothing', 'requires_a_prediction'])
+def test_atom_link_mutation_is_reported(atoms, code):
+    assert code in ref_codes(atoms_card(*atoms))
+
+
+def test_a_1_0_card_has_no_atom_links():
+    card = atoms_card(atom('a1', requires=['a2']), atom('a2'))
+    as_1_0(card)
+    assert '/added/layers/core/atoms/0' in {pointer(error) for error in validation_errors(SCHEMA, card)}
+
+
+def test_edge_between_atoms_with_a_new_type_is_valid():
+    edges = copy.deepcopy(EDGES)
+    edges['edges'][0]['type'] = 'mechanism_neighbour'
+    edges['edges'][0]['source']['pointer'] = '/added/layers/core/atoms/4'
+    edges['edges'][0]['target']['pointer'] = '/added/layers/core/atoms/4'
+    assert not validation_errors(RELATIONS, edges)
+
+
+@pytest.mark.parametrize('mutate', [
+    lambda edge: edge.__setitem__('type', 'contradiction'),
+    lambda edge: edge['source'].__setitem__('pointer', 'core/atoms/4'),
+    lambda edge: edge['target'].__setitem__('pointer', '/appendix/notes'),
+], ids=['contradiction_type', 'pointer_not_absolute', 'pointer_outside_layers'])
+def test_edge_mutation_is_rejected(mutate):
+    edges = copy.deepcopy(EDGES)
+    mutate(edges['edges'][0])
+    assert validation_errors(RELATIONS, edges)
+
+
+def test_relation_types_agree_across_relations_pair_brief_and_catalogue():
+    types = RELATIONS['properties']['edges']['items']['properties']['type']['enum']
+    assert PAIR_BRIEF['properties']['relation']['enum'] == types
+    row = next(row for row in CATALOGUE['fields'] if row['path'] == 'pair.relation')
+    assert row['vocabulary'].split(': ', 1)[1].split(' | ') == types
+
+
+def test_given_taxa_extend_the_table_and_never_override_it():
+    pigeon = {'id': 'NCBITaxon:8932', 'label': 'Columba livia', 'proximity': 'non_mammal_vertebrate',
+              'by': 'NCBITaxon:7742 Vertebrata'}
+    yeast = {'id': 'NCBITaxon:4932', 'label': 'Saccharomyces cerevisiae', 'proximity': None, 'by': 'not an animal'}
+    mouse_as_human = {'id': 'NCBITaxon:10090', 'label': 'Mus musculus', 'proximity': 'human'}
+    taxa = [pigeon, yeast, mouse_as_human]
+    codes = lambda card: {item['code'] for kind in ('errors', 'warnings') for item in check_refs(card, taxa)[kind]}
+    assert not codes(proximity_card('NCBITaxon:8932', 'lifespan', 'non_mammal_vertebrate')) & {
+        'REF_PROXIMITY_MISMATCH', 'REF_PROXIMITY_NOT_DERIVED'}
+    assert 'REF_PROXIMITY_MISMATCH' in codes(proximity_card('NCBITaxon:8932', 'lifespan', 'mammal'))
+    assert 'REF_PROXIMITY_NOT_DERIVED' in codes(proximity_card('NCBITaxon:4932', 'molecular', 'invertebrate'))
+    assert 'REF_PROXIMITY_MISMATCH' in codes(proximity_card('NCBITaxon:10090', 'biomarker', 'human_marker'))

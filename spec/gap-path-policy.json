@@ -1034,6 +1034,16 @@
       "reason": "No exception: missing input, unknown scope, exhausted budget or failed search is not scientific inapplicability."
     },
     {
+      "path": "core.atoms[].requires",
+      "na_allowed": "never",
+      "reason": "No exception: missing input, unknown scope, exhausted budget or failed search is not scientific inapplicability."
+    },
+    {
+      "path": "core.atoms[].contradicts",
+      "na_allowed": "never",
+      "reason": "No exception: missing input, unknown scope, exhausted budget or failed search is not scientific inapplicability."
+    },
+    {
       "path": "evidence.lines[].indirectness",
       "na_allowed": "never",
       "reason": "No exception: missing input, unknown scope, exhausted budget or failed search is not scientific inapplicability."

@@ -334,6 +334,32 @@
     },
     {
       "layer": "1 Claim core",
+      "path": "core.atoms[].requires",
+      "definition": "Atoms of this card that must hold for this atom to hold.",
+      "logical_type": "Reference",
+      "vocabulary": "Identifiers of atoms of this card",
+      "example": "a_mtorc1_inhibition",
+      "basis": "ohf",
+      "field_class": "author_only",
+      "zones": [
+        "added"
+      ]
+    },
+    {
+      "layer": "1 Claim core",
+      "path": "core.atoms[].contradicts",
+      "definition": "Atoms of this card that cannot hold together with this atom as stated, such as a version the card states and rejects. Not a relation between hypotheses: that is evidence.",
+      "logical_type": "Reference",
+      "vocabulary": "Identifiers of atoms of this card",
+      "example": "a_mtorc1_inhibition",
+      "basis": "ohf",
+      "field_class": "author_only",
+      "zones": [
+        "added"
+      ]
+    },
+    {
+      "layer": "1 Claim core",
       "path": "core.potential_benefit",
       "definition": "Source-grounded potential benefit, target system, causal bridge, horizon and constraints without an unsupported effect estimate.",
       "logical_type": "PotentialBenefit",
@@ -2105,8 +2131,8 @@
       "path": "pair.relation",
       "definition": "Curated relation of claims, not forced mutual exclusivity.",
       "logical_type": "Term",
-      "vocabulary": "OHF: exclusive, compatible, nested, overlapping, unresolved",
-      "example": "compatible",
+      "vocabulary": "The relation types of ohf:hypothesis-relations@1: rival_same_explanandum | nested | compatible_independent | duplicate | refines | unrelated | analog | mechanism_neighbour",
+      "example": "rival_same_explanandum",
       "basis": "ohf",
       "field_class": "system"
     },
