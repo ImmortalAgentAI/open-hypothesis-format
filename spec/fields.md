@@ -1,6 +1,6 @@
 # Field reference
 
-This reference lists all 212 logical catalogue paths. Each path has a short example value from the catalogue. Where a card fills the path, a longer example follows: from the example card muller-sheltering, converted from a published article, or from a fictional test card, whose values describe a fictional system and are not scientific evidence. A JSON pointer identifies each card example. An absent concept is illustrated by the card's explicit gap; no missing value is invented. Definitions and logical types describe the concept before provenance wrappers.
+This reference lists all 213 logical catalogue paths. Each path has a short example value from the catalogue. Where a card fills the path, a longer example follows: from the example card muller-sheltering, converted from a published article, or from a fictional test card, whose values describe a fictional system and are not scientific evidence. A JSON pointer identifies each card example. An absent concept is illustrated by the card's explicit gap; no missing value is invented. Definitions and logical types describe the concept before provenance wrappers.
 
 Generated from [the reference data](field-reference.json) with `python tools/build_field_reference.py`. Edit the reference data and regenerate this file.
 
@@ -2011,6 +2011,14 @@ Example from fictional card fx_eight at `/added/layers/evidence/lines/1/independ
   "src": "run_b"
 }
 ```
+
+### `evidence.lines[].independence_group.key`
+
+Where the data of the group first appeared: the article, registry record or accession. Lines of two cards with the same key rest on the same data, whatever their labels.
+
+Type: `Identifier`. Vocabulary: scheme doi | pmid | pmcid | registry | accession, and its identifier. Basis: `ohf`. Class: `searchable`. Zones: `added`.
+
+Example value: registry NCT04488601
 
 ### `evidence.lines[].argument_kind`
 

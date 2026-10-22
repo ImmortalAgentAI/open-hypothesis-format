@@ -213,6 +213,7 @@ The catalogue distinguishes logical scientific fields from their storage. A dire
 | `evidence.lines[].indirectness` | `added.layers.evidence.lines[].indirectness` | scientific field |  |
 | `evidence.lines[].risk_of_bias` | `added.layers.evidence.lines[].risk_of_bias` | scientific field |  |
 | `evidence.lines[].independence_group` | `added.layers.evidence.lines[].independence_group` | scientific field |  |
+| `evidence.lines[].independence_group.key` | `added.layers.evidence.lines[].independence_group.key` | scientific field |  |
 | `evidence.lines[].argument_kind` | `added.layers.evidence.lines[].argument_kind` | scientific field |  |
 | `evidence.selection_record` | `added.layers.evidence.selection_record` | scientific field |  |
 | `evidence.excluded[]` | `added.layers.evidence.excluded[]` | scientific field |  |

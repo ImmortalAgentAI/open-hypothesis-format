@@ -2052,6 +2052,15 @@
       "coverage": "direct"
     },
     {
+      "catalogue_path": "evidence.lines[].independence_group.key",
+      "card_paths": [
+        "added.layers.evidence.lines[].independence_group.key"
+      ],
+      "status": "scientific field",
+      "extension": null,
+      "coverage": "direct"
+    },
+    {
       "catalogue_path": "evidence.lines[].argument_kind",
       "card_paths": [
         "added.layers.evidence.lines[].argument_kind"

@@ -323,6 +323,22 @@ def check_atom_links(card, errors):
         visit(ident, [])
 
 
+def check_independence(card, errors):
+    """One independence group, one key: a label names one data origin and an origin one label (OHF 1.1)."""
+    labels, keys = {}, {}
+    for i, line in enumerate(layers(card, 'added').get('evidence', {}).get('lines', [])):
+        group = line.get('independence_group')
+        if not (isinstance(group, dict) and isinstance(group.get('key'), dict)):
+            continue
+        label, key = group.get('value'), (group['key'].get('scheme'), group['key'].get('id'))
+        path = f'evidence.lines[{i}].independence_group'
+        if labels.setdefault(label, key) != key:
+            errors.append(issue('REF_INDEPENDENCE_KEY', path, f'group {label!r} has two keys'))
+        if keys.setdefault(key, label) != label:
+            errors.append(issue('REF_INDEPENDENCE_KEY', path, f'key {key[0]} {key[1]} has two groups: '
+                                f'{keys[key]!r} and {label!r}'))
+
+
 def check_sources(card, errors):
     """Every `src` in the added zone names a record of `added.sources`."""
     added = card.get('added', {})
@@ -494,6 +510,7 @@ def check(card, taxa=None):
     check_references(card, ids, errors, external)
     check_sources(card, errors)
     check_atom_links(card, errors)
+    check_independence(card, errors)
     check_generation(card, errors)
     for zone in ZONES:
         for prediction in layers(card, zone).get('predictions', []):

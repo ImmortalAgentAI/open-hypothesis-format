@@ -57,7 +57,7 @@ def test_policy_counts():
     counts = {}
     for row in POLICY['fields']:
         counts[row['na_allowed']] = counts.get(row['na_allowed'], 0) + 1
-    assert counts == {'never': 194, 'scope': 5, 'contract': 13}
+    assert counts == {'never': 195, 'scope': 5, 'contract': 13}
 
 
 def test_intervention_claim_cannot_declare_pharmacology_inapplicable():

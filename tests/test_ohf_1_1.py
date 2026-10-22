@@ -650,3 +650,51 @@ def test_given_taxa_extend_the_table_and_never_override_it():
     assert 'REF_PROXIMITY_MISMATCH' in codes(proximity_card('NCBITaxon:8932', 'lifespan', 'mammal'))
     assert 'REF_PROXIMITY_NOT_DERIVED' in codes(proximity_card('NCBITaxon:4932', 'molecular', 'invertebrate'))
     assert 'REF_PROXIMITY_MISMATCH' in codes(proximity_card('NCBITaxon:10090', 'biomarker', 'human_marker'))
+
+
+# Item 11b: an independence group keyed by where its data first appeared.
+def keyed_card():
+    card = alternatives_card()
+    lines = card['added']['layers']['evidence']['lines']
+    lines.append({'id': {'value': 'e2', 'src': 'prior_work'}})
+    for record in lines:
+        record['independence_group'] = {'value': 'g_trial', 'src': 'prior_work',
+                                        'key': {'scheme': 'registry', 'id': 'NCT00000000'}}
+    return card
+
+
+def groups(card):
+    return [record['independence_group'] for record in card['added']['layers']['evidence']['lines']]
+
+
+def test_keyed_groups_are_valid():
+    card = keyed_card()
+    assert not validation_errors(SCHEMA, card)
+    assert check_refs(card)['valid'], check_refs(card)['errors']
+
+
+def test_one_key_with_two_labels_is_rejected():
+    card = keyed_card()
+    groups(card)[1]['value'] = 'g_other_label'
+    assert 'REF_INDEPENDENCE_KEY' in ref_codes(card)
+
+
+def test_one_label_with_two_keys_is_rejected():
+    card = keyed_card()
+    groups(card)[1]['key'] = {'scheme': 'doi', 'id': '10.0000/fictional'}
+    assert 'REF_INDEPENDENCE_KEY' in ref_codes(card)
+
+
+@pytest.mark.parametrize('scheme,ident', [('doi', 'not-a-doi'), ('pmid', '0123'), ('pmcid', '12345'),
+                                          ('isbn', '978')])
+def test_key_identifier_follows_its_scheme(scheme, ident):
+    card = keyed_card()
+    groups(card)[0]['key'] = {'scheme': scheme, 'id': ident}
+    assert any(path.startswith(LINE + '/independence_group/key') for path in map(
+        pointer, validation_errors(SCHEMA, card)))
+
+
+def test_a_1_0_card_has_no_group_key():
+    card = keyed_card()
+    as_1_0(card)
+    assert LINE + '/independence_group' in {pointer(error) for error in validation_errors(SCHEMA, card)}

@@ -2338,6 +2338,19 @@
     },
     {
       "layer": "4 Evidence",
+      "path": "evidence.lines[].independence_group.key",
+      "definition": "Where the data of the group first appeared: the article, registry record or accession. Lines of two cards with the same key rest on the same data, whatever their labels.",
+      "logical_type": "Identifier",
+      "vocabulary": "scheme doi | pmid | pmcid | registry | accession, and its identifier",
+      "example": "registry NCT04488601",
+      "basis": "ohf",
+      "field_class": "searchable",
+      "zones": [
+        "added"
+      ]
+    },
+    {
+      "layer": "4 Evidence",
       "path": "evidence.lines[].argument_kind",
       "definition": "Whether the line rests on observation or experiment (empirical), on a simulation, or on a mathematical derivation or proof.",
       "logical_type": "Term",
