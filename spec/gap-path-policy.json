@@ -223,6 +223,11 @@
       "reason": "No exception: missing input, unknown scope, exhausted budget or failed search is not scientific inapplicability."
     },
     {
+      "path": "predictions[].system.taxon_id",
+      "na_allowed": "never",
+      "reason": "No exception: missing input, unknown scope, exhausted budget or failed search is not scientific inapplicability."
+    },
+    {
       "path": "predictions[].system.strain_or_line",
       "na_allowed": "never",
       "reason": "No exception: missing input, unknown scope, exhausted budget or failed search is not scientific inapplicability."
@@ -484,6 +489,121 @@
     },
     {
       "path": "evidence.lines[].study_system",
+      "na_allowed": "never",
+      "reason": "No exception: missing input, unknown scope, exhausted budget or failed search is not scientific inapplicability."
+    },
+    {
+      "path": "evidence.lines[].system.taxon",
+      "na_allowed": "never",
+      "reason": "No exception: missing input, unknown scope, exhausted budget or failed search is not scientific inapplicability."
+    },
+    {
+      "path": "evidence.lines[].system.taxon_id",
+      "na_allowed": "never",
+      "reason": "No exception: missing input, unknown scope, exhausted budget or failed search is not scientific inapplicability."
+    },
+    {
+      "path": "evidence.lines[].system.strain_or_line",
+      "na_allowed": "never",
+      "reason": "No exception: missing input, unknown scope, exhausted budget or failed search is not scientific inapplicability."
+    },
+    {
+      "path": "evidence.lines[].system.sex",
+      "na_allowed": "never",
+      "reason": "No exception: missing input, unknown scope, exhausted budget or failed search is not scientific inapplicability."
+    },
+    {
+      "path": "evidence.lines[].system.age_at_start",
+      "na_allowed": "never",
+      "reason": "No exception: missing input, unknown scope, exhausted budget or failed search is not scientific inapplicability."
+    },
+    {
+      "path": "evidence.lines[].system.assessment_age",
+      "na_allowed": "never",
+      "reason": "No exception: missing input, unknown scope, exhausted budget or failed search is not scientific inapplicability."
+    },
+    {
+      "path": "evidence.lines[].system.site",
+      "na_allowed": "never",
+      "reason": "No exception: missing input, unknown scope, exhausted budget or failed search is not scientific inapplicability."
+    },
+    {
+      "path": "evidence.lines[].system.kind",
+      "na_allowed": "never",
+      "reason": "No exception: missing input, unknown scope, exhausted budget or failed search is not scientific inapplicability."
+    },
+    {
+      "path": "evidence.lines[].system.environment",
+      "na_allowed": "never",
+      "reason": "No exception: missing input, unknown scope, exhausted budget or failed search is not scientific inapplicability."
+    },
+    {
+      "path": "evidence.lines[].system.spatial_scale",
+      "na_allowed": "never",
+      "reason": "No exception: missing input, unknown scope, exhausted budget or failed search is not scientific inapplicability."
+    },
+    {
+      "path": "evidence.lines[].system.temporal_scale",
+      "na_allowed": "never",
+      "reason": "No exception: missing input, unknown scope, exhausted budget or failed search is not scientific inapplicability."
+    },
+    {
+      "path": "evidence.lines[].intervention.agent",
+      "na_allowed": "never",
+      "reason": "A field of the intervention-pharmacology domain profile. A card with profile.domain \"none\" leaves it absent and records no gap; a card in that profile has no N/A exception."
+    },
+    {
+      "path": "evidence.lines[].intervention.dose",
+      "na_allowed": "never",
+      "reason": "A field of the intervention-pharmacology domain profile. A card with profile.domain \"none\" leaves it absent and records no gap; a card in that profile has no N/A exception."
+    },
+    {
+      "path": "evidence.lines[].intervention.regimen",
+      "na_allowed": "never",
+      "reason": "A field of the intervention-pharmacology domain profile. A card with profile.domain \"none\" leaves it absent and records no gap; a card in that profile has no N/A exception."
+    },
+    {
+      "path": "evidence.lines[].intervention.duration",
+      "na_allowed": "never",
+      "reason": "A field of the intervention-pharmacology domain profile. A card with profile.domain \"none\" leaves it absent and records no gap; a card in that profile has no N/A exception."
+    },
+    {
+      "path": "evidence.lines[].intervention.route",
+      "na_allowed": "never",
+      "reason": "A field of the intervention-pharmacology domain profile. A card with profile.domain \"none\" leaves it absent and records no gap; a card in that profile has no N/A exception."
+    },
+    {
+      "path": "evidence.lines[].intervention.formulation",
+      "na_allowed": "never",
+      "reason": "A field of the intervention-pharmacology domain profile. A card with profile.domain \"none\" leaves it absent and records no gap; a card in that profile has no N/A exception."
+    },
+    {
+      "path": "evidence.lines[].intervention.nominal_concentration",
+      "na_allowed": "never",
+      "reason": "A field of the intervention-pharmacology domain profile. A card with profile.domain \"none\" leaves it absent and records no gap; a card in that profile has no N/A exception."
+    },
+    {
+      "path": "evidence.lines[].intervention.measured_concentration",
+      "na_allowed": "never",
+      "reason": "A field of the intervention-pharmacology domain profile. A card with profile.domain \"none\" leaves it absent and records no gap; a card in that profile has no N/A exception."
+    },
+    {
+      "path": "evidence.lines[].intervention.intake",
+      "na_allowed": "never",
+      "reason": "A field of the intervention-pharmacology domain profile. A card with profile.domain \"none\" leaves it absent and records no gap; a card in that profile has no N/A exception."
+    },
+    {
+      "path": "evidence.lines[].intervention.systemic_exposure",
+      "na_allowed": "never",
+      "reason": "A field of the intervention-pharmacology domain profile. A card with profile.domain \"none\" leaves it absent and records no gap; a card in that profile has no N/A exception."
+    },
+    {
+      "path": "evidence.lines[].multi_site_program",
+      "na_allowed": "never",
+      "reason": "No exception: missing input, unknown scope, exhausted budget or failed search is not scientific inapplicability."
+    },
+    {
+      "path": "evidence.lines[].sample_size",
       "na_allowed": "never",
       "reason": "No exception: missing input, unknown scope, exhausted budget or failed search is not scientific inapplicability."
     },

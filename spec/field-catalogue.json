@@ -596,6 +596,19 @@
       "field_class": "searchable"
     },
     {
+      "logical_type": "Identifier",
+      "vocabulary": "NCBI Taxonomy, as NCBITaxon:<number>",
+      "example": "NCBITaxon:10090",
+      "basis": "ohf",
+      "field_class": "searchable",
+      "zones": [
+        "added"
+      ],
+      "layer": "3 Predictions and estimands",
+      "path": "predictions[].system.taxon_id",
+      "definition": "NCBI Taxonomy identifier of the taxon named in taxon."
+    },
+    {
       "layer": "3 Predictions and estimands",
       "path": "predictions[].system.strain_or_line",
       "definition": "Strain, genotype or cell-line identity, keeping supplied identifiers.",
@@ -1270,6 +1283,245 @@
       "example": "cell system Q, distinct from Z",
       "basis": "arrive",
       "field_class": "searchable"
+    },
+    {
+      "layer": "4 Evidence",
+      "path": "evidence.lines[].system.taxon",
+      "definition": "Source-stated organism, with a verified taxonomy mapping when available. Here: of the study the evidence line reports, not of the claim.",
+      "logical_type": "Term",
+      "vocabulary": "NCBI Taxonomy, otherwise explicit missingness",
+      "example": "NCBITaxon:10090 as a vocabulary example only",
+      "basis": "arrive",
+      "field_class": "searchable"
+    },
+    {
+      "logical_type": "Identifier",
+      "vocabulary": "NCBI Taxonomy, as NCBITaxon:<number>",
+      "example": "NCBITaxon:10090",
+      "basis": "ohf",
+      "field_class": "searchable",
+      "zones": [
+        "added"
+      ],
+      "layer": "4 Evidence",
+      "path": "evidence.lines[].system.taxon_id",
+      "definition": "NCBI Taxonomy identifier of the taxon named in taxon."
+    },
+    {
+      "layer": "4 Evidence",
+      "path": "evidence.lines[].system.strain_or_line",
+      "definition": "Strain, genotype or cell-line identity, keeping supplied identifiers. Here: of the study the evidence line reports, not of the claim.",
+      "logical_type": "TextOrTerm",
+      "vocabulary": "Free text; use a strain or cell-line registry identifier where one exists",
+      "example": "cell line Z",
+      "basis": "arrive",
+      "field_class": "searchable"
+    },
+    {
+      "layer": "4 Evidence",
+      "path": "evidence.lines[].system.sex",
+      "definition": "Source-stated sex or applicable population description. Here: of the study the evidence line reports, not of the claim.",
+      "logical_type": "TextOrTerm",
+      "vocabulary": "Source wording, without defaulting to both sexes",
+      "example": "not stated",
+      "basis": "arrive",
+      "field_class": "searchable"
+    },
+    {
+      "layer": "4 Evidence",
+      "path": "evidence.lines[].system.age_at_start",
+      "definition": "Age when treatment or observation starts, with units and origin. Here: of the study the evidence line reports, not of the claim.",
+      "logical_type": "QuantityOrInterval",
+      "vocabulary": "UCUM-compatible units and explicit time origin",
+      "example": "10 weeks, fictional example",
+      "basis": "arrive",
+      "field_class": "searchable"
+    },
+    {
+      "layer": "4 Evidence",
+      "path": "evidence.lines[].system.assessment_age",
+      "definition": "Age at endpoint assessment, distinguished from treatment-start age and follow-up. Here: of the study the evidence line reports, not of the claim.",
+      "logical_type": "QuantityOrInterval",
+      "vocabulary": "Source-defined time origin",
+      "example": "not stated",
+      "basis": "arrive",
+      "field_class": "searchable"
+    },
+    {
+      "layer": "4 Evidence",
+      "path": "evidence.lines[].system.site",
+      "definition": "Experimental site, laboratory or cohort context when relevant. Here: of the study the evidence line reports, not of the claim.",
+      "logical_type": "TextOrReference",
+      "vocabulary": "Source identifiers",
+      "example": "site A",
+      "basis": "arrive",
+      "field_class": "searchable"
+    },
+    {
+      "layer": "4 Evidence",
+      "path": "evidence.lines[].system.kind",
+      "definition": "Level of organization of the test system. Here: of the study the evidence line reports, not of the claim.",
+      "logical_type": "Term",
+      "vocabulary": "OHF vocabulary: cell | tissue | organism | population | community | ecosystem | clade | in_silico | other",
+      "example": "community",
+      "basis": "ohf",
+      "field_class": "searchable"
+    },
+    {
+      "layer": "4 Evidence",
+      "path": "evidence.lines[].system.environment",
+      "definition": "Conditions in which the system is studied, such as laboratory culture, a field site or a simulation. Here: of the study the evidence line reports, not of the claim.",
+      "logical_type": "Text",
+      "vocabulary": "Source text",
+      "example": "laboratory colonies",
+      "basis": "ohf",
+      "field_class": "searchable"
+    },
+    {
+      "layer": "4 Evidence",
+      "path": "evidence.lines[].system.spatial_scale",
+      "definition": "Spatial extent of the system or of the observation, such as a culture well, a lake or a continent. Here: of the study the evidence line reports, not of the claim.",
+      "logical_type": "Text",
+      "vocabulary": "Source text",
+      "example": "whole lakes",
+      "basis": "ohf",
+      "field_class": "searchable"
+    },
+    {
+      "layer": "4 Evidence",
+      "path": "evidence.lines[].system.temporal_scale",
+      "definition": "Time span over which the prediction applies, such as hours, a growing season or evolutionary time. Here: of the study the evidence line reports, not of the claim.",
+      "logical_type": "Text",
+      "vocabulary": "Source text",
+      "example": "about 350,000 generations",
+      "basis": "ohf",
+      "field_class": "searchable"
+    },
+    {
+      "layer": "4 Evidence",
+      "path": "evidence.lines[].intervention.agent",
+      "definition": "Intervention identity, preserving mixtures and unresolved names. Here: of the study the evidence line reports, not of the claim.",
+      "logical_type": "TextOrTerm",
+      "vocabulary": "ChEBI or another named registry, otherwise the source name",
+      "example": "compound X",
+      "basis": "ich",
+      "field_class": "searchable"
+    },
+    {
+      "layer": "4 Evidence",
+      "path": "evidence.lines[].intervention.dose",
+      "definition": "Dose value or range with unit, denominator and administration basis. Here: of the study the evidence line reports, not of the claim.",
+      "logical_type": "Quantity",
+      "vocabulary": "UCUM-compatible expression plus original dose string",
+      "example": "5 arbitrary units per culture, fictional",
+      "basis": "ucum",
+      "field_class": "searchable"
+    },
+    {
+      "layer": "4 Evidence",
+      "path": "evidence.lines[].intervention.regimen",
+      "definition": "Frequency and administration schedule, without deriving it from a dose. Here: of the study the evidence line reports, not of the claim.",
+      "logical_type": "Text",
+      "vocabulary": "Source wording",
+      "example": "single exposure",
+      "basis": "ich",
+      "field_class": "searchable"
+    },
+    {
+      "layer": "4 Evidence",
+      "path": "evidence.lines[].intervention.duration",
+      "definition": "Length of intervention, separate from observation horizon. Here: of the study the evidence line reports, not of the claim.",
+      "logical_type": "QuantityOrInterval",
+      "vocabulary": "UCUM-compatible duration",
+      "example": "48 hours, fictional",
+      "basis": "ucum",
+      "field_class": "searchable"
+    },
+    {
+      "layer": "4 Evidence",
+      "path": "evidence.lines[].intervention.route",
+      "definition": "Administration route when stated and applicable. Here: of the study the evidence line reports, not of the claim.",
+      "logical_type": "TextOrTerm",
+      "vocabulary": "Source wording in value; in the added zone also a closed term (ohf:terms@1, route), required from OHF 1.1, with a note for other",
+      "example": "in culture medium, fictional",
+      "basis": "arrive",
+      "field_class": "searchable"
+    },
+    {
+      "layer": "4 Evidence",
+      "path": "evidence.lines[].intervention.formulation",
+      "definition": "Source-stated formulation and preparation, not inferred from the agent name. Here: of the study the evidence line reports, not of the claim.",
+      "logical_type": "Text",
+      "vocabulary": "Free text; use a domain registry identifier where one exists",
+      "example": "not stated",
+      "basis": "arrive",
+      "field_class": "searchable"
+    },
+    {
+      "layer": "4 Evidence",
+      "path": "evidence.lines[].intervention.nominal_concentration",
+      "definition": "Nominal feed/medium concentration, with its own denominator and original unit. Here: of the study the evidence line reports, not of the claim.",
+      "logical_type": "Quantity",
+      "vocabulary": "UCUM-compatible syntax plus biological basis",
+      "example": "source dietary concentration, not delivered body dose",
+      "basis": "ucum",
+      "field_class": "searchable"
+    },
+    {
+      "layer": "4 Evidence",
+      "path": "evidence.lines[].intervention.measured_concentration",
+      "definition": "Assayed concentration in the named preparation, with measurement context. Here: of the study the evidence line reports, not of the claim.",
+      "logical_type": "QuantityAndSource",
+      "vocabulary": "Declared assay/context",
+      "example": "not measured in supplied material",
+      "basis": "ohf",
+      "field_class": "searchable"
+    },
+    {
+      "layer": "4 Evidence",
+      "path": "evidence.lines[].intervention.intake",
+      "definition": "Consumed quantity and timing when supplied, separate from concentration. Here: of the study the evidence line reports, not of the claim.",
+      "logical_type": "QuantityAndSource",
+      "vocabulary": "Source intake basis",
+      "example": "not stated",
+      "basis": "ohf",
+      "field_class": "searchable"
+    },
+    {
+      "layer": "4 Evidence",
+      "path": "evidence.lines[].intervention.systemic_exposure",
+      "definition": "Measured or predicted systemic exposure, retaining specimen/time context. Here: of the study the evidence line reports, not of the claim.",
+      "logical_type": "QuantityAndSource",
+      "vocabulary": "Source assay, with specimen and time",
+      "example": "blood concentration, if supplied",
+      "basis": "ohf",
+      "field_class": "searchable"
+    },
+    {
+      "layer": "4 Evidence",
+      "path": "evidence.lines[].multi_site_program",
+      "definition": "The result comes from a programme that runs the same protocol at several sites, and how many.",
+      "logical_type": "Record",
+      "vocabulary": "Programme name and number of sites, at least 2",
+      "example": "ITP, 3 sites",
+      "basis": "ohf",
+      "field_class": "searchable",
+      "zones": [
+        "added"
+      ]
+    },
+    {
+      "layer": "4 Evidence",
+      "path": "evidence.lines[].sample_size",
+      "definition": "Number of experimental units the result rests on, as the source states it.",
+      "logical_type": "Quantity",
+      "vocabulary": "Positive integer",
+      "example": "48",
+      "basis": "ohf",
+      "field_class": "searchable",
+      "zones": [
+        "added"
+      ]
     },
     {
       "layer": "4 Evidence",

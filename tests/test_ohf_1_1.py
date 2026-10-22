@@ -33,7 +33,25 @@ def card_1_1():
                                             'term': 'diet'}}
     prediction['endpoint_kind'] = {'value': 'level of counter Y', 'src': 'statement', 'term': 'biomarker'}
     prediction['control_type'] = {'value': ['vehicle'], 'src': 'statement'}
+    card['added']['layers']['evidence']['lines'][0].update(copy.deepcopy(LINE_CONDITIONS))
     return card
+
+
+# Item 1: the conditions of the study behind an evidence line.
+LINE_CONDITIONS = {
+    'system': {'taxon': {'value': 'Mus musculus', 'src': 'prior_work'},
+               'taxon_id': {'value': 'NCBITaxon:10090', 'src': 'prior_work'},
+               'sex': {'value': 'female', 'src': 'prior_work'}},
+    'intervention': {'agent': {'value': 'agent Q, fictional', 'src': 'prior_work'},
+                     'dose': {'value': '2 mg/kg', 'src': 'prior_work'},
+                     'route': {'value': 'in the feed', 'src': 'prior_work', 'term': 'diet'}},
+    'sample_size': {'value': 48, 'src': 'prior_work'},
+    'multi_site_program': {'value': {'program': 'fictional programme P', 'sites': 3}, 'src': 'prior_work'},
+}
+
+
+def line(card):
+    return card['added']['layers']['evidence']['lines'][0]
 
 
 def prediction(card):
@@ -63,8 +81,20 @@ MUTATIONS = {
     'control_not_a_term': lambda card: prediction(card)['control_type'].__setitem__('value', ['sham']),
     'control_other_without_note': lambda card: prediction(card)['control_type'].__setitem__('value', ['other']),
     'control_empty': lambda card: prediction(card)['control_type'].__setitem__('value', []),
+    # M1: conditions of an evidence line
+    'v1_0_with_line_system': lambda card: (as_1_0(card), card['vocabularies'].pop('terms'),
+                                           card['added']['layers']['predictions'].clear(),
+                                           [line(card).pop(key) for key in ('intervention', 'sample_size',
+                                                                            'multi_site_program')],
+                                           line(card)['system'].pop('taxon_id')),
+    'taxon_id_not_ncbi': lambda card: line(card)['system']['taxon_id'].__setitem__('value', 'NCBITaxon:mouse'),
+    'line_route_without_term': lambda card: line(card)['intervention']['route'].pop('term'),
+    'line_unknown_condition': lambda card: line(card)['system'].__setitem__('cage', {'value': 'x', 'src': 'x'}),
+    'sample_size_zero': lambda card: line(card)['sample_size'].__setitem__('value', 0),
+    'single_site_program': lambda card: line(card)['multi_site_program']['value'].__setitem__('sites', 1),
 }
 PREDICTION = '/added/layers/predictions/0'
+LINE = '/added/layers/evidence/lines/0'
 # Where the schema reports each mutation.
 EXPECTED = {
     'v1_0_with_term': PREDICTION + '/intervention/route',
@@ -79,6 +109,12 @@ EXPECTED = {
     'control_not_a_term': PREDICTION + '/control_type/value/0',
     'control_other_without_note': PREDICTION + '/control_type',
     'control_empty': PREDICTION + '/control_type/value',
+    'v1_0_with_line_system': LINE,
+    'taxon_id_not_ncbi': LINE + '/system/taxon_id/value',
+    'line_route_without_term': LINE + '/intervention/route',
+    'line_unknown_condition': LINE + '/system',
+    'sample_size_zero': LINE + '/sample_size/value',
+    'single_site_program': LINE + '/multi_site_program/value/sites',
 }
 
 
@@ -124,3 +160,16 @@ def test_checkers_accept_a_1_1_card():
     assert check_refs(card)['valid'], check_refs(card)['errors']
     gaps = check_gaps(card, POLICY, CATALOGUE, MAPPING)
     assert gaps['valid'], gaps['errors']
+
+
+def test_line_conditions_need_no_domain_profile():
+    """Unlike predictions[].intervention, a line's intervention describes the study, not the claim."""
+    card = load(ROOT / 'tests/fixtures/fictional/fx_eight.json')
+    assert card['added']['layers']['profile']['domain'] == 'none'
+    card['standard_version'] = '1.1'
+    card['vocabularies']['terms'] = {'id': 'ohf:terms@1', 'sha256': terms_pin()}
+    source = card['added']['layers']['evidence']['lines'][0]['src']
+    card['added']['layers']['evidence']['lines'][0]['intervention'] = {
+        'agent': {'value': 'agent Q, fictional', 'src': source},
+        'route': {'value': 'released in the field', 'src': source, 'term': 'environmental_release'}}
+    assert not validation_errors(SCHEMA, card)

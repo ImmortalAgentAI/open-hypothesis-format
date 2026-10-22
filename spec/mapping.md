@@ -48,6 +48,7 @@ The catalogue distinguishes logical scientific fields from their storage. A dire
 | `predictions[].id` | `author.layers.predictions[].id`, `added.layers.predictions[].id` | scientific field |  |
 | `predictions[].population` | `author.layers.predictions[].population`, `added.layers.predictions[].population` | scientific field |  |
 | `predictions[].system.taxon` | `author.layers.predictions[].system.taxon`, `added.layers.predictions[].system.taxon` | scientific field |  |
+| `predictions[].system.taxon_id` | `added.layers.predictions[].system.taxon_id` | scientific field |  |
 | `predictions[].system.strain_or_line` | `author.layers.predictions[].system.strain_or_line`, `added.layers.predictions[].system.strain_or_line` | scientific field |  |
 | `predictions[].system.sex` | `author.layers.predictions[].system.sex`, `added.layers.predictions[].system.sex` | scientific field |  |
 | `predictions[].system.age_at_start` | `author.layers.predictions[].system.age_at_start`, `added.layers.predictions[].system.age_at_start` | scientific field |  |
@@ -101,6 +102,29 @@ The catalogue distinguishes logical scientific fields from their storage. A dire
 | `evidence.lines[].hypothesis_flag` | `author.layers.evidence.lines[].hypothesis_flag`, `added.layers.evidence.lines[].hypothesis_flag` | scientific field |  |
 | `evidence.lines[].negated_flag` | `author.layers.evidence.lines[].negated_flag`, `added.layers.evidence.lines[].negated_flag` | scientific field |  |
 | `evidence.lines[].study_system` | `author.layers.evidence.lines[].study_system`, `added.layers.evidence.lines[].study_system` | scientific field |  |
+| `evidence.lines[].system.taxon` | `author.layers.evidence.lines[].system.taxon`, `added.layers.evidence.lines[].system.taxon` | scientific field |  |
+| `evidence.lines[].system.taxon_id` | `added.layers.evidence.lines[].system.taxon_id` | scientific field |  |
+| `evidence.lines[].system.strain_or_line` | `author.layers.evidence.lines[].system.strain_or_line`, `added.layers.evidence.lines[].system.strain_or_line` | scientific field |  |
+| `evidence.lines[].system.sex` | `author.layers.evidence.lines[].system.sex`, `added.layers.evidence.lines[].system.sex` | scientific field |  |
+| `evidence.lines[].system.age_at_start` | `author.layers.evidence.lines[].system.age_at_start`, `added.layers.evidence.lines[].system.age_at_start` | scientific field |  |
+| `evidence.lines[].system.assessment_age` | `author.layers.evidence.lines[].system.assessment_age`, `added.layers.evidence.lines[].system.assessment_age` | scientific field |  |
+| `evidence.lines[].system.site` | `author.layers.evidence.lines[].system.site`, `added.layers.evidence.lines[].system.site` | scientific field |  |
+| `evidence.lines[].system.kind` | `author.layers.evidence.lines[].system.kind`, `added.layers.evidence.lines[].system.kind` | scientific field |  |
+| `evidence.lines[].system.environment` | `author.layers.evidence.lines[].system.environment`, `added.layers.evidence.lines[].system.environment` | scientific field |  |
+| `evidence.lines[].system.spatial_scale` | `author.layers.evidence.lines[].system.spatial_scale`, `added.layers.evidence.lines[].system.spatial_scale` | scientific field |  |
+| `evidence.lines[].system.temporal_scale` | `author.layers.evidence.lines[].system.temporal_scale`, `added.layers.evidence.lines[].system.temporal_scale` | scientific field |  |
+| `evidence.lines[].intervention.agent` | `author.layers.evidence.lines[].intervention.agent`, `added.layers.evidence.lines[].intervention.agent` | scientific field |  |
+| `evidence.lines[].intervention.dose` | `author.layers.evidence.lines[].intervention.dose`, `added.layers.evidence.lines[].intervention.dose` | scientific field |  |
+| `evidence.lines[].intervention.regimen` | `author.layers.evidence.lines[].intervention.regimen`, `added.layers.evidence.lines[].intervention.regimen` | scientific field |  |
+| `evidence.lines[].intervention.duration` | `author.layers.evidence.lines[].intervention.duration`, `added.layers.evidence.lines[].intervention.duration` | scientific field |  |
+| `evidence.lines[].intervention.route` | `author.layers.evidence.lines[].intervention.route`, `added.layers.evidence.lines[].intervention.route` | scientific field |  |
+| `evidence.lines[].intervention.formulation` | `author.layers.evidence.lines[].intervention.formulation`, `added.layers.evidence.lines[].intervention.formulation` | scientific field |  |
+| `evidence.lines[].intervention.nominal_concentration` | `author.layers.evidence.lines[].intervention.nominal_concentration`, `added.layers.evidence.lines[].intervention.nominal_concentration` | scientific field |  |
+| `evidence.lines[].intervention.measured_concentration` | `author.layers.evidence.lines[].intervention.measured_concentration`, `added.layers.evidence.lines[].intervention.measured_concentration` | scientific field |  |
+| `evidence.lines[].intervention.intake` | `author.layers.evidence.lines[].intervention.intake`, `added.layers.evidence.lines[].intervention.intake` | scientific field |  |
+| `evidence.lines[].intervention.systemic_exposure` | `author.layers.evidence.lines[].intervention.systemic_exposure`, `added.layers.evidence.lines[].intervention.systemic_exposure` | scientific field |  |
+| `evidence.lines[].multi_site_program` | `added.layers.evidence.lines[].multi_site_program` | scientific field |  |
+| `evidence.lines[].sample_size` | `added.layers.evidence.lines[].sample_size` | scientific field |  |
 | `evidence.lines[].study_type` | `author.layers.evidence.lines[].study_type`, `added.layers.evidence.lines[].study_type` | scientific field |  |
 | `evidence.lines[].result_estimate` | `author.layers.evidence.lines[].result_estimate`, `added.layers.evidence.lines[].result_estimate` | scientific field |  |
 | `evidence.lines[].confidence_interval` | `author.layers.evidence.lines[].confidence_interval`, `added.layers.evidence.lines[].confidence_interval` | scientific field |  |

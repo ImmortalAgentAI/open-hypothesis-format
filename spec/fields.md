@@ -1,6 +1,6 @@
 # Field reference
 
-This reference lists all 181 logical catalogue paths. Each path has a short example value from the catalogue. Where a card fills the path, a longer example follows: from the example card muller-sheltering, converted from a published article, or from a fictional test card, whose values describe a fictional system and are not scientific evidence. A JSON pointer identifies each card example. An absent concept is illustrated by the card's explicit gap; no missing value is invented. Definitions and logical types describe the concept before provenance wrappers.
+This reference lists all 205 logical catalogue paths. Each path has a short example value from the catalogue. Where a card fills the path, a longer example follows: from the example card muller-sheltering, converted from a published article, or from a fictional test card, whose values describe a fictional system and are not scientific evidence. A JSON pointer identifies each card example. An absent concept is illustrated by the card's explicit gap; no missing value is invented. Definitions and logical types describe the concept before provenance wrappers.
 
 Generated from [the reference data](field-reference.json) with `python tools/build_field_reference.py`. Edit the reference data and regenerate this file.
 
@@ -807,6 +807,14 @@ Example from card muller-sheltering at `/added/layers/predictions/2/system/taxon
 }
 ```
 
+### `predictions[].system.taxon_id`
+
+NCBI Taxonomy identifier of the taxon named in taxon.
+
+Type: `Identifier`. Vocabulary: NCBI Taxonomy, as NCBITaxon:<number>. Basis: `ohf`. Class: `searchable`. Zones: `added`.
+
+Example value: NCBITaxon:10090
+
 ### `predictions[].system.strain_or_line`
 
 Strain, genotype or cell-line identity, keeping supplied identifiers.
@@ -1568,6 +1576,190 @@ Example from card muller-sheltering at `/added/layers/evidence/lines/0/study_sys
 ```json
 "theoretical X and Y chromosomes"
 ```
+
+### `evidence.lines[].system.taxon`
+
+Source-stated organism, with a verified taxonomy mapping when available. Here: of the study the evidence line reports, not of the claim.
+
+Type: `Term`. Vocabulary: NCBI Taxonomy, otherwise explicit missingness. Basis: `arrive`. Class: `searchable`.
+
+Example value: NCBITaxon:10090 as a vocabulary example only
+
+### `evidence.lines[].system.taxon_id`
+
+NCBI Taxonomy identifier of the taxon named in taxon.
+
+Type: `Identifier`. Vocabulary: NCBI Taxonomy, as NCBITaxon:<number>. Basis: `ohf`. Class: `searchable`. Zones: `added`.
+
+Example value: NCBITaxon:10090
+
+### `evidence.lines[].system.strain_or_line`
+
+Strain, genotype or cell-line identity, keeping supplied identifiers. Here: of the study the evidence line reports, not of the claim.
+
+Type: `TextOrTerm`. Vocabulary: Free text; use a strain or cell-line registry identifier where one exists. Basis: `arrive`. Class: `searchable`.
+
+Example value: cell line Z
+
+### `evidence.lines[].system.sex`
+
+Source-stated sex or applicable population description. Here: of the study the evidence line reports, not of the claim.
+
+Type: `TextOrTerm`. Vocabulary: Source wording, without defaulting to both sexes. Basis: `arrive`. Class: `searchable`.
+
+Example value: not stated
+
+### `evidence.lines[].system.age_at_start`
+
+Age when treatment or observation starts, with units and origin. Here: of the study the evidence line reports, not of the claim.
+
+Type: `QuantityOrInterval`. Vocabulary: UCUM-compatible units and explicit time origin. Basis: `arrive`. Class: `searchable`.
+
+Example value: 10 weeks, fictional example
+
+### `evidence.lines[].system.assessment_age`
+
+Age at endpoint assessment, distinguished from treatment-start age and follow-up. Here: of the study the evidence line reports, not of the claim.
+
+Type: `QuantityOrInterval`. Vocabulary: Source-defined time origin. Basis: `arrive`. Class: `searchable`.
+
+Example value: not stated
+
+### `evidence.lines[].system.site`
+
+Experimental site, laboratory or cohort context when relevant. Here: of the study the evidence line reports, not of the claim.
+
+Type: `TextOrReference`. Vocabulary: Source identifiers. Basis: `arrive`. Class: `searchable`.
+
+Example value: site A
+
+### `evidence.lines[].system.kind`
+
+Level of organization of the test system. Here: of the study the evidence line reports, not of the claim.
+
+Type: `Term`. Vocabulary: OHF vocabulary: cell | tissue | organism | population | community | ecosystem | clade | in_silico | other. Basis: `ohf`. Class: `searchable`.
+
+Example value: community
+
+### `evidence.lines[].system.environment`
+
+Conditions in which the system is studied, such as laboratory culture, a field site or a simulation. Here: of the study the evidence line reports, not of the claim.
+
+Type: `Text`. Vocabulary: Source text. Basis: `ohf`. Class: `searchable`.
+
+Example value: laboratory colonies
+
+### `evidence.lines[].system.spatial_scale`
+
+Spatial extent of the system or of the observation, such as a culture well, a lake or a continent. Here: of the study the evidence line reports, not of the claim.
+
+Type: `Text`. Vocabulary: Source text. Basis: `ohf`. Class: `searchable`.
+
+Example value: whole lakes
+
+### `evidence.lines[].system.temporal_scale`
+
+Time span over which the prediction applies, such as hours, a growing season or evolutionary time. Here: of the study the evidence line reports, not of the claim.
+
+Type: `Text`. Vocabulary: Source text. Basis: `ohf`. Class: `searchable`.
+
+Example value: about 350,000 generations
+
+### `evidence.lines[].intervention.agent`
+
+Intervention identity, preserving mixtures and unresolved names. Here: of the study the evidence line reports, not of the claim.
+
+Type: `TextOrTerm`. Vocabulary: ChEBI or another named registry, otherwise the source name. Basis: `ich`. Class: `searchable`.
+
+Example value: compound X
+
+### `evidence.lines[].intervention.dose`
+
+Dose value or range with unit, denominator and administration basis. Here: of the study the evidence line reports, not of the claim.
+
+Type: `Quantity`. Vocabulary: UCUM-compatible expression plus original dose string. Basis: `ucum`. Class: `searchable`.
+
+Example value: 5 arbitrary units per culture, fictional
+
+### `evidence.lines[].intervention.regimen`
+
+Frequency and administration schedule, without deriving it from a dose. Here: of the study the evidence line reports, not of the claim.
+
+Type: `Text`. Vocabulary: Source wording. Basis: `ich`. Class: `searchable`.
+
+Example value: single exposure
+
+### `evidence.lines[].intervention.duration`
+
+Length of intervention, separate from observation horizon. Here: of the study the evidence line reports, not of the claim.
+
+Type: `QuantityOrInterval`. Vocabulary: UCUM-compatible duration. Basis: `ucum`. Class: `searchable`.
+
+Example value: 48 hours, fictional
+
+### `evidence.lines[].intervention.route`
+
+Administration route when stated and applicable. Here: of the study the evidence line reports, not of the claim.
+
+Type: `TextOrTerm`. Vocabulary: Source wording in value; in the added zone also a closed term (ohf:terms@1, route), required from OHF 1.1, with a note for other. Basis: `arrive`. Class: `searchable`.
+
+Example value: in culture medium, fictional
+
+### `evidence.lines[].intervention.formulation`
+
+Source-stated formulation and preparation, not inferred from the agent name. Here: of the study the evidence line reports, not of the claim.
+
+Type: `Text`. Vocabulary: Free text; use a domain registry identifier where one exists. Basis: `arrive`. Class: `searchable`.
+
+Example value: not stated
+
+### `evidence.lines[].intervention.nominal_concentration`
+
+Nominal feed/medium concentration, with its own denominator and original unit. Here: of the study the evidence line reports, not of the claim.
+
+Type: `Quantity`. Vocabulary: UCUM-compatible syntax plus biological basis. Basis: `ucum`. Class: `searchable`.
+
+Example value: source dietary concentration, not delivered body dose
+
+### `evidence.lines[].intervention.measured_concentration`
+
+Assayed concentration in the named preparation, with measurement context. Here: of the study the evidence line reports, not of the claim.
+
+Type: `QuantityAndSource`. Vocabulary: Declared assay/context. Basis: `ohf`. Class: `searchable`.
+
+Example value: not measured in supplied material
+
+### `evidence.lines[].intervention.intake`
+
+Consumed quantity and timing when supplied, separate from concentration. Here: of the study the evidence line reports, not of the claim.
+
+Type: `QuantityAndSource`. Vocabulary: Source intake basis. Basis: `ohf`. Class: `searchable`.
+
+Example value: not stated
+
+### `evidence.lines[].intervention.systemic_exposure`
+
+Measured or predicted systemic exposure, retaining specimen/time context. Here: of the study the evidence line reports, not of the claim.
+
+Type: `QuantityAndSource`. Vocabulary: Source assay, with specimen and time. Basis: `ohf`. Class: `searchable`.
+
+Example value: blood concentration, if supplied
+
+### `evidence.lines[].multi_site_program`
+
+The result comes from a programme that runs the same protocol at several sites, and how many.
+
+Type: `Record`. Vocabulary: Programme name and number of sites, at least 2. Basis: `ohf`. Class: `searchable`. Zones: `added`.
+
+Example value: ITP, 3 sites
+
+### `evidence.lines[].sample_size`
+
+Number of experimental units the result rests on, as the source states it.
+
+Type: `Quantity`. Vocabulary: Positive integer. Basis: `ohf`. Class: `searchable`. Zones: `added`.
+
+Example value: 48
 
 ### `evidence.lines[].study_type`
 
