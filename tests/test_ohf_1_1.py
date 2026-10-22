@@ -403,3 +403,53 @@ def test_a_1_0_card_has_no_element_id_or_src(member):
     card = load(ROOT / 'tests/fixtures/fictional/fx_four.json')
     card['added']['layers']['core']['alternative_explanations']['value'][0][member] = 'alternative'
     assert ALTERNATIVE in {pointer(error) for error in validation_errors(SCHEMA, card)}
+
+
+# Item 7: no novelty. The one relaxation of 1.1: known_result needs no new_content.
+SEARCH = {'kind': 'artifact', 'sha256': 'sha256:' + '2' * 64}
+
+
+def known_result_card():
+    card = card_1_1()
+    card['added']['layers']['core']['novelty_assessment'] = {'value': {
+        'status': 'known_result', 'prior_claim_refs': [{'kind': 'external', 'uri': 'https://example.org/fictional',
+                                                        'limitation': 'Fictional prior report.'}],
+        'shared_content': 'Agent Q raises counter Y, as reported before.',
+        'search_scope_ref': SEARCH, 'as_of': '2026-01-01T00:00:00Z'}, 'src': 'prior_work'}
+    return card
+
+
+def novelty(card):
+    return card['added']['layers']['core']['novelty_assessment']['value']
+
+
+NOVELTY = '/added/layers/core/novelty_assessment/value'
+
+
+def test_known_result_without_new_content_is_valid():
+    assert not validation_errors(SCHEMA, known_result_card())
+
+
+@pytest.mark.parametrize('mutate', [
+    lambda value: value.__setitem__('prior_claim_refs', []),
+    lambda value: value.pop('prior_claim_refs'),
+    lambda value: value.pop('search_scope_ref'),
+    lambda value: value.__setitem__('new_content', 'Something new after all.'),
+], ids=['no_prior_claim', 'prior_claims_absent', 'no_search', 'with_new_content'])
+def test_known_result_mutation_is_rejected(mutate):
+    card = known_result_card()
+    mutate(novelty(card))
+    assert any(path.startswith(NOVELTY) for path in map(pointer, validation_errors(SCHEMA, card)))
+
+
+@pytest.mark.parametrize('status', ['claimed', 'bounded_search', 'expert_review'])
+def test_the_relaxation_does_not_spread(status):
+    card = known_result_card()
+    novelty(card)['status'] = status
+    assert any(path.startswith(NOVELTY) for path in map(pointer, validation_errors(SCHEMA, card)))
+
+
+def test_a_1_0_card_cannot_state_a_known_result():
+    card = known_result_card()
+    as_1_0(card)
+    assert NOVELTY + '/status' in {pointer(error) for error in validation_errors(SCHEMA, card)}

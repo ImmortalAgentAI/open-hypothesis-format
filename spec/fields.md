@@ -394,7 +394,7 @@ Example from fictional card fx_four at `/added/layers/core/potential_benefit`:
 
 Bounded, source-grounded assessment of new and shared content with retained search or review evidence.
 
-Type: `NoveltyAssessment`. Vocabulary: OHF record. Basis: `ohf`. Class: `searchable`.
+Type: `NoveltyAssessment`. Vocabulary: OHF record; status claimed | bounded_search | expert_review | known_result (OHF 1.1: the result is already published, named by prior_claim_refs within a recorded search, and there is no new content). Basis: `ohf`. Class: `searchable`.
 
 Example value: new: agent Q as a way to act on target T; shared: the link between T and counter Y
 

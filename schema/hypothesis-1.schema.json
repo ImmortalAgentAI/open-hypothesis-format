@@ -10954,6 +10954,64 @@
                 }
               }
             }
+          },
+          {
+            "properties": {
+              "author": {
+                "properties": {
+                  "layers": {
+                    "properties": {
+                      "core": {
+                        "properties": {
+                          "novelty_assessment": {
+                            "properties": {
+                              "value": {
+                                "properties": {
+                                  "status": {
+                                    "not": {
+                                      "const": "known_result"
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          {
+            "properties": {
+              "added": {
+                "properties": {
+                  "layers": {
+                    "properties": {
+                      "core": {
+                        "properties": {
+                          "novelty_assessment": {
+                            "properties": {
+                              "value": {
+                                "properties": {
+                                  "status": {
+                                    "not": {
+                                      "const": "known_result"
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
           }
         ]
       }
@@ -11529,7 +11587,8 @@
               "enum": [
                 "claimed",
                 "bounded_search",
-                "expert_review"
+                "expert_review",
+                "known_result"
               ]
             },
             "review_ref": {
@@ -11537,8 +11596,7 @@
             }
           },
           "required": [
-            "status",
-            "new_content"
+            "status"
           ],
           "additionalProperties": false,
           "allOf": [
@@ -11574,6 +11632,40 @@
               "then": {
                 "required": [
                   "review_ref"
+                ]
+              }
+            },
+            {
+              "if": {
+                "properties": {
+                  "status": {
+                    "const": "known_result"
+                  }
+                },
+                "required": [
+                  "status"
+                ]
+              },
+              "then": {
+                "required": [
+                  "prior_claim_refs",
+                  "search_scope_ref",
+                  "as_of"
+                ],
+                "properties": {
+                  "prior_claim_refs": {
+                    "minItems": 1
+                  }
+                },
+                "not": {
+                  "required": [
+                    "new_content"
+                  ]
+                }
+              },
+              "else": {
+                "required": [
+                  "new_content"
                 ]
               }
             }
@@ -11625,7 +11717,8 @@
               "enum": [
                 "claimed",
                 "bounded_search",
-                "expert_review"
+                "expert_review",
+                "known_result"
               ]
             },
             "review_ref": {
@@ -11633,8 +11726,7 @@
             }
           },
           "required": [
-            "status",
-            "new_content"
+            "status"
           ],
           "additionalProperties": false,
           "allOf": [
@@ -11670,6 +11762,40 @@
               "then": {
                 "required": [
                   "review_ref"
+                ]
+              }
+            },
+            {
+              "if": {
+                "properties": {
+                  "status": {
+                    "const": "known_result"
+                  }
+                },
+                "required": [
+                  "status"
+                ]
+              },
+              "then": {
+                "required": [
+                  "prior_claim_refs",
+                  "search_scope_ref",
+                  "as_of"
+                ],
+                "properties": {
+                  "prior_claim_refs": {
+                    "minItems": 1
+                  }
+                },
+                "not": {
+                  "required": [
+                    "new_content"
+                  ]
+                }
+              },
+              "else": {
+                "required": [
+                  "new_content"
                 ]
               }
             }

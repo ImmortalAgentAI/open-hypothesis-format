@@ -447,7 +447,7 @@
       "path": "core.novelty_assessment",
       "definition": "Bounded, source-grounded assessment of new and shared content with retained search or review evidence.",
       "logical_type": "NoveltyAssessment",
-      "vocabulary": "OHF record",
+      "vocabulary": "OHF record; status claimed | bounded_search | expert_review | known_result (OHF 1.1: the result is already published, named by prior_claim_refs within a recorded search, and there is no new content)",
       "example": "new: agent Q as a way to act on target T; shared: the link between T and counter Y",
       "basis": "ohf",
       "field_class": "searchable",
