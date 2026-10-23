@@ -53,7 +53,7 @@
   "peto-paradox-mammals": {
     "id": "h_peto-paradox-mammals",
     "version": 3,
-    "content_hash": "sha256:2ca8ee33e521f683c8e17feea99dd592afa5103e7760cf090cbe27ee6aea5343",
+    "content_hash": "sha256:534aea90ca2756183a00f3e7eda4fa3d185714a2e7e411c01f58605be3e2e8c1",
     "source": {
       "kind": "paper",
       "citation": "Vincze O, Colchero F, Lemaître JF, Conde DA, Pavard S, Bieuville M, Urrutia AO, Ujvari B, Boddy AM, Maley CC, Thomas F, Giraudeau M. Cancer risk across mammals. Nature. 2022;601(7892):263-267",
@@ -68,7 +68,7 @@
     "conversion": {
       "converter": "ohf-1-1-upgrade-peto",
       "converter_version": "1.0.0",
-      "converter_hash": "sha256:a2bf937c54f7c7cfa00506943f356ce8ac2756f3dab85b271fb2dd29da4f4160",
+      "converter_hash": "sha256:b5b7b717bed375f0b6a8b71e1b8b721316eaa05960ab9067eceb11379ec770c9",
       "model": "claude-opus-5-5"
     },
     "base": {

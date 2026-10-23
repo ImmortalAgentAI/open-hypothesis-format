@@ -51,7 +51,7 @@ ENDPOINTS = {
     'e_mammal_prey': ('cancer mortality risk', 'mortality'),
     'e_animal_diet_null': ('cancer mortality risk', 'mortality'),
     'e_biomagnification_null': ('cancer mortality risk', 'mortality'),
-    'e_frequency': ('simple cancer mortality risk', 'mortality'),
+    'e_frequency': ('CMR', 'mortality'),
     'e_phylogenetic_signal': ('cancer mortality risk', 'mortality'),
     'e_artiodactyla_large': ('cancer mortality risk', 'mortality'),
     'e_sex_bias_null': ('sex-specific cancer mortality risk', 'mortality'),
@@ -88,9 +88,10 @@ ESTIMATES = {
     'e_sex_bias_null': {'reported': 'CMR: t = 0.52, df = 33, P = 0.6061; ICM: t = −0.6815, df = 27, P = 0.5014',
                         'measure': 'phylogenetic paired t-tests', 'contrast': 'Pairwise comparison between sexes',
                         'scale': 'not_stated'},
-    'e_burden': {'reported': 'more than 20–40% of the managed adult population die of cancer-related pathologies',
+    'e_burden': {'reported': 'In some species more than 20–40% of the managed adult population die of cancer-related '
+                             'pathologies',
                  'measure': 'not_stated', 'contrast': 'not_stated', 'scale': 'not_stated'},
-    'e_viral_fraction_humans': {'reported': '10–20% of all cancers are of viral origin',
+    'e_viral_fraction_humans': {'reported': 'in humans it was estimated that 10–20% of all cancers are of viral origin',
                                 'measure': 'not_stated', 'contrast': 'not_stated', 'scale': 'not_stated'},
 }
 # The number of species a line's result rests on, where the quote states it.
@@ -197,9 +198,15 @@ added['integrity']['entailment'] = kept
 # Verdicts of the independent entailment check, one file per batch in INPUT/verdicts with its time in a
 # sidecar. A verdict is written only for a sourced value; the checker is the base card's.
 checker = added['integrity']['entailment'][0]['checker']
+# Values changed after their check, to keep the scope the passage gives: the verdict on the earlier value is
+# not written.
+CHANGED = {'/added/layers/evidence/lines/5/endpoint_kind', '/added/layers/evidence/lines/12/result_estimate',
+           '/added/layers/evidence/lines/14/result_estimate'}
 for path in sorted((INPUT / 'verdicts').glob('*.json')):
     checked_at = Path(f'{path}.checked_at').read_text().strip()
     for verdict in json.loads(path.read_text()):
+        if path.name == 'PETO-1.1-VERDICTS-20261023.json' and verdict['pointer'] in CHANGED:
+            continue
         node = card
         for token in verdict['pointer'].split('/')[1:]:
             node = node[int(token)] if isinstance(node, list) else node[token]
