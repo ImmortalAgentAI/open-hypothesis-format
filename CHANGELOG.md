@@ -1,6 +1,6 @@
 # Changelog
 
-## 1.1
+## 1.1.0 (2026-10-23)
 
 A minor version: every new member is optional, a 1.0 card stays valid and is checked by the 1.0 rules, and a 1.0 card may not carry a member introduced in 1.1 or name one in a gap. The 36 new catalogue paths are marked `since: "1.1"`. The rules are listed in [spec/README.md, section OHF 1.1](spec/README.md#ohf-11). The standard still holds no verdict on a claim.
 
@@ -28,9 +28,7 @@ Known limits of 1.1:
 - In the rapa example no `target_ref` of a withheld-quote line is entailed by its abstract: three are `partial` and recorded, and the line whose target got `no` was not carried. The choice of a target is a reading of the card more than of a paragraph; a later version may decide it by resolution against the card.
 - `quote_withheld` was checked as a whole value. Its `reason` and `record_ref` are facts about the record, not the content of a paragraph, so they should be decided by resolution and the rest checked member by member. Left for 1.2.
 
-## Unreleased
-
-The card format, the schemas and the vocabularies are unchanged.
+### Also in 1.1.0: example tools
 
 - `tools/converter_hash.py` checks an example card's `added.by.converter_hash` against conversion rules kept in the repository: `examples/cards/CONVERSION.md` for `ohf-example-conversion`, else `examples/converters/<converter>-<version>/`. The pin is the hash of a listing of relative paths and file hashes, so it reproduces from the repository alone.
 - `tools/check_ledger.py` checks an example card's entailment records against its ledger, `examples/ledgers/<slug>.json`: each record shows the worst recorded check of its current value and passage. CI runs both checks.
