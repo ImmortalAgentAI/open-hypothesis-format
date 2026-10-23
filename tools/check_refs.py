@@ -48,7 +48,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parent))
 
 import check_completeness  # noqa: E402
 from check_gaps import filled, resolve_pointer, unwrap  # noqa: E402
-from check_ledger import check_class, checks_classes, logical_path  # noqa: E402
+from check_ledger import check_class, checks_classes, logical_path, own_versions  # noqa: E402
 from strict_json import load  # noqa: E402
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -214,12 +214,6 @@ def _under(pointer, pattern):
 
 def patterns(kinds):
     return [f'/{zone}/layers/{POINTERS[kind]}' for kind in kinds for zone in ZONES]
-
-
-def own_versions(card):
-    identity = card.get('identity', {})
-    return {f"{card.get('id')}@{card.get('version')}",
-            f"{unwrap(identity.get('proposition_id'))}@{unwrap(identity.get('version'))}"}
 
 
 def typed_reference(card, value, path, kinds, forms, ids, errors, external):
@@ -607,6 +601,7 @@ def check_integrity(card, errors, warnings):
             if wanted == 'resolution':
                 resolved.add(record['pointer'])
                 check_resolution(card, record, node, path, sources, errors)
+                assessment_order(card, record, path, errors)
                 continue
             parent = record['pointer'].rsplit('/', 2)
             if not (isinstance(node, dict) and 'src' in node) and parent[1:2] == ['value']:
@@ -623,9 +618,7 @@ def check_integrity(card, errors, warnings):
         if checked and accessed and checked < accessed:
             errors.append(issue('REF_TIME_ORDER', path,
                                 f"checked_at is earlier than the access time of source record {node['src']!r}"))
-        assessed = moment((nearest_assessment(card, record['pointer']) or {}).get('assessed_at'))
-        if checked and assessed and checked < assessed:
-            errors.append(issue('REF_TIME_ORDER', path, 'checked_at is earlier than the assessment of the value'))
+        assessment_order(card, record, path, errors)
     if classes:
         for pointer in resolution_values(card):
             if pointer not in resolved:
@@ -666,6 +659,14 @@ def resolution_key(card, pointer, node):
     if logical == 'evidence.lines[].human_proximity':
         return unwrap((line.get('system') or {}).get('taxon_id'))
     return None
+
+
+def assessment_order(card, record, path, errors):
+    """A value is checked after it was assessed: checked_at is not earlier than the nearest assessment."""
+    checked = moment(record['checked_at'])
+    assessed = moment((nearest_assessment(card, record['pointer']) or {}).get('assessed_at'))
+    if checked and assessed and checked < assessed:
+        errors.append(issue('REF_TIME_ORDER', path, 'checked_at is earlier than the assessment of the value'))
 
 
 def check_resolution(card, record, node, path, sources, errors):

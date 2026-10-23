@@ -331,3 +331,52 @@ def test_resolution_records_are_not_ledger_items():
     card = add(rapa(), resolution(rapa()))
     assert REASON not in {item['pointer'] for item in check_ledger.value_items(card)}
     assert PARAPHRASE in {item['pointer'] for item in check_ledger.value_items(card)}
+
+
+def test_target_statement_of_the_cards_own_version():  # Codex R1
+    card = rapa()
+    line = card['added']['layers']['evidence']['lines'][0]
+    statement = card['author']['layers']['core']['statement']['value']
+    own = {f"{card['id']}@{card['version']}", f"{card['identity']['proposition_id']}@{card['identity']['version']}"}
+    for ref in own:
+        line['target_ref'] = ref
+        assert target_statement(card, line) == statement
+    line['target_ref'] = 'h_fictional-other-card@1'
+    assert target_statement(card, line) == 'h_fictional-other-card@1'
+
+
+def test_a_changed_own_statement_makes_the_direction_check_stale():  # Codex R1
+    card = rapa()
+    line = card['added']['layers']['evidence']['lines'][0]
+    line['target_ref'] = f"{card['id']}@{card['version']}"
+    card['content_hash'] = content_hash(card)
+    assert not validation_errors(SCHEMA, card) and check_refs(card)['valid']
+    ledger = ledger_errors(card)
+    assert '/added/layers/evidence/lines/0/direction|src' in ledger['entries']
+    before = set(check_ledger.check(card, ledger))
+    card['author']['layers']['core']['statement']['value'] = 'A changed proposition, fictional.'
+    card['content_hash'] = ledger['content_hash'] = content_hash(card)
+    after = set(check_ledger.check(card, ledger)) - before
+    assert [e for e in after if e.startswith('/added/layers/evidence/lines/0/direction|src: the value differs')]
+
+
+def keyed_group(card, assessed_at):
+    """rapa with line 0 in a group whose key is resolved against a PubMed record, assessed at a given time."""
+    group = card['added']['layers']['evidence']['lines'][0]['independence_group']
+    group['value'] = 'g_fictional_resolution_time'
+    group['key'] = {'scheme': 'pmid', 'id': '123456'}
+    group['assessment'] = {'assessor': 'fictional-reviewer', 'assessed_at': assessed_at,
+                           'evidence_ref': {'kind': 'artifact', 'sha256': 'sha256:' + '4' * 64}}
+    card['added']['at'] = '2030-01-03T00:00:00Z'
+    name = withheld_source(card)
+    add(card, record('/added/layers/evidence/lines/0/independence_group/key', 'resolution', TOOL,
+                     resolved_against={'source': name, 'response_sha256': RESPONSE, 'key': '123456'}))
+    card['content_hash'] = content_hash(card)
+    return card
+
+
+def test_a_resolution_is_checked_after_the_assessment_of_its_value():  # Codex R2
+    early = keyed_group(rapa(), '2030-01-02T00:00:00Z')
+    assert not validation_errors(SCHEMA, early)
+    assert codes(early) == {'REF_TIME_ORDER'}
+    assert not codes(keyed_group(rapa(), LATER))

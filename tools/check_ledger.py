@@ -98,8 +98,8 @@ def target_statement(card, line):
     """What the line bears on: an atom's statement; a prediction's population, endpoint and
     direction; a mechanism step's subject, relation and object; an alternative explanation's
     claim; or the proposition's statement. A target_ref in a source wrapper (OHF 1.1) is read
-    through it. A card pointer is resolved; a versioned or external reference has no statement
-    in the card and is given as it stands."""
+    through it. A card pointer is resolved, and so is a versioned reference to this card's own
+    proposition; a reference to another card has no statement in this card and is given as it stands."""
     layers = card['added']['layers']
     ref = _value(line.get('target_ref'))
     if isinstance(ref, dict) and ref.get('kind') == 'card':
@@ -121,10 +121,19 @@ def target_statement(card, line):
         return _render(card, *named[0])
     if named:
         raise ValueError(f'evidence line {line.get("id")}: target_ref {ref!r} names more than one record')
-    if '@' in ref:  # a versioned proposition: not in this card
+    if ref in own_versions(card):  # this card's own proposition, named by its version
+        return _render(card, 'proposition', card['author']['layers']['core']['statement'])
+    if '@' in ref:  # a versioned proposition of another card: not in this card
         return ref
     raise ValueError(f'evidence line {line.get("id")}: target_ref {ref!r} names no atom, prediction, '
                      'mechanism step or alternative of this card')
+
+
+def own_versions(card):
+    """The versioned references by which a card names its own proposition."""
+    identity = card.get('identity', {})
+    return {f"{card.get('id')}@{card.get('version')}",
+            f"{_value(identity.get('proposition_id'))}@{_value(identity.get('version'))}"}
 
 
 def _render(card, kind, node):
