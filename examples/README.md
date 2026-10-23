@@ -4,6 +4,7 @@
 | --- | --- |
 | [cards/muller-sheltering.json](cards/muller-sheltering.json) | Muller's sheltering hypothesis extended to fitness costs that differ between the sexes |
 | [cards/intermittent-rapamycin-mtorc2.json](cards/intermittent-rapamycin-mtorc2.json) | Intermittent rapamycin inhibits mTORC1 while largely sparing mTORC2 (OHF 1.1) |
+| [cards/peto-paradox-mammals.json](cards/peto-paradox-mammals.json) | Cancer mortality across mammals is largely independent of body mass and life expectancy and is associated with diet (OHF 1.1) |
 
 [index.json](index.json) gives each card's ID, version, content hash, source and conversion metadata. Each card is a reading of one published article. Its added zone is a reading of the article by a language model. The authors have not reviewed it. A schema pass confirms a card's shape, not its scientific support.
 
@@ -20,6 +21,17 @@ The licence was confirmed from the article's full-text XML. The card reproduces 
 [converters/ohf-1-1-upgrade-1.0.1/UPGRADE.md](converters/ohf-1-1-upgrade-1.0.1/UPGRADE.md) gives the rules by which an accepted OHF 1.0 card of this article was upgraded to OHF 1.1, pinned by `added.by.converter_hash`. Unlike the Muller card, its evidence lines quote passages of cited works as well as the article, each under its own licence (CC BY), and three lines carry a withheld quote: a paraphrase and an abstract sentence of a work that may not be quoted. Taxon identifiers and the hallmark hints come from database calls, each a source record of the card. A separate pass judged the new values against their passages; its verdicts are in `added.integrity.entailment`. Taxon identifiers, proximity rungs, hallmarks, the atom triple, the `requires` links and the excluded record are checked by the schema and `tools/check_refs.py` against the card and the pinned vocabularies, not by that pass. The card has no ledger: `tools/check_ledger.py` does not yet read OHF 1.1 values.
 
 Source: Dudley W. Lamming, [Rapamycin: the beginning of the end of aging?](https://doi.org/10.1007/s11357-026-02306-8), GeroScience 2026, CC BY 4.0.
+
+## Peto's paradox across mammals (OHF 1.1)
+
+[converters/ohf-1-1-upgrade-peto-1.0.0/UPGRADE.md](converters/ohf-1-1-upgrade-peto-1.0.0/UPGRADE.md) gives the rules by which an accepted OHF 1.0 card of this article was upgraded to OHF 1.1, pinned by `added.by.converter_hash`. Its evidence lines quote the article and the CC BY works that answer it. The card selects no domain profile. It shows:
+- endpoint kinds, result estimates and sample sizes in the passages' own words;
+- proximity rungs, most of them for clades such as "mammals", which have no species identifier, so `tools/check_refs.py` reports them as not derivable;
+- DOI keys for three independence groups, so a later reanalysis of the article's zoo data shows as the same group as the original analysis.
+
+A separate pass judged the endpoint kinds, organism words, estimates and sample sizes against their passages; its verdicts are in `added.integrity.entailment`. The proximity rungs, the keys, the `requires` links and the alternative ids are checked by the schema and `tools/check_refs.py`, not by that pass. The card has no ledger, for the reason given above.
+
+Source: Orsolya Vincze et al., [Cancer risk across mammals](https://doi.org/10.1038/s41586-021-04224-5), Nature 2022, CC BY 4.0.
 
 ## Converter pins and entailment ledgers
 
