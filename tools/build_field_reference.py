@@ -30,6 +30,8 @@ def render(catalogue):
         facts = f"Type: `{field['logical_type']}`. Vocabulary: {field['vocabulary']}. Basis: `{field['basis']}`. Class: `{field['field_class']}`."
         if 'zones' in field:
             facts += ' Zones: ' + ', '.join(f'`{zone}`' for zone in field['zones']) + '.'
+        if 'since' in field:
+            facts += f" Since: OHF {field['since']}."
         if 'question_part' in field:
             facts += f" Question part: `{field['question_part']}`."
         blocks.extend(['### `' + field['path'] + '`', field['definition'], facts])

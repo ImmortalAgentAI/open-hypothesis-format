@@ -11531,6 +11531,25 @@
             "properties": {
               "added": {
                 "properties": {
+                  "gaps": {
+                    "items": {
+                      "properties": {
+                        "path": {
+                          "not": {
+                            "pattern": "^(?:core\\.alternative_explanations\\[[0-9]*\\]\\.id|core\\.atoms\\[[0-9]*\\]\\.contradicts|core\\.atoms\\[[0-9]*\\]\\.requires|core\\.atoms\\[[0-9]*\\]\\.triple|evidence\\.excluded|evidence\\.lines\\[[0-9]*\\]\\.endpoint_kind|evidence\\.lines\\[[0-9]*\\]\\.human_proximity|evidence\\.lines\\[[0-9]*\\]\\.independence_group\\.key|evidence\\.lines\\[[0-9]*\\]\\.intervention\\.agent|evidence\\.lines\\[[0-9]*\\]\\.intervention\\.dose|evidence\\.lines\\[[0-9]*\\]\\.intervention\\.duration|evidence\\.lines\\[[0-9]*\\]\\.intervention\\.formulation|evidence\\.lines\\[[0-9]*\\]\\.intervention\\.intake|evidence\\.lines\\[[0-9]*\\]\\.intervention\\.measured_concentration|evidence\\.lines\\[[0-9]*\\]\\.intervention\\.nominal_concentration|evidence\\.lines\\[[0-9]*\\]\\.intervention\\.regimen|evidence\\.lines\\[[0-9]*\\]\\.intervention\\.route|evidence\\.lines\\[[0-9]*\\]\\.intervention\\.systemic_exposure|evidence\\.lines\\[[0-9]*\\]\\.multi_site_program|evidence\\.lines\\[[0-9]*\\]\\.quote_withheld|evidence\\.lines\\[[0-9]*\\]\\.sample|evidence\\.lines\\[[0-9]*\\]\\.sample_size|evidence\\.lines\\[[0-9]*\\]\\.system\\.age_at_start|evidence\\.lines\\[[0-9]*\\]\\.system\\.assessment_age|evidence\\.lines\\[[0-9]*\\]\\.system\\.environment|evidence\\.lines\\[[0-9]*\\]\\.system\\.kind|evidence\\.lines\\[[0-9]*\\]\\.system\\.sex|evidence\\.lines\\[[0-9]*\\]\\.system\\.site|evidence\\.lines\\[[0-9]*\\]\\.system\\.spatial_scale|evidence\\.lines\\[[0-9]*\\]\\.system\\.strain_or_line|evidence\\.lines\\[[0-9]*\\]\\.system\\.taxon|evidence\\.lines\\[[0-9]*\\]\\.system\\.taxon_id|evidence\\.lines\\[[0-9]*\\]\\.system\\.temporal_scale|predictions\\[[0-9]*\\]\\.control_type|predictions\\[[0-9]*\\]\\.system\\.taxon_id|profile\\.aging_hallmarks)(?:$|[.\\[])"
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          {
+            "properties": {
+              "added": {
+                "properties": {
                   "layers": {
                     "properties": {
                       "core": {

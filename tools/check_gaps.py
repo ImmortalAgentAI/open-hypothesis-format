@@ -15,6 +15,9 @@ whose elements have catalogue paths but which has no row of its own. Such a gap 
 the list and is populated as soon as the list has an element. A search may establish it
 when any element path is searchable, and it is a profile field when every element path is.
 Lists of `identity` describe the record, not the science, and take no gap.
+
+A catalogue row marked `since: "1.1"` is a field of OHF 1.1. A 1.0 card is checked against the
+1.0 catalogue, so a gap that names such a field, or a component of one, is unknown there.
 """
 import argparse
 import json
@@ -101,6 +104,13 @@ def catalogue_row(path, rows):
     return None, False
 
 
+def from_newer_version(path, newer):
+    """A gap path that names a field of a later version, or a component of one."""
+    logical = re.sub(r'\[[0-9]+\]', '[]', path)
+    return any(logical in (row, row.removesuffix('[]')) or logical.startswith((row + '.', row + '['))
+               for row in newer)
+
+
 def list_row(path, rows):
     """The row a gap for a whole empty list stands on (OHF 1.1), or None."""
     if '[' in path or path.startswith('identity.'):
@@ -149,7 +159,9 @@ def check(card, policy, catalogue, mapping, profiles=None):
             'GAP_STANDARD_VERSION', 'standard_version', 'Only OHF 1.0 and 1.1 cards are checked')]}
     profiles = profiles if profiles is not None else load(ROOT / 'vocabularies/profiles-2.json')
     unselected = unselected_paths(card, profiles)
-    rows = {row['path']: row for row in catalogue['fields']}
+    version = card['standard_version']
+    rows = {row['path']: row for row in catalogue['fields'] if row.get('since', '1.0') <= version}
+    newer = [row['path'] for row in catalogue['fields'] if row.get('since', '1.0') > version]
     policies = {row['path']: row for row in policy['fields']}
     detached = {row['catalogue_path'] for row in mapping['mappings']
                 if row.get('extension') or row.get('coverage') == 'external'}
@@ -159,6 +171,9 @@ def check(card, policy, catalogue, mapping, profiles=None):
         if path in seen:
             errors.append(issue('GAP_PATH_DUPLICATE', path, 'One gap per exact path'))
         seen.add(path)
+        if from_newer_version(path, newer):
+            errors.append(issue('GAP_PATH_UNKNOWN', path, f'The field is not part of OHF {version}'))
+            continue
         row, component = catalogue_row(path, rows)
         if row is None and card.get('standard_version') == '1.1':
             row = list_row(path, rows)

@@ -1085,3 +1085,37 @@ def test_relations_check_needs_the_named_cards():
     assert 'REL_CARD_MISSING' in relation_codes(edges, cards[:1])
     edges['edges'][0]['source']['pointer'] = '/added/layers/core/atoms/9'
     assert 'REL_POINTER_UNRESOLVED' in relation_codes(edges, cards)
+
+
+# A 1.0 card is checked against the 1.0 catalogue: a gap may not name a field of OHF 1.1.
+NEW_PATHS = [row['path'] for row in CATALOGUE['fields'] if row.get('since') == '1.1']
+MULLER = load(ROOT / 'examples/cards/muller-sheltering.json')
+
+
+def test_new_paths_are_marked_since_1_1():
+    assert len(NEW_PATHS) == 36
+    assert {row.get('since', '1.0') for row in CATALOGUE['fields']} == {'1.0', '1.1'}
+
+
+@pytest.mark.parametrize('path', NEW_PATHS)
+@pytest.mark.parametrize('form', ['logical', 'indexed'])
+def test_a_1_0_card_cannot_gap_a_1_1_field(path, form):
+    card = copy.deepcopy(MULLER)
+    assert card['standard_version'] == '1.0'
+    gap_path = path.removesuffix('[]') if form == 'logical' else path.replace('[]', '[0]')
+    card['added']['gaps'].append({'path': gap_path, 'disposition': 'not_supplied', 'reason': 'Test reason.',
+                                  'query_ids': [], 'inspected_artifacts': []})
+    assert '/added/gaps/' + str(len(card['added']['gaps']) - 1) + '/path' in {
+        pointer(error) for error in validation_errors(SCHEMA, card)}
+    assert 'GAP_PATH_UNKNOWN' in {error['code'] for error in check_gaps(card, POLICY, CATALOGUE, MAPPING)['errors']}
+
+
+def test_the_1_0_gap_rule_of_the_schema_is_the_catalogue():
+    import re
+    rule = next(branch for branch in SCHEMA['allOf'] if branch.get('if', {}).get('properties', {})
+                .get('standard_version', {}).get('const') == '1.0')
+    patterns = [r['properties']['added']['properties']['gaps']['items']['properties']['path']['not']['pattern']
+                for r in rule['then']['allOf'] if 'gaps' in str(r)]
+    expected = '^(?:' + '|'.join(sorted(re.escape(p.removesuffix('[]')).replace(r'\[\]', r'\[[0-9]*\]')
+                                         for p in NEW_PATHS)) + r')(?:$|[.\[])'
+    assert expected in patterns

@@ -371,7 +371,7 @@ Example from card muller-sheltering at `/added/layers/core/atoms/0/modality`:
 
 Atoms of this card that must hold for this atom to hold.
 
-Type: `Reference`. Vocabulary: Identifiers of atoms of this card. Basis: `ohf`. Class: `author_only`. Zones: `added`.
+Type: `Reference`. Vocabulary: Identifiers of atoms of this card. Basis: `ohf`. Class: `author_only`. Zones: `added`. Since: OHF 1.1.
 
 Example value: a_mtorc1_inhibition
 
@@ -379,7 +379,7 @@ Example value: a_mtorc1_inhibition
 
 Atoms of this card that cannot hold together with this atom as stated, such as a version the card states and rejects. Not a relation between hypotheses: that is evidence.
 
-Type: `Reference`. Vocabulary: Identifiers of atoms of this card. Basis: `ohf`. Class: `author_only`. Zones: `added`.
+Type: `Reference`. Vocabulary: Identifiers of atoms of this card. Basis: `ohf`. Class: `author_only`. Zones: `added`. Since: OHF 1.1.
 
 Example value: a_mtorc1_inhibition
 
@@ -387,7 +387,7 @@ Example value: a_mtorc1_inhibition
 
 The atom as subject, relation and object for machine linking. The statement stays the claim; the triple is a reading of it and may be coarser. Subject and object are ontology terms or mechanism entities of this card.
 
-Type: `Triple`. Vocabulary: Relation from RO (RO:nnnnnnn) or the Biolink Model (biolink:slot); subject and object as CURIEs; qualifiers as Biolink qualifier slots. Basis: `ohf`. Class: `author_only`. Zones: `added`.
+Type: `Triple`. Vocabulary: Relation from RO (RO:nnnnnnn) or the Biolink Model (biolink:slot); subject and object as CURIEs; qualifiers as Biolink qualifier slots. Basis: `ohf`. Class: `author_only`. Zones: `added`. Since: OHF 1.1.
 
 Example value: rapamycin RO:0002212 negatively regulates mTORC1
 
@@ -492,7 +492,7 @@ Example from fictional card fx_four at `/added/layers/core/alternative_explanati
 
 Identifier of the alternative explanation, so that an evidence line or a prediction can name it without depending on its position in the list.
 
-Type: `Identifier`. Vocabulary: Card-local identifier, unique among alternatives. Basis: `ohf`. Class: `system`.
+Type: `Identifier`. Vocabulary: Card-local identifier, unique among alternatives. Basis: `ohf`. Class: `system`. Since: OHF 1.1.
 
 Example value: alt_cr_mimetic
 
@@ -843,7 +843,7 @@ Example from card muller-sheltering at `/added/layers/predictions/2/system/taxon
 
 NCBI Taxonomy identifier of the taxon named in taxon.
 
-Type: `Identifier`. Vocabulary: NCBI Taxonomy, as NCBITaxon:<number>. Basis: `ohf`. Class: `searchable`. Zones: `added`.
+Type: `Identifier`. Vocabulary: NCBI Taxonomy, as NCBITaxon:<number>. Basis: `ohf`. Class: `searchable`. Zones: `added`. Since: OHF 1.1.
 
 Example value: NCBITaxon:10090
 
@@ -1062,7 +1062,7 @@ Example value: not assessed
 
 Kind of each control condition of the comparator, as closed terms. The value other needs a note that says what the control is.
 
-Type: `Term`. Vocabulary: OHF terms vocabulary (ohf:terms@1, control_type): placebo | vehicle | untreated | wild_type | active_comparator | baseline | historical | none | not_stated | other. Basis: `ohf`. Class: `searchable`. Zones: `added`.
+Type: `Term`. Vocabulary: OHF terms vocabulary (ohf:terms@1, control_type): placebo | vehicle | untreated | wild_type | active_comparator | baseline | historical | none | not_stated | other. Basis: `ohf`. Class: `searchable`. Zones: `added`. Since: OHF 1.1.
 
 Example value: vehicle, active_comparator
 
@@ -1559,7 +1559,7 @@ Example from card muller-sheltering at `/added/layers/evidence/lines/0/quote`:
 
 The quote of the line is not reproduced because the text may not be quoted: its licence is unknown, it forbids derivatives (NC-ND), or no open text exists. The line keeps the locator and the record of the source, a paraphrase in the added zone, and the sentence of the abstract that entails the paraphrase. Such a line counts in the card and is shown to judges, but it does not make the disputing side for completeness full.
 
-Type: `WithheldQuotation`. Vocabulary: reason licence_unknown | nc_nd | no_open_text; record_ref scheme doi | pmid. Basis: `ohf`. Class: `searchable`. Zones: `added`.
+Type: `WithheldQuotation`. Vocabulary: reason licence_unknown | nc_nd | no_open_text; record_ref scheme doi | pmid. Basis: `ohf`. Class: `searchable`. Zones: `added`. Since: OHF 1.1.
 
 Example value: nc_nd, Table 2, doi 10.1000/fictional, paraphrase and abstract sentence
 
@@ -1621,7 +1621,7 @@ Example from card muller-sheltering at `/added/layers/evidence/lines/0/study_sys
 
 Source-stated organism, with a verified taxonomy mapping when available. Here: of the study the evidence line reports, not of the claim.
 
-Type: `Term`. Vocabulary: NCBI Taxonomy, otherwise explicit missingness. Basis: `arrive`. Class: `searchable`.
+Type: `Term`. Vocabulary: NCBI Taxonomy, otherwise explicit missingness. Basis: `arrive`. Class: `searchable`. Since: OHF 1.1.
 
 Example value: NCBITaxon:10090 as a vocabulary example only
 
@@ -1629,7 +1629,7 @@ Example value: NCBITaxon:10090 as a vocabulary example only
 
 NCBI Taxonomy identifier of the taxon named in taxon.
 
-Type: `Identifier`. Vocabulary: NCBI Taxonomy, as NCBITaxon:<number>. Basis: `ohf`. Class: `searchable`. Zones: `added`.
+Type: `Identifier`. Vocabulary: NCBI Taxonomy, as NCBITaxon:<number>. Basis: `ohf`. Class: `searchable`. Zones: `added`. Since: OHF 1.1.
 
 Example value: NCBITaxon:10090
 
@@ -1637,7 +1637,7 @@ Example value: NCBITaxon:10090
 
 Strain, genotype or cell-line identity, keeping supplied identifiers. Here: of the study the evidence line reports, not of the claim.
 
-Type: `TextOrTerm`. Vocabulary: Free text; use a strain or cell-line registry identifier where one exists. Basis: `arrive`. Class: `searchable`.
+Type: `TextOrTerm`. Vocabulary: Free text; use a strain or cell-line registry identifier where one exists. Basis: `arrive`. Class: `searchable`. Since: OHF 1.1.
 
 Example value: cell line Z
 
@@ -1645,7 +1645,7 @@ Example value: cell line Z
 
 Source-stated sex or applicable population description. Here: of the study the evidence line reports, not of the claim.
 
-Type: `TextOrTerm`. Vocabulary: Source wording, without defaulting to both sexes. Basis: `arrive`. Class: `searchable`.
+Type: `TextOrTerm`. Vocabulary: Source wording, without defaulting to both sexes. Basis: `arrive`. Class: `searchable`. Since: OHF 1.1.
 
 Example value: not stated
 
@@ -1653,7 +1653,7 @@ Example value: not stated
 
 Age when treatment or observation starts, with units and origin. Here: of the study the evidence line reports, not of the claim.
 
-Type: `QuantityOrInterval`. Vocabulary: UCUM-compatible units and explicit time origin. Basis: `arrive`. Class: `searchable`.
+Type: `QuantityOrInterval`. Vocabulary: UCUM-compatible units and explicit time origin. Basis: `arrive`. Class: `searchable`. Since: OHF 1.1.
 
 Example value: 10 weeks, fictional example
 
@@ -1661,7 +1661,7 @@ Example value: 10 weeks, fictional example
 
 Age at endpoint assessment, distinguished from treatment-start age and follow-up. Here: of the study the evidence line reports, not of the claim.
 
-Type: `QuantityOrInterval`. Vocabulary: Source-defined time origin. Basis: `arrive`. Class: `searchable`.
+Type: `QuantityOrInterval`. Vocabulary: Source-defined time origin. Basis: `arrive`. Class: `searchable`. Since: OHF 1.1.
 
 Example value: not stated
 
@@ -1669,7 +1669,7 @@ Example value: not stated
 
 Experimental site, laboratory or cohort context when relevant. Here: of the study the evidence line reports, not of the claim.
 
-Type: `TextOrReference`. Vocabulary: Source identifiers. Basis: `arrive`. Class: `searchable`.
+Type: `TextOrReference`. Vocabulary: Source identifiers. Basis: `arrive`. Class: `searchable`. Since: OHF 1.1.
 
 Example value: site A
 
@@ -1677,7 +1677,7 @@ Example value: site A
 
 Level of organization of the test system. Here: of the study the evidence line reports, not of the claim.
 
-Type: `Term`. Vocabulary: OHF vocabulary: cell | tissue | organism | population | community | ecosystem | clade | in_silico | other. Basis: `ohf`. Class: `searchable`.
+Type: `Term`. Vocabulary: OHF vocabulary: cell | tissue | organism | population | community | ecosystem | clade | in_silico | other. Basis: `ohf`. Class: `searchable`. Since: OHF 1.1.
 
 Example value: community
 
@@ -1685,7 +1685,7 @@ Example value: community
 
 Conditions in which the system is studied, such as laboratory culture, a field site or a simulation. Here: of the study the evidence line reports, not of the claim.
 
-Type: `Text`. Vocabulary: Source text. Basis: `ohf`. Class: `searchable`.
+Type: `Text`. Vocabulary: Source text. Basis: `ohf`. Class: `searchable`. Since: OHF 1.1.
 
 Example value: laboratory colonies
 
@@ -1693,7 +1693,7 @@ Example value: laboratory colonies
 
 Spatial extent of the system or of the observation, such as a culture well, a lake or a continent. Here: of the study the evidence line reports, not of the claim.
 
-Type: `Text`. Vocabulary: Source text. Basis: `ohf`. Class: `searchable`.
+Type: `Text`. Vocabulary: Source text. Basis: `ohf`. Class: `searchable`. Since: OHF 1.1.
 
 Example value: whole lakes
 
@@ -1701,7 +1701,7 @@ Example value: whole lakes
 
 Time span over which the prediction applies, such as hours, a growing season or evolutionary time. Here: of the study the evidence line reports, not of the claim.
 
-Type: `Text`. Vocabulary: Source text. Basis: `ohf`. Class: `searchable`.
+Type: `Text`. Vocabulary: Source text. Basis: `ohf`. Class: `searchable`. Since: OHF 1.1.
 
 Example value: about 350,000 generations
 
@@ -1709,7 +1709,7 @@ Example value: about 350,000 generations
 
 Intervention identity, preserving mixtures and unresolved names. Here: of the study the evidence line reports, not of the claim.
 
-Type: `TextOrTerm`. Vocabulary: ChEBI or another named registry, otherwise the source name. Basis: `ich`. Class: `searchable`.
+Type: `TextOrTerm`. Vocabulary: ChEBI or another named registry, otherwise the source name. Basis: `ich`. Class: `searchable`. Since: OHF 1.1.
 
 Example value: compound X
 
@@ -1717,7 +1717,7 @@ Example value: compound X
 
 Dose value or range with unit, denominator and administration basis. Here: of the study the evidence line reports, not of the claim.
 
-Type: `Quantity`. Vocabulary: UCUM-compatible expression plus original dose string. Basis: `ucum`. Class: `searchable`.
+Type: `Quantity`. Vocabulary: UCUM-compatible expression plus original dose string. Basis: `ucum`. Class: `searchable`. Since: OHF 1.1.
 
 Example value: 5 arbitrary units per culture, fictional
 
@@ -1725,7 +1725,7 @@ Example value: 5 arbitrary units per culture, fictional
 
 Frequency and administration schedule, without deriving it from a dose. Here: of the study the evidence line reports, not of the claim.
 
-Type: `Text`. Vocabulary: Source wording. Basis: `ich`. Class: `searchable`.
+Type: `Text`. Vocabulary: Source wording. Basis: `ich`. Class: `searchable`. Since: OHF 1.1.
 
 Example value: single exposure
 
@@ -1733,7 +1733,7 @@ Example value: single exposure
 
 Length of intervention, separate from observation horizon. Here: of the study the evidence line reports, not of the claim.
 
-Type: `QuantityOrInterval`. Vocabulary: UCUM-compatible duration. Basis: `ucum`. Class: `searchable`.
+Type: `QuantityOrInterval`. Vocabulary: UCUM-compatible duration. Basis: `ucum`. Class: `searchable`. Since: OHF 1.1.
 
 Example value: 48 hours, fictional
 
@@ -1741,7 +1741,7 @@ Example value: 48 hours, fictional
 
 Administration route when stated and applicable. Here: of the study the evidence line reports, not of the claim.
 
-Type: `TextOrTerm`. Vocabulary: Source wording in value; in the added zone also a closed term (ohf:terms@1, route), required from OHF 1.1, with a note for other. Basis: `arrive`. Class: `searchable`.
+Type: `TextOrTerm`. Vocabulary: Source wording in value; in the added zone also a closed term (ohf:terms@1, route), required from OHF 1.1, with a note for other. Basis: `arrive`. Class: `searchable`. Since: OHF 1.1.
 
 Example value: in culture medium, fictional
 
@@ -1749,7 +1749,7 @@ Example value: in culture medium, fictional
 
 Source-stated formulation and preparation, not inferred from the agent name. Here: of the study the evidence line reports, not of the claim.
 
-Type: `Text`. Vocabulary: Free text; use a domain registry identifier where one exists. Basis: `arrive`. Class: `searchable`.
+Type: `Text`. Vocabulary: Free text; use a domain registry identifier where one exists. Basis: `arrive`. Class: `searchable`. Since: OHF 1.1.
 
 Example value: not stated
 
@@ -1757,7 +1757,7 @@ Example value: not stated
 
 Nominal feed/medium concentration, with its own denominator and original unit. Here: of the study the evidence line reports, not of the claim.
 
-Type: `Quantity`. Vocabulary: UCUM-compatible syntax plus biological basis. Basis: `ucum`. Class: `searchable`.
+Type: `Quantity`. Vocabulary: UCUM-compatible syntax plus biological basis. Basis: `ucum`. Class: `searchable`. Since: OHF 1.1.
 
 Example value: source dietary concentration, not delivered body dose
 
@@ -1765,7 +1765,7 @@ Example value: source dietary concentration, not delivered body dose
 
 Assayed concentration in the named preparation, with measurement context. Here: of the study the evidence line reports, not of the claim.
 
-Type: `QuantityAndSource`. Vocabulary: Declared assay/context. Basis: `ohf`. Class: `searchable`.
+Type: `QuantityAndSource`. Vocabulary: Declared assay/context. Basis: `ohf`. Class: `searchable`. Since: OHF 1.1.
 
 Example value: not measured in supplied material
 
@@ -1773,7 +1773,7 @@ Example value: not measured in supplied material
 
 Consumed quantity and timing when supplied, separate from concentration. Here: of the study the evidence line reports, not of the claim.
 
-Type: `QuantityAndSource`. Vocabulary: Source intake basis. Basis: `ohf`. Class: `searchable`.
+Type: `QuantityAndSource`. Vocabulary: Source intake basis. Basis: `ohf`. Class: `searchable`. Since: OHF 1.1.
 
 Example value: not stated
 
@@ -1781,7 +1781,7 @@ Example value: not stated
 
 Measured or predicted systemic exposure, retaining specimen/time context. Here: of the study the evidence line reports, not of the claim.
 
-Type: `QuantityAndSource`. Vocabulary: Source assay, with specimen and time. Basis: `ohf`. Class: `searchable`.
+Type: `QuantityAndSource`. Vocabulary: Source assay, with specimen and time. Basis: `ohf`. Class: `searchable`. Since: OHF 1.1.
 
 Example value: blood concentration, if supplied
 
@@ -1789,7 +1789,7 @@ Example value: blood concentration, if supplied
 
 The result comes from a programme that runs the same protocol at several sites, and how many.
 
-Type: `Record`. Vocabulary: Programme name and number of sites, at least 2. Basis: `ohf`. Class: `searchable`. Zones: `added`.
+Type: `Record`. Vocabulary: Programme name and number of sites, at least 2. Basis: `ohf`. Class: `searchable`. Zones: `added`. Since: OHF 1.1.
 
 Example value: ITP, 3 sites
 
@@ -1797,7 +1797,7 @@ Example value: ITP, 3 sites
 
 Which part of the study the result comes from: the whole sample or a named subgroup; a primary or secondary outcome; a pre-specified or post hoc analysis.
 
-Type: `Record`. Vocabulary: population: whole_sample | subgroup (with the subgroup named); outcome: primary | secondary | not_stated; analysis: pre_specified | post_hoc | not_stated. Basis: `ohf`. Class: `searchable`. Zones: `added`.
+Type: `Record`. Vocabulary: population: whole_sample | subgroup (with the subgroup named); outcome: primary | secondary | not_stated; analysis: pre_specified | post_hoc | not_stated. Basis: `ohf`. Class: `searchable`. Zones: `added`. Since: OHF 1.1.
 
 Example value: subgroup: males on the lower dose; secondary outcome; analysis not stated
 
@@ -1805,7 +1805,7 @@ Example value: subgroup: males on the lower dose; secondary outcome; analysis no
 
 Kind of endpoint the evidence line measures, as for predictions[].endpoint_kind.
 
-Type: `Term`. Vocabulary: Source wording in value and a closed term (ohf:terms@1, endpoint_kind), with a note for other. Basis: `ohf`. Class: `searchable`. Zones: `added`.
+Type: `Term`. Vocabulary: Source wording in value and a closed term (ohf:terms@1, endpoint_kind), with a note for other. Basis: `ohf`. Class: `searchable`. Zones: `added`. Since: OHF 1.1.
 
 Example value: biomarker
 
@@ -1813,7 +1813,7 @@ Example value: biomarker
 
 How close the system of the evidence is to humans. Derived where it can be: from the taxon (ohf:terms@1, taxa) and the endpoint kind, by the rule in spec/README.md; in vitro and ex vivo are stated, not derived.
 
-Type: `Term`. Vocabulary: ohf:terms@1, human_proximity: in_vitro | ex_vivo | invertebrate | non_mammal_vertebrate | mammal | human_marker | human_clinical. Basis: `ohf`. Class: `searchable`. Zones: `added`.
+Type: `Term`. Vocabulary: ohf:terms@1, human_proximity: in_vitro | ex_vivo | invertebrate | non_mammal_vertebrate | mammal | human_marker | human_clinical. Basis: `ohf`. Class: `searchable`. Zones: `added`. Since: OHF 1.1.
 
 Example value: human_marker
 
@@ -1821,7 +1821,7 @@ Example value: human_marker
 
 Number of experimental units the result rests on, as the source states it.
 
-Type: `Quantity`. Vocabulary: Positive integer. Basis: `ohf`. Class: `searchable`. Zones: `added`.
+Type: `Quantity`. Vocabulary: Positive integer. Basis: `ohf`. Class: `searchable`. Zones: `added`. Since: OHF 1.1.
 
 Example value: 48
 
@@ -2032,7 +2032,7 @@ Example from fictional card fx_eight at `/added/layers/evidence/lines/1/independ
 
 Where the data of the group first appeared: the article, registry record or accession. Lines of two cards with the same key rest on the same data, whatever their labels.
 
-Type: `Identifier`. Vocabulary: scheme doi | pmid | pmcid | registry | accession, and its identifier. Basis: `ohf`. Class: `searchable`. Zones: `added`.
+Type: `Identifier`. Vocabulary: scheme doi | pmid | pmcid | registry | accession, and its identifier. Basis: `ohf`. Class: `searchable`. Zones: `added`. Since: OHF 1.1.
 
 Example value: registry NCT04488601
 
@@ -2087,7 +2087,7 @@ Example from fictional card fx_eight at `/added/layers/evidence/selection_record
 
 A record that was found for a target and not used as an evidence line, with the type of the mismatch, its quotation and where it stands; the counts stay in selection_record.
 
-Type: `Record`. Vocabulary: reason from ohf:terms@1, exclusion_reason: species_mismatch | direction_mismatch | endpoint_mismatch | type_mismatch | inherited_mismatch | other (with a note). Basis: `ohf`. Class: `searchable`. Zones: `added`.
+Type: `Record`. Vocabulary: reason from ohf:terms@1, exclusion_reason: species_mismatch | direction_mismatch | endpoint_mismatch | type_mismatch | inherited_mismatch | other (with a note). Basis: `ohf`. Class: `searchable`. Zones: `added`. Since: OHF 1.1.
 
 Example value: inherited_mismatch: a mouse finding against a claim about humans
 
@@ -2406,7 +2406,7 @@ Example value: process Y
 
 Hallmarks of aging that atoms of this card concern, each with the atoms that concern it. A classification of the card, not a claim of the source; only in the aging profile.
 
-Type: `Term[]`. Vocabulary: ohf:hallmarks@1: the twelve hallmarks of López-Otín et al. 2023. Basis: `ohf`. Class: `author_only`. Zones: `added`.
+Type: `Term[]`. Vocabulary: ohf:hallmarks@1: the twelve hallmarks of López-Otín et al. 2023. Basis: `ohf`. Class: `author_only`. Zones: `added`. Since: OHF 1.1.
 
 Example value: deregulated_nutrient_sensing: a_mtorc1_inhibition
 
