@@ -33,8 +33,8 @@ def test_cards_validate(path):
 @pytest.mark.parametrize('path', CARDS, ids=lambda p: p.name)
 def test_example_cards_are_licensed_and_without_domain(path):
     card = load(path)
-    # The OHF 1.1 example shows the aging profile; a 1.0 example selects no domain.
-    expected = {'1.0': 'none', '1.1': 'ohf:aging@1'}[card['standard_version']]
+    # The rapa example shows the aging profile; the other examples select no domain.
+    expected = 'ohf:aging@1' if path.stem == 'intermittent-rapamycin-mtorc2' else 'none'
     assert card['added']['layers']['profile']['domain'] == expected
     assert card['author']['source']['license'] in ('CC-BY-4.0', 'CC-BY-3.0')
 

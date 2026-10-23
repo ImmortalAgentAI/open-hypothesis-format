@@ -15,9 +15,9 @@ ROOT = Path(__file__).resolve().parents[1]
 CARDS = sorted((ROOT / 'examples/cards').glob('*.json'))
 LEDGERS = sorted((ROOT / 'examples/ledgers').glob('*.json'))
 # Converted before ledgers were kept: its records name no checked text.
-# An OHF 1.1 card: check_ledger expects a record for every sourced value and rebuilds a value without
+# OHF 1.1 cards: check_ledger expects a record for every sourced value and rebuilds a value without
 # its closed term, so it does not apply yet (an item for 1.2).
-WITHOUT_LEDGER = {'muller-sheltering', 'intermittent-rapamycin-mtorc2'}
+WITHOUT_LEDGER = {'muller-sheltering', 'intermittent-rapamycin-mtorc2', 'peto-paradox-mammals'}
 # Test only: the src passages of the example card are not in the repository.
 PASSAGE = 'passage not in the repository'
 
