@@ -40,7 +40,7 @@ Matching a field path does not prove source support or completeness.
 
 A missing field stays missing and is listed in `added.gaps`. A gap does not invent a value.
 
-Each gap names its exact catalogue path, a disposition, a reason, and the search queries and inspected artifacts behind it.
+Each gap names its exact catalogue path, a disposition, a reason, and the search queries and inspected artifacts behind it. The path is one the schema admits as a gap path: a field whose value the schema requires takes no gap, nor does a component that is not a member of its field (`GAP_PATH_REFUSED` in `tools/check_gaps.py`).
 
 The disposition says why the value is missing:
 

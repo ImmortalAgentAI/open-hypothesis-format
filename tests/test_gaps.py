@@ -5,7 +5,7 @@ from pathlib import Path
 import pytest
 from jsonschema import Draft202012Validator
 
-from tools.check_gaps import check
+from tools.check_gaps import check, gap_path_patterns
 from tools.strict_json import load
 from tools.validate import validation_errors
 
@@ -164,3 +164,50 @@ def test_policy_schema():
 def test_policy_covers_catalogue_exactly():
     assert [row['path'] for row in POLICY['fields']] and \
         {row['path'] for row in POLICY['fields']} == {row['path'] for row in CATALOGUE['fields']}
+
+
+# ------------------------------------------------------------------ a gap only where the schema admits one
+
+PATTERNS = gap_path_patterns(SCHEMA)
+
+
+def concrete(path):
+    return path.replace('[]', '[0]')
+
+
+def admitted(path):
+    return any(pattern.search(path) for pattern in PATTERNS)
+
+
+PETO = load(ROOT / 'examples/cards/peto-paradox-mammals.json')  # an OHF 1.1 card
+
+
+def schema_refuses_gap(path, base):
+    """Whether validate rejects the path of a gap, on a card that is otherwise valid."""
+    card = with_gaps(base, gap(path))
+    return any(list(error.absolute_path)[:4] == ['added', 'gaps', 0, 'path']
+               for error in Draft202012Validator(SCHEMA).iter_errors(card))
+
+
+REFUSED = [row['path'] for row in CATALOGUE['fields'] if not admitted(concrete(row['path']))]
+
+
+def test_checker_and_schema_agree_on_every_catalogue_row():
+    assert REFUSED, 'the schema refuses a gap on some catalogue rows'
+    for row in CATALOGUE['fields']:
+        base = FIVE if row.get('since', '1.0') == '1.0' else PETO
+        assert schema_refuses_gap(concrete(row['path']), base) == (row['path'] in REFUSED), row['path']
+
+
+@pytest.mark.parametrize('path', REFUSED)
+def test_gap_on_a_field_that_takes_a_value_is_refused(path):
+    card = with_gaps(FIVE, gap(concrete(path)))
+    assert validation_errors(SCHEMA, card)
+    assert 'GAP_PATH_REFUSED' in codes(check(card, POLICY, CATALOGUE, MAPPING))
+
+
+@pytest.mark.parametrize('path', ['identity.version.note', 'core.testability.assessment', 'core.scope.invented'])
+def test_gap_on_a_component_that_is_no_member_is_refused(path):
+    card = with_gaps(FIVE, gap(path))
+    assert validation_errors(SCHEMA, card)
+    assert codes(check(card, POLICY, CATALOGUE, MAPPING)) == {'GAP_PATH_REFUSED'}
