@@ -1,6 +1,6 @@
 # Changelog
 
-## Unreleased
+## 1.1.1 (2026-10-23)
 
 The card format, the schemas and the vocabularies are unchanged.
 
