@@ -486,7 +486,7 @@
       "since": "1.1",
       "definition": "The atom as subject, relation and object for machine linking. The statement stays the claim; the triple is a reading of it and may be coarser. Subject and object are ontology terms or mechanism entities of this card.",
       "logical_type": "Triple",
-      "vocabulary": "Relation from RO (RO:nnnnnnn) or the Biolink Model (biolink:slot); subject and object as CURIEs; qualifiers as Biolink qualifier slots",
+      "vocabulary": "Relation from RO (RO:nnnnnnn) or the Biolink Model (biolink:slot); from OHF 1.2 a predicate of ohf:predicates@1 with its label there, and qualifiers from its qualifier slots; subject and object as CURIEs",
       "example": "rapamycin RO:0002212 negatively regulates mTORC1",
       "basis": "ohf",
       "field_class": "author_only",

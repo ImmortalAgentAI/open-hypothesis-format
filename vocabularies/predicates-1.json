@@ -1,0 +1,20 @@
+{
+  "schema": "ohf:predicates@1",
+  "sources": {
+    "RO": {"release": "2026-09-04", "url": "http://purl.obolibrary.org/obo/ro/releases/2026-09-04/ro.json"},
+    "biolink": {"version": "4.4.6", "url": "https://raw.githubusercontent.com/biolink/biolink-model/v4.4.6/biolink-model.yaml"}
+  },
+  "predicates": [
+    {"id": "RO:0002211", "label": "regulates", "source": "RO", "inverse": "RO:0002334", "kind": "regulatory"},
+    {"id": "RO:0002213", "label": "positively regulates", "source": "RO", "inverse": "RO:0002336", "kind": "regulatory"},
+    {"id": "RO:0002212", "label": "negatively regulates", "source": "RO", "inverse": "RO:0002335", "kind": "regulatory"},
+    {"id": "RO:0002411", "label": "causally upstream of", "source": "RO", "inverse": "RO:0002404", "kind": "causal"},
+    {"id": "RO:0003304", "label": "contributes to condition", "source": "RO", "kind": "causal"},
+    {"id": "RO:0002610", "label": "correlated with", "source": "RO", "kind": "associative"},
+    {"id": "biolink:affects", "label": "affects", "source": "biolink", "kind": "causal"}
+  ],
+  "qualifier_slots": [
+    {"id": "biolink:object_aspect_qualifier", "label": "object aspect qualifier", "source": "biolink"},
+    {"id": "biolink:object_direction_qualifier", "label": "object direction qualifier", "source": "biolink"}
+  ]
+}

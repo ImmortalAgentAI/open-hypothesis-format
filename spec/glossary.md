@@ -144,7 +144,7 @@ This glossary defines the terms the Open Hypothesis Format (OHF) specification u
 
 **Validator.** `tools/validate.py`: checks a card against the schema, rejects duplicate JSON members, non-finite numbers and invalid calendar timestamps, and reports every schema error. See the [validator](../tools/validate.py).
 
-**Vocabulary pin.** An entry of `vocabularies` that names a controlled vocabulary by id and SHA-256, such as `ohf:profiles@1` and `ohf:heuristics@1`, and from OHF 1.1 `ohf:terms@1`, `ohf:profiles@2` and `ohf:hallmarks@1`. The schema fixes the hash, so a card is bound to one exact vocabulary file. See [vocabularies](../vocabularies/profiles-1.json).
+**Vocabulary pin.** An entry of `vocabularies` that names a controlled vocabulary by id and SHA-256, such as `ohf:profiles@1` and `ohf:heuristics@1`, from OHF 1.1 `ohf:terms@1`, `ohf:profiles@2` and `ohf:hallmarks@1`, and from OHF 1.2 `ohf:predicates@1`. The schema fixes the hash, so a card is bound to one exact vocabulary file. See [vocabularies](../vocabularies/profiles-1.json).
 
 **Withheld quote.** From OHF 1.1, `evidence.lines[].quote_withheld`: in place of a quote that may not be reproduced, the reason, the locator, the record, a paraphrase and the abstract sentence that entails it. Such a line is counted but does not make the disputing side for `full`. See [README](README.md#ohf-11).
 

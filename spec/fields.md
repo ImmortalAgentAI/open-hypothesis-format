@@ -389,7 +389,7 @@ Example value: a_mtorc1_inhibition
 
 The atom as subject, relation and object for machine linking. The statement stays the claim; the triple is a reading of it and may be coarser. Subject and object are ontology terms or mechanism entities of this card.
 
-Type: `Triple`. Vocabulary: Relation from RO (RO:nnnnnnn) or the Biolink Model (biolink:slot); subject and object as CURIEs; qualifiers as Biolink qualifier slots. Basis: `ohf`. Class: `author_only`. Check: `passage`. Zones: `added`. Since: OHF 1.1.
+Type: `Triple`. Vocabulary: Relation from RO (RO:nnnnnnn) or the Biolink Model (biolink:slot); from OHF 1.2 a predicate of ohf:predicates@1 with its label there, and qualifiers from its qualifier slots; subject and object as CURIEs. Basis: `ohf`. Class: `author_only`. Check: `passage`. Zones: `added`. Since: OHF 1.1.
 
 Example value: rapamycin RO:0002212 negatively regulates mTORC1
 

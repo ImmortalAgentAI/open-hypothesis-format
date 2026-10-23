@@ -33,7 +33,8 @@ taxon and endpoint kind where the pinned taxon table allows it (`check_proximity
 each entailment record follows the check of the value it names, from the field catalogue: a passage
 record names a value checked against its passage, a resolution record a value checked against an
 external record, bound to the response and the key it looked up; a value checked by resolution
-without a record gets a warning (`check_integrity`). The completeness
+without a record gets a warning (`check_integrity`); the relation of an atom triple has the label
+of that predicate in the pinned vocabulary (`check_predicates`). The completeness
 level is computed by `check_completeness.py` and compared with the declared one.
 It assumes a card that already passes `tools/validate.py`.
 """
@@ -481,6 +482,20 @@ def check_proximity(card, errors, warnings, taxa=None, terms=None):
                                 + ' or '.join(sorted(allowed - STATED_ONLY))))
 
 
+def check_predicates(card, errors, predicates=None):
+    """OHF 1.2: the label of an atom triple's relation is the label of that predicate in the pinned
+    vocabulary (the schema closes the id)."""
+    if card.get('standard_version') in ('1.0', '1.1'):
+        return
+    predicates = predicates if predicates is not None else load(ROOT / 'vocabularies/predicates-1.json')
+    labels = {row['id']: row['label'] for row in predicates['predicates']}
+    for i, atom in enumerate(layers(card, 'added').get('core', {}).get('atoms', [])):
+        relation = (unwrap(atom.get('triple')) or {}).get('relation') or {}
+        if relation.get('id') in labels and relation.get('label') != labels[relation['id']]:
+            errors.append(issue('REF_PREDICATE_LABEL', f'added.core.atoms[{i}].triple.relation.label',
+                                f"The label of {relation['id']} is {labels[relation['id']]!r}"))
+
+
 def check_quotes(card, errors, warnings):
     """OHF 1.1: what a line's quote reports in numbers is also in the line's fields, or a gap says why not.
 
@@ -539,6 +554,7 @@ def check(card, taxa=None):
     check_times(card, errors)
     check_quotes(card, errors, warnings)
     check_proximity(card, errors, warnings, taxa)
+    check_predicates(card, errors)
     for ident, prediction in fields.items():
         missing = [key for key in COMPARABLE if key not in prediction]
         if prediction.get('form') == 'directional_contrast' and 'direction' not in prediction:

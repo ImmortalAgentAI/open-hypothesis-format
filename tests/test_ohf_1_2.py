@@ -6,6 +6,7 @@ and an OHF 1.2 card's entailment records follow it. The released 1.1 example car
 `as_1_2` gives the same card as an OHF 1.2 card, with no record that 1.2 does not allow.
 """
 import copy
+import hashlib
 from pathlib import Path
 
 import pytest
@@ -32,6 +33,7 @@ TARGET = f'/added/layers/evidence/lines/{WITHHELD}/target_ref'
 MODEL = {'name': 'fictional-checker', 'version': '1.0.0', 'prompt_sha256': 'sha256:' + '1' * 64}
 TOOL = {'kind': 'tool', 'name': 'fictional-resolver', 'version': '1.0.0', 'tool_sha256': 'sha256:' + '2' * 64}
 RESPONSE = 'sha256:' + '3' * 64
+PREDICATES = load(ROOT / 'vocabularies/predicates-1.json')
 LATER = '2026-10-24T00:00:00Z'
 
 
@@ -40,12 +42,18 @@ def as_1_2(card):
     against a passage keep their records."""
     card = copy.deepcopy(card)
     card['standard_version'] = '1.2'
+    card['vocabularies']['predicates'] = {'id': 'ohf:predicates@1', 'sha256': predicates_pin()}
     for line in card['added']['layers']['evidence']['lines']:
         if isinstance(line.get('target_ref'), dict) and 'src' in line['target_ref']:
             line['target_ref'] = line['target_ref']['value']
     records = card['added']['integrity']['entailment']
     records[:] = [r for r in records if check_class(card, r['pointer']) == 'passage']
     return card
+
+
+def predicates_pin(data=None):
+    data = data if data is not None else (ROOT / 'vocabularies/predicates-1.json').read_bytes()
+    return 'sha256:' + hashlib.sha256(data).hexdigest()
 
 
 def rapa():
@@ -380,3 +388,110 @@ def test_a_resolution_is_checked_after_the_assessment_of_its_value():  # Codex R
     assert not validation_errors(SCHEMA, early)
     assert codes(early) == {'REF_TIME_ORDER'}
     assert not codes(keyed_group(rapa(), LATER))
+
+
+# ------------------------------------------------------------------ closed predicates (item 1)
+
+def triple(card):
+    """The relation of the first atom with a triple, and that atom's triple value."""
+    atom = next(a for a in card['added']['layers']['core']['atoms'] if 'triple' in a)
+    return atom['triple']['value']
+
+
+def schema_clause(versions):
+    for clause in SCHEMA['allOf']:
+        version = clause['if']['properties'].get('standard_version', {})
+        if version.get('enum', [version.get('const')]) == versions:
+            return clause['then']['allOf']
+    raise KeyError(versions)
+
+
+def test_predicates_pin_matches_the_vocabulary():
+    assert SCHEMA['properties']['vocabularies']['properties']['predicates']['properties']['sha256']['const'] == predicates_pin()
+
+
+def test_schema_predicates_are_the_vocabulary():
+    clause = schema_clause(['1.2'])
+    value = next(c for c in clause if 'atoms' in str(c) and 'enum' in str(c))
+    value = value['properties']['added']['properties']['layers']['properties']['core']['properties']['atoms']['items']
+    value = value['properties']['triple']['properties']['value']['properties']
+    assert value['relation']['properties']['id']['enum'] == [p['id'] for p in PREDICATES['predicates']]
+    assert value['qualifiers']['items']['properties']['type']['enum'] == [q['id'] for q in PREDICATES['qualifier_slots']]
+
+
+def test_vocabulary_rows_are_well_formed():
+    ids = [p['id'] for p in PREDICATES['predicates']]
+    assert len(ids) == len(set(ids))
+    for row in PREDICATES['predicates']:
+        assert row['source'] in PREDICATES['sources'] and row['label'].strip()
+        assert row['kind'] in ('causal', 'regulatory', 'associative', 'participation')
+        assert row['id'].startswith('RO:' if row['source'] == 'RO' else 'biolink:')
+    assert 'other' not in ids
+
+
+def test_examples_and_fixtures_use_only_listed_predicates():
+    listed = {p['id']: p['label'] for p in PREDICATES['predicates']}
+    for path in LEGACY:
+        card = load(path)
+        for atom in card.get('added', {}).get('layers', {}).get('core', {}).get('atoms', []):
+            if 'triple' in atom:
+                relation = atom['triple']['value']['relation']
+                assert listed.get(relation['id']) == relation['label'], (path.name, relation)
+
+
+def test_the_rapa_triple_is_valid_in_1_2():
+    card = rapa()
+    assert not validation_errors(SCHEMA, card)
+    assert 'REF_PREDICATE_LABEL' not in codes(card)
+
+
+def test_a_predicate_outside_the_vocabulary_is_rejected():  # M1a
+    card = rapa()
+    assert not validation_errors(SCHEMA, card)
+    triple(card)['relation'] = {'id': 'RO:0009999', 'label': 'negatively regulates'}
+    assert schema_rejects(card)
+
+
+def test_a_predicate_with_another_label_is_rejected():  # M1b
+    card = rapa()
+    triple(card)['relation']['label'] = 'positively regulates'
+    assert not validation_errors(SCHEMA, card)
+    assert codes(card) == {'REF_PREDICATE_LABEL'}
+
+
+def test_a_qualifier_outside_the_slots_is_rejected():  # M1c
+    card = rapa()
+    triple(card)['qualifiers'] = [{'type': 'biolink:made_up_qualifier', 'value': 'increased'}]
+    assert schema_rejects(card)
+    triple(card)['qualifiers'] = [{'type': 'biolink:object_direction_qualifier', 'value': 'increased'}]
+    assert not validation_errors(SCHEMA, card)
+
+
+def test_a_changed_vocabulary_breaks_the_pin():  # M1d
+    data = bytearray((ROOT / 'vocabularies/predicates-1.json').read_bytes())
+    data[data.index(b'negatively')] ^= 0x20
+    card = rapa()
+    assert not validation_errors(SCHEMA, card)
+    card['vocabularies']['predicates']['sha256'] = predicates_pin(bytes(data))
+    assert schema_rejects(card)
+
+
+def test_a_1_2_triple_needs_the_pin():  # M1e
+    card = rapa()
+    del card['vocabularies']['predicates']
+    assert schema_rejects(card)
+    for atom in card['added']['layers']['core']['atoms']:
+        atom.pop('triple', None)
+    records = card['added']['integrity']['entailment']
+    records[:] = [r for r in records if '/triple' not in r['pointer']]
+    assert not validation_errors(SCHEMA, card)
+
+
+def test_a_1_1_card_keeps_the_open_relation():  # M1f, M1g
+    card = copy.deepcopy(RAPA)
+    assert not validation_errors(SCHEMA, card)
+    triple(card)['relation'] = {'id': 'RO:0009999', 'label': 'a relation not in the vocabulary'}
+    assert not validation_errors(SCHEMA, card)
+    assert 'REF_PREDICATE_LABEL' not in codes(card)
+    card['vocabularies']['predicates'] = {'id': 'ohf:predicates@1', 'sha256': predicates_pin()}
+    assert schema_rejects(card)

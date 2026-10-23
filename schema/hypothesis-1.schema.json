@@ -10874,6 +10874,22 @@
             "sha256"
           ],
           "additionalProperties": false
+        },
+        "predicates": {
+          "type": "object",
+          "properties": {
+            "id": {
+              "const": "ohf:predicates@1"
+            },
+            "sha256": {
+              "const": "sha256:3a608a9b34d3d174bb46f8cc294b812486b39d37dca2c1706d8abd8b0a2a6ed5"
+            }
+          },
+          "required": [
+            "id",
+            "sha256"
+          ],
+          "additionalProperties": false
         }
       },
       "required": [
@@ -12283,6 +12299,17 @@
                 }
               }
             }
+          },
+          {
+            "properties": {
+              "vocabularies": {
+                "not": {
+                  "required": [
+                    "predicates"
+                  ]
+                }
+              }
+            }
           }
         ]
       }
@@ -12420,6 +12447,109 @@
                       }
                     }
                   }
+                }
+              }
+            }
+          },
+          {
+            "properties": {
+              "added": {
+                "properties": {
+                  "layers": {
+                    "properties": {
+                      "core": {
+                        "properties": {
+                          "atoms": {
+                            "items": {
+                              "properties": {
+                                "triple": {
+                                  "properties": {
+                                    "value": {
+                                      "properties": {
+                                        "relation": {
+                                          "properties": {
+                                            "id": {
+                                              "enum": [
+                                                "RO:0002211",
+                                                "RO:0002213",
+                                                "RO:0002212",
+                                                "RO:0002411",
+                                                "RO:0003304",
+                                                "RO:0002610",
+                                                "biolink:affects"
+                                              ]
+                                            }
+                                          }
+                                        },
+                                        "qualifiers": {
+                                          "items": {
+                                            "properties": {
+                                              "type": {
+                                                "enum": [
+                                                  "biolink:object_aspect_qualifier",
+                                                  "biolink:object_direction_qualifier"
+                                                ]
+                                              }
+                                            }
+                                          }
+                                        }
+                                      }
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          {
+            "if": {
+              "properties": {
+                "added": {
+                  "properties": {
+                    "layers": {
+                      "properties": {
+                        "core": {
+                          "properties": {
+                            "atoms": {
+                              "contains": {
+                                "required": [
+                                  "triple"
+                                ]
+                              }
+                            }
+                          },
+                          "required": [
+                            "atoms"
+                          ]
+                        }
+                      },
+                      "required": [
+                        "core"
+                      ]
+                    }
+                  },
+                  "required": [
+                    "layers"
+                  ]
+                }
+              },
+              "required": [
+                "added"
+              ]
+            },
+            "then": {
+              "properties": {
+                "vocabularies": {
+                  "required": [
+                    "predicates"
+                  ]
                 }
               }
             }
