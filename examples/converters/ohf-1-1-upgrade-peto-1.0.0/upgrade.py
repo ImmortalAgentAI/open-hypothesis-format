@@ -1,4 +1,4 @@
-"""Upgrade the frozen peto flagship (content_hash b0437424…) to an OHF 1.1 example card.
+"""Upgrade the accepted peto card (content_hash 721bbc8f…) to an OHF 1.1 example card.
 
 Usage: upgrade.py INPUT_DIR OUT_CARD AT CONVERTER_HASH. INPUT_DIR holds the base card, the values tool's
 output (biodb.py) and its search log, and the Europe PMC records of the independence keys. Every wording
@@ -15,9 +15,19 @@ from tools.content_hash import content_hash  # noqa: E402
 
 INPUT, OUT_CARD, AT, CONVERTER_HASH = Path(sys.argv[1]), Path(sys.argv[2]), sys.argv[3], sys.argv[4]
 card = json.loads((INPUT / 'peto-paradox-mammals.json').read_text())
-assert card['content_hash'] == 'sha256:b04374244b572b21b624e0db366a2d50a542a6d63f9f567f323ab16d4de81744'
+assert card['content_hash'] == 'sha256:721bbc8f5e8979b4453d71b7f7cbd479c7ef990aea740480b8f7c6114e21769c'
+# The values were made for the version before the base's revision of wording (b0437424…). That revision
+# changed prose only: everything the values and this upgrade read is identical in both.
+previous = json.loads((INPUT / 'peto-paradox-mammals-b0437424.json').read_text())
+assert previous['content_hash'] == 'sha256:b04374244b572b21b624e0db366a2d50a542a6d63f9f567f323ab16d4de81744'
+for path in (('layers', 'evidence', 'lines'), ('layers', 'core', 'atoms'), ('layers', 'core', 'alternative_explanations'),
+             ('integrity',), ('sources',)):
+    a, b = previous['added'], card['added']
+    for key in path:
+        a, b = a[key], b[key]
+    assert a == b, path
 values = json.loads((INPUT / 'peto-1.1-values.json').read_text())
-assert values['card']['content_hash'] == card['content_hash']
+assert values['card']['content_hash'] == previous['content_hash']
 log = {json.loads(l)['call_id']: json.loads(l) for l in (INPUT / 'search-log.jsonl').read_text().splitlines() if l}
 
 
@@ -172,7 +182,7 @@ for alt, ident in zip(alternatives, ALTERNATIVES):
 
 # A base record whose checked content the upgrade changed no longer holds and is dropped: the keyed groups.
 # An identifier given to an alternative is not content a paragraph supports, so that record stands.
-base = json.loads((INPUT / 'peto-paradox-mammals.json').read_text())
+base = json.loads((INPUT / 'peto-paradox-mammals.json').read_text())  # the base as read, before this upgrade
 
 
 def resolve(document, pointer):
@@ -222,9 +232,9 @@ for path in sorted((INPUT / 'verdicts').glob('*.json')):
 added['budget']['http_requests'] += sum(len(entry.get('responses') or []) for entry in log.values()) + len(KEYS)
 
 identity = card['identity']
-identity['supersedes'] = [f"{identity['proposition_id']}@{identity['version']}"]
-identity['version'] += 1
-card['version'] = identity['version']
+identity['supersedes'] = [f"{identity['proposition_id']}@{card['version']}"]
+card['version'] += 1
+identity['version'] = card['version']
 added['by'] = {'converter': 'ohf-1-1-upgrade-peto', 'converter_version': '1.0.0',
                'converter_hash': CONVERTER_HASH, 'model': 'claude-opus-5-5'}
 added['at'] = AT
