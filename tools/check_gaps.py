@@ -18,6 +18,10 @@ Lists of `identity` describe the record, not the science, and take no gap.
 
 A catalogue row marked `since: "1.1"` is a field of OHF 1.1. A 1.0 card is checked against the
 1.0 catalogue, so a gap that names such a field, or a component of one, is unknown there.
+
+A gap names a path the schema admits as a gap path (`$defs.Gap.properties.path` of the card
+schema, read from the schema). A field whose value the schema requires, or a component that is
+not a member of its row, takes no gap (`GAP_PATH_REFUSED`).
 """
 import argparse
 import json
@@ -31,6 +35,29 @@ from strict_json import load  # noqa: E402
 
 ROOT = Path(__file__).resolve().parents[1]
 SEARCH_DISPOSITIONS = {'searched_not_found', 'budget_exhausted'}
+
+
+def gap_path_patterns(schema):
+    """The patterns by which the card schema admits a gap path."""
+    found = []
+
+    def walk(node):
+        if isinstance(node, dict):
+            if isinstance(node.get('pattern'), str):
+                found.append(re.compile(node['pattern']))
+            for value in node.values():
+                walk(value)
+        elif isinstance(node, list):
+            for value in node:
+                walk(value)
+    walk(schema['$defs']['Gap']['properties']['path'])
+    return found
+
+
+def default_patterns():
+    if not hasattr(default_patterns, 'patterns'):
+        default_patterns.patterns = gap_path_patterns(load(ROOT / 'schema/hypothesis-1.schema.json'))
+    return default_patterns.patterns
 
 
 def issue(code, path, message):
@@ -152,12 +179,13 @@ def unselected_paths(card, profiles):
     return {path for profile in profiles['profiles'] for path in profile['paths']} - chosen
 
 
-def check(card, policy, catalogue, mapping, profiles=None):
+def check(card, policy, catalogue, mapping, profiles=None, schema=None):
     errors, review = [], []
     if card.get('standard_version') not in ('1.0', '1.1'):
         return {'valid': False, 'review_required': [], 'errors': [issue(
             'GAP_STANDARD_VERSION', 'standard_version', 'Only OHF 1.0 and 1.1 cards are checked')]}
     profiles = profiles if profiles is not None else load(ROOT / 'vocabularies/profiles-2.json')
+    admitted = gap_path_patterns(schema) if schema is not None else default_patterns()
     unselected = unselected_paths(card, profiles)
     version = card['standard_version']
     rows = {row['path']: row for row in catalogue['fields'] if row.get('since', '1.0') <= version}
@@ -179,6 +207,10 @@ def check(card, policy, catalogue, mapping, profiles=None):
             row = list_row(path, rows)
         if row is None:
             errors.append(issue('GAP_PATH_UNKNOWN', path, 'Path is not a catalogue path or a component of one'))
+            continue
+        if not any(pattern.search(path) for pattern in admitted):
+            errors.append(issue('GAP_PATH_REFUSED', path, 'The schema admits no gap at this path: the field takes a '
+                                'value, or the component is not a member of its field'))
             continue
         if row['path'] in unselected or row.get('members') and set(row['members']) <= unselected:
             errors.append(issue('GAP_PROFILE_FIELD', path,
