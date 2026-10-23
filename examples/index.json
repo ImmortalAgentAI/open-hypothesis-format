@@ -23,8 +23,8 @@
   },
   "intermittent-rapamycin-mtorc2": {
     "id": "h_intermittent-rapamycin-mtorc2",
-    "version": 3,
-    "content_hash": "sha256:700a700602534afac557eb44a9babcdb27aaca179e66669fb43594a06b6b0613",
+    "version": 9,
+    "content_hash": "sha256:f5501f08e812a6225ac0f7b0e535c5db02ee40a5869a72cf8da86352b8149c9b",
     "source": {
       "kind": "paper",
       "citation": "Lamming DW. Rapamycin: the beginning of the end of aging? GeroScience. 2026",
@@ -38,22 +38,22 @@
     },
     "conversion": {
       "converter": "ohf-1-1-upgrade",
-      "converter_version": "1.0.1",
-      "converter_hash": "sha256:b468df8859b6df174182a549606d8637dd7bee3f7edff9ef75cd62b9bcc1ad50",
+      "converter_version": "1.0.2",
+      "converter_hash": "sha256:d6d660b20db76dee3f03b0686a0e54a527587afa32ddf381d4adf5ed2998ffd9",
       "model": "claude-opus-5-5"
     },
     "base": {
-      "version": 2,
-      "content_hash": "sha256:473ca95e5dd7ad4efa2ccdc09dac51d25b970542ec9362f741f1076d9f917db5",
+      "version": 8,
+      "content_hash": "sha256:0ec01fd8f42074a160351634c41a80e49477ae2e9c981812c69c1203a58c98b1",
       "converter": "ohf-extractor",
       "converter_version": "0.8.17",
-      "acceptance": "accepted with one pending check of its latest corrections; if that check changes the base card, this example is rebuilt"
+      "acceptance": "accepted"
     }
   },
   "peto-paradox-mammals": {
     "id": "h_peto-paradox-mammals",
-    "version": 4,
-    "content_hash": "sha256:97e0e0ec332ee9a68ab1c56cae8fd4029a688112c5d7f13ae8fc11de75495b31",
+    "version": 9,
+    "content_hash": "sha256:604d1c30e42c885eed4fbd3caee42b0e05a6c5dccb67eae2d647aa45f4ffe5b6",
     "source": {
       "kind": "paper",
       "citation": "Vincze O, Colchero F, Lemaître JF, Conde DA, Pavard S, Bieuville M, Urrutia AO, Ujvari B, Boddy AM, Maley CC, Thomas F, Giraudeau M. Cancer risk across mammals. Nature. 2022;601(7892):263-267",
@@ -67,13 +67,13 @@
     },
     "conversion": {
       "converter": "ohf-1-1-upgrade-peto",
-      "converter_version": "1.0.0",
-      "converter_hash": "sha256:0a3e882dff9a74c44f423f6f0a2233abb8d80deccfbcce54a2426286aeaa6b75",
+      "converter_version": "1.0.1",
+      "converter_hash": "sha256:4db9cf7f8290ac6655fa98d1215cedcc062733a7d45dc44e510e6b021dd55919",
       "model": "claude-opus-5-5"
     },
     "base": {
-      "version": 3,
-      "content_hash": "sha256:721bbc8f5e8979b4453d71b7f7cbd479c7ef990aea740480b8f7c6114e21769c",
+      "version": 8,
+      "content_hash": "sha256:db738db37ab9b38f75c10735361acfb049630bc5160650f637d4fb51fa5f48a9",
       "converter": "ohf-extractor",
       "converter_version": "0.8.17",
       "acceptance": "accepted"

@@ -1,7 +1,7 @@
 {
   "schema": "ohf:hypothesis@1",
   "id": "h_intermittent-rapamycin-mtorc2",
-  "version": 3,
+  "version": 9,
   "standard_version": "1.1",
   "vocabularies": {
     "heuristics": {
@@ -23,9 +23,9 @@
   },
   "identity": {
     "proposition_id": "h_intermittent-rapamycin-mtorc2",
-    "version": 3,
+    "version": 9,
     "supersedes": [
-      "h_intermittent-rapamycin-mtorc2@2"
+      "h_intermittent-rapamycin-mtorc2@8"
     ],
     "retractions": [],
     "duplicate_cluster_ref": null,
@@ -84,11 +84,11 @@
   "added": {
     "by": {
       "converter": "ohf-1-1-upgrade",
-      "converter_version": "1.0.1",
-      "converter_hash": "sha256:b468df8859b6df174182a549606d8637dd7bee3f7edff9ef75cd62b9bcc1ad50",
+      "converter_version": "1.0.2",
+      "converter_hash": "sha256:d6d660b20db76dee3f03b0686a0e54a527587afa32ddf381d4adf5ed2998ffd9",
       "model": "claude-opus-5-5"
     },
-    "at": "2026-10-23T14:40:03Z",
+    "at": "2026-10-23T18:54:10Z",
     "cutoff_date": "2026-10-21",
     "layers": {
       "core": {
@@ -610,12 +610,12 @@
             "source_ref": {
               "kind": "external",
               "uri": "https://doi.org/10.1111/acel.12405",
-              "limitation": "Cited work (Arriola Apelo et al. 2016, Aging Cell), read as Europe PMC XML PMC4717280; the XML is kept in the conversion work directory (not the repository), sha256 listed in the evidence items that cite it."
+              "limitation": "Cited work (Arriola Apelo et al. 2016, Aging Cell), read as Europe PMC XML PMC4717280; the XML is kept with this extraction's own files, sha256 listed in the evidence items that cite it."
             },
             "date": "2015-10-13",
             "precision": "day",
             "basis": "author_statement",
-            "note": "The article (paragraph 24) says the author hypothesized the claim and shows it with refs. 34 and 68. Ref. 68 (Aging Cell) states the hypothesis that different dosing schedules might expand the therapeutic window by more specifically targeting mTORC1 (paragraph 3); the date is its electronic publication date. Ref. 34 (J Gerontol A 2016, the lifespan study) was not read. What the search layer of 2026-10-21 found no earlier statement of, in five query families on two services in both orders, is the mTORC2-sparing rationale - that an intermittent schedule works by inhibiting mTORC1 while largely sparing mTORC2. It is not a measured absence of the lifespan claim itself: the same calls (509085e70ad3, 84ec3c1cc3e9) return at rank 3 PMID 24556924 / PMC4026081 (2014), \"Lifespan extension and cancer prevention in HER-2/neu transgenic mice treated with low intermittent doses of rapamycin\", a year earlier. Its licence is unestablished rather than refused: the null in the log comes from PubMed esummary records, which carry no licence field at all, and that work has no Europe PMC record and no status call of its own, so this card neither reads nor quotes it. Two further earlier statements are in a work this card does read: Blagosklonny 2019 (PMC6690951) says intermittent administration was proposed in 2008 (its ref. 138) and that weekly rapamycin for 22 weeks inhibited mTORC1 while \"mTORC2 activity remained intact\" in 2014 (its ref. 70). So the date here is the one the converted article attributes to the hypothesis as it states it, and not a claim that no part of it was stated earlier."
+            "note": "The article (paragraph 24) says the author hypothesized the claim and shows it with refs. 34 and 68. Ref. 68 (Aging Cell) states the hypothesis that different dosing schedules might expand the therapeutic window by more specifically targeting mTORC1 (paragraph 3); the date is its electronic publication date. Ref. 34 (J Gerontol A 2016, the lifespan study) was not read. What the search of 2026-10-21 found no earlier statement of, in five query families on two services in both orders, is the mTORC2-sparing rationale - that an intermittent schedule works by inhibiting mTORC1 while largely sparing mTORC2. It is not a measured absence of the lifespan claim itself: the same calls (509085e70ad3, 84ec3c1cc3e9) return at rank 3 PMID 24556924 / PMC4026081 (2014), \"Lifespan extension and cancer prevention in HER-2/neu transgenic mice treated with low intermittent doses of rapamycin\", a year earlier. Its licence is unestablished rather than refused: the null in the log comes from PubMed esummary records, which carry no licence field at all, and that work has no Europe PMC record and no status call of its own, so this card neither reads nor quotes it. Two further earlier statements are in a work this card does read: Blagosklonny 2019 (PMC6690951) says intermittent administration was proposed in 2008 (its ref. 138) and that weekly rapamycin for 22 weeks inhibited mTORC1 while \"mTORC2 activity remained intact\" in 2014 (its ref. 70). So the date here is the one the article attributes to the hypothesis as it states it, and not a claim that no part of it was stated earlier."
           },
           "src": "ac_pubdate"
         }
@@ -5097,7 +5097,7 @@
               },
               "src": "pubmed_31276577",
               "assessment": {
-                "assessor": "ohf-1-1-upgrade 1.0.1",
+                "assessor": "ohf-1-1-upgrade 1.0.2",
                 "assessed_at": "2026-10-22T06:05:23Z",
                 "evidence_ref": {
                   "kind": "artifact",
@@ -5162,7 +5162,7 @@
               },
               "src": "pubmed_34389472",
               "assessment": {
-                "assessor": "ohf-1-1-upgrade 1.0.1",
+                "assessor": "ohf-1-1-upgrade 1.0.2",
                 "assessed_at": "2026-10-22T06:05:23Z",
                 "evidence_ref": {
                   "kind": "artifact",
@@ -5227,7 +5227,7 @@
               },
               "src": "pubmed_40394335",
               "assessment": {
-                "assessor": "ohf-1-1-upgrade 1.0.1",
+                "assessor": "ohf-1-1-upgrade 1.0.2",
                 "assessed_at": "2026-10-22T06:05:23Z",
                 "evidence_ref": {
                   "kind": "artifact",
@@ -5335,7 +5335,7 @@
       {
         "path": "identity.duplicate_cluster_ref",
         "disposition": "not_supplied",
-        "reason": "No duplicate cluster has been formed for this proposition; nothing in the repository holds a second card of the same claim from another source.",
+        "reason": "No duplicate cluster has been formed for this proposition; among the cards this extraction could see, none holds the same claim from another source.",
         "query_ids": [],
         "inspected_artifacts": [
           {
@@ -5359,7 +5359,7 @@
       {
         "path": "identity.retractions[]",
         "disposition": "not_supplied",
-        "reason": "Nothing in this card is retracted. The status of its five sources is a different question, and it was checked: twelve status calls, one per source and one for a notice the calls found (search-log.jsonl). Eleven returned no notice. One did: Minton et al. 2021 (PMC8495984), the work behind e_oa_mtorc2_intact, carries a correction notice (MED:35016718, 10.1186/s13075-022-02718-9, 2022-01-11), which was fetched and read - it corrects the spelling of an author's name and changes no result this card quotes - and is recorded in that line's risk-of-bias note. An earlier version of this reason said no source carried a notice of any kind, written while that call's record had been read down to its `outcome` and `found` fields, neither of which carries a notice: the notice is in its `status` and `notices`. And the article's own Crossref check is in added.source_verification.metadata_check.",
+        "reason": "Nothing in this card is retracted. The status of its five sources is a different question, and it was checked: twelve status calls, one per source and one for a notice the calls found (in the search log). Eleven returned no notice. One did: Minton et al. 2021 (PMC8495984), the work behind e_oa_mtorc2_intact, carries a correction notice (MED:35016718, 10.1186/s13075-022-02718-9, 2022-01-11), which was fetched and read - it corrects the spelling of an author's name and changes no result this card quotes - and is recorded in that line's risk-of-bias note. The notice is in the status call's own `status` and `notices` fields. And the article's own Crossref check is in added.source_verification.metadata_check.",
         "query_ids": [],
         "inspected_artifacts": [
           {
@@ -5371,7 +5371,7 @@
       {
         "path": "core.context[]",
         "disposition": "not_supplied",
-        "reason": "The conditions of the claim are in core.scope and in the eight assumptions, each with the paragraph that states it. The article declares no separate typed context, and splitting its prose into typed qualifiers would be the converter's reading, not the author's.",
+        "reason": "The conditions of the claim are in core.scope and in the eight assumptions, each with the paragraph that states it. The article declares no separate typed context, and splitting its prose into typed qualifiers would be the extractor's reading, not the author's.",
         "query_ids": [],
         "inspected_artifacts": [
           {
@@ -5383,7 +5383,7 @@
       {
         "path": "core.assumptions[].assessment",
         "disposition": "not_supplied",
-        "reason": "The eight assumptions are the author's own statements, quoted in their basis quotations. The converter made no assessment of its own about them.",
+        "reason": "The eight assumptions are the author's own statements, quoted in their basis quotations. The extractor made no assessment of its own about them.",
         "query_ids": [],
         "inspected_artifacts": [
           {
@@ -5395,7 +5395,7 @@
       {
         "path": "core.atoms[].parent_ref",
         "disposition": "not_supplied",
-        "reason": "a_general is the hypothesis as the author states it and the other atoms are its parts, but the article does not build that hierarchy: it states the parts and the whole in one sentence. A parent the converter chose would be a structure the source does not have.",
+        "reason": "a_general is the hypothesis as the author states it and the other atoms are its parts, but the article does not build that hierarchy: it states the parts and the whole in one sentence. A parent the extractor chose would be a structure the source does not have.",
         "query_ids": [],
         "inspected_artifacts": [
           {
@@ -5455,7 +5455,7 @@
       {
         "path": "core.novelty_assessment",
         "disposition": "not_supplied",
-        "reason": "The author claims the hypothesis and its mouse demonstration as his own (paragraph 24, refs. 34 and 68) but states no bounded new-versus-shared content, and this field needs retained search or review evidence for that split. The search layer of 2026-10-21 measured where the article stands (0 citing works, 0 responses, 0 notices — a 2026 review) and that does not establish what is new.",
+        "reason": "The author claims the hypothesis and its mouse demonstration as his own (paragraph 24, refs. 34 and 68) but states no bounded new-versus-shared content, and this field needs retained search or review evidence for that split. The search of 2026-10-21 measured where the article stands (0 citing works, 0 responses, 0 notices — a 2026 review) and that does not establish what is new.",
         "query_ids": [],
         "inspected_artifacts": [
           {
@@ -5479,7 +5479,7 @@
       {
         "path": "core.reinterprets[]",
         "disposition": "not_supplied",
-        "reason": "The one finding the article reinterprets is off this card's axis: it suggests the paradoxical rise in plasma Abeta40 and Abeta42 under rapamycin could reflect material flowing out of brain plaques (paragraph 47). That is a reinterpretation about Alzheimer biomarkers, not about the mTORC2-sparing claim, and the converter will not attach it to an atom it does not bear on.",
+        "reason": "The one finding the article reinterprets is off this card's axis: it suggests the paradoxical rise in plasma Abeta40 and Abeta42 under rapamycin could reflect material flowing out of brain plaques (paragraph 47). That is a reinterpretation about Alzheimer biomarkers, not about the mTORC2-sparing claim, and the extractor will not attach it to an atom it does not bear on.",
         "query_ids": [],
         "inspected_artifacts": [
           {
@@ -5515,7 +5515,7 @@
       {
         "path": "predictions[].experimental_unit",
         "disposition": "not_supplied",
-        "reason": "The unit is the individual animal or subject throughout, and neither the article nor the Aging Cell study says so; the converter does not state it on their behalf.",
+        "reason": "The unit is the individual animal or subject throughout, and neither the article nor the Aging Cell study says so; the extractor does not state it on their behalf.",
         "query_ids": [],
         "inspected_artifacts": [
           {
@@ -5623,7 +5623,7 @@
       {
         "path": "predictions[].intervention.systemic_exposure",
         "disposition": "not_supplied",
-        "reason": "The Aging Cell study (PMC4717280), which is where the once-every-5-days schedule and its comparison with daily dosing are reported, does not state it for that group. This is the field that would carry what an intermittent schedule actually exposes an animal to over a cycle, which is the quantity the whole hypothesis turns on; neither source states it, and the converter will not compute it.",
+        "reason": "The Aging Cell study (PMC4717280), which is where the once-every-5-days schedule and its comparison with daily dosing are reported, does not state it for that group. This is the field that would carry what an intermittent schedule actually exposes an animal to over a cycle, which is the quantity the whole hypothesis turns on; neither source states it, and the extractor will not compute it.",
         "query_ids": [],
         "inspected_artifacts": [
           {
@@ -5647,7 +5647,7 @@
       {
         "path": "predictions[].control_quality",
         "disposition": "not_supplied",
-        "reason": "Neither source rates its own controls, and the converter does not rate a control it did not examine. What it can rate is recorded instead as indirectness on each evidence line.",
+        "reason": "Neither source rates its own controls, and the extractor does not rate a control it did not examine. What it can rate is recorded instead as indirectness on each evidence line.",
         "query_ids": [],
         "inspected_artifacts": [
           {
@@ -5683,7 +5683,7 @@
       {
         "path": "predictions[].endpoint_kind",
         "disposition": "not_supplied",
-        "reason": "Neither source classifies its endpoints, for example as surrogate or final. Glucose tolerance and AKT S473 phosphorylation are plainly surrogates for the side-effect claim and median lifespan is plainly a final outcome, but that is the converter's reading, and the field takes the source's.",
+        "reason": "Neither source classifies its endpoints, for example as surrogate or final. Glucose tolerance and AKT S473 phosphorylation are plainly surrogates for the side-effect claim and median lifespan is plainly a final outcome, but that is the extractor's reading, and the field takes the source's.",
         "query_ids": [],
         "inspected_artifacts": [
           {
@@ -5791,7 +5791,7 @@
       {
         "path": "predictions[].test_plan_ref",
         "disposition": "not_supplied",
-        "reason": "No test plan for any of these predictions exists in the repository to point at.",
+        "reason": "The sources supply no test plan for these predictions, and none was searched for.",
         "query_ids": [],
         "inspected_artifacts": [
           {
@@ -5803,7 +5803,7 @@
       {
         "path": "predictions[].test_cost",
         "disposition": "not_supplied",
-        "reason": "Neither source states resources, duration or cost for a future test, and the converter does not estimate them.",
+        "reason": "Neither source states resources, duration or cost for a future test, and the extractor does not estimate them.",
         "query_ids": [],
         "inspected_artifacts": [
           {
@@ -5827,7 +5827,7 @@
       {
         "path": "predictions[].existing_data_tests[]",
         "disposition": "not_supplied",
-        "reason": "The search layer of 2026-10-21 found no dataset that could test any of these predictions without new work; GEO holds no dataset comparing an intermittent schedule with a daily one (SEARCH-20261021.md), which is a measured absence rather than an assumption.",
+        "reason": "The search of 2026-10-21 found no dataset that could test any of these predictions without new work; GEO holds no dataset comparing an intermittent schedule with a daily one (in the search log), which is a measured absence rather than an assumption.",
         "query_ids": [
           "98249dfe71ce",
           "85d49594c65f"
@@ -5842,7 +5842,7 @@
       {
         "path": "predictions[].discrimination",
         "disposition": "not_supplied",
-        "reason": "The sources name no rival account that would expect a different outcome, so there is nothing to rate; the converter does not rate discrimination from general knowledge.",
+        "reason": "The sources name no rival account that would expect a different outcome, so there is nothing to rate; the extractor does not rate discrimination from general knowledge.",
         "query_ids": [],
         "inspected_artifacts": [
           {
@@ -5878,7 +5878,7 @@
       {
         "path": "evidence.lines[].evidence_type",
         "disposition": "not_supplied",
-        "reason": "The field takes a pinned ECO term. The kit resolves no ECO identifiers, and the converter will not write a term it cannot pin to a version of that ontology.",
+        "reason": "The field takes a pinned ECO term. The extractor resolves no ECO identifiers, and the extractor will not write a term it cannot pin to a version of that ontology.",
         "query_ids": [],
         "inspected_artifacts": [
           {
@@ -5890,7 +5890,7 @@
       {
         "path": "evidence.lines[].knowledge_level",
         "disposition": "not_supplied",
-        "reason": "The field takes a pinned Biolink enum value, and the kit resolves no Biolink vocabulary.",
+        "reason": "The field takes a pinned Biolink enum value, and the extractor resolves no Biolink vocabulary.",
         "query_ids": [],
         "inspected_artifacts": [
           {
@@ -5902,7 +5902,7 @@
       {
         "path": "evidence.lines[].agent_type",
         "disposition": "not_supplied",
-        "reason": "The field takes a pinned Biolink enum value, and the kit resolves no Biolink vocabulary. Who made each reading is recorded in added.by and in the assessment of each line.",
+        "reason": "The field takes a pinned Biolink enum value, and the extractor resolves no Biolink vocabulary. Who made each reading is recorded in added.by and in the assessment of each line.",
         "query_ids": [],
         "inspected_artifacts": [
           {
@@ -5962,7 +5962,7 @@
       {
         "path": "evidence.lines[].strength",
         "disposition": "not_supplied",
-        "reason": "Evidence strength is an assessment, and the converter makes only the two it can ground: indirectness, from the distance between the study and the claim, and risk of bias, where a source states the ground for it (the self-selected survey population, the compounded doses of PEARL, the non-significant between-group comparisons of the daily trial). It will not score strength on a scale the standard deliberately does not define.",
+        "reason": "Evidence strength is an assessment, and the extractor makes only the two it can ground: indirectness, from the distance between the study and the claim, and risk of bias, where a source states the ground for it (the self-selected survey population, the compounded doses of PEARL, the non-significant between-group comparisons of the daily trial). It will not score strength on a scale the standard deliberately does not define.",
         "query_ids": [],
         "inspected_artifacts": [
           {
@@ -5974,7 +5974,7 @@
       {
         "path": "evidence.lines[].retraction_status",
         "disposition": "not_supplied",
-        "reason": "Checked and recorded elsewhere, not withheld: eight status calls, one per source - five on 2026-10-21 and three on 2026-10-22, after three further works entered the card - found no retraction, correction or expression of concern for any source (all none_found, search-log.jsonl), and the article's own Crossref check is in added.source_verification.metadata_check. The per-line field is a value bound to a passage of a source, and a registry's \"no notice\" answer is not a passage of any of these documents, so OHF 1.0 has nowhere to bind it.",
+        "reason": "Checked and recorded elsewhere, not withheld: eight status calls, one per source - five on 2026-10-21 and three on 2026-10-22, after three further works entered the card - found no retraction, correction or expression of concern for any source (all none_found, in the search log), and the article's own Crossref check is in added.source_verification.metadata_check. The per-line field is a value bound to a passage of a source, and a registry's \"no notice\" answer is not a passage of any of these documents, so OHF 1.0 has nowhere to bind it.",
         "query_ids": [
           "2d484fa7efc3",
           "a45f37063acc",
@@ -6028,7 +6028,7 @@
       {
         "path": "evidence.references[].access_context",
         "disposition": "not_supplied",
-        "reason": "There is no evidence.references entry. The licence under which each of the five sources was read is in INPUTS-20261021.md and, for the works that entered later, in the report, each from that file's own permissions block.",
+        "reason": "There is no evidence.references entry. The licence under which each of the five sources was read is recorded with the inputs and, for the works that entered later, in the notes beside the card, each from that source's own permissions block.",
         "query_ids": [],
         "inspected_artifacts": [
           {
@@ -6040,7 +6040,7 @@
       {
         "path": "evidence.references[].funding_coi",
         "disposition": "not_supplied",
-        "reason": "There is an interest to declare and OHF 1.0 has nowhere to put it. The article's own competing-interest statement (paragraph 100) reads: \"DWL has received funding from, and is a scientific advisory board member of, Aeovian Pharmaceuticals, which seeks to develop novel, selective mTOR inhibitors for the treatment of various diseases.\" That bears directly on a card whose hypothesis argues for selective mTORC1 inhibition. This field is for a cited work in evidence.references, not for the main source, and the provenance layer has no field for it; the declaration is therefore in this reason, in the report, and nowhere else the standard provides.",
+        "reason": "There is an interest to declare and OHF 1.0 has nowhere to put it. The article's own competing-interest statement (paragraph 100) reads: \"DWL has received funding from, and is a scientific advisory board member of, Aeovian Pharmaceuticals, which seeks to develop novel, selective mTOR inhibitors for the treatment of various diseases.\" That bears directly on a card whose hypothesis argues for selective mTORC1 inhibition. This field is for a cited work in evidence.references, not for the main source, and the provenance layer has no field for it; the declaration is therefore in this reason, and nowhere else the standard provides.",
         "query_ids": [],
         "inspected_artifacts": [
           {
@@ -6052,7 +6052,7 @@
       {
         "path": "evidence.selection_record",
         "disposition": "not_supplied",
-        "reason": "A citation search of three services (Europe PMC, PubMed and OpenAlex) over four seed works, read 1,395 citing works by title, 68 by abstract, and named sixteen works against this card that were in neither the card nor its leads; seven of those bear directly on an atom. Three of the seven could be read under the licence rule and two are now lines of this card (e_oa_mtorc2_intact from PMC8495984 and e_blago_transplant from PMC6690951, both CC BY). The third, PMC9652467 (Xie et al. 2022, deep phenotyping: lifespan interventions act in age-independent ways rather than slowing the rate of age-dependent change), is CC BY and read, and is carried here rather than as a line because what it disputes is the healthspan premise, which this card holds as the assumption as_healthspan_in_mice, and a line can target an atom, a mechanism step or a prediction, not an assumption. Four of the seven could not be read: PMID 31276577 / PMC6909913 and PMID 23648089 / PMC3727050 (glucose intolerance with insulin sensitivity preserved, attributed to insulin secretion) have no licence in the record; PMID 34389472 (impaired bone accrual under every-other-day dosing, the one direct objection to the intermittent schedule itself) is CC BY but has no PMC record, so the route this card uses reaches no text; PMID 40394335 / PMC12092812 (a phase 1 of 1 mg daily in people: HbA1c and systolic pressure up, cerebrospinal p-tau181, GFAP and NfL up) is CC BY-NC-ND and may not be quoted. The nine works that limit the scope rather than contradict a claim are named in the report with the same kind of reason. The counts of the conversion's own searches exist and are not in the card: every call of this conversion is in search-log.jsonl with the sha256 of every response, five query families run twice on two services, four of them returning nothing with their call ids, 100 similar candidates narrowed to 25. The counts themselves are in the report, with the sha256 of the log as it stood at handover, because the log keeps growing while the conversion runs - the entity lookups write to it too - and a count written into the card would be stale by the next run. Works that a review of the card named as fetchable and that are not in the card are listed in the report as known and not read, with their identifiers; so is Blagosklonny 2012 (PMC3384435), which is CC BY 2.5 - a licence the released kit does not accept, though it permits republication with attribution - and which is therefore a lead this conversion could not use. The field is a sourced value, and the kit can bind a value only to a paragraph of a source document, not to its own search log.",
+        "reason": "A citation search of three services (Europe PMC, PubMed and OpenAlex) over four seed works, run after the card was built, read 1,395 citing works by title, 68 by abstract, and named sixteen works against this card that were in neither the card nor its leads; seven of those bear directly on an atom. Three of the seven could be read under the licence rule and two are lines of this card (e_oa_mtorc2_intact from PMC8495984 and e_blago_transplant from PMC6690951, both CC BY). The third, PMC9652467 (Xie et al. 2022, deep phenotyping: lifespan interventions act in age-independent ways rather than slowing the rate of age-dependent change), is CC BY and read, and is carried here rather than as a line because what it disputes is the healthspan premise, which this card holds as the assumption as_healthspan_in_mice, and a line can target an atom, a mechanism step or a prediction, not an assumption. Four of the seven could not be read: PMID 31276577 / PMC6909913 and PMID 23648089 / PMC3727050 (glucose intolerance with insulin sensitivity preserved, attributed to insulin secretion) have no licence in the record; PMID 34389472 (impaired bone accrual under every-other-day dosing, the one direct objection to the intermittent schedule itself) is CC BY but has no PMC record, so the route this card uses reaches no text; PMID 40394335 / PMC12092812 (a phase 1 of 1 mg daily in people: HbA1c and systolic pressure up, cerebrospinal p-tau181, GFAP and NfL up) is CC BY-NC-ND and may not be quoted. The nine works that limit the scope rather than contradict a claim are named, with the same kind of reason, in the notes beside the card. The counts of the extraction's own searches exist and are not in the card: every call of this extraction is in the search log with the sha256 of every response, five query families run twice on two services, four of them returning nothing with their call ids, 100 similar candidates narrowed to 25. The counts themselves are recorded beside the card, with the sha256 of the log as it stood when the card was finished, because the log keeps growing while the extraction runs - the entity lookups write to it too - and a count written into the card would be stale by the next run. Works named as fetchable on review of the card, and not held by it, are recorded as known and not read, with their identifiers; so is Blagosklonny 2012 (PMC3384435), which is CC BY 2.5 - a licence the released extractor does not accept, though it permits republication with attribution - and which is therefore a lead this extraction could not use. The field is a sourced value, and the extractor can bind a value only to a paragraph of a source document, not to its own search log.",
         "query_ids": [],
         "inspected_artifacts": [
           {
@@ -6064,7 +6064,7 @@
       {
         "path": "provenance.model",
         "disposition": "not_supplied",
-        "reason": "No model generated the claims: they are a human author's, which provenance.author_type records. The model that read the article for this conversion is in added.by.model. The standard would let this path be called inapplicable by scope, but only against an author-zone author_type with a locator, and the author zone of a conversion holds the author's own words alone.",
+        "reason": "No model generated the claims: they are a human author's, which provenance.author_type records. The model that read the article for this extraction is in added.by.model. The standard would let this path be called inapplicable by scope, but only against an author-zone author_type with a locator, and the author zone of a card holds the author's own words alone.",
         "query_ids": [],
         "inspected_artifacts": [
           {
@@ -6100,7 +6100,7 @@
       {
         "path": "provenance.parent_refs[]",
         "disposition": "not_supplied",
-        "reason": "No card in the repository is a parent of this one. The hypothesis was first stated in the Aging Cell paper, which core.first_proposed records with its date and its paragraph.",
+        "reason": "No other card is a parent of this one. The hypothesis was first stated in the Aging Cell paper, which core.first_proposed records with its date and its paragraph.",
         "query_ids": [],
         "inspected_artifacts": [
           {
@@ -6112,7 +6112,7 @@
       {
         "path": "provenance.inspiration_refs[]",
         "disposition": "not_supplied",
-        "reason": "The article names the works it builds on in its own numbered reference list; the converter cannot turn a numbered citation into a card reference, and will not assert inspiration the author does not state.",
+        "reason": "The article names the works it builds on in its own numbered reference list; the extractor cannot turn a numbered citation into a card reference, and will not assert inspiration the author does not state.",
         "query_ids": [],
         "inspected_artifacts": [
           {
@@ -6148,7 +6148,7 @@
       {
         "path": "provenance.transformation",
         "disposition": "not_supplied",
-        "reason": "The card quotes the article and the four added sources as they stand; nothing was transformed beyond the whitespace normalisation the kit applies when it reads a paragraph.",
+        "reason": "The card quotes the article and the four added sources as they stand; nothing was transformed beyond the whitespace normalisation the extractor applies when it reads a paragraph.",
         "query_ids": [],
         "inspected_artifacts": [
           {
@@ -6160,7 +6160,7 @@
       {
         "path": "provenance.contributions[]",
         "disposition": "not_supplied",
-        "reason": "The article has one author, and it declares no contribution statement to convert.",
+        "reason": "The article has one author, and it declares no contribution statement to carry.",
         "query_ids": [],
         "inspected_artifacts": [
           {
@@ -6184,7 +6184,7 @@
       {
         "path": "profile.dose_response.endpoint_ref",
         "disposition": "not_supplied",
-        "reason": "The shape statement (p[96]) says higher doses are generally more efficacious than lower ones without naming an endpoint, so the shape has no endpoint to point at. The range now carried comes from Table 1, whose endpoint is the percentage change in median lifespan; that endpoint is not a typed node of this card that a reference could name, and the field takes one reference for the whole dose_response object rather than one per member.",
+        "reason": "The shape statement (p[96]) says higher doses are generally more efficacious than lower ones without naming an endpoint, so the shape has no endpoint to point at. The range carried comes from Table 1, whose endpoint is the percentage change in median lifespan; that endpoint is not a typed node of this card that a reference could name, and the field takes one reference for the whole dose_response object rather than one per member.",
         "query_ids": [],
         "inspected_artifacts": [
           {
@@ -6220,7 +6220,7 @@
       {
         "path": "profile.human_testability",
         "disposition": "not_supplied",
-        "reason": "The article reports human studies of intermittent rapamycin rather than rating their testability, and three evidence lines of this card rest on them (PEARL, RAPA-EX-01, the exercise trial). A rating by the converter would say less than those lines do.",
+        "reason": "The article reports human studies of intermittent rapamycin rather than rating their testability, and three evidence lines of this card rest on them (PEARL, RAPA-EX-01, the exercise trial). A rating by the extractor would say less than those lines do.",
         "query_ids": [],
         "inspected_artifacts": [
           {
@@ -6232,7 +6232,7 @@
       {
         "path": "appendix.rationale",
         "disposition": "not_supplied",
-        "reason": "The reasoning of this conversion is in the report beside the card, which a card field cannot hold at the length a reader needs.",
+        "reason": "The reasoning behind this extraction is recorded beside the card, which a card field cannot hold at the length a reader needs.",
         "query_ids": [],
         "inspected_artifacts": [
           {
@@ -6256,7 +6256,7 @@
       {
         "path": "appendix.source_extensions",
         "disposition": "not_supplied",
-        "reason": "The conversion needed no field outside the standard, so there is no extension to declare.",
+        "reason": "This extraction needed no field outside the standard, so there is no extension to declare.",
         "query_ids": [],
         "inspected_artifacts": [
           {
@@ -6268,7 +6268,7 @@
       {
         "path": "appendix.limitations",
         "disposition": "not_supplied",
-        "reason": "The limitations are not hidden in an appendix: the author's own are in core.uncertainties (six) and in the risk-of-bias note of the lines that have a stated ground for one, and the limitations of the conversion are in the report.",
+        "reason": "The limitations are not hidden in an appendix: the author's own are in core.uncertainties (six) and in the risk-of-bias note of the lines that have a stated ground for one, and the limitations of the extraction are recorded beside the card.",
         "query_ids": [],
         "inspected_artifacts": [
           {
@@ -6380,7 +6380,7 @@
       {
         "path": "predictions[2].resolution",
         "disposition": "not_supplied",
-        "reason": "The prediction is unresolved. The article names ongoing trials of daily and intermittent regimens (RESTOR, NCT06658093) and the search layer of 2026-10-21 found no published head-to-head comparison of intermittent against daily *rapamycin* in people. The card does carry a published daily-against-weekly comparison of a rapalog, everolimus, in people: e_mannick_schedules, whose own risk-of-bias note says the comparison is present in that trial's arms. A second candidate, PMID 18332469, is a comparison of everolimus rather than rapamycin and has no PMC record and no licence in the log, so it could neither be read nor narrow a statement about rapamycin.",
+        "reason": "The prediction is unresolved. The article names ongoing trials of daily and intermittent regimens (RESTOR, NCT06658093) and the search of 2026-10-21 found no published head-to-head comparison of intermittent against daily *rapamycin* in people. The card does carry a published daily-against-weekly comparison of a rapalog, everolimus, in people: e_mannick_schedules, whose own risk-of-bias note says the comparison is present in that trial's arms. A second candidate, PMID 18332469, is a comparison of everolimus rather than rapamycin and has no PMC record and no licence in the log, so it could neither be read nor narrow a statement about rapamycin.",
         "query_ids": [],
         "inspected_artifacts": [
           {
@@ -14884,5 +14884,5 @@
     "source_class": "external_published",
     "intervention_type": "small-molecule drug"
   },
-  "content_hash": "sha256:700a700602534afac557eb44a9babcdb27aaca179e66669fb43594a06b6b0613"
+  "content_hash": "sha256:f5501f08e812a6225ac0f7b0e535c5db02ee40a5869a72cf8da86352b8149c9b"
 }

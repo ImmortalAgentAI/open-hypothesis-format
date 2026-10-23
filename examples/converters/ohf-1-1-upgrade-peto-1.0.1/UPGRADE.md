@@ -2,16 +2,16 @@
 
 The upgrade adds OHF 1.1 values to a frozen, accepted OHF 1.0 card. It changes no value the card already has, except those listed in rule 2. It was done by a language model with the script `upgrade.py` in this directory. The base card, the values, the search log and the Europe PMC records are inputs named by hash. They are not in this repository.
 
-## Inputs of `peto-paradox-mammals`, version 4
+## Inputs of `peto-paradox-mammals`, version 9
 
-- **Base card**: `h_peto-paradox-mammals` version 3, `content_hash` `sha256:721bbc8f5e8979b4453d71b7f7cbd479c7ef990aea740480b8f7c6114e21769c` (file `sha256:29af9a2d53ff1997cb0cae8ad7c83882ec467273b7843489a55e4e74e814609b`). It is an accepted revision of wording of version 2 (`sha256:b04374244b572b21b624e0db366a2d50a542a6d63f9f567f323ab16d4de81744`), produced by ohf-extractor 0.8.17. Version 2 is also an input: the values were made for it, and the script asserts that the lines, atoms, alternatives, entailment records and sources are identical in both versions.
+- **Base card**: `h_peto-paradox-mammals` version 8, `content_hash` `sha256:db738db37ab9b38f75c10735361acfb049630bc5160650f637d4fb51fa5f48a9` (file `sha256:3f66e53ead6db5971b2c7b2f67eaa15f641eb96c969d8335f74fcaa3338a7333`), produced by ohf-extractor 0.8.17. It differs from version 2 (`sha256:b04374244b572b21b624e0db366a2d50a542a6d63f9f567f323ab16d4de81744`) only in wording. Version 2 is also an input: the values were made for it, and the script asserts that the lines, atoms, alternatives, entailment records and sources are identical in both versions.
 - **Ledger of the base card**: 313 entailment records.
 - **Values**: the values tool `biodb.py`, run 1, kit commit eaf6f4c, `sha256:9dc773b012555c7e…`, with its search log. The values cover the organism word of each line, its NCBI taxon where the word names one species, and the rung from the NCBI lineage. They name no intervention and no hallmark, because the card's domain profile is `none`.
 - **Europe PMC records** of the three DOIs used as independence keys, each with its retrieval time.
 
 ## Rules
 
-1. **Version and pins.** `standard_version` becomes `1.1` and the card pins `ohf:terms@1`. The profile stays `none`, so the card keeps `ohf:profiles@1` and has no hallmarks. The card version goes up by one to 4, `identity.version` is set to it, and the base card version is in `supersedes`.
+1. **Version and pins.** `standard_version` becomes `1.1` and the card pins `ohf:terms@1`. The profile stays `none`, so the card keeps `ohf:profiles@1` and has no hallmarks. The card version goes up by one to 9, `identity.version` is set to it, and the base card version is in `supersedes`.
 2. **Changed values.** These values of the base card change:
    - `added.by` names this upgrade and the model that wrote its rules; `added.at` is the time of the run.
    - The whole-list gap `evidence.lines[].result_estimate` is replaced (rule 6).
@@ -37,6 +37,6 @@ The upgrade adds OHF 1.1 values to a frozen, accepted OHF 1.0 card. It changes n
 9. **Atoms and alternatives.**
    - `requires` records what an atom's own statement rests on. The pathogen reading rests on the diet result. The co-evolution reading ("The results suggest") rests on the body-mass and life-expectancy results.
    - The five alternatives get identifiers. The target of an accepted line is not changed, so no line targets an alternative.
-10. **Entailment.** The verdicts of the independent check (an independent reader, prompt `ENTAILMENT-PROMPT.md`) are written to `integrity.entailment` with the time they were delivered, including `partial` and `no` verdicts and their notes. A verdict is written only for a sourced value. Values the check has not yet returned carry no record. Three values were corrected after the first batch, because the check found that they dropped a scope or added a qualifier that the passage does not give. The endpoint kind of the frequency line is now the passage's own `CMR`. The estimates on the managed-population burden and on the viral fraction in humans now begin with the passage's "In some species" and "in humans it was estimated that". Their first verdicts are not written; the verdicts of the recheck are.
+10. **Entailment.** The verdicts of the independent check (an independent reader, prompt `ENTAILMENT-PROMPT.md`, sha256 46716d7b…) are written to `integrity.entailment` with the time they were delivered, including `partial` and `no` verdicts and their notes. A verdict is written only for a sourced value. Values the check has not yet returned carry no record. Three values were corrected after the first batch, because the check found that they dropped a scope or added a qualifier that the passage does not give. The endpoint kind of the frequency line is now the passage's own `CMR`. The estimates on the managed-population burden and on the viral fraction in humans now begin with the passage's "In some species" and "in humans it was estimated that". Their first verdicts are not written; the verdicts of the recheck are.
 
 `added.by.converter_hash` is the hash of this directory, computed by `tools/converter_hash.py`.
