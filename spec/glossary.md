@@ -32,6 +32,8 @@ This glossary defines the terms the Open Hypothesis Format (OHF) specification u
 
 **Converter.** The tool or pass that wrote a card's added zone, named in `added.by` with `converter`, `converter_version`, `converter_hash` (the SHA-256 of its rules) and `model`. The entailment checker must not be the converter. See [integrity](README.md#integrity).
 
+**CURIE.** A compact identifier `prefix:local`, such as `NCBITaxon:10090` or `GO:0031931`, that names a term of an external ontology. OHF 1.1 uses CURIEs for taxa and for the subject and object of a triple.
+
 **Deferred extension.** A catalogue path that has no serialization in OHF 1.0: question references, the assertion registry, and the pair-level discriminability, diagnosticity matrix, assumptions and comparison context. Source or provenance containers cannot substitute for them. See [mapping](mapping.md).
 
 **Discrimination.** `predictions[].discrimination`: how well a prediction's outcome separates the hypothesis from the alternatives that also expect it (`predictions[].also_expected_under[]`): none, weak or strong. It is an assessment, held in the added zone. See [fields](fields.md).
@@ -88,6 +90,8 @@ This glossary defines the terms the Open Hypothesis Format (OHF) specification u
 
 **Logical type.** The type a catalogue path gives a value, such as Identifier, Text or Term. Quantities, intervals, assessments and other source-text records are nonblank source-literal strings, and unknown record keys are rejected. See [logical types](logical-types.md).
 
+**Machine author.** An `author.generator` of kind `ai_system` or `hybrid`. Only a machine author may give the generation `prompt` and `generated_at` (OHF 1.1).
+
 **Modality.** `core.atoms[].modality`: how firmly the author asserts an atom: `speculative`, `proposed`, `likely` or `claimed_shown`, with the author's exact wording in `basis_quote`. It is required on every added-zone atom. See [fields](fields.md).
 
 **Pair brief.** A detached artifact, [`ohf:pair-brief@1`](../schema/pair-brief-1.schema.json), that describes two card versions side by side: their relation, the observations both explain, the observations they expect differently, and a decisive test or a gap saying why none is known. It does not judge which hypothesis is better. See [relations and pair briefs](README.md#relations-and-pair-briefs).
@@ -106,13 +110,19 @@ This glossary defines the terms the Open Hypothesis Format (OHF) specification u
 
 **Relations artifact.** A detached artifact, [`ohf:hypothesis-relations@1`](../schema/hypothesis-relations-1.schema.json), that records typed edges between card versions in a fixed pool: `rival_same_explanandum`, `nested`, `compatible_independent`, `duplicate`, `refines`, `unrelated`, and from OHF 1.1 `analog` or `mechanism_neighbour`; from OHF 1.1 an edge may join single records, such as atoms, of the two card versions. Support and contradiction are evidence relations and are not included. See [relations and pair briefs](README.md#relations-and-pair-briefs).
 
+**Result estimate.** From OHF 1.1, `evidence.lines[].result_estimate` in the added zone: the result the line's quote reports, word for word, with its measure, contrast and scale as the source states them, or `not_stated`. See [README](README.md#ohf-11).
+
 **Risk of bias.** `evidence.lines[].risk_of_bias`: the risk that the study behind an evidence line is biased: `low`, `some`, `high` or `not_assessed`, with an optional tool reference and note. It is an assessment in OHF's own vocabulary, not mapped to RoB 2. See [fields](fields.md).
 
 **Role.** `core.atoms[].role`: the part an atom plays in the hypothesis: `core`, `auxiliary` (an assumption the hypothesis needs), `consequence` (follows from other atoms) or `background_established`. It is required on every added-zone atom. See [fields](fields.md).
 
+**Rung.** One step of the proximity ladder of `ohf:terms@1`, from in vitro to human clinical; see Human proximity.
+
 **Sample of a result.** From OHF 1.1, `evidence.lines[].sample`: whether a line's result is about the whole sample or a named subgroup, a primary or secondary outcome, and a pre-specified or post hoc analysis. See [README](README.md#ohf-11).
 
 **Schema pass.** Validity against the card schema. It checks shape only: it does not show that a quotation matches its source, that a source supports a claim, or that a card is complete. See [schema](../schema/README.md).
+
+**Scope aspect.** From OHF 1.1, what a `scope_differs` item of a relations edge says two cards differ on: `endpoint`, `population` or `system`. Each aspect allows only certain fields; see [Relations and pair briefs](README.md#relations-and-pair-briefs).
 
 **Source record.** An entry of `added.sources`, named by its key, that gives a `source`, a `locator`, the time `accessed_at` and the `tool` used. Added-zone values point to it through `src`. See [README](README.md#logical-paths-and-storage).
 

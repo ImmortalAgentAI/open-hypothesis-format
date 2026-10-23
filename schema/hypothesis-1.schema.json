@@ -1,7 +1,7 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "ohf:hypothesis@1",
-  "title": "Open Hypothesis Format 1.0 hypothesis card",
+  "title": "Open Hypothesis Format hypothesis card, versions 1.0 and 1.1",
   "description": "A hypothesis card: what the author said, what was added later, and an explicit gap for every missing value.",
   "type": "object",
   "properties": {
@@ -6899,7 +6899,22 @@
                           ]
                         },
                         "minItems": 1,
-                        "uniqueItems": true
+                        "uniqueItems": true,
+                        "anyOf": [
+                          {
+                            "maxItems": 1
+                          },
+                          {
+                            "not": {
+                              "contains": {
+                                "enum": [
+                                  "none",
+                                  "not_stated"
+                                ]
+                              }
+                            }
+                          }
+                        ]
                       },
                       "note": {
                         "type": "string",
@@ -8826,7 +8841,19 @@
                           "note"
                         ]
                       }
-                    }
+                    },
+                    "anyOf": [
+                      {
+                        "required": [
+                          "artifact"
+                        ]
+                      },
+                      {
+                        "required": [
+                          "record"
+                        ]
+                      }
+                    ]
                   }
                 }
               },

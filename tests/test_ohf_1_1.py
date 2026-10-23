@@ -1119,3 +1119,52 @@ def test_the_1_0_gap_rule_of_the_schema_is_the_catalogue():
     expected = '^(?:' + '|'.join(sorted(re.escape(p.removesuffix('[]')).replace(r'\[\]', r'\[[0-9]*\]')
                                          for p in NEW_PATHS)) + r')(?:$|[.\[])'
     assert expected in patterns
+
+
+# Review of PR 4, should-fix 5-7.
+@pytest.mark.parametrize('term', ['behaviour', 'other'])
+def test_human_rung_without_a_marker_or_clinical_kind_is_not_derived(term):
+    card = proximity_card('NCBITaxon:9606', term, 'human_clinical')
+    if term == 'other':
+        line(card)['endpoint_kind']['note'] = 'A fictional kind.'
+    assert 'REF_PROXIMITY_NOT_DERIVED' in ref_codes(card, 'warnings')
+    assert check_refs(card)['valid']
+
+
+def test_a_given_taxon_row_cannot_make_a_card_invalid():
+    pigeon = {'id': 'NCBITaxon:8932', 'label': 'Columba livia', 'proximity': 'non_mammal_vertebrate'}
+    result = check_refs(proximity_card('NCBITaxon:8932', 'lifespan', 'mammal'), [pigeon])
+    assert result['valid']
+    assert 'REF_PROXIMITY_MISMATCH' in {item['code'] for item in result['warnings']}
+
+
+def test_excluded_record_needs_an_artifact_or_a_record():
+    card = excluded_card()
+    excluded(card).pop('artifact')
+    assert not validation_errors(SCHEMA, card)
+    excluded(card).pop('record')
+    assert EXCLUDED in {pointer(error) for error in validation_errors(SCHEMA, card)}
+
+
+def test_a_group_with_a_key_has_it_on_every_line():
+    card = keyed_card()
+    groups(card)[1].pop('key')
+    assert 'REF_INDEPENDENCE_KEY' in ref_codes(card)
+
+
+def test_a_doi_key_is_compared_without_case():
+    card = keyed_card()
+    groups(card)[0]['key'] = {'scheme': 'doi', 'id': '10.1000/ABC'}
+    groups(card)[1]['key'] = {'scheme': 'doi', 'id': '10.1000/abc'}
+    assert check_refs(card)['valid'], check_refs(card)['errors']
+    groups(card)[1]['value'] = 'g_other_label'
+    assert 'REF_INDEPENDENCE_KEY' in ref_codes(card)
+
+
+@pytest.mark.parametrize('types,valid', [(['none'], True), (['placebo', 'baseline'], True),
+                                         (['none', 'placebo'], False), (['not_stated', 'vehicle'], False)])
+def test_none_and_not_stated_stand_alone_among_control_types(types, valid):
+    card = card_1_1()
+    prediction(card)['control_type'] = {'value': types, 'src': 'prior_work'}
+    errors = {pointer(error) for error in validation_errors(SCHEMA, card)}
+    assert (not any('/control_type' in p for p in errors)) == valid

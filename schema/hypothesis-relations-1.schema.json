@@ -1,7 +1,7 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "ohf:hypothesis-relations@1",
-  "title": "Hypothesis relations, version 2",
+  "title": "Hypothesis relations, version 1",
   "description": "Detached typed relations between card versions within a fixed pool. Relation types: rival_same_explanandum, nested, compatible_independent, duplicate, refines, unrelated, analog, mechanism_neighbour. From OHF 1.1 an end may name one record of its card version, such as an atom, by pointer. From OHF 1.1 an edge may list in scope_differs the endpoint, population or system on which the two cards differ, each with the field of both cards.",
   "type": "object",
   "properties": {

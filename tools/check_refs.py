@@ -327,19 +327,27 @@ def check_atom_links(card, errors):
 
 
 def check_independence(card, errors):
-    """One independence group, one key: a label names one data origin and an origin one label (OHF 1.1)."""
-    labels, keys = {}, {}
-    for i, line in enumerate(layers(card, 'added').get('evidence', {}).get('lines', [])):
+    """One independence group, one key: a label names one data origin and an origin one label (OHF 1.1).
+
+    Once one line of a group gives a key, every line of the group gives it. A DOI is compared without case."""
+    labels, keys, lines = {}, {}, layers(card, 'added').get('evidence', {}).get('lines', [])
+    for i, line in enumerate(lines):
         group = line.get('independence_group')
         if not (isinstance(group, dict) and isinstance(group.get('key'), dict)):
             continue
-        label, key = group.get('value'), (group['key'].get('scheme'), group['key'].get('id'))
+        scheme, ident = group['key'].get('scheme'), group['key'].get('id')
+        label, key = group.get('value'), (scheme, ident.lower() if scheme == 'doi' and isinstance(ident, str) else ident)
         path = f'evidence.lines[{i}].independence_group'
         if labels.setdefault(label, key) != key:
             errors.append(issue('REF_INDEPENDENCE_KEY', path, f'group {label!r} has two keys'))
         if keys.setdefault(key, label) != label:
             errors.append(issue('REF_INDEPENDENCE_KEY', path, f'key {key[0]} {key[1]} has two groups: '
                                 f'{keys[key]!r} and {label!r}'))
+    for i, line in enumerate(lines):
+        group = line.get('independence_group')
+        if isinstance(group, dict) and 'key' not in group and group.get('value') in labels:
+            errors.append(issue('REF_INDEPENDENCE_KEY', f'evidence.lines[{i}].independence_group',
+                                f'group {group["value"]!r} has a key on another line and none here'))
 
 
 def check_sources(card, errors):
@@ -440,7 +448,8 @@ def derived_proximity(line, taxa):
         return {'human_marker'} | STATED_ONLY
     if term in HUMAN_CLINICAL:
         return {'human_clinical'} | STATED_ONLY
-    return {'human_marker', 'human_clinical'} | STATED_ONLY
+    # Behaviour, another kind or no endpoint kind: the human rung is not determined.
+    return None
 
 
 def check_proximity(card, errors, warnings, taxa=None, terms=None):
@@ -449,6 +458,7 @@ def check_proximity(card, errors, warnings, taxa=None, terms=None):
     `taxa` is an optional list of further rows of the form of the pinned table, such as a
     converter's taxa.json; a row adds a taxon the pinned table lacks and never overrides one.
     A row whose proximity is null names a taxon that has no rung, such as one outside the animals.
+    Only the pinned table can make a card invalid: a mismatch with a given row is a warning.
     """
     terms = terms if terms is not None else load(ROOT / 'vocabularies/terms-1.json')
     table = {row['id']: row['proximity'] for row in terms['taxa']}
@@ -466,7 +476,8 @@ def check_proximity(card, errors, warnings, taxa=None, terms=None):
                 warnings.append(issue('REF_PROXIMITY_NOT_DERIVED', path,
                                       'the taxon has no rung in the pinned table or the given taxa'))
         elif declared not in allowed:
-            errors.append(issue('REF_PROXIMITY_MISMATCH', path,
+            pinned = derived_proximity(line, {row['id']: row['proximity'] for row in terms['taxa']}) is not None
+            (errors if pinned else warnings).append(issue('REF_PROXIMITY_MISMATCH', path,
                                 f'{declared} does not follow from the taxon and endpoint kind: '
                                 + ' or '.join(sorted(allowed - STATED_ONLY))))
 

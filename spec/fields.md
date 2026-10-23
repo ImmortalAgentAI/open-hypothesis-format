@@ -1062,7 +1062,7 @@ Example value: not assessed
 
 Kind of each control condition of the comparator, as closed terms. The value other needs a note that says what the control is.
 
-Type: `Term`. Vocabulary: OHF terms vocabulary (ohf:terms@1, control_type): placebo | vehicle | untreated | wild_type | active_comparator | baseline | historical | none | not_stated | other. Basis: `ohf`. Class: `searchable`. Zones: `added`. Since: OHF 1.1.
+Type: `Term[]`. Vocabulary: OHF terms vocabulary (ohf:terms@1, control_type): placebo | vehicle | untreated | wild_type | active_comparator | baseline | historical | none | not_stated | other. Basis: `ohf`. Class: `searchable`. Zones: `added`. Since: OHF 1.1.
 
 Example value: vehicle, active_comparator
 
@@ -1699,7 +1699,7 @@ Example value: whole lakes
 
 ### `evidence.lines[].system.temporal_scale`
 
-Time span over which the prediction applies, such as hours, a growing season or evolutionary time. Here: of the study the evidence line reports, not of the claim.
+Time span of the study the evidence line reports, such as hours, a growing season or evolutionary time.
 
 Type: `Text`. Vocabulary: Source text. Basis: `ohf`. Class: `searchable`. Since: OHF 1.1.
 
