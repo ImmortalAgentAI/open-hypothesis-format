@@ -181,9 +181,9 @@ def unselected_paths(card, profiles):
 
 def check(card, policy, catalogue, mapping, profiles=None, schema=None):
     errors, review = [], []
-    if card.get('standard_version') not in ('1.0', '1.1'):
+    if card.get('standard_version') not in ('1.0', '1.1', '1.2'):
         return {'valid': False, 'review_required': [], 'errors': [issue(
-            'GAP_STANDARD_VERSION', 'standard_version', 'Only OHF 1.0 and 1.1 cards are checked')]}
+            'GAP_STANDARD_VERSION', 'standard_version', 'Only OHF 1.0, 1.1 and 1.2 cards are checked')]}
     profiles = profiles if profiles is not None else load(ROOT / 'vocabularies/profiles-2.json')
     admitted = gap_path_patterns(schema) if schema is not None else default_patterns()
     unselected = unselected_paths(card, profiles)
@@ -203,7 +203,7 @@ def check(card, policy, catalogue, mapping, profiles=None, schema=None):
             errors.append(issue('GAP_PATH_UNKNOWN', path, f'The field is not part of OHF {version}'))
             continue
         row, component = catalogue_row(path, rows)
-        if row is None and card.get('standard_version') == '1.1':
+        if row is None and card.get('standard_version') != '1.0':
             row = list_row(path, rows)
         if row is None:
             errors.append(issue('GAP_PATH_UNKNOWN', path, 'Path is not a catalogue path or a component of one'))

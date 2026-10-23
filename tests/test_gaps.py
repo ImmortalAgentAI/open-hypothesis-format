@@ -142,7 +142,7 @@ def test_component_gap_with_parent_passes():
 
 def test_other_standard_version_is_not_linted():
     card = copy.deepcopy(FIVE)
-    card['standard_version'] = '1.2'
+    card['standard_version'] = '1.3'
     assert codes(check(card, POLICY, CATALOGUE, MAPPING)) == {'GAP_STANDARD_VERSION'}
 
 

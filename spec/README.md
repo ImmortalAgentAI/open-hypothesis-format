@@ -141,7 +141,7 @@ The added zone records how it was produced and checked. These members describe t
 | --- | --- |
 | `added.produced_by` | Who produced the added zone: `independent_pipeline`, `submitter` or `example_converter`, with pipeline name, version and an optional run identifier. |
 | `added.source_verification` | Whether the source was downloaded again and compared with `author.source.source_text_sha256`: `refetched_match`, `refetched_mismatch` or `not_refetchable` with a reason. A refetch gives its URL, time and SHA-256. An optional `metadata_check` records a registry lookup, such as Crossref: DOI and title match, and whether a retraction is listed. |
-| `added.integrity.entailment[]` | Whether the source supports each added value: a JSON pointer to the value, the basis checked (`src` or `basis_quote`), a verdict (`entails`, `partial` or `no`, the last two with a note), the checker with its version and the SHA-256 of its instructions, and the time. |
+| `added.integrity.entailment[]` | Whether the source supports each added value: a JSON pointer to the value, the basis checked (`src` or `basis_quote`, and from OHF 1.2 `resolution`), a verdict (`entails`, `partial` or `no`, the last two with a note), the checker with its version and the SHA-256 of its instructions, and the time. |
 
 Rules:
 
@@ -238,3 +238,30 @@ The expression is `RESULT_NUMBER` in `tools/check_refs.py`. A dose (a number wit
 **Withheld quote.** `evidence.lines[].quote_withheld` replaces the quote when the text may not be quoted: licence unknown, CC BY-NC-ND, or no open text. It gives the locator, the record (DOI or PMID), a paraphrase in the added zone and the sentence of the abstract that entails it. A line has a quote or a withheld quote, not both. See completeness above.
 
 **Relations.** See [Relations and pair briefs](#relations-and-pair-briefs): edges between atoms by `pointer`, the types `analog` and `mechanism_neighbour`, and `scope_differs`.
+
+## OHF 1.2
+
+OHF 1.2 is a minor version. Every new member is optional. 1.0 and 1.1 cards stay valid and are checked by their own rules, and they may not carry a member introduced in 1.2. A 1.2 card follows every rule of 1.1. The rules are enforced by the schema unless a code of `tools/check_refs.py`, `tools/check_ledger.py` or `tools/check_mapping.py` is named.
+
+**How a value is checked.** Each row of the [field catalogue](field-catalogue.json) has a `check`:
+
+- `passage`: the value is checked against the paragraph its `src` names, by an entailment checker;
+- `resolution`: the value is checked against an external record, by a tool;
+- `card`: the value is checked against the card itself, by `tools/check_refs.py`, and no record is written for it.
+
+The values checked by resolution are NCBI Taxonomy ids (`predictions[].system.taxon_id`, `evidence.lines[].system.taxon_id`), the rung `evidence.lines[].human_proximity`, the independence key `evidence.lines[].independence_group.key`, and the licence reason and record of a withheld quote. The values checked against the card are identifiers and references, among them `evidence.lines[].target_ref`, `core.atoms[].requires` and `.contradicts`, `predictions[].derives_from_atom_refs[]` and the label of `evidence.lines[].independence_group`. A row may give a check for each member of its value instead: `evidence.lines[].quote_withheld` is checked member by member, its `paraphrase` and `abstract_quote` against the passage, its `reason` and `record_ref` by resolution, and its `locator` against the card. Every row has a check, and the members of such a row are those of the schema (`tools/check_mapping.py`).
+
+**The value a record names.** An entailment record names a value by its JSON pointer. The catalogue row of the pointer is found by dropping `/added/layers`, writing array indices as `[]` and dropping the `value` segment of a source wrapper; a value with no row of its own takes the check of the nearest row above it. In a 1.2 card a record may name a member of a sourced value (`…/quote_withheld/value/paraphrase`): a member checked against the passage takes the `src` of the value.
+
+**Records by check.** In a 1.2 card:
+
+- a record with basis `src` or `basis_quote` names a value checked against the passage, and a record with basis `resolution` a value checked by resolution; any other record is `REF_BASIS_KIND`, and so is a record on a whole value that is checked member by member. This rule comes before the rule that a record names a sourced value, so a record on a reference fails as `REF_BASIS_KIND`;
+- the checker has a `kind`: `model` (the default, with `name`, `version` and `prompt_sha256`) for a record checked against a passage, and `tool` (with `name`, `version` and `tool_sha256`, and no `prompt_sha256`) for a record checked by resolution. A tool is independent of the converter as a model checker is: its name differs from `added.by.converter` and its `tool_sha256` from `added.by.converter_hash` (`REF_CHECKER_NOT_INDEPENDENT`);
+- a resolution record has the verdict `entails` (the record was retrieved, matched one entry and agrees with the value) or `no` (it was retrieved, matched one entry and contradicts the value), never `partial`. It gives `resolved_against`: the `source` record in `added.sources`, the `response_sha256` of that response, which equals the `sha256` of the source record, and the `key` that was looked up (`REF_SOURCE_UNKNOWN`, `REF_RESOLUTION_BINDING`). The key is the value itself for a taxon id, the `id` of an independence key or of a withheld quote's record, the record's id for a withheld quote's licence reason, and the line's taxon id for a rung; it is compared without regard to case. A resolution record is not older than the access time of its source record (`REF_TIME_ORDER`);
+- when the external record could not be retrieved, or did not match exactly one entry, no record is written. A value checked by resolution with no record is reported as not checked (`REF_NOT_RESOLVED`, a warning);
+- a source record in `added.sources` may give the `sha256` of the response it records.
+
+**What a line bears on.** In a 1.2 card `evidence.lines[].target_ref` and `evidence.excluded[].target_ref` are references without a `src`. Whether a line bears on its target is the question of its `direction`, which is checked with the target's statement: an atom's statement; a prediction's population, endpoint and direction; a mechanism step's subject, relation and object; an alternative explanation's claim; or the proposition's statement (`target_statement` in `tools/check_ledger.py`, which also reads the sourced `target_ref` of a 1.1 card). The ledger hash of a direction check covers that statement, so a line given another target no longer matches its check.
+
+**Ledgers.** For a 1.2 card `tools/check_ledger.py` rebuilds and checks only the values checked against a passage, including each such member of a value checked member by member; records with basis `resolution` are not ledger entries.
+

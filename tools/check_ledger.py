@@ -38,7 +38,11 @@ this file) and their hashes are checked as well. Without WORKDIR, passage bindin
 is not checked, and the passage is taken to be the one the record's own check names; the
 SHA-256 of each source document is in the card.
 
-Runs on the standard library plus tools/content_hash.py of the OHF repository.
+In an OHF 1.2 card only values whose catalogue check is `passage` are rebuilt, including each such
+member of a value checked member by member; records with basis `resolution` are not ledger entries.
+
+Runs on the standard library plus tools/content_hash.py and spec/field-catalogue.json of the OHF
+repository.
 Exit 0 only when every check passes.
 """
 import hashlib
@@ -75,19 +79,135 @@ def skip(pointer, node):
     return 'value' not in node  # an evidence line object: its fields are checked one by one
 
 
+def _value(node):
+    """The value of a node, looking through a source wrapper."""
+    return node['value'] if isinstance(node, dict) and 'value' in node and ('src' in node or 'locator' in node) else node
+
+
+def _resolve(card, pointer):
+    node = card
+    for token in pointer.split('/')[1:]:
+        token = token.replace('~1', '/').replace('~0', '~')
+        if not (isinstance(node, dict) and token in node):
+            node = _value(node)  # a pointer may also step over the `value` of a wrapper
+        node = node[int(token)] if isinstance(node, list) else node[token]
+    return node
+
+
 def target_statement(card, line):
-    """What the line bears on: an atom's statement, or a prediction's population,
-    endpoint and direction."""
+    """What the line bears on: an atom's statement; a prediction's population, endpoint and
+    direction; a mechanism step's subject, relation and object; an alternative explanation's
+    claim; or the proposition's statement. A target_ref in a source wrapper (OHF 1.1) is read
+    through it. A card pointer is resolved; a versioned or external reference has no statement
+    in the card and is given as it stands."""
     layers = card['added']['layers']
-    ref = line.get('target_ref')
-    val = lambda n: n.get('value') if isinstance(n, dict) else n  # noqa: E731
-    for a in layers['core'].get('atoms', []):
-        if a['id'] == ref:
-            return val(a.get('statement'))
-    for pr in layers.get('predictions', []):
-        if pr['id'] == ref:
-            return {k: val(pr[k]) for k in ('population', 'endpoint', 'direction') if k in pr}
-    raise ValueError(f'evidence line {line.get("id")}: target_ref {ref!r} is neither an atom nor a prediction')
+    ref = _value(line.get('target_ref'))
+    if isinstance(ref, dict) and ref.get('kind') == 'card':
+        pointer = ref.get('pointer', '')
+        kinds = (('atom', 'core/atoms/'), ('prediction', 'predictions/'), ('step', 'mechanism/steps/'),
+                 ('alternative', 'core/alternative_explanations/'), ('proposition', 'core/statement'))
+        kind = next((k for k, part in kinds if part in pointer), None)
+        if kind is None:
+            raise ValueError(f'evidence line {line.get("id")}: target_ref {ref!r} names no target of a known kind')
+        return _render(card, kind, _resolve(card, pointer))
+    if not isinstance(ref, str):
+        return ref
+    named = [('atom', a) for a in layers.get('core', {}).get('atoms', []) if _value(a.get('id')) == ref]
+    named += [('prediction', pr) for pr in layers.get('predictions', []) if _value(pr.get('id')) == ref]
+    named += [('step', st) for st in layers.get('mechanism', {}).get('steps', []) if _value(st.get('id')) == ref]
+    named += [('alternative', al) for al in _value(layers.get('core', {}).get('alternative_explanations')) or []
+              if _value(al.get('id')) == ref]
+    if len(named) == 1:
+        return _render(card, *named[0])
+    if named:
+        raise ValueError(f'evidence line {line.get("id")}: target_ref {ref!r} names more than one record')
+    if '@' in ref:  # a versioned proposition: not in this card
+        return ref
+    raise ValueError(f'evidence line {line.get("id")}: target_ref {ref!r} names no atom, prediction, '
+                     'mechanism step or alternative of this card')
+
+
+def _render(card, kind, node):
+    if kind == 'atom':
+        return _value(node.get('statement'))
+    if kind == 'prediction':
+        return {k: _value(node[k]) for k in ('population', 'endpoint', 'direction') if k in node}
+    if kind == 'step':
+        entities = {_value(e.get('id')): _value(e.get('label'))
+                    for e in card['added']['layers'].get('mechanism', {}).get('entities', [])}
+
+        def entity(ref):
+            ref = _value(ref)
+            if isinstance(ref, dict) and ref.get('kind') == 'card':
+                return _value(_resolve(card, ref['pointer']).get('label'))
+            return entities.get(ref, ref)
+        out = {'subject': entity(node.get('subject_ref')), 'relation': _value(node.get('relation')),
+               'object': entity(node.get('object_ref'))}
+        if 'sign' in node:
+            out['sign'] = _value(node['sign'])
+        return out
+    if kind == 'alternative':
+        claim = node.get('claim_or_ref', {})
+        return claim.get('text') if claim.get('kind') == 'literal' else claim.get('ref')
+    return _value(node)  # the proposition: core.statement
+
+
+# ------------------------------------------------------------------ how a value is checked (OHF 1.2)
+
+def _catalogue_checks():
+    """{catalogue path: check} from spec/field-catalogue.json of the OHF repository."""
+    if not hasattr(_catalogue_checks, 'rows'):
+        root = _repo_root()
+        rows = json.loads((Path(root) / 'spec' / 'field-catalogue.json').read_text())['fields']
+        _catalogue_checks.rows = {row['path']: row['check'] for row in rows}
+    return _catalogue_checks.rows
+
+
+def logical_path(card, pointer):
+    """The catalogue path of an added-zone pointer: the zone and layers prefix, array indices
+    (written `[]`) and the `value` segment of a source wrapper are dropped."""
+    tokens = [t.replace('~1', '/').replace('~0', '~') for t in pointer.split('/')[1:]]
+    if tokens[:2] != ['added', 'layers']:
+        raise ValueError(f'{pointer}: not an added-zone pointer')
+    node, path = card['added']['layers'], ''
+    for token in tokens[2:]:
+        wrapper = isinstance(node, dict) and 'value' in node and ('src' in node or 'locator' in node)
+        if wrapper and token == 'value':
+            node = node['value']
+            continue
+        if isinstance(node, list):
+            node, path = node[int(token)], path + '[]'
+        else:
+            node, path = node[token], (f'{path}.{token}' if path else token)
+    return path
+
+
+def check_class(card, pointer):
+    """How the value at `pointer` is checked: 'passage', 'resolution' or 'card', from the
+    catalogue row of its path or of the nearest row above it. A value whose row gives a check
+    for each member is checked member by member: the whole value gets None."""
+    rows = _catalogue_checks()
+    parts = logical_path(card, pointer).split('.')
+    for n in range(len(parts), 0, -1):
+        head = '.'.join(parts[:n])
+        check = rows.get(head, rows.get(head + '[]') if n == len(parts) else None)
+        if check is None:
+            continue
+        if isinstance(check, dict):
+            return None if n == len(parts) else check.get(parts[n].removesuffix('[]'), 'passage')
+        return check
+    return 'passage'
+
+
+def by_member(card, pointer):
+    """Members of a value that is checked member by member: {member: check}, else None."""
+    check = _catalogue_checks().get(logical_path(card, pointer))
+    return check if isinstance(check, dict) else None
+
+
+def checks_classes(card):
+    """True for a card whose values are checked by class (OHF 1.2 and later)."""
+    return card.get('standard_version') not in (None, '1.0', '1.1')
 
 
 def checked_value(card, pointer, node):
@@ -101,13 +221,22 @@ def checked_value(card, pointer, node):
 
 
 def sourced(card):
-    """(pointer, node) of every added value that names a src and goes to the checker."""
+    """(pointer, node) of every added value that names a src and goes to the checker. In an
+    OHF 1.2 card only values checked against a passage go to it; a value checked member by
+    member gives one item for each such member, with the src of the value."""
     out = []
+    classes = checks_classes(card)
 
     def walk(o, p):
         if isinstance(o, dict):
             if 'src' in o and not skip(p, o):
-                out.append((p, o))
+                members = by_member(card, p) if classes else None
+                if members:
+                    for member, check in members.items():
+                        if check == 'passage' and member in (o.get('value') or {}):
+                            out.append((f'{p}/value/{member}', {'value': o['value'][member], 'src': o['src']}))
+                elif not classes or check_class(card, p) == 'passage':
+                    out.append((p, o))
             for k, v in o.items():
                 walk(v, f'{p}/{k}')
         elif isinstance(o, list):
@@ -257,17 +386,23 @@ def _kit_repo(here):
     return ohfkit.REPO
 
 
-def _content_hash():
-    """tools/content_hash.content_hash of the OHF repository: found next to this file when it
-    sits in the repository's tools/, else through OHF_REPO, else the repository the kit names."""
+def _repo_root():
+    """The OHF repository: the parent of this file's directory when it sits in the repository's
+    tools/, else OHF_REPO, else the repository the kit names."""
     here = Path(__file__).resolve().parent
     for root in (here.parent, os.environ.get('OHF_REPO'), _kit_repo(here)):
         if root and (Path(root) / 'tools' / 'content_hash.py').exists():
-            if str(root) not in sys.path:
-                sys.path.insert(0, str(root))
-            from tools.content_hash import content_hash
-            return content_hash
-    raise RuntimeError('tools/content_hash.py not found: run from the OHF repository or set OHF_REPO')
+            return str(root)
+    raise RuntimeError('the OHF repository was not found: run from it or set OHF_REPO')
+
+
+def _content_hash():
+    """tools/content_hash.content_hash of the OHF repository (see _repo_root)."""
+    root = _repo_root()
+    if root not in sys.path:
+        sys.path.insert(0, root)
+    from tools.content_hash import content_hash
+    return content_hash
 
 
 def _active_for(key, item, record, history, passages):
@@ -316,7 +451,7 @@ def check(card, ledger, passages=None):
                       'by entailment.py merge: rebuild it from the checker outputs)')
     nodes = dict(sourced(card))
     items = {key_of(x): x for x in value_items(card)}
-    records = {key_of(r): r for r in card['added']['integrity']['entailment']}
+    records = {key_of(r): r for r in card['added']['integrity']['entailment'] if r['basis'] != 'resolution'}
     for k in items.keys() - records.keys():
         p, b = k.rsplit('|', 1)
         errors.append(f'{p} ({b}): no entailment record (run the entailment pass on it)')
@@ -369,7 +504,7 @@ def summary(card, ledger, passages=None):
     if not led or led.get('format') != FORMAT:
         return [], 0, 0
     items = {key_of(x): x for x in value_items(card)}
-    records = {key_of(r): r for r in card['added']['integrity']['entailment']}
+    records = {key_of(r): r for r in card['added']['integrity']['entailment'] if r['basis'] != 'resolution'}
     nodes = dict(sourced(card))
     out = []
     bad = unknown_verdicts(led)

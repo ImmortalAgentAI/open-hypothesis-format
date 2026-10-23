@@ -21,6 +21,7 @@ def render(catalogue):
         'Generated from [the reference data](field-reference.json) with `python tools/build_field_reference.py`. Edit the reference data and regenerate this file.',
         'The `basis` key records the catalogue\'s conceptual source family; it is not evidence for the example\'s scientific claim. Source records in each card supply that evidence.',
         'The class says how a missing value is treated. `searchable`: the value can be looked for in sources, and a gap records the search. `author_only`: only the author can state it; absence means "not declared", and no search is made. `system`: the value is assigned by the record itself; an empty value is a valid value.',
+        'The check says how an added value is checked in an OHF 1.2 card. `passage`: against the paragraph its `src` names, by an entailment checker. `resolution`: against an external record, by a tool. `card`: against the card itself, by `tools/check_refs.py`; no record is written. An object gives the check of each member.',
     ]
     layer = None
     for field in fields:
@@ -28,6 +29,11 @@ def render(catalogue):
             layer = field['layer']
             blocks.append('## ' + layer)
         facts = f"Type: `{field['logical_type']}`. Vocabulary: {field['vocabulary']}. Basis: `{field['basis']}`. Class: `{field['field_class']}`."
+        check = field['check']
+        if isinstance(check, dict):
+            facts += ' Check by member: ' + ', '.join(f'`{member}` {how}' for member, how in check.items()) + '.'
+        else:
+            facts += f' Check: `{check}`.'
         if 'zones' in field:
             facts += ' Zones: ' + ', '.join(f'`{zone}`' for zone in field['zones']) + '.'
         if 'since' in field:

@@ -24,6 +24,8 @@ This glossary defines the terms the Open Hypothesis Format (OHF) specification u
 
 **Claim type.** `core.atoms[].claim_type`: what kind of claim an atom makes: `existence`, `distribution`, `association`, `causal_effect`, `mechanism`, `functional_attribution`, `evolutionary_explanation`, `development`, `constitution`, `quantitative_law`, `model_sufficiency`, `historical_reconstruction`, or `other` with a note. It is required on every added-zone atom. See [fields](fields.md).
 
+**Check.** From OHF 1.2, how a catalogue row's added value is checked: `passage` (against the paragraph its `src` names, by an entailment checker), `resolution` (against an external record, by a tool) or `card` (against the card, by `tools/check_refs.py`, with no record). A row may give a check for each member of its value. See [README](README.md#ohf-12).
+
 **Closed term.** From OHF 1.1, a `term` from [`terms-1.json`](../vocabularies/terms-1.json) next to the source wording of a route or an endpoint kind, with a `note` exactly when the term is `other`; `predictions[].control_type` lists terms. A 1.1 card gives the term wherever it records a route or an endpoint kind in the added zone. See [README](README.md#ohf-11).
 
 **Completeness.** The structural level of a card, recorded in `added.completeness.level`. `accepted`: the author's assertion is checked against source bytes, and source, licence and provenance are present. `comparable`: `accepted`, plus a prediction with a system, an endpoint, a form and an epistemic status (and a direction when the form is `directional_contrast`). `full`: `comparable`, plus a typed mechanism step, claim atoms, and evidence on both sides, or a recorded search for disputing evidence (`added.challenge_search`). See [README](README.md#completeness).
@@ -40,7 +42,7 @@ This glossary defines the terms the Open Hypothesis Format (OHF) specification u
 
 **Domain profile.** The set of domain-specific paths a card selects in `added.layers.profile.domain`, from [`profiles-1.json`](../vocabularies/profiles-1.json): `ohf:intervention-pharmacology@1` for claims about the effect of an intervention (22 paths, in the predictions and profile layers; `facets.intervention_type` is then required), from OHF 1.1 `ohf:aging@1` ([`profiles-2.json`](../vocabularies/profiles-2.json): the same 22 paths and the hallmarks of aging), or `none`. With `none` the 22 paths are absent and need no gaps, and a gap for one of them is rejected; `author.layers.profile.domain`, if present, must match. See [README](README.md#domain-profiles).
 
-**Entailment record.** An item of `added.integrity.entailment[]`: a JSON pointer to a sourced added-zone value, the basis checked (`src` or `basis_quote`), a verdict, the checker with its version and the SHA-256 of its instructions, and the time. The checker is not the pass that wrote the added zone. See [integrity](README.md#integrity).
+**Entailment record.** An item of `added.integrity.entailment[]`: a JSON pointer to a sourced added-zone value, the basis checked (`src` or `basis_quote`, or from OHF 1.2 `resolution`), a verdict, the checker with its version and the SHA-256 of its instructions, and the time. The checker is not the pass that wrote the added zone. See [integrity](README.md#integrity).
 
 **Entailment verdict.** Whether the source passage supports an added value: `entails`, `partial` or `no`, the last two with a note. A value with a `partial` or `no` verdict is not presented as supported, and a value without a record has not been checked; a verdict concerns the source passage, not the truth of the claim. See [integrity](README.md#integrity).
 
@@ -109,6 +111,8 @@ This glossary defines the terms the Open Hypothesis Format (OHF) specification u
 **Reference checker.** `tools/check_refs.py`: resolves the internal references of a schema-valid card, applies the integrity rules the schema cannot express, and reports which predictions are comparable. See the [checker](../tools/check_refs.py).
 
 **Relations artifact.** A detached artifact, [`ohf:hypothesis-relations@1`](../schema/hypothesis-relations-1.schema.json), that records typed edges between card versions in a fixed pool: `rival_same_explanandum`, `nested`, `compatible_independent`, `duplicate`, `refines`, `unrelated`, and from OHF 1.1 `analog` or `mechanism_neighbour`; from OHF 1.1 an edge may join single records, such as atoms, of the two card versions. Support and contradiction are evidence relations and are not included. See [relations and pair briefs](README.md#relations-and-pair-briefs).
+
+**Resolution record.** From OHF 1.2, an entailment record with basis `resolution`: a tool checked the value against an external record and names that record's source, the SHA-256 of its response and the key it looked up. Its verdict is `entails` or `no`; when the record could not be retrieved or matched no single entry, no record is written. See [README](README.md#ohf-12).
 
 **Result estimate.** From OHF 1.1, `evidence.lines[].result_estimate` in the added zone: the result the line's quote reports, word for word, with its measure, contrast and scale as the source states them, or `not_stated`. See [README](README.md#ohf-11).
 

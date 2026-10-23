@@ -88,7 +88,32 @@ def check(root=ROOT):
             if target not in paths:
                 raise ValueError(f'Mapping target absent from the card schema: {target}')
     check_reverse(root, schema, schema, rows, mapping, zones)
+    errors = check_classes(catalogue, schema)
+    if errors:
+        raise ValueError('; '.join(errors))
     return len(rows)
+
+
+CHECKS = {'passage', 'resolution', 'card'}
+
+
+def check_classes(catalogue, schema):
+    """Every catalogue row says how its added value is checked (OHF 1.2): one check, or one for each
+    member of the value, in which case the members are exactly those the schema gives the value."""
+    errors = []
+    paths = schema_paths(schema)
+    for row in catalogue:
+        check = row.get('check')
+        if isinstance(check, str) and check in CHECKS:
+            continue
+        if not isinstance(check, dict) or not check or not set(check.values()) <= CHECKS:
+            errors.append(f"Catalogue row {row['path']} has no check of {sorted(CHECKS)}")
+            continue
+        prefix = f"added.layers.{row['path']}.value."
+        members = {p[len(prefix):] for p in paths if p.startswith(prefix) and '.' not in p[len(prefix):]}
+        if set(check) != members:
+            errors.append(f"Catalogue row {row['path']}: the checks name {sorted(check)}, the schema {sorted(members)}")
+    return errors
 
 
 

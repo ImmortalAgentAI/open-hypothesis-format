@@ -61,7 +61,7 @@ A form that a field does not allow is the wrong target. A card pointer in a fiel
 | `predictions[].known_result_ref` | an evidence line | card pointer, external |
 | `predictions[].also_expected_under[]` (`kind: "alternative"`) | an alternative explanation | card pointer, external |
 | `predictions[].test_plan_ref` | the experiment plan, or a preregistration | card pointer, external, text |
-| `evidence.lines[].target_ref` | an atom, a prediction, a mechanism step, an alternative explanation (OHF 1.1) or the proposition | identifier, card pointer, versioned proposition, external |
+| `evidence.lines[].target_ref` | an atom, a prediction, a mechanism step, an alternative explanation (OHF 1.1) or the proposition; in OHF 1.2 without a `src` | identifier, card pointer, versioned proposition, external |
 | `evidence.lines[].items[].line_id` | an evidence line | identifier |
 | `evidence.excluded[].target_ref` (OHF 1.1) | what the excluded record was found for: an atom, a prediction, a mechanism step, an alternative explanation or the proposition | identifier, card pointer, versioned proposition, external |
 | `profile.dose_response.endpoint_ref` | a prediction | identifier, card pointer, versioned proposition, external |

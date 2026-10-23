@@ -1,7 +1,7 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "ohf:hypothesis@1",
-  "title": "Open Hypothesis Format hypothesis card, versions 1.0 and 1.1",
+  "title": "Open Hypothesis Format hypothesis card, versions 1.0, 1.1 and 1.2",
   "description": "A hypothesis card: what the author said, what was added later, and an explicit gap for every missing value.",
   "type": "object",
   "properties": {
@@ -10437,6 +10437,10 @@
               },
               "tool": {
                 "type": "string"
+              },
+              "sha256": {
+                "type": "string",
+                "pattern": "^sha256:[0-9a-f]{64}$"
               }
             },
             "additionalProperties": false,
@@ -10643,7 +10647,8 @@
                   "basis": {
                     "enum": [
                       "src",
-                      "basis_quote"
+                      "basis_quote",
+                      "resolution"
                     ]
                   },
                   "verdict": {
@@ -10656,6 +10661,12 @@
                   "checker": {
                     "type": "object",
                     "properties": {
+                      "kind": {
+                        "enum": [
+                          "model",
+                          "tool"
+                        ]
+                      },
                       "name": {
                         "type": "string",
                         "minLength": 1,
@@ -10669,12 +10680,40 @@
                       "prompt_sha256": {
                         "type": "string",
                         "pattern": "^sha256:[0-9a-f]{64}$"
+                      },
+                      "tool_sha256": {
+                        "type": "string",
+                        "pattern": "^sha256:[0-9a-f]{64}$"
                       }
                     },
                     "required": [
                       "name",
-                      "version",
-                      "prompt_sha256"
+                      "version"
+                    ],
+                    "additionalProperties": false
+                  },
+                  "resolved_against": {
+                    "type": "object",
+                    "properties": {
+                      "source": {
+                        "type": "string",
+                        "minLength": 1,
+                        "pattern": "\\S"
+                      },
+                      "response_sha256": {
+                        "type": "string",
+                        "pattern": "^sha256:[0-9a-f]{64}$"
+                      },
+                      "key": {
+                        "type": "string",
+                        "minLength": 1,
+                        "pattern": "\\S"
+                      }
+                    },
+                    "required": [
+                      "source",
+                      "response_sha256",
+                      "key"
                     ],
                     "additionalProperties": false
                   },
@@ -10745,7 +10784,8 @@
     "standard_version": {
       "enum": [
         "1.0",
-        "1.1"
+        "1.1",
+        "1.2"
       ]
     },
     "vocabularies": {
@@ -11092,7 +11132,10 @@
       "if": {
         "properties": {
           "standard_version": {
-            "const": "1.1"
+            "enum": [
+              "1.1",
+              "1.2"
+            ]
           }
         },
         "required": [
@@ -12147,6 +12190,229 @@
                                 "required": [
                                   "quote_withheld"
                                 ]
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        ]
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "standard_version": {
+            "enum": [
+              "1.0",
+              "1.1"
+            ]
+          }
+        },
+        "required": [
+          "standard_version"
+        ]
+      },
+      "then": {
+        "allOf": [
+          {
+            "properties": {
+              "added": {
+                "properties": {
+                  "integrity": {
+                    "properties": {
+                      "entailment": {
+                        "items": {
+                          "properties": {
+                            "basis": {
+                              "not": {
+                                "const": "resolution"
+                              }
+                            },
+                            "checker": {
+                              "required": [
+                                "prompt_sha256"
+                              ],
+                              "not": {
+                                "anyOf": [
+                                  {
+                                    "required": [
+                                      "kind"
+                                    ]
+                                  },
+                                  {
+                                    "required": [
+                                      "tool_sha256"
+                                    ]
+                                  }
+                                ]
+                              }
+                            }
+                          },
+                          "not": {
+                            "required": [
+                              "resolved_against"
+                            ]
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          {
+            "properties": {
+              "added": {
+                "properties": {
+                  "sources": {
+                    "additionalProperties": {
+                      "not": {
+                        "required": [
+                          "sha256"
+                        ]
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        ]
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "standard_version": {
+            "const": "1.2"
+          }
+        },
+        "required": [
+          "standard_version"
+        ]
+      },
+      "then": {
+        "allOf": [
+          {
+            "properties": {
+              "added": {
+                "properties": {
+                  "integrity": {
+                    "properties": {
+                      "entailment": {
+                        "items": {
+                          "oneOf": [
+                            {
+                              "properties": {
+                                "basis": {
+                                  "enum": [
+                                    "src",
+                                    "basis_quote"
+                                  ]
+                                },
+                                "checker": {
+                                  "properties": {
+                                    "kind": {
+                                      "const": "model"
+                                    }
+                                  },
+                                  "required": [
+                                    "prompt_sha256"
+                                  ],
+                                  "not": {
+                                    "required": [
+                                      "tool_sha256"
+                                    ]
+                                  }
+                                }
+                              },
+                              "not": {
+                                "required": [
+                                  "resolved_against"
+                                ]
+                              }
+                            },
+                            {
+                              "properties": {
+                                "basis": {
+                                  "const": "resolution"
+                                },
+                                "verdict": {
+                                  "enum": [
+                                    "entails",
+                                    "no"
+                                  ]
+                                },
+                                "checker": {
+                                  "properties": {
+                                    "kind": {
+                                      "const": "tool"
+                                    }
+                                  },
+                                  "required": [
+                                    "kind",
+                                    "tool_sha256"
+                                  ],
+                                  "not": {
+                                    "required": [
+                                      "prompt_sha256"
+                                    ]
+                                  }
+                                }
+                              },
+                              "required": [
+                                "resolved_against"
+                              ]
+                            }
+                          ]
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          {
+            "properties": {
+              "added": {
+                "properties": {
+                  "layers": {
+                    "properties": {
+                      "evidence": {
+                        "properties": {
+                          "lines": {
+                            "items": {
+                              "properties": {
+                                "target_ref": {
+                                  "not": {
+                                    "type": "object",
+                                    "required": [
+                                      "src"
+                                    ]
+                                  }
+                                }
+                              }
+                            }
+                          },
+                          "excluded": {
+                            "items": {
+                              "properties": {
+                                "target_ref": {
+                                  "not": {
+                                    "type": "object",
+                                    "required": [
+                                      "src"
+                                    ]
+                                  }
+                                }
                               }
                             }
                           }
