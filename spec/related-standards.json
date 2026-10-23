@@ -78,7 +78,9 @@
       "catalogue_paths": [
         "predictions[].population",
         "predictions[].intervention.agent",
+        "evidence.lines[].intervention.agent",
         "predictions[].intervention.regimen",
+        "evidence.lines[].intervention.regimen",
         "predictions[].comparator",
         "predictions[].endpoint",
         "predictions[].summary_measure",
@@ -110,14 +112,22 @@
       "difference": "OHF uses ARRIVE items to describe the test system and study of a prediction or evidence line. For a hypothesis without its own experiment, a missing reporting item is not by itself a required gap.",
       "catalogue_paths": [
         "predictions[].system.taxon",
+        "evidence.lines[].system.taxon",
         "predictions[].system.strain_or_line",
+        "evidence.lines[].system.strain_or_line",
         "predictions[].system.sex",
+        "evidence.lines[].system.sex",
         "predictions[].system.age_at_start",
+        "evidence.lines[].system.age_at_start",
         "predictions[].experimental_unit",
         "predictions[].system.assessment_age",
+        "evidence.lines[].system.assessment_age",
         "predictions[].system.site",
+        "evidence.lines[].system.site",
         "predictions[].intervention.route",
+        "evidence.lines[].intervention.route",
         "predictions[].intervention.formulation",
+        "evidence.lines[].intervention.formulation",
         "evidence.lines[].study_system",
         "evidence.lines[].study_type",
         "evidence.lines[].statistical_procedure"
@@ -409,8 +419,11 @@
       "difference": "OHF recommends UCUM unit syntax but stores dose, duration, concentration and range values as strings that keep the source wording. It does not parse or validate UCUM expressions, and it adds what UCUM does not cover: administration basis, denominator, biological basis and time origin.",
       "catalogue_paths": [
         "predictions[].intervention.dose",
+        "evidence.lines[].intervention.dose",
         "predictions[].intervention.duration",
+        "evidence.lines[].intervention.duration",
         "predictions[].intervention.nominal_concentration",
+        "evidence.lines[].intervention.nominal_concentration",
         "profile.dose_response.range"
       ]
     }

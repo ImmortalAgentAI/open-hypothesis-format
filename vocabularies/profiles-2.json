@@ -1,0 +1,73 @@
+{
+  "schema": "ohf:profiles@2",
+  "profiles": [
+    {
+      "id": "ohf:intervention-pharmacology@1",
+      "label": {
+        "en": "Claims about the effect of an intervention, such as a drug, diet or genetic manipulation, with its dose, regimen and exposure"
+      },
+      "paths": [
+        "predictions[].intervention.agent",
+        "predictions[].intervention.dose",
+        "predictions[].intervention.regimen",
+        "predictions[].intervention.duration",
+        "predictions[].intervention.route",
+        "predictions[].intervention.formulation",
+        "predictions[].intervention.nominal_concentration",
+        "predictions[].intervention.measured_concentration",
+        "predictions[].intervention.intake",
+        "predictions[].intervention.systemic_exposure",
+        "predictions[].intercurrent_events[].event",
+        "predictions[].intercurrent_events[].strategy",
+        "predictions[].intercurrent_events[].justification",
+        "predictions[].intercurrent_events[]",
+        "profile.dose_response.shape",
+        "profile.dose_response.x_axis",
+        "profile.dose_response.endpoint_ref",
+        "profile.dose_response.range",
+        "profile.combination.components[]",
+        "profile.combination.reference_model",
+        "profile.combination.effect",
+        "profile.harm"
+      ]
+    },
+    {
+      "id": "ohf:aging@1",
+      "label": {
+        "en": "Claims about aging: the general intervention fields, and the hallmarks of aging (López-Otín et al. 2023) that the claim concerns"
+      },
+      "paths": [
+        "predictions[].intervention.agent",
+        "predictions[].intervention.dose",
+        "predictions[].intervention.regimen",
+        "predictions[].intervention.duration",
+        "predictions[].intervention.route",
+        "predictions[].intervention.formulation",
+        "predictions[].intervention.nominal_concentration",
+        "predictions[].intervention.measured_concentration",
+        "predictions[].intervention.intake",
+        "predictions[].intervention.systemic_exposure",
+        "predictions[].intercurrent_events[].event",
+        "predictions[].intercurrent_events[].strategy",
+        "predictions[].intercurrent_events[].justification",
+        "predictions[].intercurrent_events[]",
+        "profile.dose_response.shape",
+        "profile.dose_response.x_axis",
+        "profile.dose_response.endpoint_ref",
+        "profile.dose_response.range",
+        "profile.combination.components[]",
+        "profile.combination.reference_model",
+        "profile.combination.effect",
+        "profile.harm",
+        "profile.aging_hallmarks[]"
+      ]
+    },
+    {
+      "id": "none",
+      "label": {
+        "en": "No domain profile: the card holds only the general fields"
+      },
+      "paths": []
+    }
+  ]
+}

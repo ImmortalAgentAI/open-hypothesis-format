@@ -1,8 +1,8 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "ohf:hypothesis-relations@1",
-  "title": "Hypothesis relations, version 2",
-  "description": "Detached typed relations between card versions within a fixed pool. Relation types: rival_same_explanandum, nested, compatible_independent, duplicate, refines, unrelated.",
+  "title": "Hypothesis relations, version 1",
+  "description": "Detached typed relations between card versions within a fixed pool. Relation types: rival_same_explanandum, nested, compatible_independent, duplicate, refines, unrelated, analog, mechanism_neighbour. From OHF 1.1 an end may name one record of its card version, such as an atom, by pointer. From OHF 1.1 an edge may list in scope_differs the endpoint, population or system on which the two cards differ, each with the field of both cards.",
   "type": "object",
   "properties": {
     "schema": {
@@ -64,6 +64,10 @@
                 "pattern": "^sha256:[0-9a-f]{64}(?![\\s\\S])",
                 "minLength": 71,
                 "maxLength": 71
+              },
+              "pointer": {
+                "type": "string",
+                "pattern": "^/(?:author|added)/layers(?:/(?:[^~/]|~[01])*)+$"
               }
             },
             "required": [
@@ -89,6 +93,10 @@
                 "pattern": "^sha256:[0-9a-f]{64}(?![\\s\\S])",
                 "minLength": 71,
                 "maxLength": 71
+              },
+              "pointer": {
+                "type": "string",
+                "pattern": "^/(?:author|added)/layers(?:/(?:[^~/]|~[01])*)+$"
               }
             },
             "required": [
@@ -105,7 +113,9 @@
               "compatible_independent",
               "duplicate",
               "refines",
-              "unrelated"
+              "unrelated",
+              "analog",
+              "mechanism_neighbour"
             ]
           },
           "basis": {
@@ -271,6 +281,36 @@
           "at": {
             "type": "string",
             "format": "date-time"
+          },
+          "scope_differs": {
+            "type": "array",
+            "minItems": 1,
+            "items": {
+              "type": "object",
+              "properties": {
+                "aspect": {
+                  "enum": [
+                    "endpoint",
+                    "population",
+                    "system"
+                  ]
+                },
+                "source_pointer": {
+                  "type": "string",
+                  "pattern": "^/(?:author|added)/layers(?:/(?:[^~/]|~[01])*)+$"
+                },
+                "target_pointer": {
+                  "type": "string",
+                  "pattern": "^/(?:author|added)/layers(?:/(?:[^~/]|~[01])*)+$"
+                }
+              },
+              "required": [
+                "aspect",
+                "source_pointer",
+                "target_pointer"
+              ],
+              "additionalProperties": false
+            }
           }
         },
         "required": [

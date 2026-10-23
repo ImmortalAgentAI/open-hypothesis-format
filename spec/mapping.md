@@ -48,6 +48,7 @@ The catalogue distinguishes logical scientific fields from their storage. A dire
 | `predictions[].id` | `author.layers.predictions[].id`, `added.layers.predictions[].id` | scientific field |  |
 | `predictions[].population` | `author.layers.predictions[].population`, `added.layers.predictions[].population` | scientific field |  |
 | `predictions[].system.taxon` | `author.layers.predictions[].system.taxon`, `added.layers.predictions[].system.taxon` | scientific field |  |
+| `predictions[].system.taxon_id` | `added.layers.predictions[].system.taxon_id` | scientific field |  |
 | `predictions[].system.strain_or_line` | `author.layers.predictions[].system.strain_or_line`, `added.layers.predictions[].system.strain_or_line` | scientific field |  |
 | `predictions[].system.sex` | `author.layers.predictions[].system.sex`, `added.layers.predictions[].system.sex` | scientific field |  |
 | `predictions[].system.age_at_start` | `author.layers.predictions[].system.age_at_start`, `added.layers.predictions[].system.age_at_start` | scientific field |  |
@@ -67,6 +68,7 @@ The catalogue distinguishes logical scientific fields from their storage. A dire
 | `predictions[].comparator` | `author.layers.predictions[].comparator`, `added.layers.predictions[].comparator` | scientific field |  |
 | `predictions[].control_reference` | `author.layers.predictions[].control_reference`, `added.layers.predictions[].control_reference` | scientific field |  |
 | `predictions[].control_quality` | `author.layers.predictions[].control_quality`, `added.layers.predictions[].control_quality` | scientific field |  |
+| `predictions[].control_type` | `added.layers.predictions[].control_type` | scientific field |  |
 | `predictions[].endpoint` | `author.layers.predictions[].endpoint`, `added.layers.predictions[].endpoint` | scientific field |  |
 | `predictions[].endpoint_orientation` | `author.layers.predictions[].endpoint_orientation`, `added.layers.predictions[].endpoint_orientation` | scientific field |  |
 | `predictions[].relational_prediction` | `author.layers.predictions[].relational_prediction`, `added.layers.predictions[].relational_prediction` | scientific field |  |
@@ -94,12 +96,39 @@ The catalogue distinguishes logical scientific fields from their storage. A dire
 | `evidence.lines[].direction` | `author.layers.evidence.lines[].direction`, `added.layers.evidence.lines[].direction` | scientific field |  |
 | `evidence.lines[].items[]` | `author.layers.evidence.lines[].items[]`, `added.layers.evidence.lines[].items[]` | scientific field |  |
 | `evidence.lines[].quote` | `author.layers.evidence.lines[].quote`, `added.layers.evidence.lines[].quote` | scientific field |  |
+| `evidence.lines[].quote_withheld` | `added.layers.evidence.lines[].quote_withheld` | scientific field |  |
 | `evidence.lines[].evidence_type` | `author.layers.evidence.lines[].evidence_type`, `added.layers.evidence.lines[].evidence_type` | scientific field |  |
 | `evidence.lines[].knowledge_level` | `author.layers.evidence.lines[].knowledge_level`, `added.layers.evidence.lines[].knowledge_level` | scientific field |  |
 | `evidence.lines[].agent_type` | `author.layers.evidence.lines[].agent_type`, `added.layers.evidence.lines[].agent_type` | scientific field |  |
 | `evidence.lines[].hypothesis_flag` | `author.layers.evidence.lines[].hypothesis_flag`, `added.layers.evidence.lines[].hypothesis_flag` | scientific field |  |
 | `evidence.lines[].negated_flag` | `author.layers.evidence.lines[].negated_flag`, `added.layers.evidence.lines[].negated_flag` | scientific field |  |
 | `evidence.lines[].study_system` | `author.layers.evidence.lines[].study_system`, `added.layers.evidence.lines[].study_system` | scientific field |  |
+| `evidence.lines[].system.taxon` | `author.layers.evidence.lines[].system.taxon`, `added.layers.evidence.lines[].system.taxon` | scientific field |  |
+| `evidence.lines[].system.taxon_id` | `added.layers.evidence.lines[].system.taxon_id` | scientific field |  |
+| `evidence.lines[].system.strain_or_line` | `author.layers.evidence.lines[].system.strain_or_line`, `added.layers.evidence.lines[].system.strain_or_line` | scientific field |  |
+| `evidence.lines[].system.sex` | `author.layers.evidence.lines[].system.sex`, `added.layers.evidence.lines[].system.sex` | scientific field |  |
+| `evidence.lines[].system.age_at_start` | `author.layers.evidence.lines[].system.age_at_start`, `added.layers.evidence.lines[].system.age_at_start` | scientific field |  |
+| `evidence.lines[].system.assessment_age` | `author.layers.evidence.lines[].system.assessment_age`, `added.layers.evidence.lines[].system.assessment_age` | scientific field |  |
+| `evidence.lines[].system.site` | `author.layers.evidence.lines[].system.site`, `added.layers.evidence.lines[].system.site` | scientific field |  |
+| `evidence.lines[].system.kind` | `author.layers.evidence.lines[].system.kind`, `added.layers.evidence.lines[].system.kind` | scientific field |  |
+| `evidence.lines[].system.environment` | `author.layers.evidence.lines[].system.environment`, `added.layers.evidence.lines[].system.environment` | scientific field |  |
+| `evidence.lines[].system.spatial_scale` | `author.layers.evidence.lines[].system.spatial_scale`, `added.layers.evidence.lines[].system.spatial_scale` | scientific field |  |
+| `evidence.lines[].system.temporal_scale` | `author.layers.evidence.lines[].system.temporal_scale`, `added.layers.evidence.lines[].system.temporal_scale` | scientific field |  |
+| `evidence.lines[].intervention.agent` | `author.layers.evidence.lines[].intervention.agent`, `added.layers.evidence.lines[].intervention.agent` | scientific field |  |
+| `evidence.lines[].intervention.dose` | `author.layers.evidence.lines[].intervention.dose`, `added.layers.evidence.lines[].intervention.dose` | scientific field |  |
+| `evidence.lines[].intervention.regimen` | `author.layers.evidence.lines[].intervention.regimen`, `added.layers.evidence.lines[].intervention.regimen` | scientific field |  |
+| `evidence.lines[].intervention.duration` | `author.layers.evidence.lines[].intervention.duration`, `added.layers.evidence.lines[].intervention.duration` | scientific field |  |
+| `evidence.lines[].intervention.route` | `author.layers.evidence.lines[].intervention.route`, `added.layers.evidence.lines[].intervention.route` | scientific field |  |
+| `evidence.lines[].intervention.formulation` | `author.layers.evidence.lines[].intervention.formulation`, `added.layers.evidence.lines[].intervention.formulation` | scientific field |  |
+| `evidence.lines[].intervention.nominal_concentration` | `author.layers.evidence.lines[].intervention.nominal_concentration`, `added.layers.evidence.lines[].intervention.nominal_concentration` | scientific field |  |
+| `evidence.lines[].intervention.measured_concentration` | `author.layers.evidence.lines[].intervention.measured_concentration`, `added.layers.evidence.lines[].intervention.measured_concentration` | scientific field |  |
+| `evidence.lines[].intervention.intake` | `author.layers.evidence.lines[].intervention.intake`, `added.layers.evidence.lines[].intervention.intake` | scientific field |  |
+| `evidence.lines[].intervention.systemic_exposure` | `author.layers.evidence.lines[].intervention.systemic_exposure`, `added.layers.evidence.lines[].intervention.systemic_exposure` | scientific field |  |
+| `evidence.lines[].multi_site_program` | `added.layers.evidence.lines[].multi_site_program` | scientific field |  |
+| `evidence.lines[].sample` | `added.layers.evidence.lines[].sample` | scientific field |  |
+| `evidence.lines[].endpoint_kind` | `added.layers.evidence.lines[].endpoint_kind` | scientific field |  |
+| `evidence.lines[].human_proximity` | `added.layers.evidence.lines[].human_proximity` | scientific field |  |
+| `evidence.lines[].sample_size` | `added.layers.evidence.lines[].sample_size` | scientific field |  |
 | `evidence.lines[].study_type` | `author.layers.evidence.lines[].study_type`, `added.layers.evidence.lines[].study_type` | scientific field |  |
 | `evidence.lines[].result_estimate` | `author.layers.evidence.lines[].result_estimate`, `added.layers.evidence.lines[].result_estimate` | scientific field |  |
 | `evidence.lines[].confidence_interval` | `author.layers.evidence.lines[].confidence_interval`, `added.layers.evidence.lines[].confidence_interval` | scientific field |  |
@@ -135,6 +164,7 @@ The catalogue distinguishes logical scientific fields from their storage. A dire
 | `profile.harm` | `author.layers.profile.harm`, `added.layers.profile.harm` | scientific field |  |
 | `profile.transfer_scope` | `author.layers.profile.transfer_scope`, `added.layers.profile.transfer_scope` | scientific field |  |
 | `profile.function_process` | `author.layers.profile.function_process`, `added.layers.profile.function_process` | scientific field |  |
+| `profile.aging_hallmarks[]` | `added.layers.profile.aging_hallmarks.value[]` | scientific field |  |
 | `appendix.rationale` | `author.layers.appendix.rationale`, `added.layers.appendix.rationale` | scientific field |  |
 | `appendix.experiment_plan` | `author.layers.appendix.experiment_plan`, `added.layers.appendix.experiment_plan` | scientific field |  |
 | `appendix.source_extensions` | `author.layers.appendix.source_extensions`, `added.layers.appendix.source_extensions` | scientific field |  |
@@ -155,6 +185,7 @@ The catalogue distinguishes logical scientific fields from their storage. A dire
 | `core.novelty_assessment` | `author.layers.core.novelty_assessment`, `added.layers.core.novelty_assessment` | scientific field |  |
 | `core.uncertainties[]` | `author.layers.core.uncertainties.value[]`, `added.layers.core.uncertainties.value[]` | scientific field |  |
 | `core.alternative_explanations[]` | `author.layers.core.alternative_explanations.value[]`, `added.layers.core.alternative_explanations.value[]` | scientific field |  |
+| `core.alternative_explanations[].id` | `author.layers.core.alternative_explanations.value[].id`, `added.layers.core.alternative_explanations.value[].id` | scientific field |  |
 | `predictions[].resolution` | `author.layers.predictions[].resolution`, `added.layers.predictions[].resolution` | scientific field |  |
 | `evidence.lines[].replication` | `author.layers.evidence.lines[].replication`, `added.layers.evidence.lines[].replication` | scientific field |  |
 | `core.base_rate` | `author.layers.core.base_rate`, `added.layers.core.base_rate` | scientific field |  |
@@ -179,10 +210,15 @@ The catalogue distinguishes logical scientific fields from their storage. A dire
 | `core.atoms[].claim_type` | `added.layers.core.atoms[].claim_type` | scientific field |  |
 | `core.atoms[].role` | `added.layers.core.atoms[].role` | scientific field |  |
 | `core.atoms[].modality` | `added.layers.core.atoms[].modality` | scientific field |  |
+| `core.atoms[].requires` | `added.layers.core.atoms[].requires` | scientific field |  |
+| `core.atoms[].contradicts` | `added.layers.core.atoms[].contradicts` | scientific field |  |
+| `core.atoms[].triple` | `added.layers.core.atoms[].triple` | scientific field |  |
 | `evidence.lines[].indirectness` | `added.layers.evidence.lines[].indirectness` | scientific field |  |
 | `evidence.lines[].risk_of_bias` | `added.layers.evidence.lines[].risk_of_bias` | scientific field |  |
 | `evidence.lines[].independence_group` | `added.layers.evidence.lines[].independence_group` | scientific field |  |
+| `evidence.lines[].independence_group.key` | `added.layers.evidence.lines[].independence_group.key` | scientific field |  |
 | `evidence.lines[].argument_kind` | `added.layers.evidence.lines[].argument_kind` | scientific field |  |
 | `evidence.selection_record` | `added.layers.evidence.selection_record` | scientific field |  |
+| `evidence.excluded[]` | `added.layers.evidence.excluded[]` | scientific field |  |
 
 The intermediate-test record additionally stores sourced H0, H1, procedure and phase components in both zones. These refine the existing TestRecord and add no catalogue rows. The checker audits all sourced scientific wrapper locations in the card schema against direct targets and these explicit components. Operational metadata and source proof are separate contracts.

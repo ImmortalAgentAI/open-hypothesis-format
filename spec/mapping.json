@@ -413,6 +413,15 @@
       "coverage": "direct"
     },
     {
+      "catalogue_path": "predictions[].system.taxon_id",
+      "card_paths": [
+        "added.layers.predictions[].system.taxon_id"
+      ],
+      "status": "scientific field",
+      "extension": null,
+      "coverage": "direct"
+    },
+    {
       "catalogue_path": "predictions[].system.strain_or_line",
       "card_paths": [
         "author.layers.predictions[].system.strain_or_line",
@@ -597,6 +606,15 @@
       "card_paths": [
         "author.layers.predictions[].control_quality",
         "added.layers.predictions[].control_quality"
+      ],
+      "status": "scientific field",
+      "extension": null,
+      "coverage": "direct"
+    },
+    {
+      "catalogue_path": "predictions[].control_type",
+      "card_paths": [
+        "added.layers.predictions[].control_type"
       ],
       "status": "scientific field",
       "extension": null,
@@ -873,6 +891,15 @@
       "coverage": "direct"
     },
     {
+      "catalogue_path": "evidence.lines[].quote_withheld",
+      "card_paths": [
+        "added.layers.evidence.lines[].quote_withheld"
+      ],
+      "status": "scientific field",
+      "extension": null,
+      "coverage": "direct"
+    },
+    {
       "catalogue_path": "evidence.lines[].evidence_type",
       "card_paths": [
         "author.layers.evidence.lines[].evidence_type",
@@ -927,6 +954,260 @@
       "card_paths": [
         "author.layers.evidence.lines[].study_system",
         "added.layers.evidence.lines[].study_system"
+      ],
+      "status": "scientific field",
+      "extension": null,
+      "coverage": "direct"
+    },
+    {
+      "catalogue_path": "evidence.lines[].system.taxon",
+      "card_paths": [
+        "author.layers.evidence.lines[].system.taxon",
+        "added.layers.evidence.lines[].system.taxon"
+      ],
+      "status": "scientific field",
+      "extension": null,
+      "coverage": "direct"
+    },
+    {
+      "catalogue_path": "evidence.lines[].system.taxon_id",
+      "card_paths": [
+        "added.layers.evidence.lines[].system.taxon_id"
+      ],
+      "status": "scientific field",
+      "extension": null,
+      "coverage": "direct"
+    },
+    {
+      "catalogue_path": "evidence.lines[].system.strain_or_line",
+      "card_paths": [
+        "author.layers.evidence.lines[].system.strain_or_line",
+        "added.layers.evidence.lines[].system.strain_or_line"
+      ],
+      "status": "scientific field",
+      "extension": null,
+      "coverage": "direct"
+    },
+    {
+      "catalogue_path": "evidence.lines[].system.sex",
+      "card_paths": [
+        "author.layers.evidence.lines[].system.sex",
+        "added.layers.evidence.lines[].system.sex"
+      ],
+      "status": "scientific field",
+      "extension": null,
+      "coverage": "direct"
+    },
+    {
+      "catalogue_path": "evidence.lines[].system.age_at_start",
+      "card_paths": [
+        "author.layers.evidence.lines[].system.age_at_start",
+        "added.layers.evidence.lines[].system.age_at_start"
+      ],
+      "status": "scientific field",
+      "extension": null,
+      "coverage": "direct"
+    },
+    {
+      "catalogue_path": "evidence.lines[].system.assessment_age",
+      "card_paths": [
+        "author.layers.evidence.lines[].system.assessment_age",
+        "added.layers.evidence.lines[].system.assessment_age"
+      ],
+      "status": "scientific field",
+      "extension": null,
+      "coverage": "direct"
+    },
+    {
+      "catalogue_path": "evidence.lines[].system.site",
+      "card_paths": [
+        "author.layers.evidence.lines[].system.site",
+        "added.layers.evidence.lines[].system.site"
+      ],
+      "status": "scientific field",
+      "extension": null,
+      "coverage": "direct"
+    },
+    {
+      "catalogue_path": "evidence.lines[].system.kind",
+      "card_paths": [
+        "author.layers.evidence.lines[].system.kind",
+        "added.layers.evidence.lines[].system.kind"
+      ],
+      "status": "scientific field",
+      "extension": null,
+      "coverage": "direct"
+    },
+    {
+      "catalogue_path": "evidence.lines[].system.environment",
+      "card_paths": [
+        "author.layers.evidence.lines[].system.environment",
+        "added.layers.evidence.lines[].system.environment"
+      ],
+      "status": "scientific field",
+      "extension": null,
+      "coverage": "direct"
+    },
+    {
+      "catalogue_path": "evidence.lines[].system.spatial_scale",
+      "card_paths": [
+        "author.layers.evidence.lines[].system.spatial_scale",
+        "added.layers.evidence.lines[].system.spatial_scale"
+      ],
+      "status": "scientific field",
+      "extension": null,
+      "coverage": "direct"
+    },
+    {
+      "catalogue_path": "evidence.lines[].system.temporal_scale",
+      "card_paths": [
+        "author.layers.evidence.lines[].system.temporal_scale",
+        "added.layers.evidence.lines[].system.temporal_scale"
+      ],
+      "status": "scientific field",
+      "extension": null,
+      "coverage": "direct"
+    },
+    {
+      "catalogue_path": "evidence.lines[].intervention.agent",
+      "card_paths": [
+        "author.layers.evidence.lines[].intervention.agent",
+        "added.layers.evidence.lines[].intervention.agent"
+      ],
+      "status": "scientific field",
+      "extension": null,
+      "coverage": "direct"
+    },
+    {
+      "catalogue_path": "evidence.lines[].intervention.dose",
+      "card_paths": [
+        "author.layers.evidence.lines[].intervention.dose",
+        "added.layers.evidence.lines[].intervention.dose"
+      ],
+      "status": "scientific field",
+      "extension": null,
+      "coverage": "direct"
+    },
+    {
+      "catalogue_path": "evidence.lines[].intervention.regimen",
+      "card_paths": [
+        "author.layers.evidence.lines[].intervention.regimen",
+        "added.layers.evidence.lines[].intervention.regimen"
+      ],
+      "status": "scientific field",
+      "extension": null,
+      "coverage": "direct"
+    },
+    {
+      "catalogue_path": "evidence.lines[].intervention.duration",
+      "card_paths": [
+        "author.layers.evidence.lines[].intervention.duration",
+        "added.layers.evidence.lines[].intervention.duration"
+      ],
+      "status": "scientific field",
+      "extension": null,
+      "coverage": "direct"
+    },
+    {
+      "catalogue_path": "evidence.lines[].intervention.route",
+      "card_paths": [
+        "author.layers.evidence.lines[].intervention.route",
+        "added.layers.evidence.lines[].intervention.route"
+      ],
+      "status": "scientific field",
+      "extension": null,
+      "coverage": "direct"
+    },
+    {
+      "catalogue_path": "evidence.lines[].intervention.formulation",
+      "card_paths": [
+        "author.layers.evidence.lines[].intervention.formulation",
+        "added.layers.evidence.lines[].intervention.formulation"
+      ],
+      "status": "scientific field",
+      "extension": null,
+      "coverage": "direct"
+    },
+    {
+      "catalogue_path": "evidence.lines[].intervention.nominal_concentration",
+      "card_paths": [
+        "author.layers.evidence.lines[].intervention.nominal_concentration",
+        "added.layers.evidence.lines[].intervention.nominal_concentration"
+      ],
+      "status": "scientific field",
+      "extension": null,
+      "coverage": "direct"
+    },
+    {
+      "catalogue_path": "evidence.lines[].intervention.measured_concentration",
+      "card_paths": [
+        "author.layers.evidence.lines[].intervention.measured_concentration",
+        "added.layers.evidence.lines[].intervention.measured_concentration"
+      ],
+      "status": "scientific field",
+      "extension": null,
+      "coverage": "direct"
+    },
+    {
+      "catalogue_path": "evidence.lines[].intervention.intake",
+      "card_paths": [
+        "author.layers.evidence.lines[].intervention.intake",
+        "added.layers.evidence.lines[].intervention.intake"
+      ],
+      "status": "scientific field",
+      "extension": null,
+      "coverage": "direct"
+    },
+    {
+      "catalogue_path": "evidence.lines[].intervention.systemic_exposure",
+      "card_paths": [
+        "author.layers.evidence.lines[].intervention.systemic_exposure",
+        "added.layers.evidence.lines[].intervention.systemic_exposure"
+      ],
+      "status": "scientific field",
+      "extension": null,
+      "coverage": "direct"
+    },
+    {
+      "catalogue_path": "evidence.lines[].multi_site_program",
+      "card_paths": [
+        "added.layers.evidence.lines[].multi_site_program"
+      ],
+      "status": "scientific field",
+      "extension": null,
+      "coverage": "direct"
+    },
+    {
+      "catalogue_path": "evidence.lines[].sample",
+      "card_paths": [
+        "added.layers.evidence.lines[].sample"
+      ],
+      "status": "scientific field",
+      "extension": null,
+      "coverage": "direct"
+    },
+    {
+      "catalogue_path": "evidence.lines[].endpoint_kind",
+      "card_paths": [
+        "added.layers.evidence.lines[].endpoint_kind"
+      ],
+      "status": "scientific field",
+      "extension": null,
+      "coverage": "direct"
+    },
+    {
+      "catalogue_path": "evidence.lines[].human_proximity",
+      "card_paths": [
+        "added.layers.evidence.lines[].human_proximity"
+      ],
+      "status": "scientific field",
+      "extension": null,
+      "coverage": "direct"
+    },
+    {
+      "catalogue_path": "evidence.lines[].sample_size",
+      "card_paths": [
+        "added.layers.evidence.lines[].sample_size"
       ],
       "status": "scientific field",
       "extension": null,
@@ -1283,6 +1564,15 @@
       "coverage": "direct"
     },
     {
+      "catalogue_path": "profile.aging_hallmarks[]",
+      "card_paths": [
+        "added.layers.profile.aging_hallmarks.value[]"
+      ],
+      "status": "scientific field",
+      "extension": null,
+      "coverage": "direct"
+    },
+    {
       "catalogue_path": "appendix.rationale",
       "card_paths": [
         "author.layers.appendix.rationale",
@@ -1483,6 +1773,16 @@
       "card_paths": [
         "author.layers.core.alternative_explanations.value[]",
         "added.layers.core.alternative_explanations.value[]"
+      ],
+      "status": "scientific field",
+      "extension": null,
+      "coverage": "direct"
+    },
+    {
+      "catalogue_path": "core.alternative_explanations[].id",
+      "card_paths": [
+        "author.layers.core.alternative_explanations.value[].id",
+        "added.layers.core.alternative_explanations.value[].id"
       ],
       "status": "scientific field",
       "extension": null,
@@ -1725,6 +2025,33 @@
       "coverage": "direct"
     },
     {
+      "catalogue_path": "core.atoms[].requires",
+      "card_paths": [
+        "added.layers.core.atoms[].requires"
+      ],
+      "status": "scientific field",
+      "extension": null,
+      "coverage": "direct"
+    },
+    {
+      "catalogue_path": "core.atoms[].contradicts",
+      "card_paths": [
+        "added.layers.core.atoms[].contradicts"
+      ],
+      "status": "scientific field",
+      "extension": null,
+      "coverage": "direct"
+    },
+    {
+      "catalogue_path": "core.atoms[].triple",
+      "card_paths": [
+        "added.layers.core.atoms[].triple"
+      ],
+      "status": "scientific field",
+      "extension": null,
+      "coverage": "direct"
+    },
+    {
       "catalogue_path": "evidence.lines[].indirectness",
       "card_paths": [
         "added.layers.evidence.lines[].indirectness"
@@ -1752,6 +2079,15 @@
       "coverage": "direct"
     },
     {
+      "catalogue_path": "evidence.lines[].independence_group.key",
+      "card_paths": [
+        "added.layers.evidence.lines[].independence_group.key"
+      ],
+      "status": "scientific field",
+      "extension": null,
+      "coverage": "direct"
+    },
+    {
       "catalogue_path": "evidence.lines[].argument_kind",
       "card_paths": [
         "added.layers.evidence.lines[].argument_kind"
@@ -1764,6 +2100,15 @@
       "catalogue_path": "evidence.selection_record",
       "card_paths": [
         "added.layers.evidence.selection_record"
+      ],
+      "status": "scientific field",
+      "extension": null,
+      "coverage": "direct"
+    },
+    {
+      "catalogue_path": "evidence.excluded[]",
+      "card_paths": [
+        "added.layers.evidence.excluded[]"
       ],
       "status": "scientific field",
       "extension": null,

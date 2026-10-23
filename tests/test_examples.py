@@ -19,21 +19,23 @@ FICTIONAL = sorted((ROOT / 'tests/fixtures/fictional').glob('fx_*.json'))
 
 def test_one_profile():
     assert 'oneOf' not in SCHEMA
-    assert SCHEMA['properties']['standard_version'] == {'const': '1.0'}
+    assert SCHEMA['properties']['standard_version'] == {'enum': ['1.0', '1.1']}
     assert 'standard_version' in SCHEMA['required']
 
 
 @pytest.mark.parametrize('path', CARDS + FICTIONAL, ids=lambda p: p.name)
 def test_cards_validate(path):
     card = load(path)
-    assert card['standard_version'] == '1.0'
+    assert card['standard_version'] in ('1.0', '1.1')
     assert not validation_errors(SCHEMA, card)
 
 
 @pytest.mark.parametrize('path', CARDS, ids=lambda p: p.name)
 def test_example_cards_are_licensed_and_without_domain(path):
     card = load(path)
-    assert card['added']['layers']['profile']['domain'] == 'none'
+    # The OHF 1.1 example shows the aging profile; a 1.0 example selects no domain.
+    expected = {'1.0': 'none', '1.1': 'ohf:aging@1'}[card['standard_version']]
+    assert card['added']['layers']['profile']['domain'] == expected
     assert card['author']['source']['license'] in ('CC-BY-4.0', 'CC-BY-3.0')
 
 
@@ -72,7 +74,7 @@ def test_vocabulary_hash_matches_schema_pin():
     assert pinned == 'sha256:' + hashlib.sha256(data).hexdigest()
 
 
-@pytest.mark.parametrize('version', ['1.1', '1.2', '2.0', '1', '1.0.0', None])
+@pytest.mark.parametrize('version', ['1.2', '2.0', '1', '1.0.0', '1.1.0', None])
 def test_unknown_selector_rejects(version):
     card = load(FICTIONAL[0])
     card['standard_version'] = version

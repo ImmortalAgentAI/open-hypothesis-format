@@ -1,0 +1,80 @@
+{
+  "schema": "ohf:terms@1",
+  "vocabularies": {
+    "route": [
+      {"id": "diet", "label": "Mixed into food"},
+      {"id": "drinking_water", "label": "Dissolved in drinking water"},
+      {"id": "oral", "label": "By mouth as a dose: tablet, capsule, liquid or gavage"},
+      {"id": "intraperitoneal", "label": "Injection into the peritoneal cavity"},
+      {"id": "subcutaneous", "label": "Injection under the skin"},
+      {"id": "intravenous", "label": "Injection or infusion into a vein"},
+      {"id": "intramuscular", "label": "Injection into a muscle"},
+      {"id": "topical", "label": "Applied to the skin or a mucous membrane"},
+      {"id": "inhalation", "label": "Breathed in"},
+      {"id": "in_culture_medium", "label": "Added to the medium of cells, tissues or organisms in culture"},
+      {"id": "environmental_release", "label": "Released into the environment, such as organisms or an agent set out in the field"},
+      {"id": "genetic", "label": "A genetic manipulation, not an administered agent"},
+      {"id": "not_stated", "label": "The source does not state the route"},
+      {"id": "other", "label": "Another route, named in the note"}
+    ],
+    "control_type": [
+      {"id": "placebo", "label": "An inactive substitute given the same way as the intervention"},
+      {"id": "vehicle", "label": "The carrier of the agent without the agent"},
+      {"id": "untreated", "label": "No intervention and no substitute"},
+      {"id": "wild_type", "label": "Organisms without the genetic manipulation"},
+      {"id": "active_comparator", "label": "Another active intervention"},
+      {"id": "baseline", "label": "The same subjects before the intervention"},
+      {"id": "historical", "label": "Subjects from earlier studies or records"},
+      {"id": "none", "label": "No control group"},
+      {"id": "not_stated", "label": "The source does not state the control"},
+      {"id": "other", "label": "Another control, named in the note"}
+    ],
+    "endpoint_kind": [
+      {"id": "lifespan", "label": "Length of life or survival curve"},
+      {"id": "mortality", "label": "Death rate or cause-specific death"},
+      {"id": "function", "label": "Physical, cognitive or organ function, frailty, or a healthspan composite"},
+      {"id": "disease", "label": "Incidence, onset, severity or burden of a disease"},
+      {"id": "biomarker", "label": "A laboratory, imaging or instrumental marker"},
+      {"id": "physiological", "label": "A physiological measure such as body composition, metabolism or blood pressure"},
+      {"id": "molecular", "label": "A molecular or cellular readout such as pathway activity or gene expression"},
+      {"id": "behaviour", "label": "Behaviour or self-report other than function"},
+      {"id": "adverse_event", "label": "Harms or side effects"},
+      {"id": "other", "label": "Another kind of endpoint, named in the note"}
+    ],
+    "human_proximity": [
+      {"id": "in_vitro", "label": "Cells or cell-free systems"},
+      {"id": "ex_vivo", "label": "Tissue or organs taken from an organism"},
+      {"id": "invertebrate", "label": "Living invertebrates"},
+      {"id": "non_mammal_vertebrate", "label": "Living vertebrates other than mammals"},
+      {"id": "mammal", "label": "Living non-human mammals"},
+      {"id": "human_marker", "label": "Humans, a biomarker or physiological endpoint"},
+      {"id": "human_clinical", "label": "Humans, a clinical endpoint: function, disease, mortality, lifespan or harm"}
+    ],
+    "exclusion_reason": [
+      {"id": "species_mismatch", "label": "The record concerns another species than the target"},
+      {"id": "direction_mismatch", "label": "The record concerns the opposite direction of effect or manipulation"},
+      {"id": "endpoint_mismatch", "label": "The record measures another endpoint than the target"},
+      {"id": "type_mismatch", "label": "The record is another kind of statement, such as background or speculation, not a result"},
+      {"id": "inherited_mismatch", "label": "The record conflicts only with a condition the target inherits from the card, not one it states"},
+      {"id": "other", "label": "Another reason, named in the note"}
+    ]
+  },
+  "taxa": [
+    {"id": "NCBITaxon:9606", "label": "Homo sapiens", "proximity": "human"},
+    {"id": "NCBITaxon:10090", "label": "Mus musculus", "proximity": "mammal"},
+    {"id": "NCBITaxon:10116", "label": "Rattus norvegicus", "proximity": "mammal"},
+    {"id": "NCBITaxon:10141", "label": "Cavia porcellus", "proximity": "mammal"},
+    {"id": "NCBITaxon:9544", "label": "Macaca mulatta", "proximity": "mammal"},
+    {"id": "NCBITaxon:9541", "label": "Macaca fascicularis", "proximity": "mammal"},
+    {"id": "NCBITaxon:9483", "label": "Callithrix jacchus", "proximity": "mammal"},
+    {"id": "NCBITaxon:9615", "label": "Canis lupus familiaris", "proximity": "mammal"},
+    {"id": "NCBITaxon:10181", "label": "Heterocephalus glaber", "proximity": "mammal"},
+    {"id": "NCBITaxon:7955", "label": "Danio rerio", "proximity": "non_mammal_vertebrate"},
+    {"id": "NCBITaxon:105023", "label": "Nothobranchius furzeri", "proximity": "non_mammal_vertebrate"},
+    {"id": "NCBITaxon:8355", "label": "Xenopus laevis", "proximity": "non_mammal_vertebrate"},
+    {"id": "NCBITaxon:9031", "label": "Gallus gallus", "proximity": "non_mammal_vertebrate"},
+    {"id": "NCBITaxon:6239", "label": "Caenorhabditis elegans", "proximity": "invertebrate"},
+    {"id": "NCBITaxon:7227", "label": "Drosophila melanogaster", "proximity": "invertebrate"},
+    {"id": "NCBITaxon:7159", "label": "Aedes aegypti", "proximity": "invertebrate"}
+  ]
+}

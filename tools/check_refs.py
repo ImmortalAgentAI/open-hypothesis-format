@@ -25,7 +25,11 @@ checker is not the pass that wrote the added zone; the counts of `author.generat
 agree; an entailment record is not older than the access time of the source record
 its value names or than the nearest assessment of that value; and no added-zone
 assessment is later than `added.at`. A card whose kind is mechanism while every atom
-only states existence, distribution or association gets a warning. The completeness
+only states existence, distribution or association gets a warning. In an OHF 1.1 card, an
+evidence line whose quote reports a result in numbers has a result estimate quoting those
+words, or a gap that says why not; a dose or an age in the quote that the line does not
+record gets a warning (`check_quotes`); a declared `human_proximity` follows from the line's
+taxon and endpoint kind where the pinned taxon table allows it (`check_proximity`). The completeness
 level is computed by `check_completeness.py` and compared with the declared one.
 It assumes a card that already passes `tools/validate.py`.
 """
@@ -42,9 +46,16 @@ import check_completeness  # noqa: E402
 from check_gaps import filled, resolve_pointer, unwrap  # noqa: E402
 from strict_json import load  # noqa: E402
 
+ROOT = Path(__file__).resolve().parents[1]
 ZONES = ('author', 'added')
 COMPARABLE = ('system', 'endpoint', 'form', 'epistemic_status')
 VERSIONED = re.compile(r'h_[a-z0-9-]+@[1-9][0-9]*')
+# Numbers in an evidence line's quote (OHF 1.1): a reported result, a dose, an age.
+RESULT_NUMBER = re.compile(r'\d(?:[.,]\d+)?\s?%|\b[pP]\s?[<=>≤≥]\s?0?[.,]\d|\b\d{2}\s?%\s?CI\b|\bCI\b|\d\s?-?fold\b'
+                           r'|\b(?:HR|OR|RR|IRR|SMD)\s?[=:(]|η\s?p?2|\bmd\s?=|\bβ\s?=|\br\s?=\s?-?0?[.,]\d')
+DOSE_NUMBER = re.compile(r'\d(?:[.,]\d+)?\s?(?:mg/kg|mg|µg|μg|ppm|[µμnm]M|IU)\b')
+AGE_NUMBER = re.compile(r'\b\d+\s?(?:days?|weeks?|months?|years?)\s+(?:of\s+age|old)\b'
+                        r'|\b(?:starting|beginning|started|from)\s+at\s+\d+\s?(?:days?|weeks?|months?|years?)\b')
 
 # Identifier namespaces: the record list that holds the identifiers.
 NAMESPACES = {
@@ -58,6 +69,8 @@ NAMESPACES = {
     'explained observation': 'core.explains[]',
     'reinterpretation': 'core.reinterprets[]',
     'opened question': 'core.opens[]',
+    'alternative': 'core.alternative_explanations[]',
+    'excluded record': 'evidence.excluded[]',
 }
 # The card pointer of one record of each kind a typed reference can name; `*` is an array index.
 POINTERS = {
@@ -76,6 +89,10 @@ POINTERS = {
 REFERENCES = {
     'core.atoms[].parent_ref': (('atom',), {'id', 'pointer', 'version', 'external', 'null'}),
     'core.explains[].atom_refs[]': (('atom',), {'id'}),
+    'core.atoms[].requires[]': (('atom',), {'id'}),
+    'core.atoms[].contradicts[]': (('atom',), {'id'}),
+    'core.atoms[].triple.subject.entity_ref': (('mechanism entity',), {'id'}),
+    'core.atoms[].triple.object.entity_ref': (('mechanism entity',), {'id'}),
     'core.explains[].prediction_refs[]': (('prediction',), {'id'}),
     'core.reinterprets[].atom_refs[]': (('atom',), {'id'}),
     'core.opens[].atom_refs[]': (('atom',), {'id'}),
@@ -88,11 +105,18 @@ REFERENCES = {
     'predictions[].known_result_ref': (('evidence line',), {'pointer', 'external'}),
     'predictions[].also_expected_under[].ref': (('alternative',), {'pointer', 'external'}),
     'predictions[].test_plan_ref': (('experiment plan',), {'pointer', 'external', 'text'}),
-    'evidence.lines[].target_ref': (('atom', 'prediction', 'mechanism step', 'proposition'),
+    'evidence.lines[].target_ref': (('atom', 'prediction', 'mechanism step', 'alternative', 'proposition'),
                                     {'id', 'pointer', 'version', 'external'}),
     'evidence.lines[].items[].line_id': (('evidence line',), {'id'}),
+    'evidence.excluded[].target_ref': (('atom', 'prediction', 'mechanism step', 'alternative', 'proposition'),
+                                       {'id', 'pointer', 'version', 'external'}),
     'profile.dose_response.endpoint_ref': (('prediction',), {'id', 'pointer', 'version', 'external'}),
+    'profile.aging_hallmarks[].atom_refs[]': (('atom',), {'id'}),
 }
+# Lists whose elements may carry their own `src` from OHF 1.1; such an element is a sourced value.
+ELEMENT_SOURCED = tuple(f'/added/layers/core/{name}/value/*'
+                        for name in ('alternative_explanations', 'uncertainties', 'opens', 'explains')
+                        ) + ('/added/layers/evidence/excluded/*',)
 # Reference fields whose vocabulary names no namespace: a card pointer must resolve.
 OPEN_REFERENCES = (
     'core.explains[].observation_ref', 'core.explains[].rival_ref', 'core.reinterprets[].finding_ref',
@@ -272,6 +296,60 @@ def check_parents(card, errors):
             errors.append(issue('REF_WRONG_TARGET', parents[start][1], f'Atom {start!r} is its own ancestor'))
 
 
+def check_atom_links(card, errors):
+    """An atom neither requires nor contradicts itself, and requires has no cycle (OHF 1.1)."""
+    atoms = layers(card, 'added').get('core', {}).get('atoms', [])
+    requires = {}
+    for i, atom in enumerate(atoms):
+        ident = unwrap(atom.get('id'))
+        for name in ('requires', 'contradicts'):
+            linked = unwrap(atom.get(name)) or []
+            if ident in linked:
+                errors.append(issue('REF_ATOM_LINK', f'added.core.atoms[{i}].{name}', f'An atom cannot {name[:-1]} itself'))
+        requires[ident] = [ref for ref in unwrap(atom.get('requires')) or [] if ref != ident]
+    state = {}
+
+    def visit(ident, trail):
+        if state.get(ident) == 'done':
+            return
+        if state.get(ident) == 'open':
+            errors.append(issue('REF_ATOM_LINK', 'added.core.atoms', 'requires forms a cycle: '
+                                + ' -> '.join(trail[trail.index(ident):] + [ident])))
+            return
+        state[ident] = 'open'
+        for target in requires.get(ident, []):
+            if target in requires:
+                visit(target, trail + [ident])
+        state[ident] = 'done'
+
+    for ident in requires:
+        visit(ident, [])
+
+
+def check_independence(card, errors):
+    """One independence group, one key: a label names one data origin and an origin one label (OHF 1.1).
+
+    Once one line of a group gives a key, every line of the group gives it. A DOI is compared without case."""
+    labels, keys, lines = {}, {}, layers(card, 'added').get('evidence', {}).get('lines', [])
+    for i, line in enumerate(lines):
+        group = line.get('independence_group')
+        if not (isinstance(group, dict) and isinstance(group.get('key'), dict)):
+            continue
+        scheme, ident = group['key'].get('scheme'), group['key'].get('id')
+        label, key = group.get('value'), (scheme, ident.lower() if scheme == 'doi' and isinstance(ident, str) else ident)
+        path = f'evidence.lines[{i}].independence_group'
+        if labels.setdefault(label, key) != key:
+            errors.append(issue('REF_INDEPENDENCE_KEY', path, f'group {label!r} has two keys'))
+        if keys.setdefault(key, label) != label:
+            errors.append(issue('REF_INDEPENDENCE_KEY', path, f'key {key[0]} {key[1]} has two groups: '
+                                f'{keys[key]!r} and {label!r}'))
+    for i, line in enumerate(lines):
+        group = line.get('independence_group')
+        if isinstance(group, dict) and 'key' not in group and group.get('value') in labels:
+            errors.append(issue('REF_INDEPENDENCE_KEY', f'evidence.lines[{i}].independence_group',
+                                f'group {group["value"]!r} has a key on another line and none here'))
+
+
 def check_sources(card, errors):
     """Every `src` in the added zone names a record of `added.sources`."""
     added = card.get('added', {})
@@ -328,7 +406,12 @@ def nearest_assessment(card, pointer):
 
 
 def check_times(card, errors):
-    """No added-zone assessment is later than `added.at`."""
+    """No added-zone assessment is later than `added.at`; a generation is not later than its submission."""
+    generator = card.get('author', {}).get('generator', {})
+    generated, submitted = moment(generator.get('generated_at')), moment(card.get('author', {}).get('submitted_at'))
+    if generated and submitted and generated > submitted:
+        errors.append(issue('REF_TIME_ORDER', 'author.generator.generated_at',
+                            'generated_at is later than author.submitted_at'))
     written = moment(card.get('added', {}).get('at'))
     for _, path, node in zone_nodes(card, 'added'):
         if not (isinstance(node, dict) and isinstance(node.get('assessment'), dict)):
@@ -339,11 +422,104 @@ def check_times(card, errors):
                                 'assessed_at is later than added.at, when the added zone was written'))
 
 
-def check(card):
+def gap_dispositions(card, index, member):
+    """Dispositions of the gaps that cover member of evidence line index."""
+    paths = {f'evidence.lines[].{member}', f'evidence.lines[{index}].{member}'}
+    return [gap.get('disposition') for gap in card.get('added', {}).get('gaps', []) if gap.get('path') in paths]
+
+
+# Rung of an evidence line's system (OHF 1.1): human endpoints by kind; other taxa by the pinned table.
+HUMAN_MARKER = {'biomarker', 'physiological', 'molecular'}
+HUMAN_CLINICAL = {'lifespan', 'mortality', 'function', 'disease', 'adverse_event'}
+STATED_ONLY = {'in_vitro', 'ex_vivo'}
+
+
+def derived_proximity(line, taxa):
+    """The rungs a line may declare, from its taxon and endpoint kind; None when they cannot be derived."""
+    system = line.get('system') if isinstance(line.get('system'), dict) else {}
+    taxon = taxa.get(unwrap(system.get('taxon_id')))
+    if taxon is None:
+        return None
+    if taxon != 'human':
+        return {taxon} | STATED_ONLY
+    kind = line.get('endpoint_kind') if isinstance(line.get('endpoint_kind'), dict) else {}
+    term = kind.get('term')
+    if term in HUMAN_MARKER:
+        return {'human_marker'} | STATED_ONLY
+    if term in HUMAN_CLINICAL:
+        return {'human_clinical'} | STATED_ONLY
+    # Behaviour, another kind or no endpoint kind: the human rung is not determined.
+    return None
+
+
+def check_proximity(card, errors, warnings, taxa=None, terms=None):
+    """A declared human_proximity agrees with the rung its taxon and endpoint kind give.
+
+    `taxa` is an optional list of further rows of the form of the pinned table, such as a
+    converter's taxa.json; a row adds a taxon the pinned table lacks and never overrides one.
+    A row whose proximity is null names a taxon that has no rung, such as one outside the animals.
+    Only the pinned table can make a card invalid: a mismatch with a given row is a warning.
+    """
+    terms = terms if terms is not None else load(ROOT / 'vocabularies/terms-1.json')
+    table = {row['id']: row['proximity'] for row in terms['taxa']}
+    for row in taxa or []:
+        table.setdefault(row['id'], row.get('proximity'))
+    known = {ident: rung for ident, rung in table.items() if rung is not None}
+    for index, line in enumerate(layers(card, 'added').get('evidence', {}).get('lines', [])):
+        declared = unwrap(line.get('human_proximity'))
+        if declared is None:
+            continue
+        path = f'evidence.lines[{index}].human_proximity'
+        allowed = derived_proximity(line, known)
+        if allowed is None:
+            if declared not in STATED_ONLY:
+                warnings.append(issue('REF_PROXIMITY_NOT_DERIVED', path,
+                                      'the taxon has no rung in the pinned table or the given taxa'))
+        elif declared not in allowed:
+            pinned = derived_proximity(line, {row['id']: row['proximity'] for row in terms['taxa']}) is not None
+            (errors if pinned else warnings).append(issue('REF_PROXIMITY_MISMATCH', path,
+                                f'{declared} does not follow from the taxon and endpoint kind: '
+                                + ' or '.join(sorted(allowed - STATED_ONLY))))
+
+
+def check_quotes(card, errors, warnings):
+    """OHF 1.1: what a line's quote reports in numbers is also in the line's fields, or a gap says why not.
+
+    A result number (a percentage, a p value, a confidence interval, an effect measure) needs a
+    result estimate or a gap whose disposition is not not_supplied: the estimate can say not_stated
+    for a measure, contrast or scale the source does not give, so not supplying it is no longer a
+    reason. The reported words of the estimate are in the quote. A dose or an age in the quote
+    without the matching condition or a gap is a warning, because the pattern is a heuristic.
+    """
+    if card.get('standard_version') != '1.1':
+        return
+    for index, line in enumerate(layers(card, 'added').get('evidence', {}).get('lines', [])):
+        quote = unwrap(line.get('quote'))
+        if not isinstance(quote, str):
+            continue
+        path = f'evidence.lines[{index}]'
+        estimate = unwrap(line.get('result_estimate'))
+        if isinstance(estimate, dict):
+            if ' '.join(estimate.get('reported', '').split()) not in ' '.join(quote.split()):
+                errors.append(issue('REF_ESTIMATE_NOT_QUOTED', f'{path}.result_estimate',
+                                    'the reported words of the estimate are not in the quote'))
+        elif RESULT_NUMBER.search(quote) and not [d for d in gap_dispositions(card, index, 'result_estimate')
+                                                  if d != 'not_supplied']:
+            errors.append(issue('REF_ESTIMATE_IN_QUOTE', f'{path}.result_estimate',
+                                'the quote reports a result in numbers; give a result estimate, with not_stated '
+                                'where the source does not say, or a gap that says why it cannot be given'))
+        for pattern, member, holder in ((DOSE_NUMBER, 'dose', 'intervention'), (AGE_NUMBER, 'age_at_start', 'system')):
+            stated = isinstance(line.get(holder), dict) and filled(unwrap(line[holder].get(member)))
+            if pattern.search(quote) and not stated and not gap_dispositions(card, index, f'{holder}.{member}'):
+                warnings.append(issue('REF_CONDITION_IN_QUOTE', f'{path}.{holder}.{member}',
+                                      f'the quote names a {member.replace("_", " ")} the line does not record'))
+
+
+def check(card, taxa=None):
     errors, warnings, external, comparable, not_comparable = [], [], [], [], []
     fields = {}
-    if card.get('standard_version') != '1.0':
-        return {'valid': False, 'errors': [issue('REF_STANDARD_VERSION', 'standard_version', 'Only OHF 1.0 cards are checked')],
+    if card.get('standard_version') not in ('1.0', '1.1'):
+        return {'valid': False, 'errors': [issue('REF_STANDARD_VERSION', 'standard_version', 'Only OHF 1.0 and 1.1 cards are checked')],
                 'warnings': [], 'external': [], 'comparable': [], 'not_comparable': [], 'completeness': None}
     ids = identifiers(card, errors)
     domains = {zone: layers(card, zone).get('profile', {}).get('domain') for zone in ZONES}
@@ -352,6 +528,8 @@ def check(card):
                             'author and added zones select different domain profiles'))
     check_references(card, ids, errors, external)
     check_sources(card, errors)
+    check_atom_links(card, errors)
+    check_independence(card, errors)
     check_generation(card, errors)
     for zone in ZONES:
         for prediction in layers(card, zone).get('predictions', []):
@@ -360,6 +538,8 @@ def check(card):
                            if filled(unwrap(value))})
     check_integrity(card, errors, warnings)
     check_times(card, errors)
+    check_quotes(card, errors, warnings)
+    check_proximity(card, errors, warnings, taxa)
     for ident, prediction in fields.items():
         missing = [key for key in COMPARABLE if key not in prediction]
         if prediction.get('form') == 'directional_contrast' and 'direction' not in prediction:
@@ -410,7 +590,9 @@ def check_integrity(card, errors, warnings):
         except KeyError:
             errors.append(issue('REF_UNRESOLVED', path, f"Card pointer does not resolve: {record['pointer']}"))
             continue
-        if not (isinstance(node, dict) and 'src' in node and 'value' in node):
+        element = isinstance(node, dict) and 'src' in node and any(
+            _under(record['pointer'], pattern) for pattern in ELEMENT_SOURCED)
+        if not (isinstance(node, dict) and 'src' in node and 'value' in node or element):
             errors.append(issue('REF_WRONG_TARGET', path, 'An entailment record names a sourced added-zone value'))
             continue
         if record['basis'] == 'basis_quote' and 'basis_quote' not in node:
@@ -428,10 +610,12 @@ def check_integrity(card, errors, warnings):
 def main():
     parser = argparse.ArgumentParser(description=__doc__.split('\n')[0])
     parser.add_argument('cards', type=Path, nargs='+')
+    parser.add_argument('--taxa', type=Path, help='further taxon rows for human_proximity, such as taxa.json')
     args = parser.parse_args()
+    taxa = load(args.taxa)['taxa'] if args.taxa else None
     failed = False
     for path in args.cards:
-        result = check(load(path))
+        result = check(load(path), taxa)
         print(json.dumps({'card': str(path), **result}, ensure_ascii=False))
         failed |= not result['valid']
     return int(failed)

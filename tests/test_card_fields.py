@@ -53,10 +53,11 @@ def errors(card):
 
 
 def test_profile_vocabulary_hash_is_pinned():
-    pinned = SCHEMA['properties']['vocabularies']['properties'][
-        'profiles']['properties']['sha256']['const']
-    data = (ROOT / 'vocabularies/profiles-1.json').read_bytes()
-    assert pinned == 'sha256:' + hashlib.sha256(data).hexdigest()
+    pins = {option['properties']['id']['const']: option['properties']['sha256']['const']
+            for option in SCHEMA['properties']['vocabularies']['properties']['profiles']['anyOf']}
+    for version in (1, 2):
+        data = (ROOT / f'vocabularies/profiles-{version}.json').read_bytes()
+        assert pins[f'ohf:profiles@{version}'] == 'sha256:' + hashlib.sha256(data).hexdigest()
 
 
 def test_pharmacology_profile_has_22_catalogue_paths():

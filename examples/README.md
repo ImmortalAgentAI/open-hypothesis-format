@@ -3,8 +3,9 @@
 | Path | Hypothesis |
 | --- | --- |
 | [cards/muller-sheltering.json](cards/muller-sheltering.json) | Muller's sheltering hypothesis extended to fitness costs that differ between the sexes |
+| [cards/intermittent-rapamycin-mtorc2.json](cards/intermittent-rapamycin-mtorc2.json) | Intermittent rapamycin inhibits mTORC1 while largely sparing mTORC2 (OHF 1.1) |
 
-[index.json](index.json) gives each card's ID, version, content hash, source and conversion metadata. Each card is produced from one published article. Its added zone is a reading of the article by a language model. The authors have not reviewed it. A schema pass confirms a card's shape, not its scientific support.
+[index.json](index.json) gives each card's ID, version, content hash, source and conversion metadata. Each card is a reading of one published article. Its added zone is a reading of the article by a language model. The authors have not reviewed it. A schema pass confirms a card's shape, not its scientific support.
 
 ## Muller's sheltering hypothesis
 
@@ -13,6 +14,12 @@
 Source: Andrea Mrnjavac, Beatriz Vicoso and Tim Connallon, [An Extension of Muller's Sheltering Hypothesis for the Evolution of Sex Chromosome Gene Content](https://doi.org/10.1093/molbev/msaf177), Molecular Biology and Evolution 2025, © the authors, CC BY 4.0.
 
 The licence was confirmed from the article's full-text XML. The card reproduces passages of the article and adds a structured reading of them; the zone marks that reading as a change.
+
+## Intermittent rapamycin (OHF 1.1)
+
+[converters/ohf-1-1-upgrade-1.0.0/UPGRADE.md](converters/ohf-1-1-upgrade-1.0.0/UPGRADE.md) gives the rules by which an accepted OHF 1.0 card of this article was upgraded to OHF 1.1, pinned by `added.by.converter_hash`. Unlike the Muller card, its evidence lines quote passages of cited works as well as the article, each under its own licence (CC BY), and three lines carry a withheld quote: a paraphrase and an abstract sentence of a work that may not be quoted. Taxon identifiers and the hallmark hints come from database calls, each a source record of the card. A separate pass judged the new values against their passages; its verdicts are in `added.integrity.entailment`. Taxon identifiers, proximity rungs, hallmarks, the atom triple, the `requires` links and the excluded record are checked by the schema and `tools/check_refs.py` against the card and the pinned vocabularies, not by that pass. The card has no ledger: `tools/check_ledger.py` does not yet read OHF 1.1 values.
+
+Source: Dudley W. Lamming, [Rapamycin: the beginning of the end of aging?](https://doi.org/10.1007/s11357-026-02306-8), GeroScience 2026, CC BY 4.0.
 
 ## Converter pins and entailment ledgers
 

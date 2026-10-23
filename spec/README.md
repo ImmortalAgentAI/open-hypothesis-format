@@ -2,21 +2,23 @@
 
 A hypothesis card keeps what its author said apart from what was added later. Both zones, `author` and `added`, use the same scientific layers: claim core, mechanism, predictions, evidence, provenance, profile and appendix. Layer 0, identity and versions, applies to the whole card. The pair-level record describes two cards together and is stored outside them.
 
-Every card states `"standard_version": "1.0"`, the version of the card format; any other value is rejected. A release that does not change the format keeps this value. The terms used here are defined in the [glossary](glossary.md).
+Every card states `standard_version`, the version of the card format: `"1.0"` or `"1.1"`; any other value is rejected. A release that does not change the format keeps this value. A 1.0 card stays valid and is checked by the 1.0 rules; a 1.0 card may not carry a member introduced in 1.1. What 1.1 adds is in [OHF 1.1](#ohf-11). The terms used here are defined in the [glossary](glossary.md).
 
 ## Files
 
 | File | Contents |
 | --- | --- |
 | [glossary.md](glossary.md) | Definitions of the terms OHF uses |
-| [field-catalogue.json](field-catalogue.json) | All 180 logical paths, with definition, logical type, vocabulary, conceptual basis and field class |
+| [field-catalogue.json](field-catalogue.json) | All 216 logical paths, with definition, logical type, vocabulary, conceptual basis and field class |
 | [fields.md](fields.md) | Field reference with an example for every path, generated from [field-reference.json](field-reference.json) |
 | [logical-types.md](logical-types.md) | How logical types are represented |
 | [references.md](references.md) | The identifier namespaces of a card and what each reference field must name |
 | [related-standards.md](related-standards.md), [related-standards.json](related-standards.json) | The standards and models OHF fields draw on, with version, licence and relation to OHF |
 | [mapping.md](mapping.md), [mapping.json](mapping.json) | Where each logical path is stored in a card, or why it is not |
 | [gap-path-policy.json](gap-path-policy.json) | For each path, whether a gap may call the field not applicable |
-| [`profiles-1.json`](../vocabularies/profiles-1.json) | The domain profiles a card can select, with their paths |
+| [`profiles-1.json`](../vocabularies/profiles-1.json), [`profiles-2.json`](../vocabularies/profiles-2.json) | The domain profiles a card can select, with their paths; `@2` adds `ohf:aging@1` |
+| [`terms-1.json`](../vocabularies/terms-1.json) | From OHF 1.1: the closed term lists (route, control type, endpoint kind, human proximity, exclusion reason) and the taxon table of the proximity rung |
+| [`hallmarks-1.json`](../vocabularies/hallmarks-1.json) | From OHF 1.1: the twelve hallmarks of aging of López-Otín et al. 2023 |
 | [`heuristics-1.json`](../vocabularies/heuristics-1.json) | The heuristic principles `provenance.heuristic_principle[]` may name |
 
 ## Logical paths and storage
@@ -81,12 +83,12 @@ Besides the layers, a card holds these members. All are required unless marked o
 | Member | Records |
 | --- | --- |
 | `schema`, `id`, `version`, `content_hash` | The card schema (`ohf:hypothesis@1`), the card identifier, the card version and the SHA-256 of the card's canonical form. |
-| `standard_version` | The version of the card format, `"1.0"`. |
+| `standard_version` | The version of the card format, `"1.0"` or `"1.1"`. |
 | `identity` | The proposition identifier and version, superseded versions, retractions, duplicate-cluster and representative references, and the lifecycle state. |
-| `vocabularies` | The pinned vocabularies, by id and SHA-256: `ohf:heuristics@1` and `ohf:profiles@1`. |
+| `vocabularies` | The pinned vocabularies, by id and SHA-256: `ohf:heuristics@1` and `ohf:profiles@1` or `@2`. From OHF 1.1 also `ohf:terms@1`, required, and `ohf:hallmarks@1`, required with the aging profile and forbidden without it. |
 | `facets` | Search labels for the whole card: `topic[]`, `source_class` and, in the domain profile `ohf:intervention-pharmacology@1`, `intervention_type`. |
 | `author.source` | The source of the author's assertions: kind, citation, DOI (optional), URL, licence and its basis, language, retrieval time and the SHA-256 of the retrieved text. |
-| `author.generator` | Who or what generated the hypothesis: `human`, `ai_system`, `hybrid` or `unknown`, and for a system its name, version and model, each null when unknown. |
+| `author.generator` | Who or what generated the hypothesis: `human`, `ai_system`, `hybrid` or `unknown`, and for a system its name, version and model, each null when unknown. From OHF 1.1 a machine author may add the `prompt` (an artifact reference) and `generated_at`, which may not be later than `submitted_at` (`REF_TIME_ORDER`). |
 | `author.generation` | For a hypothesis from a generation run: the run identifier, how many hypotheses the run generated and submitted, and whether it submitted all of them. Each member is null when unknown or not applicable. A reader can see from it whether the hypothesis was selected from a larger set. |
 | `author.submitted_at` | When the hypothesis was submitted as a card. |
 | `added.by`, `added.at` | The converter that wrote the added zone, and when. |
@@ -100,9 +102,10 @@ A card for a hypothesis that a person wrote without a generation tool still stat
 
 ## Domain profiles
 
-A card names its domain profile in `added.layers.profile.domain`. [`profiles-1.json`](../vocabularies/profiles-1.json) lists the profiles and their paths.
+A card names its domain profile in `added.layers.profile.domain`. [`profiles-1.json`](../vocabularies/profiles-1.json) lists the profiles and their paths; [`profiles-2.json`](../vocabularies/profiles-2.json) lists the same profiles and, from OHF 1.1, `ohf:aging@1`.
 
 - `ohf:intervention-pharmacology@1`: claims about the effect of an intervention. It holds 22 paths in two layers: the details of the intervention and the intercurrent events (14 paths, layer 3, predictions), and dose response, combinations and harm (8 paths, layer 6, profile). `facets.intervention_type` is then required.
+- `ohf:aging@1` (OHF 1.1): claims about aging. It holds the 22 paths of the intervention profile and `profile.aging_hallmarks[]`: the hallmarks of aging that atoms of the card concern, each with those atoms (`REF_UNKNOWN_ID` when an atom does not exist). It needs the pins `ohf:profiles@2` and `ohf:hallmarks@1`. Unlike the intervention profile it does not require `facets.intervention_type`, because an aging claim need not name an intervention.
 - `none`: no domain profile. The 22 paths are absent, and they need no gaps; a gap for one of them is rejected.
 
 Layer 6, profile, also holds general fields that every card may use, whatever its domain profile: biomarkers, human testability, transfer scope and the function or process concerned.
@@ -124,6 +127,7 @@ Completeness says nothing about whether the claim or its reading is correct.
 - A typed mechanism step has a `subject_ref`, a `relation` and an `object_ref`, across both zones.
 - Evidence is on both sides when one evidence line supports and one disputes. Without a disputing line, the search for one is recorded by `added.challenge_search` with the outcome `not_found` and its query identifiers. The gap catalogue has no path for a missing disputing line, so a gap does not stand for this search; a gap on a member of an evidence line, such as `evidence.lines[].risk_of_bias`, is about that member. A search that stopped early, with the outcome `incomplete`, goes to `manual_review_required`.
 - `added.challenge_search` is optional. When it is recorded with the outcome `found`, it names a disputing evidence line.
+- From OHF 1.1 a disputing line whose quote is withheld (`quote_withheld`) is counted and shown, but it does not make the disputing side for `full`: its text cannot be read against the source.
 
 The computed level is the highest level whose conditions, and those of every lower level, are met. A declared level that a condition at or below it rules out is an error (`REF_COMPLETENESS_OVERSTATED`); a declared level below the computed one is a warning (`REF_COMPLETENESS_UNDERSTATED`). `missing_for_next` must name each condition that the next level still needs; extra or missing items are a warning (`REF_MISSING_FOR_NEXT`). The checker's report gives the conditions in the words it expects.
 
@@ -160,9 +164,75 @@ A verdict concerns the source passage, not the truth of the claim. For an assess
 
 These artifacts are separate from cards.
 
-- `ohf:hypothesis-relations@1` ([schema](../schema/hypothesis-relations-1.schema.json)) records typed edges between card versions in a fixed pool: `rival_same_explanandum`, `nested`, `compatible_independent`, `duplicate`, `refines`, `unrelated`. Support and contradiction are evidence relations, not relations between hypotheses, and are not included.
+- `ohf:hypothesis-relations@1` ([schema](../schema/hypothesis-relations-1.schema.json)) records typed edges between card versions in a fixed pool: `rival_same_explanandum`, `nested`, `compatible_independent`, `duplicate`, `refines`, `unrelated`, and from OHF 1.1 `analog` and `mechanism_neighbour`. Support and contradiction are evidence relations, not relations between hypotheses, and are not included. Within one card, from OHF 1.1, `core.atoms[].requires` and `core.atoms[].contradicts` link atoms of that card.
 - `ohf:pair-brief@1` ([schema](../schema/pair-brief-1.schema.json)) describes two card versions side by side: their relation, the observations both explain, the observations they expect differently, and a decisive test or a gap saying why none is known. It does not judge which hypothesis is better.
+
+Definitions of the relation types, from OHF 1.1. Source and target are card versions, or from OHF 1.1 one record of each, such as an atom, named by `pointer`:
+
+| Type | The source and the target |
+| --- | --- |
+| `rival_same_explanandum` | explain the same observation, and as stated they cannot both be its main explanation |
+| `nested` | the source is a special case of the target: what the source states, the target states for a wider scope |
+| `compatible_independent` | can both hold, and neither depends on the other |
+| `duplicate` | state the same claim for the same scope |
+| `refines` | the source is a revision of the target: the same claim stated more precisely, more narrowly or corrected |
+| `unrelated` | were compared and stand in none of the other relations |
+| `analog` | make the same kind of claim about different agents or systems that share what the claim depends on, such as two compounds with the same molecular target and class (OHF 1.1) |
+| `mechanism_neighbour` | make different claims that act through the same or an adjacent mechanism, without being rivals or nested (OHF 1.1) |
+
+An edge between records describes those records only: two atoms of two cards can be compatible while the cards are rivals.
+
+From OHF 1.1 an edge may list `scope_differs`: the `endpoint`, `population` or `system` on which the two cards differ, each with a pointer to the field in the source card and in the target card. Two rivals that measure different outcomes, or study different taxa, are not in flat contradiction, and the edge says so as data. `tools/check_relations.py` checks a relations artifact against the cards it names: each end names a given card by `content_hash` (`REL_CARD_MISSING`), every pointer resolves (`REL_POINTER_UNRESOLVED`), each `scope_differs` pointer is a field of its aspect (`REL_SCOPE_FIELD`), and the two fields differ once source wrappers are removed (`REL_SCOPE_SAME`).
+
+A scope pointer starts at `/author/layers` or `/added/layers` and names one of these fields, or a value inside one:
+
+| Aspect | In `predictions[n]` | In `evidence/lines[n]` | In `profile/dose_response` |
+|---|---|---|---|
+| `endpoint` | `endpoint`, `endpoint_kind` | `endpoint_kind` | `endpoint_ref` |
+| `population` | `population` | `sample`, `sample_size`, `study_system` | — |
+| `system` | `system` | `system`, `study_system` | — |
+
+`study_system` belongs to two aspects, because a study's system names both the organism and the group studied. A pointer may go through a wrapper only by its `value`. It may not name, or pass through, `src`, `locator`, `assessment`, `assessment_status`, `provenance`, `basis_quote`, `paraphrase` or `confidence`. For `REL_SCOPE_SAME` the two values are compared after every wrapper is replaced by its `value` and those members are removed. So the same endpoint taken from two sources is the same.
 
 A pair brief repeats the relation of its two card versions. The relations artifact is the record of that relation: if a pair brief and a relations artifact disagree about the same two card versions, the relations artifact holds and the pair brief must be corrected.
 
 Examples are described in [`examples/README.md`](../examples/README.md).
+
+## OHF 1.1
+
+OHF 1.1 is a minor version. Every new member is optional, except that a 1.1 card pins `ohf:terms@1` and gives the closed `term` where it records a route or an endpoint kind in the added zone. A 1.0 card stays valid and is checked by the 1.0 rules: it may not carry a member introduced in 1.1, a `term` or `note` on a route or endpoint kind, or a `terms` pin, and a gap of a 1.0 card may not name a field of 1.1 or a component of one (`GAP_PATH_UNKNOWN`). The fields of 1.1 are marked `since: "1.1"` in the [field catalogue](field-catalogue.json). The one relaxation is stated below under *Novelty*. The rules are enforced by the schema unless a code of `tools/check_refs.py`, `tools/check_gaps.py` or `tools/check_relations.py` is named.
+
+**Closed terms.** In the added zone a route (`predictions[].intervention.route`, `evidence.lines[].intervention.route`) and an endpoint kind (`predictions[].endpoint_kind`, `evidence.lines[].endpoint_kind`) keep the source wording in `value` and add `term` from [`terms-1.json`](../vocabularies/terms-1.json). A `note` is given exactly when the term is `other`. `predictions[].control_type` lists control types (`Term[]`); `none` and `not_stated` may not be combined with other types. In 1.1 `endpoint_kind` classifies the endpoint by what is measured: lifespan, mortality, function, disease, biomarker, physiological, molecular, behaviour, adverse event.
+
+**Conditions of an evidence line.** A line may state the system and the intervention of the study behind it, with the same members as a prediction, an NCBI Taxonomy id (`system.taxon_id`), the `sample_size` and a `multi_site_program` (programme and number of sites, at least two). The intervention of a line is not gated by the domain profile: it describes the study, not the claim. When the quote names a dose or an age that the line neither records nor gives a gap for, `REF_CONDITION_IN_QUOTE` is a warning.
+
+**Sample of a result.** `evidence.lines[].sample` says whether the result is about the whole sample or a named subgroup, whether the outcome is primary or secondary, and whether the analysis was pre-specified or post hoc; `not_stated` where the source does not say.
+
+**Result estimate.** In 1.1 the added-zone `result_estimate.value` is an object: the reported text and the measure, contrast and scale as the source states them, or `not_stated`. When the quote reports a result in numbers and the line has neither an estimate nor a gap whose disposition is other than `not_supplied`, `REF_ESTIMATE_IN_QUOTE` is an error. A quote reports a result in numbers when it contains any of the following, matched case-sensitively except where stated, with an optional single space between the parts:
+- a number followed by `%`;
+- a p-value: `p` or `P`, then `<`, `=`, `>`, `≤` or `≥`, then a decimal;
+- a confidence interval: two digits, `%` and `CI`, or `CI` alone;
+- a fold change: a number and `fold` or `-fold`;
+- `HR`, `OR`, `RR`, `IRR` or `SMD` followed by `=`, `:` or `(`;
+- `η2` or `ηp2`, `md =`, `β =`;
+- a correlation, `r =` followed by a decimal.
+
+The expression is `RESULT_NUMBER` in `tools/check_refs.py`. A dose (a number with mg/kg, mg, µg, ppm, µM, nM, mM or IU) or an age (`N days|weeks|months|years of age|old`, or `starting|beginning|started|from at N …`) in the quote that the line does not record gives `REF_CONDITION_IN_QUOTE`. An estimate whose reported text is not in the quote is also an error (`REF_ESTIMATE_NOT_QUOTED`).
+
+**Proximity to humans.** `evidence.lines[].human_proximity` is the rung of the line: in vitro, ex vivo, invertebrate, non-mammal vertebrate, mammal, human marker, human clinical. It follows from the line's conditions. For a taxon in the table of `terms-1.json` (or in rows given with `--taxa`, which add rows and never override one) the rung is derived; for humans the endpoint kind decides between marker (biomarker, physiological, molecular) and clinical (lifespan, mortality, function, disease, adverse event); with `behaviour`, `other` or no endpoint kind the human rung is not determined. A rung that differs from one derived from the pinned table is an error (`REF_PROXIMITY_MISMATCH`). A rung that differs from one derived only from a `--taxa` row is a warning with the same code, so the option never makes a card invalid. A rung that cannot be derived is a warning (`REF_PROXIMITY_NOT_DERIVED`). In vitro and ex vivo are taken as stated.
+
+**Alternatives and list elements.** Elements of `core.alternative_explanations` may have an `id`, and an evidence line or an excluded record may target one. Elements of `alternative_explanations`, `uncertainties`, `opens` and `explains` may carry their own `src` (added zone) or `locator` (author zone), so an entailment record can name one element.
+
+**Novelty.** `core.novelty_assessment.status` may be `known_result`: the card restates a known result. It requires `prior_claim_refs` (at least one), `search_scope_ref` and `as_of`, and forbids `new_content`. **This is the one relaxation of 1.1:** in 1.0 every novelty assessment requires `new_content`; in 1.1 a `known_result` assessment does not, and every other status still does.
+
+**Excluded evidence.** `evidence.excluded[]` records a source passage that was considered and not carried as a line: its target, a reason from `terms-1.json` (`note` exactly when `other`), the quote, `src`, and where the passage was found: an `artifact`, a `record`, or both, at least one.
+
+**Atoms.** `core.atoms[].requires` and `.contradicts` name atoms of the same card; an atom may not name itself and `requires` may not form a cycle (`REF_ATOM_LINK`). `a requires b` means that `a` cannot hold unless `b` holds; it is directed. `a contradicts b` means that the two cannot both hold; it is symmetric, whether it is recorded on one atom or on both. `core.atoms[].triple` reads the atom as subject, relation and object for machine linking: the relation is an RO id or a Biolink slot, subject and object are a CURIE with a label or an `entity_ref` to `mechanism.entities` (`REF_UNKNOWN_ID`, `REF_WRONG_TARGET`), and qualifiers are Biolink qualifier slots. The statement stays the claim.
+
+**Gaps for empty lists.** A gap may name a whole list that is empty, such as `core.assumptions` (`tools/check_gaps.py`). Lists of `identity` take no gap. 1.0 forbids these paths.
+
+**Independence across cards.** `evidence.lines[].independence_group.key` names where the data of the group first appeared (DOI, PMID, PMCID, registry or accession, each with its pattern). Within a card one label has one key and one key one label, and once one line of a group gives a key every line of that group gives it (`REF_INDEPENDENCE_KEY`). A DOI is compared without regard to case; other identifiers exactly. Lines of two cards with the same key rest on the same data.
+
+**Withheld quote.** `evidence.lines[].quote_withheld` replaces the quote when the text may not be quoted: licence unknown, CC BY-NC-ND, or no open text. It gives the locator, the record (DOI or PMID), a paraphrase in the added zone and the sentence of the abstract that entails it. A line has a quote or a withheld quote, not both. See completeness above.
+
+**Relations.** See [Relations and pair briefs](#relations-and-pair-briefs): edges between atoms by `pointer`, the types `analog` and `mechanism_neighbour`, and `scope_differs`.

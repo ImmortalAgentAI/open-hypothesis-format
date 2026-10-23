@@ -7,7 +7,17 @@ silently. It does not resolve query records or source artifacts. It assumes a ca
 `tools/validate.py` and does not replace schema validation.
 
 A field of a domain profile the card does not select is absent and needs no gap; a gap
-for it is an error.
+for it is an error. A field the selected profile shares with another profile, as `ohf:aging@1`
+shares the fields of the intervention profile, is selected.
+
+From OHF 1.1 a gap may name a whole list that is empty, such as `core.assumptions`: a list
+whose elements have catalogue paths but which has no row of its own. Such a gap stands for
+the list and is populated as soon as the list has an element. A search may establish it
+when any element path is searchable, and it is a profile field when every element path is.
+Lists of `identity` describe the record, not the science, and take no gap.
+
+A catalogue row marked `since: "1.1"` is a field of OHF 1.1. A 1.0 card is checked against the
+1.0 catalogue, so a gap that names such a field, or a component of one, is unknown there.
 """
 import argparse
 import json
@@ -94,6 +104,25 @@ def catalogue_row(path, rows):
     return None, False
 
 
+def from_newer_version(path, newer):
+    """A gap path that names a field of a later version, or a component of one."""
+    logical = re.sub(r'\[[0-9]+\]', '[]', path)
+    return any(logical in (row, row.removesuffix('[]')) or logical.startswith((row + '.', row + '['))
+               for row in newer)
+
+
+def list_row(path, rows):
+    """The row a gap for a whole empty list stands on (OHF 1.1), or None."""
+    if '[' in path or path.startswith('identity.'):
+        return None
+    members = [row for name, row in rows.items() if name.startswith(path + '[]')]
+    if not members:
+        return None
+    searchable = any(row.get('field_class') == 'searchable' for row in members)
+    return {'path': path, 'field_class': 'searchable' if searchable else members[0].get('field_class'),
+            'members': [row['path'] for row in members]}
+
+
 def check_condition(card, gap, condition):
     """Return (errors, review notes) for one N/A scope condition."""
     path = gap['path']
@@ -119,18 +148,20 @@ def check_condition(card, gap, condition):
 def unselected_paths(card, profiles):
     """Catalogue paths of the domain profiles the card does not select."""
     selected = card.get('added', {}).get('layers', {}).get('profile', {}).get('domain')
-    return {path for profile in profiles['profiles'] if profile['id'] != selected
-            for path in profile['paths']}
+    chosen = {path for profile in profiles['profiles'] if profile['id'] == selected for path in profile['paths']}
+    return {path for profile in profiles['profiles'] for path in profile['paths']} - chosen
 
 
 def check(card, policy, catalogue, mapping, profiles=None):
     errors, review = [], []
-    if card.get('standard_version') != '1.0':
+    if card.get('standard_version') not in ('1.0', '1.1'):
         return {'valid': False, 'review_required': [], 'errors': [issue(
-            'GAP_STANDARD_VERSION', 'standard_version', 'Only OHF 1.0 cards are checked')]}
-    profiles = profiles if profiles is not None else load(ROOT / 'vocabularies/profiles-1.json')
+            'GAP_STANDARD_VERSION', 'standard_version', 'Only OHF 1.0 and 1.1 cards are checked')]}
+    profiles = profiles if profiles is not None else load(ROOT / 'vocabularies/profiles-2.json')
     unselected = unselected_paths(card, profiles)
-    rows = {row['path']: row for row in catalogue['fields']}
+    version = card['standard_version']
+    rows = {row['path']: row for row in catalogue['fields'] if row.get('since', '1.0') <= version}
+    newer = [row['path'] for row in catalogue['fields'] if row.get('since', '1.0') > version]
     policies = {row['path']: row for row in policy['fields']}
     detached = {row['catalogue_path'] for row in mapping['mappings']
                 if row.get('extension') or row.get('coverage') == 'external'}
@@ -140,11 +171,16 @@ def check(card, policy, catalogue, mapping, profiles=None):
         if path in seen:
             errors.append(issue('GAP_PATH_DUPLICATE', path, 'One gap per exact path'))
         seen.add(path)
+        if from_newer_version(path, newer):
+            errors.append(issue('GAP_PATH_UNKNOWN', path, f'The field is not part of OHF {version}'))
+            continue
         row, component = catalogue_row(path, rows)
+        if row is None and card.get('standard_version') == '1.1':
+            row = list_row(path, rows)
         if row is None:
             errors.append(issue('GAP_PATH_UNKNOWN', path, 'Path is not a catalogue path or a component of one'))
             continue
-        if row['path'] in unselected:
+        if row['path'] in unselected or row.get('members') and set(row['members']) <= unselected:
             errors.append(issue('GAP_PROFILE_FIELD', path,
                                 'The field belongs to a domain profile this card does not select; it needs no gap'))
             continue

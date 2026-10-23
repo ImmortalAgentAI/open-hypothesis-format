@@ -223,6 +223,11 @@
       "reason": "No exception: missing input, unknown scope, exhausted budget or failed search is not scientific inapplicability."
     },
     {
+      "path": "predictions[].system.taxon_id",
+      "na_allowed": "never",
+      "reason": "No exception: missing input, unknown scope, exhausted budget or failed search is not scientific inapplicability."
+    },
+    {
       "path": "predictions[].system.strain_or_line",
       "na_allowed": "never",
       "reason": "No exception: missing input, unknown scope, exhausted budget or failed search is not scientific inapplicability."
@@ -314,6 +319,11 @@
     },
     {
       "path": "predictions[].control_quality",
+      "na_allowed": "never",
+      "reason": "No exception: missing input, unknown scope, exhausted budget or failed search is not scientific inapplicability."
+    },
+    {
+      "path": "predictions[].control_type",
       "na_allowed": "never",
       "reason": "No exception: missing input, unknown scope, exhausted budget or failed search is not scientific inapplicability."
     },
@@ -453,6 +463,11 @@
       "reason": "No exception: missing input, unknown scope, exhausted budget or failed search is not scientific inapplicability."
     },
     {
+      "path": "evidence.lines[].quote_withheld",
+      "na_allowed": "never",
+      "reason": "No exception: missing input, unknown scope, exhausted budget or failed search is not scientific inapplicability."
+    },
+    {
       "path": "evidence.lines[].evidence_type",
       "na_allowed": "never",
       "reason": "No exception: missing input, unknown scope, exhausted budget or failed search is not scientific inapplicability."
@@ -479,6 +494,136 @@
     },
     {
       "path": "evidence.lines[].study_system",
+      "na_allowed": "never",
+      "reason": "No exception: missing input, unknown scope, exhausted budget or failed search is not scientific inapplicability."
+    },
+    {
+      "path": "evidence.lines[].system.taxon",
+      "na_allowed": "never",
+      "reason": "No exception: missing input, unknown scope, exhausted budget or failed search is not scientific inapplicability."
+    },
+    {
+      "path": "evidence.lines[].system.taxon_id",
+      "na_allowed": "never",
+      "reason": "No exception: missing input, unknown scope, exhausted budget or failed search is not scientific inapplicability."
+    },
+    {
+      "path": "evidence.lines[].system.strain_or_line",
+      "na_allowed": "never",
+      "reason": "No exception: missing input, unknown scope, exhausted budget or failed search is not scientific inapplicability."
+    },
+    {
+      "path": "evidence.lines[].system.sex",
+      "na_allowed": "never",
+      "reason": "No exception: missing input, unknown scope, exhausted budget or failed search is not scientific inapplicability."
+    },
+    {
+      "path": "evidence.lines[].system.age_at_start",
+      "na_allowed": "never",
+      "reason": "No exception: missing input, unknown scope, exhausted budget or failed search is not scientific inapplicability."
+    },
+    {
+      "path": "evidence.lines[].system.assessment_age",
+      "na_allowed": "never",
+      "reason": "No exception: missing input, unknown scope, exhausted budget or failed search is not scientific inapplicability."
+    },
+    {
+      "path": "evidence.lines[].system.site",
+      "na_allowed": "never",
+      "reason": "No exception: missing input, unknown scope, exhausted budget or failed search is not scientific inapplicability."
+    },
+    {
+      "path": "evidence.lines[].system.kind",
+      "na_allowed": "never",
+      "reason": "No exception: missing input, unknown scope, exhausted budget or failed search is not scientific inapplicability."
+    },
+    {
+      "path": "evidence.lines[].system.environment",
+      "na_allowed": "never",
+      "reason": "No exception: missing input, unknown scope, exhausted budget or failed search is not scientific inapplicability."
+    },
+    {
+      "path": "evidence.lines[].system.spatial_scale",
+      "na_allowed": "never",
+      "reason": "No exception: missing input, unknown scope, exhausted budget or failed search is not scientific inapplicability."
+    },
+    {
+      "path": "evidence.lines[].system.temporal_scale",
+      "na_allowed": "never",
+      "reason": "No exception: missing input, unknown scope, exhausted budget or failed search is not scientific inapplicability."
+    },
+    {
+      "path": "evidence.lines[].intervention.agent",
+      "na_allowed": "never",
+      "reason": "A condition of the study behind the line, not gated by the domain profile: any card may record it, and a missing value is not scientific inapplicability."
+    },
+    {
+      "path": "evidence.lines[].intervention.dose",
+      "na_allowed": "never",
+      "reason": "A condition of the study behind the line, not gated by the domain profile: any card may record it, and a missing value is not scientific inapplicability."
+    },
+    {
+      "path": "evidence.lines[].intervention.regimen",
+      "na_allowed": "never",
+      "reason": "A condition of the study behind the line, not gated by the domain profile: any card may record it, and a missing value is not scientific inapplicability."
+    },
+    {
+      "path": "evidence.lines[].intervention.duration",
+      "na_allowed": "never",
+      "reason": "A condition of the study behind the line, not gated by the domain profile: any card may record it, and a missing value is not scientific inapplicability."
+    },
+    {
+      "path": "evidence.lines[].intervention.route",
+      "na_allowed": "never",
+      "reason": "A condition of the study behind the line, not gated by the domain profile: any card may record it, and a missing value is not scientific inapplicability."
+    },
+    {
+      "path": "evidence.lines[].intervention.formulation",
+      "na_allowed": "never",
+      "reason": "A condition of the study behind the line, not gated by the domain profile: any card may record it, and a missing value is not scientific inapplicability."
+    },
+    {
+      "path": "evidence.lines[].intervention.nominal_concentration",
+      "na_allowed": "never",
+      "reason": "A condition of the study behind the line, not gated by the domain profile: any card may record it, and a missing value is not scientific inapplicability."
+    },
+    {
+      "path": "evidence.lines[].intervention.measured_concentration",
+      "na_allowed": "never",
+      "reason": "A condition of the study behind the line, not gated by the domain profile: any card may record it, and a missing value is not scientific inapplicability."
+    },
+    {
+      "path": "evidence.lines[].intervention.intake",
+      "na_allowed": "never",
+      "reason": "A condition of the study behind the line, not gated by the domain profile: any card may record it, and a missing value is not scientific inapplicability."
+    },
+    {
+      "path": "evidence.lines[].intervention.systemic_exposure",
+      "na_allowed": "never",
+      "reason": "A condition of the study behind the line, not gated by the domain profile: any card may record it, and a missing value is not scientific inapplicability."
+    },
+    {
+      "path": "evidence.lines[].multi_site_program",
+      "na_allowed": "never",
+      "reason": "No exception: missing input, unknown scope, exhausted budget or failed search is not scientific inapplicability."
+    },
+    {
+      "path": "evidence.lines[].sample",
+      "na_allowed": "never",
+      "reason": "No exception: missing input, unknown scope, exhausted budget or failed search is not scientific inapplicability."
+    },
+    {
+      "path": "evidence.lines[].endpoint_kind",
+      "na_allowed": "never",
+      "reason": "No exception: missing input, unknown scope, exhausted budget or failed search is not scientific inapplicability."
+    },
+    {
+      "path": "evidence.lines[].human_proximity",
+      "na_allowed": "never",
+      "reason": "No exception: missing input, unknown scope, exhausted budget or failed search is not scientific inapplicability."
+    },
+    {
+      "path": "evidence.lines[].sample_size",
       "na_allowed": "never",
       "reason": "No exception: missing input, unknown scope, exhausted budget or failed search is not scientific inapplicability."
     },
@@ -669,6 +814,11 @@
       "reason": "No exception: missing input, unknown scope, exhausted budget or failed search is not scientific inapplicability."
     },
     {
+      "path": "profile.aging_hallmarks[]",
+      "na_allowed": "never",
+      "reason": "No exception: missing input, unknown scope, exhausted budget or failed search is not scientific inapplicability."
+    },
+    {
       "path": "appendix.rationale",
       "na_allowed": "never",
       "reason": "No exception: missing input, unknown scope, exhausted budget or failed search is not scientific inapplicability."
@@ -765,6 +915,11 @@
     },
     {
       "path": "core.alternative_explanations[]",
+      "na_allowed": "never",
+      "reason": "No exception: missing input, unknown scope, exhausted budget or failed search is not scientific inapplicability."
+    },
+    {
+      "path": "core.alternative_explanations[].id",
       "na_allowed": "never",
       "reason": "No exception: missing input, unknown scope, exhausted budget or failed search is not scientific inapplicability."
     },
@@ -889,6 +1044,21 @@
       "reason": "No exception: missing input, unknown scope, exhausted budget or failed search is not scientific inapplicability."
     },
     {
+      "path": "core.atoms[].requires",
+      "na_allowed": "never",
+      "reason": "No exception: missing input, unknown scope, exhausted budget or failed search is not scientific inapplicability."
+    },
+    {
+      "path": "core.atoms[].contradicts",
+      "na_allowed": "never",
+      "reason": "No exception: missing input, unknown scope, exhausted budget or failed search is not scientific inapplicability."
+    },
+    {
+      "path": "core.atoms[].triple",
+      "na_allowed": "never",
+      "reason": "No exception: missing input, unknown scope, exhausted budget or failed search is not scientific inapplicability."
+    },
+    {
       "path": "evidence.lines[].indirectness",
       "na_allowed": "never",
       "reason": "No exception: missing input, unknown scope, exhausted budget or failed search is not scientific inapplicability."
@@ -904,12 +1074,22 @@
       "reason": "No exception: missing input, unknown scope, exhausted budget or failed search is not scientific inapplicability."
     },
     {
+      "path": "evidence.lines[].independence_group.key",
+      "na_allowed": "never",
+      "reason": "No exception: missing input, unknown scope, exhausted budget or failed search is not scientific inapplicability."
+    },
+    {
       "path": "evidence.lines[].argument_kind",
       "na_allowed": "never",
       "reason": "No exception: missing input, unknown scope, exhausted budget or failed search is not scientific inapplicability."
     },
     {
       "path": "evidence.selection_record",
+      "na_allowed": "never",
+      "reason": "No exception: missing input, unknown scope, exhausted budget or failed search is not scientific inapplicability."
+    },
+    {
+      "path": "evidence.excluded[]",
       "na_allowed": "never",
       "reason": "No exception: missing input, unknown scope, exhausted budget or failed search is not scientific inapplicability."
     }

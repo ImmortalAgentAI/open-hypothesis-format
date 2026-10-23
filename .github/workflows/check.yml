@@ -41,3 +41,4 @@ jobs:
           done
           .venv/bin/python tools/validate.py --schema schema/pair-brief-1.schema.json tests/fixtures/fictional/pair-brief-six-seven.json
           .venv/bin/python tools/validate.py --schema schema/hypothesis-relations-1.schema.json tests/fixtures/fictional/relations-six-seven.json
+          .venv/bin/python tools/check_relations.py tests/fixtures/fictional/relations-six-seven.json tests/fixtures/fictional/fx_six.json tests/fixtures/fictional/fx_seven.json
