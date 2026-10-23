@@ -1,6 +1,8 @@
 # Changelog
 
-## Unreleased
+## 1.1.3 (2026-10-23)
+
+The card format, the schemas, the vocabularies and the examples are unchanged.
 
 - `tools/check_gaps.py` accepts a gap only on a path the schema admits as a gap path, read from the schema (`GAP_PATH_REFUSED`), so it agrees with schema validation.
 
