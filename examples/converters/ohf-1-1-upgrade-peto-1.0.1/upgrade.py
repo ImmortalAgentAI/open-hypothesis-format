@@ -1,4 +1,4 @@
-"""Upgrade the accepted peto card (content_hash 721bbc8f…) to an OHF 1.1 example card.
+"""Upgrade the accepted peto card (content_hash db738db3…) to an OHF 1.1 example card.
 
 Usage: upgrade.py INPUT_DIR OUT_CARD AT CONVERTER_HASH. INPUT_DIR holds the base card, the values tool's
 output (biodb.py) and its search log, and the Europe PMC records of the independence keys. Every wording
@@ -15,9 +15,9 @@ from tools.content_hash import content_hash  # noqa: E402
 
 INPUT, OUT_CARD, AT, CONVERTER_HASH = Path(sys.argv[1]), Path(sys.argv[2]), sys.argv[3], sys.argv[4]
 card = json.loads((INPUT / 'peto-paradox-mammals.json').read_text())
-assert card['content_hash'] == 'sha256:721bbc8f5e8979b4453d71b7f7cbd479c7ef990aea740480b8f7c6114e21769c'
-# The values were made for the version before the base's revision of wording (b0437424…). That revision
-# changed prose only: everything the values and this upgrade read is identical in both.
+assert card['content_hash'] == 'sha256:db738db37ab9b38f75c10735361acfb049630bc5160650f637d4fb51fa5f48a9'
+# The values were made for version 2 of the card (b0437424…). Version 8 differs from it in wording only:
+# everything the values and this upgrade read is identical in both.
 previous = json.loads((INPUT / 'peto-paradox-mammals-b0437424.json').read_text())
 assert previous['content_hash'] == 'sha256:b04374244b572b21b624e0db366a2d50a542a6d63f9f567f323ab16d4de81744'
 for path in (('layers', 'evidence', 'lines'), ('layers', 'core', 'atoms'), ('layers', 'core', 'alternative_explanations'),
@@ -235,7 +235,7 @@ identity = card['identity']
 identity['supersedes'] = [f"{identity['proposition_id']}@{card['version']}"]
 card['version'] += 1
 identity['version'] = card['version']
-added['by'] = {'converter': 'ohf-1-1-upgrade-peto', 'converter_version': '1.0.0',
+added['by'] = {'converter': 'ohf-1-1-upgrade-peto', 'converter_version': '1.0.1',
                'converter_hash': CONVERTER_HASH, 'model': 'claude-opus-5-5'}
 added['at'] = AT
 card['content_hash'] = content_hash(card)

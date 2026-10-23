@@ -2,10 +2,9 @@
 
 The upgrade adds OHF 1.1 values to a frozen, accepted OHF 1.0 card. It changes no value the card already has, except those listed in rule 2. It was done by a language model with the script `upgrade.py` in this directory. The base card, the values and the search log are inputs named by hash. They are not in this repository.
 
-## Inputs of `intermittent-rapamycin-mtorc2`, version 3
+## Inputs of `intermittent-rapamycin-mtorc2`, version 9
 
-- **Base card**: `h_intermittent-rapamycin-mtorc2` version 2, `content_hash` `sha256:473ca95e5dd7ad4efa2ccdc09dac51d25b970542ec9362f741f1076d9f917db5`, converted by ohf-extractor 0.8.17.
-  - The base card has one pending check of its latest corrections. If that check changes the base card, this example is rebuilt from the new hash.
+- **Base card**: `h_intermittent-rapamycin-mtorc2` version 8, `content_hash` `sha256:0ec01fd8f42074a160351634c41a80e49477ae2e9c981812c69c1203a58c98b1` (file `sha256:be4d0335b0f6fcaef0dba8b48bc3ca41ef3f2bb6a2c3e55357bce6f8c96e5633`), produced by ohf-extractor 0.8.17. It differs from version 2 (`sha256:473ca95e5dd7ad4efa2ccdc09dac51d25b970542ec9362f741f1076d9f917db5`) only in the wording of gap reasons and of the note and the source limitation of the first proposal. Version 2 is also an input: the values were made for it, and the script asserts that everything else is identical in both.
 - **Ledger of the base card**: `sha256:2c113ef849e8f71a53d6a0e7dc29a2b01f64591fc76b03c19e8e7958cd523168` (file bytes), 535 entailment records.
 - **Values**: the values tool `biodb.py`, run 3, `ohf-extractor:example-values@1`, `sha256:ff90e371248e0f7efbd7e42a5c99c755999d4601b81461c0ec38abb4351b88c3`, kit commit eaf6f4c, with its search log.
   - The values cover the NCBI taxon of each line, the rung for non-human taxa, and hallmark hints with the atoms that name a hint's term.
@@ -14,13 +13,12 @@ The upgrade adds OHF 1.1 values to a frozen, accepted OHF 1.0 card. It changes n
 
 1. **Version and pins.** `standard_version` becomes `1.1`.
    - The card pins `ohf:terms@1`, `ohf:profiles@2` and `ohf:hallmarks@1`.
-   - `identity.version` goes up by one, and the base version is in `supersedes`.
+   - The card version goes up by one to 9, `identity.version` is set to it, and the base card version is in `supersedes`.
 2. **Changed values.** These values of the base card change:
    - `added.by` names this upgrade and the model that wrote its rules, because the upgrade wrote the new values; `added.at` is the time of the run.
    - `profile.domain` becomes `ohf:aging@1` (rule 8).
    - The whole-list gap `evidence.lines[].result_estimate` is replaced (rule 6).
    - The three prediction routes gain a `term` (rule 9), so their three base entailment records are dropped (rule 14).
-   - The reason of the gap `evidence.selection_record` no longer names the base card's internal review rounds.
    - `added.budget.http_requests` adds this version's requests: every response of the values tool's calls and the PubMed records of rule 13. The run makes no model call, so `model_calls` is unchanged; the model calls spent writing the rules were not counted.
    - `added.produced_by` still names ohf-extractor 0.8.17, which produced the rest. The other `integrity.entailment` records of the base card are kept as they are: no value they name has changed.
 3. **System of a line.**
@@ -49,7 +47,7 @@ The upgrade adds OHF 1.1 values to a frozen, accepted OHF 1.0 card. It changes n
     - `requires` records the chain that the general atom states. The selective inhibition rests on the acute and chronic difference. The fewer side effects rest on the mTORC2 cause and the selective inhibition. The general atom rests on both and on mTORC1 sufficiency.
     - The alternatives get identifiers. No passage disputes one, and the target of an accepted line is not changed, so no line targets an alternative.
 11. **Multi-site programme.** `e_itp_low_dose` gets the Interventions Testing Program with three sites, from p[5] of the same article, which names both.
-12. **Excluded.** The review's C. elegans clause in p[23] is recorded with its reason and is not carried as a line. The base card's report gives that reason: the cited work is already read at first hand.
+12. **Excluded.** The review's C. elegans clause in p[23] is recorded with its reason and is not carried as a line. Its reason: the cited work is already read at first hand.
 13. **Withheld quotes.** The base card names four works against itself that may not be quoted. Three become a line with `quote_withheld`:
     - one with no licence in the record (PMID 31276577);
     - one CC BY work with no open full text (PMID 34389472);

@@ -1,4 +1,4 @@
-"""Upgrade the frozen rapa flagship (content_hash 473ca95e…) to an OHF 1.1 example card.
+"""Upgrade the accepted rapa card (content_hash 0ec01fd8…) to an OHF 1.1 example card.
 
 Usage: upgrade.py INPUT_DIR OUT_CARD AT CONVERTER_HASH. INPUT_DIR holds the base card, the values
 tool's output (biodb.py) and its search log. Every wording the upgrade adds is a verbatim substring of the line's quote,
@@ -13,9 +13,22 @@ from tools.content_hash import content_hash  # noqa: E402
 
 INPUT, OUT_CARD, AT, CONVERTER_HASH = Path(sys.argv[1]), Path(sys.argv[2]), sys.argv[3], sys.argv[4]
 card = json.loads((INPUT / 'intermittent-rapamycin-mtorc2.json').read_text())
-assert card['content_hash'] == 'sha256:473ca95e5dd7ad4efa2ccdc09dac51d25b970542ec9362f741f1076d9f917db5'
+assert card['content_hash'] == 'sha256:0ec01fd8f42074a160351634c41a80e49477ae2e9c981812c69c1203a58c98b1'
+# The values were made for version 2 of the card (473ca95e…). Version 8 differs from it in the wording of
+# gap reasons and of the first proposal: everything the values and this upgrade read is identical.
+previous = json.loads((INPUT / 'intermittent-rapamycin-mtorc2-473ca95e.json').read_text())
+assert previous['content_hash'] == 'sha256:473ca95e5dd7ad4efa2ccdc09dac51d25b970542ec9362f741f1076d9f917db5'
+same = lambda added: {k: v for k, v in added.items() if k not in ('gaps', 'layers')}  # noqa: E731
+assert same(previous['added']) == same(card['added'])
+assert {k: v for k, v in previous['added']['layers'].items() if k != 'core'} == \
+    {k: v for k, v in card['added']['layers'].items() if k != 'core'}
+assert {k: v for k, v in previous['added']['layers']['core'].items() if k != 'first_proposed'} == \
+    {k: v for k, v in card['added']['layers']['core'].items() if k != 'first_proposed'}
+assert [{k: v for k, v in g.items() if k != 'reason'} for g in previous['added']['gaps']] == \
+    [{k: v for k, v in g.items() if k != 'reason'} for g in card['added']['gaps']]
+assert previous['author'] == card['author']
 values = json.loads((INPUT / 'rapa-1.1-values.json').read_text())
-assert values['card']['content_hash'] == card['content_hash']
+assert values['card']['content_hash'] == previous['content_hash']
 log = {json.loads(l)['call_id']: json.loads(l) for l in (INPUT / 'search-log.jsonl').read_text().splitlines() if l}
 
 
@@ -301,7 +314,7 @@ for (ident, pmid, target, direction, reason, study_system, words, taxon_id, endp
                             'src': TAXON_SOURCE[taxon_id]},
         'src': key})
     lines[-1]['indirectness'] = {'value': INDIRECTNESS[ident], 'src': key, 'assessment': {
-        'assessor': 'ohf-1-1-upgrade 1.0.1', 'assessed_at': INDIRECTNESS_AT,
+        'assessor': 'ohf-1-1-upgrade 1.0.2', 'assessed_at': INDIRECTNESS_AT,
         'evidence_ref': {'kind': 'artifact', 'sha256': DELTA_VERDICTS}}}
     added['gaps'].append({**copy.deepcopy(whole), 'path': f'evidence.lines[{len(lines) - 1}].result_estimate',
                           'reason': 'The quote is withheld; the result is carried by the paraphrase, which gives no figure.'})
@@ -364,20 +377,14 @@ for path in sorted((INPUT / 'verdicts').glob('*.json')) if (INPUT / 'verdicts').
             record['note'] = verdict['note']
         added['integrity']['entailment'].append(record)
 
-# The selection record names the search; the base card's names for its internal review rounds are left out.
-selection = next(g for g in added['gaps'] if g['path'] == 'evidence.selection_record')
-INTERNAL_ROUND = [(r', run after [a-z]+ [0-9],', ','), (r'Works that [a-z]+ [0-9] named', 'Works that a review of the card named')]
-for pattern, wording in INTERNAL_ROUND:
-    selection['reason'], count = _re.subn(pattern, wording, selection['reason'])
-    assert count == 1, pattern
 # This version's requests: every response of the values tool's calls and the four PubMed records.
 added['budget']['http_requests'] += sum(len(entry.get('responses') or []) for entry in log.values()) + len(WITHHELD)
 
 identity = card['identity']
-identity['supersedes'] = [f"{identity['proposition_id']}@{identity['version']}"]
-identity['version'] += 1
-card['version'] = identity['version']
-added['by'] = {'converter': 'ohf-1-1-upgrade', 'converter_version': '1.0.1',
+identity['supersedes'] = [f"{identity['proposition_id']}@{card['version']}"]
+card['version'] += 1
+identity['version'] = card['version']
+added['by'] = {'converter': 'ohf-1-1-upgrade', 'converter_version': '1.0.2',
                'converter_hash': CONVERTER_HASH,
                'model': 'claude-opus-5-5'}
 added['at'] = AT

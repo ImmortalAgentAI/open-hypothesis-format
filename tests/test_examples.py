@@ -15,6 +15,13 @@ ROOT = Path(__file__).resolve().parents[1]
 SCHEMA = load(ROOT / 'schema/hypothesis-1.schema.json')
 CARDS = sorted((ROOT / 'examples/cards').glob('*.json'))
 FICTIONAL = sorted((ROOT / 'tests/fixtures/fictional').glob('fx_*.json'))
+# The open licences an example card's source may carry, by SPDX identifier. A CC BY licence counts only
+# with its version; an NC, ND or SA licence is not open.
+EXAMPLE_LICENCES = ('CC-BY-1.0', 'CC-BY-2.0', 'CC-BY-2.5', 'CC-BY-3.0', 'CC-BY-4.0')
+
+
+def licence_open(card):
+    return card['author']['source']['license'] in EXAMPLE_LICENCES
 
 
 def test_one_profile():
@@ -36,7 +43,22 @@ def test_example_cards_are_licensed_and_without_domain(path):
     # The rapa example shows the aging profile; the other examples select no domain.
     expected = 'ohf:aging@1' if path.stem == 'intermittent-rapamycin-mtorc2' else 'none'
     assert card['added']['layers']['profile']['domain'] == expected
-    assert card['author']['source']['license'] in ('CC-BY-4.0', 'CC-BY-3.0')
+    assert licence_open(card)
+
+
+@pytest.mark.parametrize('licence', EXAMPLE_LICENCES)
+def test_example_licence_accepted(licence):
+    card = load(ROOT / 'examples/cards/peto-paradox-mammals.json')
+    card['author']['source']['license'] = licence
+    assert licence_open(card)
+
+
+@pytest.mark.parametrize('licence', ['CC BY', 'CC-BY', 'CC BY 2.5', 'cc-by-2.5', 'CC-BY-2.5 ', 'CC-BY-NC-4.0',
+                                     'CC-BY-NC-ND-4.0', 'CC-BY-NC-SA-3.0', 'CC-BY-NC-2.0', 'CC-BY-SA-4.0', 'CC-BY-ND-2.5'])
+def test_example_licence_refused(licence):
+    card = load(ROOT / 'examples/cards/peto-paradox-mammals.json')
+    card['author']['source']['license'] = licence
+    assert not licence_open(card)
 
 
 @pytest.mark.parametrize('path', CARDS, ids=lambda p: p.name)

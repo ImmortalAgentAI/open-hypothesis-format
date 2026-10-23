@@ -1,7 +1,7 @@
 {
   "schema": "ohf:hypothesis@1",
   "id": "h_peto-paradox-mammals",
-  "version": 4,
+  "version": 9,
   "standard_version": "1.1",
   "vocabularies": {
     "heuristics": {
@@ -19,9 +19,9 @@
   },
   "identity": {
     "proposition_id": "h_peto-paradox-mammals",
-    "version": 4,
+    "version": 9,
     "supersedes": [
-      "h_peto-paradox-mammals@3"
+      "h_peto-paradox-mammals@8"
     ],
     "retractions": [],
     "duplicate_cluster_ref": null,
@@ -80,11 +80,11 @@
   "added": {
     "by": {
       "converter": "ohf-1-1-upgrade-peto",
-      "converter_version": "1.0.0",
-      "converter_hash": "sha256:0a3e882dff9a74c44f423f6f0a2233abb8d80deccfbcce54a2426286aeaa6b75",
+      "converter_version": "1.0.1",
+      "converter_hash": "sha256:4db9cf7f8290ac6655fa98d1215cedcc062733a7d45dc44e510e6b021dd55919",
       "model": "claude-opus-5-5"
     },
-    "at": "2026-10-23T15:06:30Z",
+    "at": "2026-10-23T18:54:10Z",
     "cutoff_date": "2026-10-21",
     "layers": {
       "core": {
@@ -671,12 +671,12 @@
             "source_ref": {
               "kind": "external",
               "uri": "https://doi.org/10.1038/s41586-021-04224-5",
-              "limitation": "The article itself; its full text is not in this repository."
+              "limitation": "The article itself; its full text is not carried here."
             },
             "date": "2021-12-22",
             "precision": "day",
             "basis": "author_statement",
-            "note": "The claims of this card are made in this article; the date is the publication date in the Europe PMC record. Peto’s paradox itself was first formulated by Sir Richard Peto, cited at paragraph 7 as references 6 and 14, and the article dates it in its own reference list: reference 6 is \"Peto, R. in Origins of Human Cancer Vol 45 (eds. Hiatt, H. et al.) 1403-1428 (Cold Spring Harbor Laboratory, 1977)\". A locator in OHF 1.0 cannot name a reference-list entry, so that date is read from the bytes the card cites without being addressable in them; the errata records it."
+            "note": "The claims of this card are made in this article; the date is the publication date in the Europe PMC record. Peto’s paradox itself was first formulated by Sir Richard Peto, cited at paragraph 7 as references 6 and 14, and the article dates it in its own reference list: reference 6 is \"Peto, R. in Origins of Human Cancer Vol 45 (eds. Hiatt, H. et al.) 1403-1428 (Cold Spring Harbor Laboratory, 1977)\". A locator in OHF 1.0 cannot name a reference-list entry, so that date is read from the bytes the card cites without being addressable in them, which is stated here rather than left unsaid."
           },
           "src": "pubdate"
         }
@@ -2995,7 +2995,7 @@
       {
         "path": "identity.duplicate_cluster_ref",
         "disposition": "not_supplied",
-        "reason": "No duplicate cluster has been formed for this proposition; nothing in the repository holds a second card of the same claim from another source.",
+        "reason": "No duplicate cluster has been formed for this proposition; among the cards this extraction could see, none holds the same claim from another source.",
         "query_ids": [],
         "inspected_artifacts": [
           {
@@ -3103,7 +3103,7 @@
       {
         "path": "core.novelty_assessment",
         "disposition": "not_supplied",
-        "reason": "The authors claim novelty (\"unequivocal empirical evidence for Peto's paradox is lacking\", p[2]) but state no bounded new-versus-shared content, and this field needs retained search or review evidence for that split. The search layer measured where the article stands (196 citing works, 16 attached responses, in the search log); it does not establish what is new in it.",
+        "reason": "The authors claim novelty (\"unequivocal empirical evidence for Peto's paradox is lacking\", p[2]) but state no bounded new-versus-shared content, and this field needs retained search or review evidence for that split. The search measured where the article stands (196 citing works, 16 attached responses, in the search log); it does not establish what is new in it.",
         "query_ids": [],
         "inspected_artifacts": [
           {
@@ -3427,7 +3427,7 @@
       {
         "path": "predictions[].test_plan_ref",
         "disposition": "not_supplied",
-        "reason": "No test plan for this prediction exists in the repository to point at.",
+        "reason": "The article supplies no test plan for this prediction, and none was searched for.",
         "query_ids": [],
         "inspected_artifacts": [
           {
@@ -3463,7 +3463,7 @@
       {
         "path": "predictions[].resolution",
         "disposition": "not_supplied",
-        "reason": "The prediction is unresolved: no published test of it in natural populations was found by the search layer of 2026-10-21 (five families, two services, both orders, in the search log). An unresolved prediction is a state, not a missing value.",
+        "reason": "The prediction is unresolved: no published test of it in natural populations was found by the search of 2026-10-21 (five families, two services, both orders, in the search log). An unresolved prediction is a state, not a missing value.",
         "query_ids": [],
         "inspected_artifacts": [
           {
@@ -3475,7 +3475,7 @@
       {
         "path": "predictions[].existing_data_tests[]",
         "disposition": "not_supplied",
-        "reason": "The search layer found no dataset of cancer mortality in natural mammal populations with diet that could test the prediction without new sampling; the article says such data are \"still far from our reach\".",
+        "reason": "The search found no dataset of cancer mortality in natural mammal populations with diet that could test the prediction without new sampling; the article says such data are \"still far from our reach\".",
         "query_ids": [],
         "inspected_artifacts": [
           {
@@ -3487,7 +3487,7 @@
       {
         "path": "predictions[].known_result_ref",
         "disposition": "not_supplied",
-        "reason": "The prediction is novel, so there is no known result it was fitted to.",
+        "reason": "The article names no known result that this prediction was fitted to, and no search for one was run: whether the prediction is new to the field is not something this card establishes.",
         "query_ids": [],
         "inspected_artifacts": [
           {
@@ -3696,7 +3696,7 @@
       {
         "path": "evidence.selection_record",
         "disposition": "not_supplied",
-        "reason": "The counts exist and are not in the card: every call is in the search log with the sha256 of every response, five query families run twice on two services and in two sort orders, 196 citing works counted of which 31 are on the card's axis by title, 16 attached responses, 105 similar candidates narrowed to 25. The counts of calls and of lines are recorded beside the card, with the sha256 of the log as it stood at handover, because the log keeps growing while the extraction runs - the entity lookups write to it too - and a count written into the card would be stale by the next run. Of the sixteen responses attached to the article (call cf907c137f94) the card uses four: Lynch PMC12002202, Compton PMC12088420, Pepke PMC12018762 and Abplanalp & Rieger PMC9374720. Butler PMC11892590 is also on the card but is not one of the sixteen: it is a citing research article, reached by the cited_by calls d41a9560ce0d and 6960ba101ffb, and an earlier version of this reason counted it among the responses, which the log contradicts. Of the twelve responses not used, the reasons are: a licence that forbids republishing any passage (Butler et al.'s reply to the Compton letter, PMC12088449 / 10.1073/pnas.2507210122, CC BY-NC-ND, which is why this card carries one side of a published exchange and not the other); no retrievable record at all (DOI 10.3410/f.741357059.793593105, a Crossref has-review relation whose record carries no title, type, PMID, PMCID or licence, so there is nothing for the extractor to fetch); no PMC record and no licence (PMIDs 35102282, 39801237 and 38147198); and seven works whose subject lies outside this card's atoms, screened out by title and named here so the screening is not silent - PMC10978741 (grand challenges in cell and developmental biology), PMC10950813 (senescence), PMC10757905 (the need for evolutionary theory in cancer research), PMC9495303 (the value of broad taxonomic comparisons), PMID 35963232 (nocturnal circulating tumour cells), PMID 37118075 (the importance of aging in cancer research) and PMID 35418556 (mutational clocks, a news piece). Beyond the sixteen, the same four kinds of reason apply to works found by the other calls: Compton et al. 2025 PMC11726020 and the diet-and-glucose paper PMID 40074744, both CC BY-NC-ND; Dujon et al. 2026, 10.1098/rspb.2026.0504, recorded CC BY but offered only behind a subscription; the bird study PMID 39099847, outside this card's mammalian atoms; and the cetacean paper PMID 40658797, a lead whose direction the title alone does not establish. A citation search of three services (Europe PMC, PubMed and OpenAlex) over this article, run after the card was built, found 263 citing works where the logged searches of this extraction saw 196, read all of them by title and 33 by abstract, and named five works against this card that it does not hold. Four of the five cannot be quoted here and are named with their reason: Compton et al. 2025 (PMC11726020, CC BY-NC-ND), the direct data against the body-mass atom; Bulls et al. 2022 (preprint 10.1101/2022.07.12.499088, CC BY-NC-ND), the within-mammal result on longevity and neoplasia; Butler et al. 2026 (preprint 10.64898/2026.06.29.735167, CC BY), whose full text the route this card uses does not reach; and Dujon et al. 2026 (10.1098/rspb.2026.0504, CC BY, no PMC record), on popularity bias in zoo data. The fifth is the age-structure objection recorded in the next sentence. One objection reached this extraction from outside its own logged searches and is recorded here because no field holds it: \"Putting zoo animal cancer into perspective\", Zoo Biology 2023, PMID 37664965, 10.1002/zoo.21802, CC BY-NC-ND, which argues that zoo carnivores live a greater fraction of their maximum lifespan and that cancer is a disease of old age, so it offers an age-structure explanation of the carnivore result this card carries at a_diet and a_pathogen. Neither Europe PMC nor PubMed links it to this article as a citing work, which is why no logged search found it; its licence forbids republishing any passage, so it is a named lead and not a work this extraction read. Works named as fetchable on review of the card, and not held by it, are recorded as known and not read, with their identifiers. The field itself is a sourced value, and the extractor can bind a value only to a paragraph of a source document, not to its own search log; recording the counts here would mean sourcing the extractor's measurement to a passage that does not contain it.",
+        "reason": "The counts exist and are not in the card: every call is in the search log with the sha256 of every response, five query families run twice on two services and in two sort orders, 196 citing works counted of which 31 are on the card's axis by title, 16 attached responses, 105 similar candidates narrowed to 25. The counts of calls and of lines are recorded beside the card, with the sha256 of the log as it stood when the card was finished, because the log keeps growing while the extraction runs - the entity lookups write to it too - and a count written into the card would be stale by the next run. Of the sixteen responses attached to the article (call cf907c137f94) the card uses four: Lynch PMC12002202, Compton PMC12088420, Pepke PMC12018762 and Abplanalp & Rieger PMC9374720. Butler PMC11892590 is also on the card but is not one of the sixteen: it is a citing research article, reached by the cited_by calls d41a9560ce0d and 6960ba101ffb, which the log shows. Of the twelve responses not used, the reasons are: a licence that forbids republishing any passage (Butler et al.'s reply to the Compton letter, PMC12088449 / 10.1073/pnas.2507210122, CC BY-NC-ND, which is why this card carries one side of a published exchange and not the other); no retrievable record at all (DOI 10.3410/f.741357059.793593105, a Crossref has-review relation whose record carries no title, type, PMID, PMCID or licence, so there is nothing for the extractor to fetch); no PMC record and no licence (PMIDs 35102282, 39801237 and 38147198); and seven works whose subject lies outside this card's atoms, screened out by title and named here so the screening is not silent - PMC10978741 (grand challenges in cell and developmental biology), PMC10950813 (senescence), PMC10757905 (the need for evolutionary theory in cancer research), PMC9495303 (the value of broad taxonomic comparisons), PMID 35963232 (nocturnal circulating tumour cells), PMID 37118075 (the importance of aging in cancer research) and PMID 35418556 (mutational clocks, a news piece). Beyond the sixteen, the same four kinds of reason apply to works found by the other calls: Compton et al. 2025 PMC11726020 and the diet-and-glucose paper PMID 40074744, both CC BY-NC-ND; Dujon et al. 2026, 10.1098/rspb.2026.0504, recorded CC BY but offered only behind a subscription; the bird study PMID 39099847, outside this card's mammalian atoms; and the cetacean paper PMID 40658797, a lead whose direction the title alone does not establish. A citation search of three services (Europe PMC, PubMed and OpenAlex) over this article, run after the card was built, found 263 citing works where the logged searches of this extraction saw 196, read all of them by title and 33 by abstract, and named five works against this card that it does not hold. Four of the five cannot be quoted here and are named with their reason: Compton et al. 2025 (PMC11726020, CC BY-NC-ND), the direct data against the body-mass atom; Bulls et al. 2022 (preprint 10.1101/2022.07.12.499088, CC BY-NC-ND), the within-mammal result on longevity and neoplasia; Butler et al. 2026 (preprint 10.64898/2026.06.29.735167, CC BY), whose full text the route this card uses does not reach; and Dujon et al. 2026 (10.1098/rspb.2026.0504, CC BY, no PMC record), on popularity bias in zoo data. The fifth is the age-structure objection recorded in the next sentence. One objection reached this extraction from outside its own logged searches and is recorded here because no field holds it: \"Putting zoo animal cancer into perspective\", Zoo Biology 2023, PMID 37664965, 10.1002/zoo.21802, CC BY-NC-ND, which argues that zoo carnivores live a greater fraction of their maximum lifespan and that cancer is a disease of old age, so it offers an age-structure explanation of the carnivore result this card carries at a_diet and a_pathogen. Neither Europe PMC nor PubMed links it to this article as a citing work, which is why no logged search found it; its licence forbids republishing any passage, so it is a named lead and not a work this extraction read. Works named as fetchable on review of the card, and not held by it, are recorded as known and not read, with their identifiers. The field itself is a sourced value, and the extractor can bind a value only to a paragraph of a source document, not to its own search log; recording the counts here would mean sourcing the extractor's measurement to a passage that does not contain it.",
         "query_ids": [],
         "inspected_artifacts": [
           {
@@ -3732,7 +3732,7 @@
       {
         "path": "provenance.parent_refs[]",
         "disposition": "not_supplied",
-        "reason": "No card in the repository is a parent of this one. Peto's paradox as a question predates the article; the article is where the claims of this card are made, and the question is recorded in core.explains and in first_proposed.note.",
+        "reason": "No other card is a parent of this one. Peto's paradox as a question predates the article; the article is where the claims of this card are made, and the question is recorded in core.explains and in first_proposed.note.",
         "query_ids": [],
         "inspected_artifacts": [
           {
@@ -8367,5 +8367,5 @@
     ],
     "source_class": "external_published"
   },
-  "content_hash": "sha256:97e0e0ec332ee9a68ab1c56cae8fd4029a688112c5d7f13ae8fc11de75495b31"
+  "content_hash": "sha256:604d1c30e42c885eed4fbd3caee42b0e05a6c5dccb67eae2d647aa45f4ffe5b6"
 }
