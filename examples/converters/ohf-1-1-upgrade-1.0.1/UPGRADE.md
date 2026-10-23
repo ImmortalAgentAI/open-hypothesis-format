@@ -20,7 +20,7 @@ The upgrade adds OHF 1.1 values to a frozen, accepted OHF 1.0 card. It changes n
    - `profile.domain` becomes `ohf:aging@1` (rule 8).
    - The whole-list gap `evidence.lines[].result_estimate` is replaced (rule 6).
    - The three prediction routes gain a `term` (rule 9), so their three base entailment records are dropped (rule 14).
-   - The reason of the gap `evidence.selection_record` no longer names the internal review step after which the search ran.
+   - The reason of the gap `evidence.selection_record` no longer names the base card's internal review rounds.
    - `added.budget.http_requests` adds this version's requests: every response of the values tool's calls and the PubMed records of rule 13. The run makes no model call, so `model_calls` is unchanged; the model calls spent writing the rules were not counted.
    - `added.produced_by` still names ohf-extractor 0.8.17, which produced the rest. The other `integrity.entailment` records of the base card are kept as they are: no value they name has changed.
 3. **System of a line.**

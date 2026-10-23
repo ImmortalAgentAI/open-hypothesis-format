@@ -1,5 +1,11 @@
 # Changelog
 
+## Unreleased
+
+The card format, the schemas and the vocabularies are unchanged.
+
+- The rapa example no longer names the base card's internal review rounds in the reason of its `evidence.selection_record` gap. The converter is now `ohf-1-1-upgrade` 1.0.1 (`examples/converters/ohf-1-1-upgrade-1.0.1/`); the card is rebuilt, so its `content_hash` changed.
+
 ## 1.1.0 (2026-10-23)
 
 A minor version: every new member is optional, a 1.0 card stays valid and is checked by the 1.0 rules, and a 1.0 card may not carry a member introduced in 1.1 or name one in a gap. The 36 new catalogue paths are marked `since: "1.1"`. The rules are listed in [spec/README.md, section OHF 1.1](spec/README.md#ohf-11). The standard still holds no verdict on a claim.

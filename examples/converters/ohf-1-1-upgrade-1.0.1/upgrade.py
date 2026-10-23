@@ -301,7 +301,7 @@ for (ident, pmid, target, direction, reason, study_system, words, taxon_id, endp
                             'src': TAXON_SOURCE[taxon_id]},
         'src': key})
     lines[-1]['indirectness'] = {'value': INDIRECTNESS[ident], 'src': key, 'assessment': {
-        'assessor': 'ohf-1-1-upgrade 1.0.0', 'assessed_at': INDIRECTNESS_AT,
+        'assessor': 'ohf-1-1-upgrade 1.0.1', 'assessed_at': INDIRECTNESS_AT,
         'evidence_ref': {'kind': 'artifact', 'sha256': DELTA_VERDICTS}}}
     added['gaps'].append({**copy.deepcopy(whole), 'path': f'evidence.lines[{len(lines) - 1}].result_estimate',
                           'reason': 'The quote is withheld; the result is carried by the paraphrase, which gives no figure.'})
@@ -364,10 +364,12 @@ for path in sorted((INPUT / 'verdicts').glob('*.json')) if (INPUT / 'verdicts').
             record['note'] = verdict['note']
         added['integrity']['entailment'].append(record)
 
-# The selection record names the search; the base card's process step after which it ran is internal.
+# The selection record names the search; the base card's names for its internal review rounds are left out.
 selection = next(g for g in added['gaps'] if g['path'] == 'evidence.selection_record')
-assert ', run after wave 4,' in selection['reason']
-selection['reason'] = selection['reason'].replace(', run after wave 4,', ',')
+INTERNAL_ROUND = [(r', run after [a-z]+ [0-9],', ','), (r'Works that [a-z]+ [0-9] named', 'Works that a review of the card named')]
+for pattern, wording in INTERNAL_ROUND:
+    selection['reason'], count = _re.subn(pattern, wording, selection['reason'])
+    assert count == 1, pattern
 # This version's requests: every response of the values tool's calls and the four PubMed records.
 added['budget']['http_requests'] += sum(len(entry.get('responses') or []) for entry in log.values()) + len(WITHHELD)
 
@@ -375,7 +377,7 @@ identity = card['identity']
 identity['supersedes'] = [f"{identity['proposition_id']}@{identity['version']}"]
 identity['version'] += 1
 card['version'] = identity['version']
-added['by'] = {'converter': 'ohf-1-1-upgrade', 'converter_version': '1.0.0',
+added['by'] = {'converter': 'ohf-1-1-upgrade', 'converter_version': '1.0.1',
                'converter_hash': CONVERTER_HASH,
                'model': 'claude-opus-5-5'}
 added['at'] = AT
