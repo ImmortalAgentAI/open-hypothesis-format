@@ -96,7 +96,7 @@ The vocabulary of these fields names no namespace. A card pointer must resolve; 
 | --- | --- | --- |
 | `src` of an added-zone value or record | a key of `added.sources` (`REF_SOURCE_UNKNOWN`); an empty `added.sources` with any `src` is also `REF_SOURCES_EMPTY` | `check_refs.py` |
 | `locator` of an author-zone value | a place in the text of `author.source`. OHF 1.0 defines no locator syntax, so locators are not resolved. | none |
-| `added.integrity.entailment[].pointer` | a sourced added-zone value, once per basis; from OHF 1.1 also an element of `core.alternative_explanations`, `core.uncertainties`, `core.opens` or `core.explains` that carries its own `src`, or a record of `evidence.excluded` | `check_refs.py` |
+| `added.integrity.entailment[].pointer` | a sourced added-zone value, once per basis; from OHF 1.1 also an element of `core.alternative_explanations`, `core.uncertainties`, `core.opens` or `core.explains` that carries its own `src`, or a record of `evidence.excluded`; from OHF 1.2 also a member of a sourced value, or a value checked by resolution | `check_refs.py` |
 | `added.gaps[].scope_ref` | filled scientific card content | `check_gaps.py` |
 | `provenance.parent_refs[]`, `identity.supersedes[]` | other versions of propositions, `h_<id>@<version>` | not resolved |
 | `identity.duplicate_cluster_ref`, `identity.representative_ref` | records kept by the publisher | not resolved |
