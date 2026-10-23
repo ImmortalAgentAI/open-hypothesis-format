@@ -1,6 +1,6 @@
 """hyp-arena Example 1 as an OHF 1.1 card: the new fields on real content, and mutations that break them.
 
-The fixture is built by arena-standard from docs/spec/hypothesis-card-examples.md of hyp-arena (MIT, Daniil Radyush,
+The fixture is built from docs/spec/hypothesis-card-examples.md of hyp-arena (MIT, Daniil Radyush,
 commit 1c38659) on the skeleton of fx_four; its quotes are those of the PubMed abstracts that Example 1 gives.
 """
 import copy

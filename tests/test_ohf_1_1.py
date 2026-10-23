@@ -880,7 +880,7 @@ def test_a_1_0_card_has_no_triple():
     assert '/added/layers/core/atoms/0' in {pointer(error) for error in validation_errors(SCHEMA, card)}
 
 
-# master THJOB-3bbef129: a line whose quote is withheld counts, but not as the disputing side for full.
+# A line whose quote is withheld counts, but not as the disputing side for full.
 WITHHELD = {'reason': 'nc_nd', 'locator': 'Table 2', 'record_ref': {'scheme': 'doi', 'id': '10.1000/fictional.1'},
             'paraphrase': 'Agent Q did not change counter Y in the fictional cohort.',
             'abstract_quote': 'Counter Y was unchanged by agent Q, fictional.'}
@@ -940,7 +940,7 @@ def test_a_1_0_card_has_no_withheld_quote():
     assert AGAINST in {pointer(error) for error in validation_errors(SCHEMA, card)}
 
 
-# master THJOB-57b4629e: an edge names the endpoint, population or system on which the two cards differ.
+# An edge names the endpoint, population or system on which the two cards differ.
 def scoped(endpoint='mean amplitude of counter Y', aspect='endpoint', pointer='/added/layers/predictions/0/endpoint'):
     """fx_six and fx_seven, the second measuring another endpoint, with an edge that says so."""
     six = load(ROOT / 'tests/fixtures/fictional/fx_six.json')

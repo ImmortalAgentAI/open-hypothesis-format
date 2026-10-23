@@ -1,7 +1,7 @@
 """Upgrade the frozen rapa flagship (content_hash 473ca95e…) to an OHF 1.1 example card.
 
-Usage: upgrade.py INPUT_DIR OUT_CARD AT CONVERTER_HASH. INPUT_DIR holds the base card, arena-biodb's
-values and their search log. Every wording the upgrade adds is a verbatim substring of the line's quote,
+Usage: upgrade.py INPUT_DIR OUT_CARD AT CONVERTER_HASH. INPUT_DIR holds the base card, the values
+tool's output (biodb.py) and its search log. Every wording the upgrade adds is a verbatim substring of the line's quote,
 study_type or study_system; the script asserts it. The rules are in UPGRADE.md next to this file.
 """
 import copy, hashlib, json, sys
@@ -34,14 +34,14 @@ sources = added['sources']
 
 
 def call_source(call_id, kind):
-    """A sources entry for one arena-biodb call, keyed by the call id."""
+    """A sources entry for one call of the values tool, keyed by the call id."""
     key = f'biodb_{call_id}'
     entry = log[call_id]
     sources.setdefault(key, {
         'source': entry['responses'][-1]['url'] if entry.get('responses') else entry['ask'].get('source', ''),
         'locator': f"{kind}: {entry['ask'].get('id')}",
         'accessed_at': entry['finished_at'],
-        'tool': f"arena-biodb biodb.py ({values['kit']['commit']}), call {call_id}"})
+        'tool': f"values tool biodb.py (commit {values['kit']['commit']}), call {call_id}"})
     return key
 
 
@@ -100,6 +100,9 @@ SAMPLES = {
                       'outcome': 'not_stated', 'analysis': 'not_stated'},
     'e_pearl_lean': {'population': 'subgroup', 'subgroup': 'women', 'outcome': 'not_stated', 'analysis': 'not_stated'},
     'e_pearl_primary': {'population': 'whole_sample', 'outcome': 'primary', 'analysis': 'not_stated'},
+    # The estimate is the result at one site in males; the pooled male result in the same quote is null.
+    'e_itp_low_dose': {'population': 'subgroup', 'subgroup': 'males at UM', 'outcome': 'not_stated',
+                       'analysis': 'not_stated'},
 }
 # A result the quote reports, word for word, with what the quote says of it.
 ESTIMATES = {
@@ -243,13 +246,6 @@ WITHHELD = [
      'showed no main effect on systemic insulin sensitivity.',
      'Across the strains surveyed, rapamycin delayed glucose clearance but had no main effect on systemic insulin '
      'sensitivity.'),
-    ('e_withheld_het3', '23648089', 'a_liver_mtorc2', 'disputes', 'licence_unknown', 'young and old HET3 mice',
-     'mice', 'NCBITaxon:10090', 'insulin tolerance test', 'physiological',
-     'We find that rapamycin treatment leads to glucose intolerance in both young and old HET3 mice, but in '
-     'contrast to the previously reported effect of injected rapamycin in C57BL/6 mice, HET3 mice treated with '
-     'dietary rapamycin responded normally in an insulin tolerance test.',
-     'Dietary rapamycin made young and old HET3 mice glucose intolerant, yet they responded normally in an insulin '
-     'tolerance test.'),
     ('e_withheld_bone', '34389472', 'a_fewer_side_effects', 'disputes', 'no_open_text',
      'female wild-type (ICR) and Nrf2-/- mice', 'mice', 'NCBITaxon:10090', 'bone mineral density', 'physiological',
      'Rapamycin (4 mg/kg bodyweight) was administered by intraperitoneal injection every other day for 12 weeks. '
@@ -263,9 +259,25 @@ WITHHELD = [
      'After treatment, we find that twenty, mostly mild adverse events occur, systolic blood pressure and '
      'hemoglobin A1c increase, multiple erythrocyte parameters decrease, and there are no significant cognitive '
      'changes.',
-     'After treatment, twenty mostly mild adverse events occurred, and systolic blood pressure and hemoglobin A1c '
-     'rose.'),
+     'In ten people given rapamycin 1 mg a day for eight weeks, twenty mostly mild adverse events occurred, '
+     'systolic blood pressure and hemoglobin A1c rose, and CSF phosphorylated tau-181, glial fibrillary acidic '
+     'protein and neurofilament light and several plasma inflammatory markers increased significantly.'),
 ]
+# How far each line is from the atom it targets. The independent check found that no abstract names the
+# targeted atom's mechanism or schedule (target_ref: 0 of 4 entails); the line for HET3 mice (23648089), whose
+# verdict was no, is dropped, and the other three state the distance here.
+INDIRECTNESS = {
+    # Systemic glucose clearance and insulin sensitivity, not hepatic insulin resistance or mTORC2.
+    'e_withheld_strains': {'system': 'none', 'endpoint': 'serious', 'intervention': 'none', 'comparison': 'none'},
+    # Injection every other day against vehicle, not intermittent against continuous dosing.
+    'e_withheld_bone': {'system': 'none', 'endpoint': 'none', 'intervention': 'some', 'comparison': 'serious'},
+    # Continuous daily dosing (1 mg/day for eight weeks), not intermittent; before and after, no control group.
+    'e_withheld_phase1': {'system': 'none', 'endpoint': 'none', 'intervention': 'serious', 'comparison': 'some'},
+}
+DELTA_VERDICTS = 'sha256:9d0121dd99b49a2007fd8cf98a42fd11d06cdbee1f1e3155041127517498ce19'
+INDIRECTNESS_AT = (INPUT / 'verdicts' / 'RAPA-1.1-DELTA-VERDICTS-20261022.json.checked_at').read_text().strip()
+assert 'sha256:' + hashlib.sha256((INPUT / 'verdicts' / 'RAPA-1.1-DELTA-VERDICTS-20261022.json').read_bytes()).hexdigest() \
+    == DELTA_VERDICTS
 TAXON_SOURCE = {'NCBITaxon:10090': 'biodb_5c456c648524', 'NCBITaxon:9606': 'biodb_1272a10cf166'}
 for (ident, pmid, target, direction, reason, study_system, words, taxon_id, endpoint, term,
      abstract_quote, paraphrase) in WITHHELD:
@@ -278,7 +290,7 @@ for (ident, pmid, target, direction, reason, study_system, words, taxon_id, endp
                     'tool': 'PubMed E-utilities, read by the OHF 1.1 upgrade'}
     human = taxon_id == 'NCBITaxon:9606'
     lines.append({
-        'id': ident, 'target_ref': target, 'direction': {'value': direction, 'src': key},
+        'id': ident, 'target_ref': {'value': target, 'src': key}, 'direction': {'value': direction, 'src': key},
         'quote_withheld': {'value': {'reason': reason, 'locator': 'abstract',
                                      'record_ref': {'scheme': 'pmid', 'id': pmid},
                                      'paraphrase': paraphrase, 'abstract_quote': abstract_quote}, 'src': key},
@@ -288,10 +300,13 @@ for (ident, pmid, target, direction, reason, study_system, words, taxon_id, endp
         'human_proximity': {'value': ('human_clinical' if term in CLINICAL else 'human_marker') if human else 'mammal',
                             'src': TAXON_SOURCE[taxon_id]},
         'src': key})
+    lines[-1]['indirectness'] = {'value': INDIRECTNESS[ident], 'src': key, 'assessment': {
+        'assessor': 'ohf-1-1-upgrade 1.0.0', 'assessed_at': INDIRECTNESS_AT,
+        'evidence_ref': {'kind': 'artifact', 'sha256': DELTA_VERDICTS}}}
     added['gaps'].append({**copy.deepcopy(whole), 'path': f'evidence.lines[{len(lines) - 1}].result_estimate',
                           'reason': 'The quote is withheld; the result is carried by the paraphrase, which gives no figure.'})
 
-# Verdicts of the independent entailment check (ohf-examples), one file per batch in INPUT/verdicts with its
+# Verdicts of the independent entailment check (an independent reader), one file per batch in INPUT/verdicts with its
 # time in a sidecar. A verdict is written only where its pointer resolves; the checker is the base card's.
 checker = added['integrity']['entailment'][0]['checker']
 base = json.loads((INPUT / 'intermittent-rapamycin-mtorc2.json').read_text())
@@ -316,20 +331,45 @@ def content(node):
 # A base record whose checked content the upgrade changed no longer holds; it is dropped until checked again.
 added['integrity']['entailment'] = [r for r in added['integrity']['entailment']
                                     if content(resolve(base, r['pointer'])) == content(resolve(card, r['pointer']))]
+# The delta was checked on the card in which the HET3 line was line 53; it is dropped, so later lines move up.
+MOVED = {'/added/layers/evidence/lines/53': None, '/added/layers/evidence/lines/54': '/added/layers/evidence/lines/53',
+         '/added/layers/evidence/lines/55': '/added/layers/evidence/lines/54'}
+# Values changed after their check: the paraphrase of the phase 1 trial now names the biomarker rises.
+CHANGED = {'/added/layers/evidence/lines/54/quote_withheld'}
+
+
+def moved(pointer):
+    for old, new in MOVED.items():
+        if pointer.startswith(old + '/'):
+            return new and new + pointer[len(old):]
+    return pointer
+
+
 for path in sorted((INPUT / 'verdicts').glob('*.json')) if (INPUT / 'verdicts').is_dir() else []:
     checked_at = Path(f'{path}.checked_at').read_text().strip()
+    delta = path.name.startswith('RAPA-1.1-DELTA')
     for verdict in json.loads(path.read_text()):
-        node = resolve(card, verdict['pointer'])
-        # A record names a sourced value. The target of a line and the quote of an excluded record are not
-        # one: the first is a reading of the card, the second is checked by containment; their verdicts
-        # stay in the verdict file.
+        pointer = moved(verdict['pointer']) if delta else verdict['pointer']
+        if pointer is None or pointer in CHANGED:
+            continue
+        node = resolve(card, pointer)
+        # A record names a sourced value; the target of a withheld line is one. The quote of an excluded record
+        # is checked by containment; that verdict stays in the verdict file.
         if not (isinstance(node, dict) and 'value' in node and 'src' in node):
             continue
+        verdict = {**verdict, 'pointer': pointer}
         record = {'pointer': verdict['pointer'], 'basis': verdict['basis'], 'verdict': verdict['verdict'],
                   'checker': dict(checker), 'checked_at': checked_at}
         if verdict.get('note'):
             record['note'] = verdict['note']
         added['integrity']['entailment'].append(record)
+
+# The selection record names the search; the base card's process step after which it ran is internal.
+selection = next(g for g in added['gaps'] if g['path'] == 'evidence.selection_record')
+assert ', run after wave 4,' in selection['reason']
+selection['reason'] = selection['reason'].replace(', run after wave 4,', ',')
+# This version's requests: every response of the values tool's calls and the four PubMed records.
+added['budget']['http_requests'] += sum(len(entry.get('responses') or []) for entry in log.values()) + len(WITHHELD)
 
 identity = card['identity']
 identity['supersedes'] = [f"{identity['proposition_id']}@{identity['version']}"]

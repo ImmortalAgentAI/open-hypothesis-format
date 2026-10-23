@@ -85,10 +85,10 @@
     "by": {
       "converter": "ohf-1-1-upgrade",
       "converter_version": "1.0.0",
-      "converter_hash": "sha256:51d4607a1369780d540bf0d1ae58358a8f8fc818d567b281327b33d9c2943162",
+      "converter_hash": "sha256:567afc572491fa1f9e084c07845736820594c9a603f80facb77f188855a0484b",
       "model": "claude-opus-5-5"
     },
-    "at": "2026-10-22T06:09:56Z",
+    "at": "2026-10-23T13:42:55Z",
     "cutoff_date": "2026-10-21",
     "layers": {
       "core": {
@@ -3902,6 +3902,15 @@
               "value": "mammal",
               "src": "biodb_5c456c648524"
             },
+            "sample": {
+              "value": {
+                "population": "subgroup",
+                "subgroup": "males at UM",
+                "outcome": "not_stated",
+                "analysis": "not_stated"
+              },
+              "src": "itp_low_dose"
+            },
             "intervention": {
               "agent": {
                 "value": "Rapamycin",
@@ -5034,7 +5043,10 @@
           },
           {
             "id": "e_withheld_strains",
-            "target_ref": "a_liver_mtorc2",
+            "target_ref": {
+              "value": "a_liver_mtorc2",
+              "src": "pubmed_31276577"
+            },
             "direction": {
               "value": "disputes",
               "src": "pubmed_31276577"
@@ -5075,56 +5087,31 @@
               "value": "mammal",
               "src": "biodb_5c456c648524"
             },
-            "src": "pubmed_31276577"
-          },
-          {
-            "id": "e_withheld_het3",
-            "target_ref": "a_liver_mtorc2",
-            "direction": {
-              "value": "disputes",
-              "src": "pubmed_23648089"
-            },
-            "quote_withheld": {
+            "src": "pubmed_31276577",
+            "indirectness": {
               "value": {
-                "reason": "licence_unknown",
-                "locator": "abstract",
-                "record_ref": {
-                  "scheme": "pmid",
-                  "id": "23648089"
-                },
-                "paraphrase": "Dietary rapamycin made young and old HET3 mice glucose intolerant, yet they responded normally in an insulin tolerance test.",
-                "abstract_quote": "We find that rapamycin treatment leads to glucose intolerance in both young and old HET3 mice, but in contrast to the previously reported effect of injected rapamycin in C57BL/6 mice, HET3 mice treated with dietary rapamycin responded normally in an insulin tolerance test."
+                "system": "none",
+                "endpoint": "serious",
+                "intervention": "none",
+                "comparison": "none"
               },
-              "src": "pubmed_23648089"
-            },
-            "study_system": {
-              "value": "young and old HET3 mice",
-              "src": "pubmed_23648089"
-            },
-            "system": {
-              "taxon": {
-                "value": "mice",
-                "src": "pubmed_23648089"
-              },
-              "taxon_id": {
-                "value": "NCBITaxon:10090",
-                "src": "biodb_5c456c648524"
+              "src": "pubmed_31276577",
+              "assessment": {
+                "assessor": "ohf-1-1-upgrade 1.0.0",
+                "assessed_at": "2026-10-22T06:05:23Z",
+                "evidence_ref": {
+                  "kind": "artifact",
+                  "sha256": "sha256:9d0121dd99b49a2007fd8cf98a42fd11d06cdbee1f1e3155041127517498ce19"
+                }
               }
-            },
-            "endpoint_kind": {
-              "value": "insulin tolerance test",
-              "src": "pubmed_23648089",
-              "term": "physiological"
-            },
-            "human_proximity": {
-              "value": "mammal",
-              "src": "biodb_5c456c648524"
-            },
-            "src": "pubmed_23648089"
+            }
           },
           {
             "id": "e_withheld_bone",
-            "target_ref": "a_fewer_side_effects",
+            "target_ref": {
+              "value": "a_fewer_side_effects",
+              "src": "pubmed_34389472"
+            },
             "direction": {
               "value": "disputes",
               "src": "pubmed_34389472"
@@ -5165,11 +5152,31 @@
               "value": "mammal",
               "src": "biodb_5c456c648524"
             },
-            "src": "pubmed_34389472"
+            "src": "pubmed_34389472",
+            "indirectness": {
+              "value": {
+                "system": "none",
+                "endpoint": "none",
+                "intervention": "some",
+                "comparison": "serious"
+              },
+              "src": "pubmed_34389472",
+              "assessment": {
+                "assessor": "ohf-1-1-upgrade 1.0.0",
+                "assessed_at": "2026-10-22T06:05:23Z",
+                "evidence_ref": {
+                  "kind": "artifact",
+                  "sha256": "sha256:9d0121dd99b49a2007fd8cf98a42fd11d06cdbee1f1e3155041127517498ce19"
+                }
+              }
+            }
           },
           {
             "id": "e_withheld_phase1",
-            "target_ref": "a_humans_few_adverse",
+            "target_ref": {
+              "value": "a_humans_few_adverse",
+              "src": "pubmed_40394335"
+            },
             "direction": {
               "value": "neutral",
               "src": "pubmed_40394335"
@@ -5182,7 +5189,7 @@
                   "scheme": "pmid",
                   "id": "40394335"
                 },
-                "paraphrase": "After treatment, twenty mostly mild adverse events occurred, and systolic blood pressure and hemoglobin A1c rose.",
+                "paraphrase": "In ten people given rapamycin 1 mg a day for eight weeks, twenty mostly mild adverse events occurred, systolic blood pressure and hemoglobin A1c rose, and CSF phosphorylated tau-181, glial fibrillary acidic protein and neurofilament light and several plasma inflammatory markers increased significantly.",
                 "abstract_quote": "After treatment, we find that twenty, mostly mild adverse events occur, systolic blood pressure and hemoglobin A1c increase, multiple erythrocyte parameters decrease, and there are no significant cognitive changes."
               },
               "src": "pubmed_40394335"
@@ -5210,7 +5217,24 @@
               "value": "human_clinical",
               "src": "biodb_1272a10cf166"
             },
-            "src": "pubmed_40394335"
+            "src": "pubmed_40394335",
+            "indirectness": {
+              "value": {
+                "system": "none",
+                "endpoint": "none",
+                "intervention": "serious",
+                "comparison": "some"
+              },
+              "src": "pubmed_40394335",
+              "assessment": {
+                "assessor": "ohf-1-1-upgrade 1.0.0",
+                "assessed_at": "2026-10-22T06:05:23Z",
+                "evidence_ref": {
+                  "kind": "artifact",
+                  "sha256": "sha256:9d0121dd99b49a2007fd8cf98a42fd11d06cdbee1f1e3155041127517498ce19"
+                }
+              }
+            }
           }
         ],
         "excluded": [
@@ -6028,7 +6052,7 @@
       {
         "path": "evidence.selection_record",
         "disposition": "not_supplied",
-        "reason": "A citation search of three services (Europe PMC, PubMed and OpenAlex) over four seed works, run after wave 4, read 1,395 citing works by title, 68 by abstract, and named sixteen works against this card that were in neither the card nor its leads; seven of those bear directly on an atom. Three of the seven could be read under the licence rule and two are now lines of this card (e_oa_mtorc2_intact from PMC8495984 and e_blago_transplant from PMC6690951, both CC BY). The third, PMC9652467 (Xie et al. 2022, deep phenotyping: lifespan interventions act in age-independent ways rather than slowing the rate of age-dependent change), is CC BY and read, and is carried here rather than as a line because what it disputes is the healthspan premise, which this card holds as the assumption as_healthspan_in_mice, and a line can target an atom, a mechanism step or a prediction, not an assumption. Four of the seven could not be read: PMID 31276577 / PMC6909913 and PMID 23648089 / PMC3727050 (glucose intolerance with insulin sensitivity preserved, attributed to insulin secretion) have no licence in the record; PMID 34389472 (impaired bone accrual under every-other-day dosing, the one direct objection to the intermittent schedule itself) is CC BY but has no PMC record, so the route this card uses reaches no text; PMID 40394335 / PMC12092812 (a phase 1 of 1 mg daily in people: HbA1c and systolic pressure up, cerebrospinal p-tau181, GFAP and NfL up) is CC BY-NC-ND and may not be quoted. The nine works that limit the scope rather than contradict a claim are named in the report with the same kind of reason. The counts of the conversion's own searches exist and are not in the card: every call of this conversion is in search-log.jsonl with the sha256 of every response, five query families run twice on two services, four of them returning nothing with their call ids, 100 similar candidates narrowed to 25. The counts themselves are in the report, with the sha256 of the log as it stood at handover, because the log keeps growing while the conversion runs - the entity lookups write to it too - and a count written into the card would be stale by the next run. Works that wave 3 named as fetchable and that are not in the card are listed in the report as known and not read, with their identifiers; so is Blagosklonny 2012 (PMC3384435), which is CC BY 2.5 - a licence the released kit does not accept, though it permits republication with attribution - and which is therefore a lead this conversion could not use. The field is a sourced value, and the kit can bind a value only to a paragraph of a source document, not to its own search log.",
+        "reason": "A citation search of three services (Europe PMC, PubMed and OpenAlex) over four seed works, read 1,395 citing works by title, 68 by abstract, and named sixteen works against this card that were in neither the card nor its leads; seven of those bear directly on an atom. Three of the seven could be read under the licence rule and two are now lines of this card (e_oa_mtorc2_intact from PMC8495984 and e_blago_transplant from PMC6690951, both CC BY). The third, PMC9652467 (Xie et al. 2022, deep phenotyping: lifespan interventions act in age-independent ways rather than slowing the rate of age-dependent change), is CC BY and read, and is carried here rather than as a line because what it disputes is the healthspan premise, which this card holds as the assumption as_healthspan_in_mice, and a line can target an atom, a mechanism step or a prediction, not an assumption. Four of the seven could not be read: PMID 31276577 / PMC6909913 and PMID 23648089 / PMC3727050 (glucose intolerance with insulin sensitivity preserved, attributed to insulin secretion) have no licence in the record; PMID 34389472 (impaired bone accrual under every-other-day dosing, the one direct objection to the intermittent schedule itself) is CC BY but has no PMC record, so the route this card uses reaches no text; PMID 40394335 / PMC12092812 (a phase 1 of 1 mg daily in people: HbA1c and systolic pressure up, cerebrospinal p-tau181, GFAP and NfL up) is CC BY-NC-ND and may not be quoted. The nine works that limit the scope rather than contradict a claim are named in the report with the same kind of reason. The counts of the conversion's own searches exist and are not in the card: every call of this conversion is in search-log.jsonl with the sha256 of every response, five query families run twice on two services, four of them returning nothing with their call ids, 100 similar candidates narrowed to 25. The counts themselves are in the report, with the sha256 of the log as it stood at handover, because the log keeps growing while the conversion runs - the entity lookups write to it too - and a count written into the card would be stale by the next run. Works that wave 3 named as fetchable and that are not in the card are listed in the report as known and not read, with their identifiers; so is Blagosklonny 2012 (PMC3384435), which is CC BY 2.5 - a licence the released kit does not accept, though it permits republication with attribution - and which is therefore a lead this conversion could not use. The field is a sourced value, and the kit can bind a value only to a paragraph of a source document, not to its own search log.",
         "query_ids": [],
         "inspected_artifacts": [
           {
@@ -6964,18 +6988,6 @@
             "sha256": "sha256:a839cc772f42ad22517fbcc60e73c7c88361d3a8fbf0dae417f9791c4bb148b1"
           }
         ]
-      },
-      {
-        "path": "evidence.lines[55].result_estimate",
-        "disposition": "not_supplied",
-        "reason": "The quote is withheld; the result is carried by the paraphrase, which gives no figure.",
-        "query_ids": [],
-        "inspected_artifacts": [
-          {
-            "kind": "artifact",
-            "sha256": "sha256:a839cc772f42ad22517fbcc60e73c7c88361d3a8fbf0dae417f9791c4bb148b1"
-          }
-        ]
       }
     ],
     "completeness": {
@@ -7381,43 +7393,43 @@
         "source": "https://eutils.ncbi.nlm.nih.gov/entrez/eutils/efetch.fcgi?db=taxonomy&id=10090&tool=ohf-extractor",
         "locator": "NCBI Taxonomy: Mus musculus",
         "accessed_at": "2026-10-22T05:44:23Z",
-        "tool": "arena-biodb biodb.py (eaf6f4c), call 5c456c648524"
+        "tool": "values tool biodb.py (commit eaf6f4c), call 5c456c648524"
       },
       "biodb_3689ccb70989": {
         "source": "https://eutils.ncbi.nlm.nih.gov/entrez/eutils/efetch.fcgi?db=taxonomy&id=7215&tool=ohf-extractor",
         "locator": "NCBI Taxonomy: NCBITaxon:7215",
         "accessed_at": "2026-10-22T05:44:24Z",
-        "tool": "arena-biodb biodb.py (eaf6f4c), call 3689ccb70989"
+        "tool": "values tool biodb.py (commit eaf6f4c), call 3689ccb70989"
       },
       "biodb_1272a10cf166": {
         "source": "https://eutils.ncbi.nlm.nih.gov/entrez/eutils/efetch.fcgi?db=taxonomy&id=9606&tool=ohf-extractor",
         "locator": "NCBI Taxonomy: Homo sapiens",
         "accessed_at": "2026-10-22T05:44:20Z",
-        "tool": "arena-biodb biodb.py (eaf6f4c), call 1272a10cf166"
+        "tool": "values tool biodb.py (commit eaf6f4c), call 1272a10cf166"
       },
       "biodb_bc9024e1fee4": {
         "source": "https://eutils.ncbi.nlm.nih.gov/entrez/eutils/efetch.fcgi?db=taxonomy&id=40674&tool=ohf-extractor",
         "locator": "NCBI Taxonomy: Mammalia",
         "accessed_at": "2026-10-22T05:44:21Z",
-        "tool": "arena-biodb biodb.py (eaf6f4c), call bc9024e1fee4"
+        "tool": "values tool biodb.py (commit eaf6f4c), call bc9024e1fee4"
       },
       "biodb_f048de3b9989": {
         "source": "https://eutils.ncbi.nlm.nih.gov/entrez/eutils/efetch.fcgi?db=taxonomy&id=6239&tool=ohf-extractor",
         "locator": "NCBI Taxonomy: Caenorhabditis elegans",
         "accessed_at": "2026-10-22T05:44:18Z",
-        "tool": "arena-biodb biodb.py (eaf6f4c), call f048de3b9989"
+        "tool": "values tool biodb.py (commit eaf6f4c), call f048de3b9989"
       },
       "biodb_9a3c1a1c8f86": {
         "source": "https://eutils.ncbi.nlm.nih.gov/entrez/eutils/efetch.fcgi?db=taxonomy&id=10141&tool=ohf-extractor",
         "locator": "NCBI Taxonomy: Cavia porcellus",
         "accessed_at": "2026-10-22T05:44:19Z",
-        "tool": "arena-biodb biodb.py (eaf6f4c), call 9a3c1a1c8f86"
+        "tool": "values tool biodb.py (commit eaf6f4c), call 9a3c1a1c8f86"
       },
       "biodb_a68e90ff911c": {
         "source": "https://open-genes.com/api/gene/MTOR?lang=en",
         "locator": "hallmarks of aging: MTOR",
         "accessed_at": "2026-10-22T05:44:39Z",
-        "tool": "arena-biodb biodb.py (eaf6f4c), call a68e90ff911c"
+        "tool": "values tool biodb.py (commit eaf6f4c), call a68e90ff911c"
       },
       "itp_programme": {
         "source": "https://www.ebi.ac.uk/europepmc/webservices/rest/PMC4032600/fullTextXML",
@@ -7429,12 +7441,6 @@
         "source": "https://eutils.ncbi.nlm.nih.gov/entrez/eutils/efetch.fcgi?db=pubmed&id=31276577&retmode=xml",
         "locator": "PubMed record, abstract",
         "accessed_at": "2026-10-22T05:55:35Z",
-        "tool": "PubMed E-utilities, read by the OHF 1.1 upgrade"
-      },
-      "pubmed_23648089": {
-        "source": "https://eutils.ncbi.nlm.nih.gov/entrez/eutils/efetch.fcgi?db=pubmed&id=23648089&retmode=xml",
-        "locator": "PubMed record, abstract",
-        "accessed_at": "2026-10-22T05:55:43Z",
         "tool": "PubMed E-utilities, read by the OHF 1.1 upgrade"
       },
       "pubmed_34389472": {
@@ -7452,7 +7458,7 @@
     },
     "budget": {
       "model_calls": 0,
-      "http_requests": 8,
+      "http_requests": 59,
       "input_tokens": null,
       "output_tokens": null
     },
@@ -13577,24 +13583,14 @@
         {
           "pointer": "/added/layers/evidence/lines/54/direction",
           "basis": "src",
-          "verdict": "entails",
+          "verdict": "partial",
           "checker": {
             "name": "ohf-entailment-check",
             "version": "1.0.0",
             "prompt_sha256": "sha256:46716d7b4fc070b952d7ace5ae597c64b9414e63b15e38a94e719a2eb4fae146"
           },
-          "checked_at": "2026-10-22T06:05:23Z"
-        },
-        {
-          "pointer": "/added/layers/evidence/lines/54/quote_withheld",
-          "basis": "src",
-          "verdict": "entails",
-          "checker": {
-            "name": "ohf-entailment-check",
-            "version": "1.0.0",
-            "prompt_sha256": "sha256:46716d7b4fc070b952d7ace5ae597c64b9414e63b15e38a94e719a2eb4fae146"
-          },
-          "checked_at": "2026-10-22T06:05:23Z"
+          "checked_at": "2026-10-22T06:05:23Z",
+          "note": "The passage gives no grounds for a neutral direction overall: alongside the absence of cognitive change it reports significant increases in CSF tau-181, GFAP and neurofilament light, plus higher systolic blood pressure and HbA1c and lower erythrocyte parameters."
         },
         {
           "pointer": "/added/layers/evidence/lines/54/study_system",
@@ -13630,7 +13626,7 @@
           "checked_at": "2026-10-22T06:05:23Z"
         },
         {
-          "pointer": "/added/layers/evidence/lines/55/direction",
+          "pointer": "/added/layers/evidence/lines/52/target_ref",
           "basis": "src",
           "verdict": "partial",
           "checker": {
@@ -13639,51 +13635,31 @@
             "prompt_sha256": "sha256:46716d7b4fc070b952d7ace5ae597c64b9414e63b15e38a94e719a2eb4fae146"
           },
           "checked_at": "2026-10-22T06:05:23Z",
-          "note": "The passage gives no grounds for a neutral direction overall: alongside the absence of cognitive change it reports significant increases in CSF tau-181, GFAP and neurofilament light, plus higher systolic blood pressure and HbA1c and lower erythrocyte parameters."
+          "note": "The passage disputes rapamycin-induced systemic insulin resistance but never mentions mTORC2, the liver or hepatic insulin resistance, so it gives no grounds for a verdict on that specific mechanistic atom."
         },
         {
-          "pointer": "/added/layers/evidence/lines/55/quote_withheld",
+          "pointer": "/added/layers/evidence/lines/53/target_ref",
           "basis": "src",
-          "verdict": "entails",
+          "verdict": "partial",
           "checker": {
             "name": "ohf-entailment-check",
             "version": "1.0.0",
             "prompt_sha256": "sha256:46716d7b4fc070b952d7ace5ae597c64b9414e63b15e38a94e719a2eb4fae146"
           },
-          "checked_at": "2026-10-22T06:05:23Z"
+          "checked_at": "2026-10-22T06:05:23Z",
+          "note": "The passage reports harm under an every-other-day 4 mg/kg regimen but never compares intermittent with continuous dosing or low with high doses, so it gives no grounds for disputing a claim specifically about intermittent, low-dose treatment having reduced side effects, and it hedges its own conclusion with \"may\"."
         },
         {
-          "pointer": "/added/layers/evidence/lines/55/study_system",
+          "pointer": "/added/layers/evidence/lines/54/target_ref",
           "basis": "src",
-          "verdict": "entails",
+          "verdict": "partial",
           "checker": {
             "name": "ohf-entailment-check",
             "version": "1.0.0",
             "prompt_sha256": "sha256:46716d7b4fc070b952d7ace5ae597c64b9414e63b15e38a94e719a2eb4fae146"
           },
-          "checked_at": "2026-10-22T06:05:23Z"
-        },
-        {
-          "pointer": "/added/layers/evidence/lines/55/system/taxon",
-          "basis": "src",
-          "verdict": "entails",
-          "checker": {
-            "name": "ohf-entailment-check",
-            "version": "1.0.0",
-            "prompt_sha256": "sha256:46716d7b4fc070b952d7ace5ae597c64b9414e63b15e38a94e719a2eb4fae146"
-          },
-          "checked_at": "2026-10-22T06:05:23Z"
-        },
-        {
-          "pointer": "/added/layers/evidence/lines/55/endpoint_kind",
-          "basis": "src",
-          "verdict": "entails",
-          "checker": {
-            "name": "ohf-entailment-check",
-            "version": "1.0.0",
-            "prompt_sha256": "sha256:46716d7b4fc070b952d7ace5ae597c64b9414e63b15e38a94e719a2eb4fae146"
-          },
-          "checked_at": "2026-10-22T06:05:23Z"
+          "checked_at": "2026-10-22T06:05:23Z",
+          "note": "The passage describes continuous daily dosing (1 mg/day for eight weeks), not intermittent dosing, and reports twenty adverse events together with significant biomarker, blood-pressure and HbA1c increases, so it does not support the 'few adverse events' framing as a neutral result."
         },
         {
           "pointer": "/added/layers/evidence/lines/0/system/taxon",
@@ -14908,5 +14884,5 @@
     "source_class": "external_published",
     "intervention_type": "small-molecule drug"
   },
-  "content_hash": "sha256:44fa3cb812b6c5bcf740ca4d3a69cf75428182f599f7c46722c8d5cd25aab72d"
+  "content_hash": "sha256:840b74d8cf5c66a1acc1975005f82eb61494b9d0202a4f1fc3dc8b4e201f848b"
 }

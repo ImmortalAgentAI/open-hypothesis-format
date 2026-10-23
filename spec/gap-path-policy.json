@@ -555,52 +555,52 @@
     {
       "path": "evidence.lines[].intervention.agent",
       "na_allowed": "never",
-      "reason": "A field of the intervention-pharmacology domain profile. A card with profile.domain \"none\" leaves it absent and records no gap; a card in that profile has no N/A exception."
+      "reason": "A condition of the study behind the line, not gated by the domain profile: any card may record it, and a missing value is not scientific inapplicability."
     },
     {
       "path": "evidence.lines[].intervention.dose",
       "na_allowed": "never",
-      "reason": "A field of the intervention-pharmacology domain profile. A card with profile.domain \"none\" leaves it absent and records no gap; a card in that profile has no N/A exception."
+      "reason": "A condition of the study behind the line, not gated by the domain profile: any card may record it, and a missing value is not scientific inapplicability."
     },
     {
       "path": "evidence.lines[].intervention.regimen",
       "na_allowed": "never",
-      "reason": "A field of the intervention-pharmacology domain profile. A card with profile.domain \"none\" leaves it absent and records no gap; a card in that profile has no N/A exception."
+      "reason": "A condition of the study behind the line, not gated by the domain profile: any card may record it, and a missing value is not scientific inapplicability."
     },
     {
       "path": "evidence.lines[].intervention.duration",
       "na_allowed": "never",
-      "reason": "A field of the intervention-pharmacology domain profile. A card with profile.domain \"none\" leaves it absent and records no gap; a card in that profile has no N/A exception."
+      "reason": "A condition of the study behind the line, not gated by the domain profile: any card may record it, and a missing value is not scientific inapplicability."
     },
     {
       "path": "evidence.lines[].intervention.route",
       "na_allowed": "never",
-      "reason": "A field of the intervention-pharmacology domain profile. A card with profile.domain \"none\" leaves it absent and records no gap; a card in that profile has no N/A exception."
+      "reason": "A condition of the study behind the line, not gated by the domain profile: any card may record it, and a missing value is not scientific inapplicability."
     },
     {
       "path": "evidence.lines[].intervention.formulation",
       "na_allowed": "never",
-      "reason": "A field of the intervention-pharmacology domain profile. A card with profile.domain \"none\" leaves it absent and records no gap; a card in that profile has no N/A exception."
+      "reason": "A condition of the study behind the line, not gated by the domain profile: any card may record it, and a missing value is not scientific inapplicability."
     },
     {
       "path": "evidence.lines[].intervention.nominal_concentration",
       "na_allowed": "never",
-      "reason": "A field of the intervention-pharmacology domain profile. A card with profile.domain \"none\" leaves it absent and records no gap; a card in that profile has no N/A exception."
+      "reason": "A condition of the study behind the line, not gated by the domain profile: any card may record it, and a missing value is not scientific inapplicability."
     },
     {
       "path": "evidence.lines[].intervention.measured_concentration",
       "na_allowed": "never",
-      "reason": "A field of the intervention-pharmacology domain profile. A card with profile.domain \"none\" leaves it absent and records no gap; a card in that profile has no N/A exception."
+      "reason": "A condition of the study behind the line, not gated by the domain profile: any card may record it, and a missing value is not scientific inapplicability."
     },
     {
       "path": "evidence.lines[].intervention.intake",
       "na_allowed": "never",
-      "reason": "A field of the intervention-pharmacology domain profile. A card with profile.domain \"none\" leaves it absent and records no gap; a card in that profile has no N/A exception."
+      "reason": "A condition of the study behind the line, not gated by the domain profile: any card may record it, and a missing value is not scientific inapplicability."
     },
     {
       "path": "evidence.lines[].intervention.systemic_exposure",
       "na_allowed": "never",
-      "reason": "A field of the intervention-pharmacology domain profile. A card with profile.domain \"none\" leaves it absent and records no gap; a card in that profile has no N/A exception."
+      "reason": "A condition of the study behind the line, not gated by the domain profile: any card may record it, and a missing value is not scientific inapplicability."
     },
     {
       "path": "evidence.lines[].multi_site_program",
