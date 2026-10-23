@@ -1,5 +1,12 @@
 # Changelog
 
+## 1.1.2 (2026-10-23)
+
+The card format, the schemas and the vocabularies are unchanged.
+
+- The OHF 1.1 examples `peto-paradox-mammals` and `intermittent-rapamycin-mtorc2` are version 9, built by `examples/converters/ohf-1-1-upgrade-peto-1.0.1/` and `examples/converters/ohf-1-1-upgrade-1.0.2/` from the accepted base cards of version 8, which differ only in the wording of their prose. The added values and the entailment records are the same; the rules of both pin the entailment prompt by its SHA-256.
+- An example card may quote a source under CC BY 1.0, 2.0 or 2.5 as well as CC BY 3.0 or 4.0 (SPDX `CC-BY-1.0`, `CC-BY-2.0`, `CC-BY-2.5`); a CC BY licence without a version, and an NC, ND or SA licence, are refused.
+
 ## 1.1.1 (2026-10-23)
 
 The card format, the schemas and the vocabularies are unchanged.
