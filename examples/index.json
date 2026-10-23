@@ -24,7 +24,7 @@
   "intermittent-rapamycin-mtorc2": {
     "id": "h_intermittent-rapamycin-mtorc2",
     "version": 3,
-    "content_hash": "sha256:840b74d8cf5c66a1acc1975005f82eb61494b9d0202a4f1fc3dc8b4e201f848b",
+    "content_hash": "sha256:700a700602534afac557eb44a9babcdb27aaca179e66669fb43594a06b6b0613",
     "source": {
       "kind": "paper",
       "citation": "Lamming DW. Rapamycin: the beginning of the end of aging? GeroScience. 2026",
@@ -38,8 +38,8 @@
     },
     "conversion": {
       "converter": "ohf-1-1-upgrade",
-      "converter_version": "1.0.0",
-      "converter_hash": "sha256:567afc572491fa1f9e084c07845736820594c9a603f80facb77f188855a0484b",
+      "converter_version": "1.0.1",
+      "converter_hash": "sha256:b468df8859b6df174182a549606d8637dd7bee3f7edff9ef75cd62b9bcc1ad50",
       "model": "claude-opus-5-5"
     },
     "base": {
