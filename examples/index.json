@@ -52,8 +52,8 @@
   },
   "peto-paradox-mammals": {
     "id": "h_peto-paradox-mammals",
-    "version": 3,
-    "content_hash": "sha256:8f40ecf23f2e223e2a4a2126e5c2da6571ffb6e705363d432f04cd53859cad55",
+    "version": 4,
+    "content_hash": "sha256:97e0e0ec332ee9a68ab1c56cae8fd4029a688112c5d7f13ae8fc11de75495b31",
     "source": {
       "kind": "paper",
       "citation": "Vincze O, Colchero F, Lemaître JF, Conde DA, Pavard S, Bieuville M, Urrutia AO, Ujvari B, Boddy AM, Maley CC, Thomas F, Giraudeau M. Cancer risk across mammals. Nature. 2022;601(7892):263-267",
@@ -68,12 +68,12 @@
     "conversion": {
       "converter": "ohf-1-1-upgrade-peto",
       "converter_version": "1.0.0",
-      "converter_hash": "sha256:a01452db2475bb74dc792d8dca8fb0ca05d1140d2197c33d4a1290a6ea21e2c1",
+      "converter_hash": "sha256:0a3e882dff9a74c44f423f6f0a2233abb8d80deccfbcce54a2426286aeaa6b75",
       "model": "claude-opus-5-5"
     },
     "base": {
-      "version": 2,
-      "content_hash": "sha256:b04374244b572b21b624e0db366a2d50a542a6d63f9f567f323ab16d4de81744",
+      "version": 3,
+      "content_hash": "sha256:721bbc8f5e8979b4453d71b7f7cbd479c7ef990aea740480b8f7c6114e21769c",
       "converter": "ohf-extractor",
       "converter_version": "0.8.17",
       "acceptance": "accepted"

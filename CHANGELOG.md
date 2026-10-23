@@ -5,7 +5,7 @@
 The card format, the schemas and the vocabularies are unchanged.
 
 - The rapa example no longer names the base card's internal review rounds in the reason of its `evidence.selection_record` gap. The converter is now `ohf-1-1-upgrade` 1.0.1 (`examples/converters/ohf-1-1-upgrade-1.0.1/`); the card is rebuilt, so its `content_hash` changed.
-- New example `examples/cards/peto-paradox-mammals.json`, an OHF 1.1 card upgraded from an accepted 1.0 card by `examples/converters/ohf-1-1-upgrade-peto-1.0.0/`. Its new values were checked against their passages by an independent reader; its independence groups carry DOI keys.
+- New example `examples/cards/peto-paradox-mammals.json`, version 4, an OHF 1.1 card upgraded by `examples/converters/ohf-1-1-upgrade-peto-1.0.0/` from the accepted 1.0 card, version 3 (`sha256:721bbc8f…`). Its new values were checked against their passages by an independent reader; taxon identifiers, rungs, independence keys, `requires` links and the identifiers of alternatives were not, and are checked by the schema and `tools/check_refs.py`. Its independence groups that rest on one work carry that work's DOI as a key.
 
 ## 1.1.0 (2026-10-23)
 
