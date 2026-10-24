@@ -20,7 +20,7 @@ This glossary defines the terms the Open Hypothesis Format (OHF) specification u
 
 **Card version.** One immutable version of a card, referenced by its `id`, `version` and `content_hash`. Relations artifacts and pair briefs bind to card versions, and `identity.supersedes[]` lists the earlier versions a card replaces. See [fields](fields.md).
 
-**Catalogue.** The [field catalogue](field-catalogue.json): all 219 logical paths, each with its layer, definition, logical type, vocabulary, conceptual basis and field class. The [field reference](fields.md) gives an example for every path.
+**Catalogue.** The [field catalogue](field-catalogue.json): all 220 logical paths, each with its layer, definition, logical type, vocabulary, conceptual basis and field class. The [field reference](fields.md) gives an example for every path.
 
 **Claim type.** `core.atoms[].claim_type`: what kind of claim an atom makes: `existence`, `distribution`, `association`, `causal_effect`, `mechanism`, `functional_attribution`, `evolutionary_explanation`, `development`, `constitution`, `quantitative_law`, `model_sufficiency`, `historical_reconstruction`, or `other` with a note. It is required on every added-zone atom. See [fields](fields.md).
 

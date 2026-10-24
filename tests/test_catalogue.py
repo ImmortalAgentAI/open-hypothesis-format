@@ -1,5 +1,6 @@
 """Catalogue, reference data and card examples stay consistent."""
 from pathlib import Path
+import re
 
 import pytest
 
@@ -11,6 +12,16 @@ REFERENCE = load(ROOT / 'spec/field-reference.json')['fields']
 CARDS = {'muller-sheltering': 'examples/cards/muller-sheltering.json',
          **{f'fx_{name}': f'tests/fixtures/fictional/fx_{name}.json'
             for name in ('one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight')}}
+
+
+@pytest.mark.parametrize('document', ['spec/README.md', 'spec/glossary.md', 'spec/fields.md'])
+def test_documented_path_count_matches_catalogue(document):
+    counts = re.findall(r'\ball\s+(\d+)\s+logical(?: catalogue)? paths\b',
+                        (ROOT / document).read_text(), re.IGNORECASE)
+    assert counts, f'{document}: missing catalogue path count'
+    assert all(int(count) == len(CATALOGUE) for count in counts), (
+        f'{document}: documented counts {counts}, catalogue has {len(CATALOGUE)} paths'
+    )
 
 
 def resolve(document, pointer):

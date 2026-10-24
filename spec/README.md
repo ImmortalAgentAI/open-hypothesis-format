@@ -9,7 +9,7 @@ Every card states `standard_version`, the version of the card format: `"1.0"`, `
 | File | Contents |
 | --- | --- |
 | [glossary.md](glossary.md) | Definitions of the terms OHF uses |
-| [field-catalogue.json](field-catalogue.json) | All 219 logical paths, with definition, logical type, vocabulary, conceptual basis and field class |
+| [field-catalogue.json](field-catalogue.json) | All 220 logical paths, with definition, logical type, vocabulary, conceptual basis and field class |
 | [fields.md](fields.md) | Field reference with an example for every path, generated from [field-reference.json](field-reference.json) |
 | [logical-types.md](logical-types.md) | How logical types are represented |
 | [references.md](references.md) | The identifier namespaces of a card and what each reference field must name |
