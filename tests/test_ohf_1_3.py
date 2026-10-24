@@ -107,6 +107,13 @@ def test_the_default_release_context_is_the_tools_own():
     assert '1.1.4' in context['known'] and '1.2.0' in context['known']
 
 
+def test_a_1_3_0_card_passes_with_the_tools_own_release_context():
+    # With the release commit the checkout itself knows 1.3.0: no injected context.
+    card = with_release(as_1_3(PETO), '1.3.0')
+    assert not validation_errors(SCHEMA, card)
+    assert not {'REF_RELEASE_VERSION', 'REF_RELEASE_UNKNOWN'} & {i['code'] for i in check_refs(card)['errors']}
+
+
 # ------------------------------------------------------------------ N3: the licence ids that OHF defines
 
 LICENCE_REFS = load(ROOT / 'vocabularies/licence-refs-1.json')

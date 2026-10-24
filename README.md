@@ -8,7 +8,7 @@ Biological hypotheses are written as prose, spread across papers, preprints and,
 
 In OHF, a **hypothesis** is a proposed claim about a living system, typically an explanation of an observed phenomenon, that goes beyond established knowledge at the time it is stated, is stated with its scope and conditions, and entails observations that would count for or against it. The [glossary](spec/glossary.md) defines the other terms.
 
-This repository holds OHF 1.2.0: the specification, the JSON Schemas, the vocabularies, example cards and a reference validator. OHF 1.1 is a minor version of OHF 1.0, and OHF 1.2 of OHF 1.1; a 1.0 or 1.1 card stays valid and is checked by its own rules. Their additions are listed in the specification, sections [OHF 1.1](spec/README.md#ohf-11) and [OHF 1.2](spec/README.md#ohf-12).
+This repository holds OHF 1.3.0: the specification, the JSON Schemas, the vocabularies, example cards and a reference validator. OHF 1.1 is a minor version of OHF 1.0, OHF 1.2 of OHF 1.1, and OHF 1.3 of OHF 1.2; a 1.0, 1.1 or 1.2 card stays valid and is checked by its own rules. Their additions are listed in the specification, sections [OHF 1.1](spec/README.md#ohf-11), [OHF 1.2](spec/README.md#ohf-12) and [OHF 1.3](spec/README.md#ohf-13).
 
 - **Implementers** who write, convert or read cards: start with the [schema](schema/hypothesis-1.schema.json) and the [validator](tools/validate.py).
 - **Scientists and reviewers**: start with the [field reference](spec/fields.md) and the [specification](spec/README.md).
@@ -27,7 +27,7 @@ A card has two zones. `author` holds the author's assertions; each value carries
 
 The field catalogue also has layer 0, identity and versions, which applies to the whole card, and the pair-level record, which describes two cards together and is stored outside them. A field with no value is listed in `added.gaps` with the reason. Each field has a class, `searchable`, `author_only` or `system`, that says whether a missing value calls for a search.
 
-Every card states `"standard_version": "1.0"`, `"1.1"` or `"1.2"`. This names the version of the card format. It changes only when the format changes; a release that fixes only text or tools, such as 1.0.1, keeps it. A card names its domain profile: `ohf:intervention-pharmacology@1` for a claim about the effect of an intervention, from OHF 1.1 `ohf:aging@1` for a claim about aging, which adds the hallmarks of aging, or `none`; from OHF 1.2 the card names a list of profiles. The intervention details and intercurrent events of that profile are stored in the predictions layer. The added zone records how it was produced, whether the source was downloaded again and matched, and whether the source supports each added value.
+Every card states `"standard_version": "1.0"`, `"1.1"`, `"1.2"` or `"1.3"`. This names the version of the card format. It changes only when the format changes; a release that fixes only text or tools, such as 1.0.1, keeps it. A card names its domain profile: `ohf:intervention-pharmacology@1` for a claim about the effect of an intervention, from OHF 1.1 `ohf:aging@1` for a claim about aging, which adds the hallmarks of aging, or `none`; from OHF 1.2 the card names a list of profiles. The intervention details and intercurrent events of that profile are stored in the predictions layer. The added zone records how it was produced, whether the source was downloaded again and matched, and whether the source supports each added value.
 
 ## Repository layout
 
@@ -74,7 +74,7 @@ CI runs the repository checks on every pull request and on `main`, on both hosti
 - Many fields are illustrated in the [field reference](spec/fields.md) only by a short example value or by fictional test fixtures, not by a card from a published source.
 - In OHF 1.0, evidence types, taxa and agent types are free text, not identifiers from external vocabularies; OHF 1.1 adds optional closed terms and NCBI Taxonomy identifiers. The indirectness and risk-of-bias vocabularies are OHF's own and are not mapped to GRADE or RoB 2.
 - Quantities, intervals and assessments are source-literal strings; see [logical types](spec/logical-types.md).
-- Question references and the assertion registry have no serialization in OHF 1.0, 1.1 or 1.2. Of the pair-level fields, the relation is stored in a relations artifact and the hypothesis references and the decisive test in a pair brief; discriminability, the diagnosticity matrix, pair assumptions and comparison context have none. The [storage mapping](spec/mapping.md) marks the fields without serialization as deferred.
+- Question references and the assertion registry have no serialization in OHF 1.0, 1.1, 1.2 or 1.3. Of the pair-level fields, the relation is stored in a relations artifact and the hypothesis references and the decisive test in a pair brief; discriminability, the diagnosticity matrix, pair assumptions and comparison context have none. The [storage mapping](spec/mapping.md) marks the fields without serialization as deferred.
 
 ## Licensing
 
