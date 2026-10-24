@@ -1,6 +1,8 @@
 # Changelog
 
-## Unreleased
+## 1.2.0 (2026-10-24)
+
+A minor version: every new member is optional, 1.0 and 1.1 cards stay valid and are checked by their own rules, and they may not carry a member introduced in 1.2 or name one in a gap. One form changes in a 1.2 card: `profile.domain` is a list. The three new catalogue paths are marked `since: "1.2"`. The rules are listed in [spec/README.md, section OHF 1.2](spec/README.md#ohf-12).
 
 - **How a value is checked (OHF 1.2).** Each catalogue row has a `check`: `passage`, `resolution` or `card`, or one for each member of its value. In a 1.2 card an entailment record follows the check of the value it names (`REF_BASIS_KIND`); a value checked by resolution has a record with basis `resolution`, a tool checker and `resolved_against`, bound to the response and the key (`REF_RESOLUTION_BINDING`), or a warning that it was not checked (`REF_NOT_RESOLVED`). `target_ref` is a reference without a `src`; whether a line bears on its target is checked through its `direction`, with the target's statement for all five kinds of target. `quote_withheld` is checked member by member. A source record may give the `sha256` of its response. See [spec/README.md, section OHF 1.2](spec/README.md#ohf-12).
 - **Closed predicates (OHF 1.2).** The relation of an atom triple is a predicate of `vocabularies/predicates-1.json` (`ohf:predicates@1`, pinned when an atom has a triple) with its label there (`REF_PREDICATE_LABEL`), and a qualifier is one of its qualifier slots. When no predicate fits, the triple is not written and a gap names the relation. See [spec/README.md, section OHF 1.2](spec/README.md#ohf-12).
