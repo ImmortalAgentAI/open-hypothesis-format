@@ -10,7 +10,7 @@
     },
     "id": {
       "type": "string",
-      "pattern": "^h_[a-z0-9-]+$"
+      "pattern": "^h_[a-z0-9-]+(?![\\s\\S])"
     },
     "version": {
       "type": "integer",
@@ -18,7 +18,7 @@
     },
     "content_hash": {
       "type": "string",
-      "pattern": "^sha256:[0-9a-f]{64}$"
+      "pattern": "^sha256:[0-9a-f]{64}(?![\\s\\S])"
     },
     "identity": {
       "type": "object",
@@ -105,7 +105,7 @@
             },
             "source_text_sha256": {
               "type": "string",
-              "pattern": "^sha256:[0-9a-f]{64}$"
+              "pattern": "^sha256:[0-9a-f]{64}(?![\\s\\S])"
             }
           },
           "additionalProperties": false,
@@ -1783,7 +1783,7 @@
                               },
                               "currency": {
                                 "type": "string",
-                                "pattern": "^[A-Z]{3}$"
+                                "pattern": "^[A-Z]{3}(?![\\s\\S])"
                               },
                               "year": {
                                 "type": "integer",
@@ -3425,7 +3425,7 @@
             },
             "converter_hash": {
               "type": "string",
-              "pattern": "^sha256:[0-9a-f]{64}$"
+              "pattern": "^sha256:[0-9a-f]{64}(?![\\s\\S])"
             },
             "model": {
               "type": "string"
@@ -3439,16 +3439,11 @@
               "properties": {
                 "version": {
                   "type": "string",
-                  "pattern": "^(0|[1-9][0-9]*)\\.(0|[1-9][0-9]*)\\.(0|[1-9][0-9]*)$",
-                  "not": {
-                    "pattern": "\n"
-                  }
+                  "pattern": "^(0|[1-9][0-9]*)\\.(0|[1-9][0-9]*)\\.(0|[1-9][0-9]*)(?![\\s\\S])"
                 },
                 "commit": {
                   "type": "string",
-                  "pattern": "^[0-9a-f]{40}$",
-                  "minLength": 40,
-                  "maxLength": 40
+                  "pattern": "^[0-9a-f]{40}(?![\\s\\S])"
                 }
               }
             }
@@ -4420,7 +4415,7 @@
                                     "properties": {
                                       "id": {
                                         "type": "string",
-                                        "pattern": "^[A-Za-z][A-Za-z0-9._-]*:[^\\s:][^\\s]*$"
+                                        "pattern": "^[A-Za-z][A-Za-z0-9._-]*:[^\\s:][^\\s]*(?![\\s\\S])"
                                       },
                                       "label": {
                                         "type": "string",
@@ -4455,7 +4450,7 @@
                                 "properties": {
                                   "id": {
                                     "type": "string",
-                                    "pattern": "^(?:RO:[0-9]{7}|biolink:[a-z][a-z0-9_]*)$"
+                                    "pattern": "^(?:RO:[0-9]{7}|biolink:[a-z][a-z0-9_]*)(?![\\s\\S])"
                                   },
                                   "label": {
                                     "type": "string",
@@ -4476,7 +4471,7 @@
                                     "properties": {
                                       "id": {
                                         "type": "string",
-                                        "pattern": "^[A-Za-z][A-Za-z0-9._-]*:[^\\s:][^\\s]*$"
+                                        "pattern": "^[A-Za-z][A-Za-z0-9._-]*:[^\\s:][^\\s]*(?![\\s\\S])"
                                       },
                                       "label": {
                                         "type": "string",
@@ -4514,7 +4509,7 @@
                                   "properties": {
                                     "type": {
                                       "type": "string",
-                                      "pattern": "^biolink:[a-z][a-z0-9_]*$"
+                                      "pattern": "^biolink:[a-z][a-z0-9_]*(?![\\s\\S])"
                                     },
                                     "value": {
                                       "type": "string",
@@ -6639,7 +6634,7 @@
                               },
                               "currency": {
                                 "type": "string",
-                                "pattern": "^[A-Z]{3}$"
+                                "pattern": "^[A-Z]{3}(?![\\s\\S])"
                               },
                               "year": {
                                 "type": "integer",
@@ -8183,7 +8178,7 @@
                                 "then": {
                                   "properties": {
                                     "id": {
-                                      "pattern": "^10\\.[0-9]{4,9}/\\S+$"
+                                      "pattern": "^10\\.[0-9]{4,9}/\\S+(?![\\s\\S])"
                                     }
                                   }
                                 }
@@ -8199,7 +8194,7 @@
                                 "then": {
                                   "properties": {
                                     "id": {
-                                      "pattern": "^[1-9][0-9]*$"
+                                      "pattern": "^[1-9][0-9]*(?![\\s\\S])"
                                     }
                                   }
                                 }
@@ -8215,7 +8210,7 @@
                                 "then": {
                                   "properties": {
                                     "id": {
-                                      "pattern": "^PMC[1-9][0-9]*$"
+                                      "pattern": "^PMC[1-9][0-9]*(?![\\s\\S])"
                                     }
                                   }
                                 }
@@ -8231,7 +8226,7 @@
                                 "then": {
                                   "properties": {
                                     "id": {
-                                      "pattern": "^\\S+$"
+                                      "pattern": "^\\S+(?![\\s\\S])"
                                     }
                                   }
                                 }
@@ -8247,7 +8242,7 @@
                                 "then": {
                                   "properties": {
                                     "id": {
-                                      "pattern": "^\\S+$"
+                                      "pattern": "^\\S+(?![\\s\\S])"
                                     }
                                   }
                                 }
@@ -8581,7 +8576,7 @@
                                     "then": {
                                       "properties": {
                                         "id": {
-                                          "pattern": "^10\\.[0-9]{4,9}/\\S+$"
+                                          "pattern": "^10\\.[0-9]{4,9}/\\S+(?![\\s\\S])"
                                         }
                                       }
                                     }
@@ -8597,7 +8592,7 @@
                                     "then": {
                                       "properties": {
                                         "id": {
-                                          "pattern": "^[1-9][0-9]*$"
+                                          "pattern": "^[1-9][0-9]*(?![\\s\\S])"
                                         }
                                       }
                                     }
@@ -10613,7 +10608,7 @@
               },
               "sha256": {
                 "type": "string",
-                "pattern": "^sha256:[0-9a-f]{64}$"
+                "pattern": "^sha256:[0-9a-f]{64}(?![\\s\\S])"
               }
             },
             "additionalProperties": false,
@@ -10729,7 +10724,7 @@
             },
             "sha256": {
               "type": "string",
-              "pattern": "^sha256:[0-9a-f]{64}$"
+              "pattern": "^sha256:[0-9a-f]{64}(?![\\s\\S])"
             },
             "reason": {
               "type": "string",
@@ -10815,7 +10810,7 @@
                 "properties": {
                   "pointer": {
                     "type": "string",
-                    "pattern": "^/added/layers(?:/(?:[^~/]|~[01])*)+$"
+                    "pattern": "^/added/layers(?:/(?:[^~/]|~[01])*)+(?![\\s\\S])"
                   },
                   "basis": {
                     "enum": [
@@ -10852,11 +10847,11 @@
                       },
                       "prompt_sha256": {
                         "type": "string",
-                        "pattern": "^sha256:[0-9a-f]{64}$"
+                        "pattern": "^sha256:[0-9a-f]{64}(?![\\s\\S])"
                       },
                       "tool_sha256": {
                         "type": "string",
-                        "pattern": "^sha256:[0-9a-f]{64}$"
+                        "pattern": "^sha256:[0-9a-f]{64}(?![\\s\\S])"
                       }
                     },
                     "required": [
@@ -10875,7 +10870,7 @@
                       },
                       "response_sha256": {
                         "type": "string",
-                        "pattern": "^sha256:[0-9a-f]{64}$"
+                        "pattern": "^sha256:[0-9a-f]{64}(?![\\s\\S])"
                       },
                       "key": {
                         "type": "string",
@@ -11823,7 +11818,7 @@
                       "properties": {
                         "path": {
                           "not": {
-                            "pattern": "^(?:core\\.alternative_explanations|core\\.assumptions|core\\.atoms|core\\.context|core\\.explains|core\\.opens|core\\.reinterprets|core\\.uncertainties|evidence\\.lines|evidence\\.references|mechanism\\.entities|mechanism\\.molecular_targets|mechanism\\.steps|predictions|profile\\.combination\\.components|provenance\\.contributions|provenance\\.field_sources|provenance\\.heuristic_principle|provenance\\.inspiration_refs|provenance\\.parent_refs)$"
+                            "pattern": "^(?:core\\.alternative_explanations|core\\.assumptions|core\\.atoms|core\\.context|core\\.explains|core\\.opens|core\\.reinterprets|core\\.uncertainties|evidence\\.lines|evidence\\.references|mechanism\\.entities|mechanism\\.molecular_targets|mechanism\\.steps|predictions|profile\\.combination\\.components|provenance\\.contributions|provenance\\.field_sources|provenance\\.heuristic_principle|provenance\\.inspiration_refs|provenance\\.parent_refs)(?![\\s\\S])"
                           }
                         }
                       }
@@ -11842,7 +11837,7 @@
                       "properties": {
                         "path": {
                           "not": {
-                            "pattern": "^(?:core\\.alternative_explanations\\[[0-9]*\\]\\.id|core\\.atoms\\[[0-9]*\\]\\.contradicts|core\\.atoms\\[[0-9]*\\]\\.requires|core\\.atoms\\[[0-9]*\\]\\.triple|evidence\\.excluded|evidence\\.lines\\[[0-9]*\\]\\.endpoint_kind|evidence\\.lines\\[[0-9]*\\]\\.human_proximity|evidence\\.lines\\[[0-9]*\\]\\.independence_group\\.key|evidence\\.lines\\[[0-9]*\\]\\.intervention\\.agent|evidence\\.lines\\[[0-9]*\\]\\.intervention\\.dose|evidence\\.lines\\[[0-9]*\\]\\.intervention\\.duration|evidence\\.lines\\[[0-9]*\\]\\.intervention\\.formulation|evidence\\.lines\\[[0-9]*\\]\\.intervention\\.intake|evidence\\.lines\\[[0-9]*\\]\\.intervention\\.measured_concentration|evidence\\.lines\\[[0-9]*\\]\\.intervention\\.nominal_concentration|evidence\\.lines\\[[0-9]*\\]\\.intervention\\.regimen|evidence\\.lines\\[[0-9]*\\]\\.intervention\\.route|evidence\\.lines\\[[0-9]*\\]\\.intervention\\.systemic_exposure|evidence\\.lines\\[[0-9]*\\]\\.multi_site_program|evidence\\.lines\\[[0-9]*\\]\\.quote_withheld|evidence\\.lines\\[[0-9]*\\]\\.sample|evidence\\.lines\\[[0-9]*\\]\\.sample_size|evidence\\.lines\\[[0-9]*\\]\\.system\\.age_at_start|evidence\\.lines\\[[0-9]*\\]\\.system\\.assessment_age|evidence\\.lines\\[[0-9]*\\]\\.system\\.environment|evidence\\.lines\\[[0-9]*\\]\\.system\\.kind|evidence\\.lines\\[[0-9]*\\]\\.system\\.sex|evidence\\.lines\\[[0-9]*\\]\\.system\\.site|evidence\\.lines\\[[0-9]*\\]\\.system\\.spatial_scale|evidence\\.lines\\[[0-9]*\\]\\.system\\.strain_or_line|evidence\\.lines\\[[0-9]*\\]\\.system\\.taxon|evidence\\.lines\\[[0-9]*\\]\\.system\\.taxon_id|evidence\\.lines\\[[0-9]*\\]\\.system\\.temporal_scale|predictions\\[[0-9]*\\]\\.control_type|predictions\\[[0-9]*\\]\\.system\\.taxon_id|profile\\.aging_hallmarks)(?:$|[.\\[])"
+                            "pattern": "^(?:core\\.alternative_explanations\\[[0-9]*\\]\\.id|core\\.atoms\\[[0-9]*\\]\\.contradicts|core\\.atoms\\[[0-9]*\\]\\.requires|core\\.atoms\\[[0-9]*\\]\\.triple|evidence\\.excluded|evidence\\.lines\\[[0-9]*\\]\\.endpoint_kind|evidence\\.lines\\[[0-9]*\\]\\.human_proximity|evidence\\.lines\\[[0-9]*\\]\\.independence_group\\.key|evidence\\.lines\\[[0-9]*\\]\\.intervention\\.agent|evidence\\.lines\\[[0-9]*\\]\\.intervention\\.dose|evidence\\.lines\\[[0-9]*\\]\\.intervention\\.duration|evidence\\.lines\\[[0-9]*\\]\\.intervention\\.formulation|evidence\\.lines\\[[0-9]*\\]\\.intervention\\.intake|evidence\\.lines\\[[0-9]*\\]\\.intervention\\.measured_concentration|evidence\\.lines\\[[0-9]*\\]\\.intervention\\.nominal_concentration|evidence\\.lines\\[[0-9]*\\]\\.intervention\\.regimen|evidence\\.lines\\[[0-9]*\\]\\.intervention\\.route|evidence\\.lines\\[[0-9]*\\]\\.intervention\\.systemic_exposure|evidence\\.lines\\[[0-9]*\\]\\.multi_site_program|evidence\\.lines\\[[0-9]*\\]\\.quote_withheld|evidence\\.lines\\[[0-9]*\\]\\.sample|evidence\\.lines\\[[0-9]*\\]\\.sample_size|evidence\\.lines\\[[0-9]*\\]\\.system\\.age_at_start|evidence\\.lines\\[[0-9]*\\]\\.system\\.assessment_age|evidence\\.lines\\[[0-9]*\\]\\.system\\.environment|evidence\\.lines\\[[0-9]*\\]\\.system\\.kind|evidence\\.lines\\[[0-9]*\\]\\.system\\.sex|evidence\\.lines\\[[0-9]*\\]\\.system\\.site|evidence\\.lines\\[[0-9]*\\]\\.system\\.spatial_scale|evidence\\.lines\\[[0-9]*\\]\\.system\\.strain_or_line|evidence\\.lines\\[[0-9]*\\]\\.system\\.taxon|evidence\\.lines\\[[0-9]*\\]\\.system\\.taxon_id|evidence\\.lines\\[[0-9]*\\]\\.system\\.temporal_scale|predictions\\[[0-9]*\\]\\.control_type|predictions\\[[0-9]*\\]\\.system\\.taxon_id|profile\\.aging_hallmarks)(?:(?![\\s\\S])|[.\\[])"
                           }
                         }
                       }
@@ -12565,7 +12560,7 @@
                       "properties": {
                         "path": {
                           "not": {
-                            "pattern": "^core\\.atoms\\[[0-9]*\\]\\.scope(?:$|[.\\[])"
+                            "pattern": "^core\\.atoms\\[[0-9]*\\]\\.scope(?:(?![\\s\\S])|[.\\[])"
                           }
                         }
                       }
@@ -12726,7 +12721,7 @@
                       "properties": {
                         "path": {
                           "not": {
-                            "pattern": "^(?:provenance\\.claim_author_coi|evidence\\.lines\\[[0-9]*\\]\\.data_availability)(?:$|[.\\[])"
+                            "pattern": "^(?:provenance\\.claim_author_coi|evidence\\.lines\\[[0-9]*\\]\\.data_availability)(?:(?![\\s\\S])|[.\\[])"
                           }
                         }
                       }
@@ -13184,11 +13179,11 @@
         },
         "sha256": {
           "type": "string",
-          "pattern": "^sha256:[0-9a-f]{64}$"
+          "pattern": "^sha256:[0-9a-f]{64}(?![\\s\\S])"
         },
         "json_pointer": {
           "type": "string",
-          "pattern": "^(?:/(?:[^~/]|~[01])*)*$"
+          "pattern": "^(?:/(?:[^~/]|~[01])*)*(?![\\s\\S])"
         }
       },
       "required": [
@@ -13207,7 +13202,7 @@
             },
             "pointer": {
               "type": "string",
-              "pattern": "^(?:/(?:[^~/]|~[01])*)*$"
+              "pattern": "^(?:/(?:[^~/]|~[01])*)*(?![\\s\\S])"
             }
           },
           "required": [
@@ -13224,11 +13219,11 @@
             },
             "sha256": {
               "type": "string",
-              "pattern": "^sha256:[0-9a-f]{64}$"
+              "pattern": "^sha256:[0-9a-f]{64}(?![\\s\\S])"
             },
             "json_pointer": {
               "type": "string",
-              "pattern": "^(?:/(?:[^~/]|~[01])*)*$"
+              "pattern": "^(?:/(?:[^~/]|~[01])*)*(?![\\s\\S])"
             }
           },
           "required": [
@@ -14323,11 +14318,11 @@
               },
               "sha256": {
                 "type": "string",
-                "pattern": "^sha256:[0-9a-f]{64}$"
+                "pattern": "^sha256:[0-9a-f]{64}(?![\\s\\S])"
               },
               "json_pointer": {
                 "type": "string",
-                "pattern": "^(?:/(?:[^~/]|~[01])*)*$"
+                "pattern": "^(?:/(?:[^~/]|~[01])*)*(?![\\s\\S])"
               }
             },
             "required": [
@@ -14356,7 +14351,7 @@
               },
               "pointer": {
                 "type": "string",
-                "pattern": "^(?:/(?:[^~/]|~[01])*)*$"
+                "pattern": "^(?:/(?:[^~/]|~[01])*)*(?![\\s\\S])"
               }
             },
             "required": [
@@ -14844,7 +14839,7 @@
             },
             "pointer": {
               "type": "string",
-              "pattern": "^(?:/(?:[^~/]|~[01])*)*$"
+              "pattern": "^(?:/(?:[^~/]|~[01])*)*(?![\\s\\S])"
             }
           },
           "required": [
@@ -14861,11 +14856,11 @@
             },
             "sha256": {
               "type": "string",
-              "pattern": "^sha256:[0-9a-f]{64}$"
+              "pattern": "^sha256:[0-9a-f]{64}(?![\\s\\S])"
             },
             "json_pointer": {
               "type": "string",
-              "pattern": "^(?:/(?:[^~/]|~[01])*)*$"
+              "pattern": "^(?:/(?:[^~/]|~[01])*)*(?![\\s\\S])"
             }
           },
           "required": [
@@ -14932,11 +14927,11 @@
         },
         "sha256": {
           "type": "string",
-          "pattern": "^sha256:[0-9a-f]{64}$"
+          "pattern": "^sha256:[0-9a-f]{64}(?![\\s\\S])"
         },
         "json_pointer": {
           "type": "string",
-          "pattern": "^(?:/(?:[^~/]|~[01])*)*$"
+          "pattern": "^(?:/(?:[^~/]|~[01])*)*(?![\\s\\S])"
         }
       },
       "required": [
@@ -14981,7 +14976,7 @@
         },
         "currency": {
           "type": "string",
-          "pattern": "^[A-Z]{3}$"
+          "pattern": "^[A-Z]{3}(?![\\s\\S])"
         },
         "year": {
           "type": "integer",
@@ -15168,7 +15163,7 @@
           "type": "object",
           "propertyNames": {
             "type": "string",
-            "pattern": "^/(?:[^~/]|~[01])*(?:/(?:[^~/]|~[01])*)*$"
+            "pattern": "^/(?:[^~/]|~[01])*(?:/(?:[^~/]|~[01])*)*(?![\\s\\S])"
           },
           "additionalProperties": {
             "type": "string",
@@ -15393,7 +15388,7 @@
           "type": "object",
           "propertyNames": {
             "type": "string",
-            "pattern": "^/(?:[^~/]|~[01])*(?:/(?:[^~/]|~[01])*)*$"
+            "pattern": "^/(?:[^~/]|~[01])*(?:/(?:[^~/]|~[01])*)*(?![\\s\\S])"
           },
           "additionalProperties": {
             "type": "string",
@@ -15505,7 +15500,7 @@
           "type": "object",
           "propertyNames": {
             "type": "string",
-            "pattern": "^/(?:[^~/]|~[01])*(?:/(?:[^~/]|~[01])*)*$"
+            "pattern": "^/(?:[^~/]|~[01])*(?:/(?:[^~/]|~[01])*)*(?![\\s\\S])"
           },
           "additionalProperties": {
             "type": "string",
@@ -15614,7 +15609,7 @@
           "type": "object",
           "propertyNames": {
             "type": "string",
-            "pattern": "^/(?:[^~/]|~[01])*(?:/(?:[^~/]|~[01])*)*$"
+            "pattern": "^/(?:[^~/]|~[01])*(?:/(?:[^~/]|~[01])*)*(?![\\s\\S])"
           },
           "additionalProperties": {
             "type": "string",
@@ -15661,7 +15656,7 @@
                 {
                   "type": "string",
                   "format": "date",
-                  "pattern": "^\\d{4}-\\d{2}-\\d{2}$"
+                  "pattern": "^\\d{4}-\\d{2}-\\d{2}(?![\\s\\S])"
                 },
                 {
                   "type": "string",
@@ -15689,7 +15684,7 @@
           "type": "object",
           "propertyNames": {
             "type": "string",
-            "pattern": "^/(?:[^~/]|~[01])*(?:/(?:[^~/]|~[01])*)*$"
+            "pattern": "^/(?:[^~/]|~[01])*(?:/(?:[^~/]|~[01])*)*(?![\\s\\S])"
           },
           "additionalProperties": {
             "type": "string",
@@ -15733,7 +15728,7 @@
                 {
                   "type": "string",
                   "format": "date",
-                  "pattern": "^\\d{4}-\\d{2}-\\d{2}$"
+                  "pattern": "^\\d{4}-\\d{2}-\\d{2}(?![\\s\\S])"
                 },
                 {
                   "type": "string",
@@ -15761,7 +15756,7 @@
           "type": "object",
           "propertyNames": {
             "type": "string",
-            "pattern": "^/(?:[^~/]|~[01])*(?:/(?:[^~/]|~[01])*)*$"
+            "pattern": "^/(?:[^~/]|~[01])*(?:/(?:[^~/]|~[01])*)*(?![\\s\\S])"
           },
           "additionalProperties": {
             "type": "string",
@@ -15876,7 +15871,7 @@
           "type": "object",
           "propertyNames": {
             "type": "string",
-            "pattern": "^/(?:[^~/]|~[01])*(?:/(?:[^~/]|~[01])*)*$"
+            "pattern": "^/(?:[^~/]|~[01])*(?:/(?:[^~/]|~[01])*)*(?![\\s\\S])"
           },
           "additionalProperties": {
             "type": "string",
@@ -15988,7 +15983,7 @@
           "type": "object",
           "propertyNames": {
             "type": "string",
-            "pattern": "^/(?:[^~/]|~[01])*(?:/(?:[^~/]|~[01])*)*$"
+            "pattern": "^/(?:[^~/]|~[01])*(?:/(?:[^~/]|~[01])*)*(?![\\s\\S])"
           },
           "additionalProperties": {
             "type": "string",
@@ -16073,7 +16068,7 @@
           "type": "object",
           "propertyNames": {
             "type": "string",
-            "pattern": "^/(?:[^~/]|~[01])*(?:/(?:[^~/]|~[01])*)*$"
+            "pattern": "^/(?:[^~/]|~[01])*(?:/(?:[^~/]|~[01])*)*(?![\\s\\S])"
           },
           "additionalProperties": {
             "type": "string",
@@ -16155,7 +16150,7 @@
           "type": "object",
           "propertyNames": {
             "type": "string",
-            "pattern": "^/(?:[^~/]|~[01])*(?:/(?:[^~/]|~[01])*)*$"
+            "pattern": "^/(?:[^~/]|~[01])*(?:/(?:[^~/]|~[01])*)*(?![\\s\\S])"
           },
           "additionalProperties": {
             "type": "string",
@@ -16249,7 +16244,7 @@
           "type": "object",
           "propertyNames": {
             "type": "string",
-            "pattern": "^/(?:[^~/]|~[01])*(?:/(?:[^~/]|~[01])*)*$"
+            "pattern": "^/(?:[^~/]|~[01])*(?:/(?:[^~/]|~[01])*)*(?![\\s\\S])"
           },
           "additionalProperties": {
             "type": "string",
@@ -16340,7 +16335,7 @@
           "type": "object",
           "propertyNames": {
             "type": "string",
-            "pattern": "^/(?:[^~/]|~[01])*(?:/(?:[^~/]|~[01])*)*$"
+            "pattern": "^/(?:[^~/]|~[01])*(?:/(?:[^~/]|~[01])*)*(?![\\s\\S])"
           },
           "additionalProperties": {
             "type": "string",
@@ -17654,7 +17649,7 @@
           "properties": {
             "date": {
               "type": "string",
-              "pattern": "^[0-9]{4}(?:-(?:0[1-9]|1[0-2])(?:-(?:0[1-9]|[12][0-9]|3[01]))?)?$"
+              "pattern": "^[0-9]{4}(?:-(?:0[1-9]|1[0-2])(?:-(?:0[1-9]|[12][0-9]|3[01]))?)?(?![\\s\\S])"
             },
             "precision": {
               "enum": [
@@ -17700,7 +17695,7 @@
               "then": {
                 "properties": {
                   "date": {
-                    "pattern": "^[0-9]{4}$"
+                    "pattern": "^[0-9]{4}(?![\\s\\S])"
                   }
                 }
               }
@@ -17716,7 +17711,7 @@
               "then": {
                 "properties": {
                   "date": {
-                    "pattern": "^[0-9]{4}-[0-9]{2}$"
+                    "pattern": "^[0-9]{4}-[0-9]{2}(?![\\s\\S])"
                   }
                 }
               }
@@ -17732,7 +17727,7 @@
               "then": {
                 "properties": {
                   "date": {
-                    "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}$"
+                    "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}(?![\\s\\S])"
                   }
                 }
               }
@@ -17773,7 +17768,7 @@
           "properties": {
             "date": {
               "type": "string",
-              "pattern": "^[0-9]{4}(?:-(?:0[1-9]|1[0-2])(?:-(?:0[1-9]|[12][0-9]|3[01]))?)?$"
+              "pattern": "^[0-9]{4}(?:-(?:0[1-9]|1[0-2])(?:-(?:0[1-9]|[12][0-9]|3[01]))?)?(?![\\s\\S])"
             },
             "precision": {
               "enum": [
@@ -17819,7 +17814,7 @@
               "then": {
                 "properties": {
                   "date": {
-                    "pattern": "^[0-9]{4}$"
+                    "pattern": "^[0-9]{4}(?![\\s\\S])"
                   }
                 }
               }
@@ -17835,7 +17830,7 @@
               "then": {
                 "properties": {
                   "date": {
-                    "pattern": "^[0-9]{4}-[0-9]{2}$"
+                    "pattern": "^[0-9]{4}-[0-9]{2}(?![\\s\\S])"
                   }
                 }
               }
@@ -17851,7 +17846,7 @@
               "then": {
                 "properties": {
                   "date": {
-                    "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}$"
+                    "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}(?![\\s\\S])"
                   }
                 }
               }
@@ -17948,11 +17943,11 @@
               },
               "sha256": {
                 "type": "string",
-                "pattern": "^sha256:[0-9a-f]{64}$"
+                "pattern": "^sha256:[0-9a-f]{64}(?![\\s\\S])"
               },
               "json_pointer": {
                 "type": "string",
-                "pattern": "^(?:/(?:[^~/]|~[01])*)*$"
+                "pattern": "^(?:/(?:[^~/]|~[01])*)*(?![\\s\\S])"
               }
             },
             "required": [
@@ -17972,7 +17967,7 @@
             },
             "pointer": {
               "type": "string",
-              "pattern": "^(?:/(?:[^~/]|~[01])*)*$"
+              "pattern": "^(?:/(?:[^~/]|~[01])*)*(?![\\s\\S])"
             }
           },
           "required": [
@@ -18846,7 +18841,7 @@
           "properties": {
             "value": {
               "type": "string",
-              "pattern": "^NCBITaxon:[1-9][0-9]*$"
+              "pattern": "^NCBITaxon:[1-9][0-9]*(?![\\s\\S])"
             },
             "src": {
               "type": "string",

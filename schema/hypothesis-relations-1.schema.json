@@ -67,7 +67,7 @@
               },
               "pointer": {
                 "type": "string",
-                "pattern": "^/(?:author|added)/layers(?:/(?:[^~/]|~[01])*)+$"
+                "pattern": "^/(?:author|added)/layers(?:/(?:[^~/]|~[01])*)+(?![\\s\\S])"
               }
             },
             "required": [
@@ -96,7 +96,7 @@
               },
               "pointer": {
                 "type": "string",
-                "pattern": "^/(?:author|added)/layers(?:/(?:[^~/]|~[01])*)+$"
+                "pattern": "^/(?:author|added)/layers(?:/(?:[^~/]|~[01])*)+(?![\\s\\S])"
               }
             },
             "required": [
@@ -297,11 +297,11 @@
                 },
                 "source_pointer": {
                   "type": "string",
-                  "pattern": "^/(?:author|added)/layers(?:/(?:[^~/]|~[01])*)+$"
+                  "pattern": "^/(?:author|added)/layers(?:/(?:[^~/]|~[01])*)+(?![\\s\\S])"
                 },
                 "target_pointer": {
                   "type": "string",
-                  "pattern": "^/(?:author|added)/layers(?:/(?:[^~/]|~[01])*)+$"
+                  "pattern": "^/(?:author|added)/layers(?:/(?:[^~/]|~[01])*)+(?![\\s\\S])"
                 }
               },
               "required": [
