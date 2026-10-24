@@ -4,6 +4,7 @@
 
 - **OHF 1.3.** `standard_version` may be `"1.3"`; a 1.3 card follows every rule of 1.2. See [spec/README.md, section OHF 1.3](spec/README.md#ohf-13).
 - **The release a card was built against (OHF 1.3).** `added.by.standard_release` names the full release (`version`) and optionally the `commit` of its tag. It is of the card's minor version (`REF_RELEASE_VERSION`) and a release the checking tool knows, not newer than it (`REF_RELEASE_UNKNOWN`). Absent, the release is not stated.
+- **Licence ids that OHF defines (OHF 1.3).** `vocabularies/licence-refs-1.json` (`ohf:licence-refs@1`) lists each `LicenseRef-` id with the release it is defined from; a 1.3 card with such a licence pins it. `tools/check_refs.py` reports an id not in the list (`REF_LICENCE_REF_UNKNOWN`) or defined from a later release than the card can know (`REF_LICENCE_REF_RELEASE`), errors in a 1.3 card and warnings in a 1.0–1.2 card, and a licence that has neither the SPDX id form nor the `LicenseRef-` form (`REF_LICENCE_FORM`, a warning).
 - The README of the specification lists every version of the card format; it still named only 1.0 and 1.1.
 
 ## 1.2.0 (2026-10-24)

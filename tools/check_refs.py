@@ -38,7 +38,9 @@ of that predicate in the pinned vocabulary (`check_predicates`); an atom scope w
 card scope gets a warning, because an atom scope only narrows it (`check_atom_scope`); a named domain
 profile whose paths another named profile holds gets a warning (`check_profiles`); a source in the public
 domain by its term has an added-zone licence record with that basis and its conditions (`check_rights_basis`). In an
-OHF 1.3 card, a stated release is of the card's minor version and one this tool knows (`check_release`). The completeness
+OHF 1.3 card, a stated release is of the card's minor version and one this tool knows (`check_release`). A
+LicenseRef- licence is an id of the OHF licence vocabulary that the card's release can know, and in a 1.0-1.2
+card a finding is a warning; another licence has the SPDX id form (`check_licence`). The completeness
 level is computed by `check_completeness.py` and compared with the declared one.
 It assumes a card that already passes `tools/validate.py`.
 """
@@ -551,6 +553,39 @@ def check_release(card, errors, release=None):
                             f"Release {version} is not a release this tool knows (it is OHF {release['current']})"))
 
 
+SPDX_FORM = re.compile(r'[A-Za-z0-9.+-]+')
+
+
+def check_licence(card, errors, warnings, licences=None):
+    """OHF 1.3: a LicenseRef- licence is an id of the OHF licence vocabulary, defined by the release the
+    card can know: by its minor version, and in a 1.3 card that names its release, by that release. A
+    1.0-1.2 card gets warnings, so a released card stays valid. Any other licence has the form of an
+    SPDX id; the list of SPDX ids is not checked."""
+    licence = card.get('author', {}).get('source', {}).get('license')
+    if not isinstance(licence, str):
+        return
+    path = 'author.source.license'
+    if not licence.casefold().startswith('licenseref-'):
+        if not SPDX_FORM.fullmatch(licence):
+            warnings.append(issue('REF_LICENCE_FORM', path, f'{licence!r} is neither an SPDX id nor a LicenseRef- id'))
+        return
+    found = errors if card.get('standard_version') == '1.3' else warnings
+    licences = licences if licences is not None else load(ROOT / 'vocabularies/licence-refs-1.json')
+    since = {row['id']: row['since'] for row in licences['licence_refs']}
+    if licence not in since:
+        found.append(issue('REF_LICENCE_REF_UNKNOWN', path, f'{licence} is not a licence id of ohf:licence-refs@1'))
+        return
+    defined = release_tuple(since[licence])
+    stated = card.get('added', {}).get('by', {}).get('standard_release')
+    if defined[:2] > release_tuple(card['standard_version']):
+        known = f"OHF {card['standard_version']}"
+    elif stated and defined > release_tuple(stated['version']):
+        known = f"release {stated['version']}"
+    else:
+        return
+    found.append(issue('REF_LICENCE_REF_RELEASE', path, f'{licence} is defined from OHF {since[licence]}, later than {known}'))
+
+
 def check_atom_scope(card, warnings):
     """OHF 1.2: an atom scope narrows the scope of the card. Whether it does is read in the passage;
     an atom scope with the same text as the card scope narrows nothing."""
@@ -598,7 +633,7 @@ def check_quotes(card, errors, warnings):
                                       f'the quote names a {member.replace("_", " ")} the line does not record'))
 
 
-def check(card, taxa=None, release=None):
+def check(card, taxa=None, release=None, licences=None):
     errors, warnings, external, comparable, not_comparable = [], [], [], [], []
     fields = {}
     if card.get('standard_version') not in ('1.0', '1.1', '1.2', '1.3'):
@@ -628,6 +663,7 @@ def check(card, taxa=None, release=None):
     check_atom_scope(card, warnings)
     check_rights_basis(card, errors)
     check_release(card, errors, release)
+    check_licence(card, errors, warnings, licences)
     for ident, prediction in fields.items():
         missing = [key for key in COMPARABLE if key not in prediction]
         if prediction.get('form') == 'directional_contrast' and 'direction' not in prediction:

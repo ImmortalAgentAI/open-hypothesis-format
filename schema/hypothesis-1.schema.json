@@ -11064,6 +11064,22 @@
             "sha256"
           ],
           "additionalProperties": false
+        },
+        "licence_refs": {
+          "type": "object",
+          "properties": {
+            "id": {
+              "const": "ohf:licence-refs@1"
+            },
+            "sha256": {
+              "const": "sha256:6f2fa6a9082e505fca4235709c16d76ec98d5efe4aa00b6ae4334c22960e0e99"
+            }
+          },
+          "required": [
+            "id",
+            "sha256"
+          ],
+          "additionalProperties": false
         }
       },
       "required": [
@@ -13104,8 +13120,58 @@
                 }
               }
             }
+          },
+          {
+            "properties": {
+              "vocabularies": {
+                "not": {
+                  "required": [
+                    "licence_refs"
+                  ]
+                }
+              }
+            }
           }
         ]
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "standard_version": {
+            "const": "1.3"
+          },
+          "author": {
+            "properties": {
+              "source": {
+                "properties": {
+                  "license": {
+                    "pattern": "^[Ll][Ii][Cc][Ee][Nn][Ss][Ee][Rr][Ee][Ff]-"
+                  }
+                },
+                "required": [
+                  "license"
+                ]
+              }
+            },
+            "required": [
+              "source"
+            ]
+          }
+        },
+        "required": [
+          "standard_version",
+          "author"
+        ]
+      },
+      "then": {
+        "properties": {
+          "vocabularies": {
+            "required": [
+              "licence_refs"
+            ]
+          }
+        }
       }
     }
   ],
