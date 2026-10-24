@@ -6,6 +6,7 @@
 - **Closed predicates (OHF 1.2).** The relation of an atom triple is a predicate of `vocabularies/predicates-1.json` (`ohf:predicates@1`, pinned when an atom has a triple) with its label there (`REF_PREDICATE_LABEL`), and a qualifier is one of its qualifier slots. When no predicate fits, the triple is not written and a gap names the relation. See [spec/README.md, section OHF 1.2](spec/README.md#ohf-12).
 - **Atom scope (OHF 1.2).** An added-zone atom may have a `scope`, a sourced text narrower than the scope of the card, checked against its passage; absent, the atom has the scope of the card. An atom scope that repeats the card scope gets a warning (`REF_ATOM_SCOPE_SAME`). See [spec/README.md, section OHF 1.2](spec/README.md#ohf-12).
 - **Domain as a list (OHF 1.2).** `profile.domain` is a list of profile ids: at least one, each named once, `none` only alone. A path is selected when any named profile has it; a named profile that another named profile holds gets a warning (`REF_PROFILE_REDUNDANT`). The profiles are unchanged. See [spec/README.md, section Domain profiles](spec/README.md#domain-profiles).
+- Related standards: HyQue is under the MIT licence, as the LICENSE file at the pinned commit states, and its rules join propositions by AND and OR only; the XOR of `core.atoms[].operator` is OHF's own.
 
 ## 1.1.4 (2026-10-24)
 

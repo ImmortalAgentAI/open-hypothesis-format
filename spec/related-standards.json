@@ -226,15 +226,15 @@
       "maintainer": "Developed by Alison Callahan, Michel Dumontier and Nigam Shah",
       "scope": "A system that evaluates formalised hypotheses, made of events joined by logical operators, against a knowledge base with explicit rules.",
       "license": {
-        "value": null,
-        "source": "Not established"
+        "value": "MIT",
+        "source": "LICENSE file of the repository at the pinned commit"
       },
       "urls": [
         "https://doi.org/10.1186/2041-1480-2-S2-S3",
         "https://github.com/alisoncallahan/hyque-spin-rules/tree/526a5faacf9f089df888aa85197d31df8b75fcf3"
       ],
       "relation": "different_problem",
-      "difference": "HyQue scores a hypothesis against a knowledge base. OHF takes from it the decomposition of a claim into atoms joined by AND, OR and XOR, and does not score.",
+      "difference": "HyQue scores a hypothesis against a knowledge base. OHF takes from it the decomposition of a claim into atoms joined by AND and OR, its conjunctive and disjunctive propositions; XOR is OHF's own, and OHF does not score.",
       "catalogue_paths": [
         "core.atoms[].id",
         "core.atoms[].statement",
