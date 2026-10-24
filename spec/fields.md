@@ -395,7 +395,7 @@ Example value: rapamycin RO:0002212 negatively regulates mTORC1
 
 ### `core.atoms[].scope`
 
-The systems and conditions to which this atom applies, when they are narrower than the scope of the card. Absent, the atom has the scope of the card.
+The systems and conditions to which this atom applies, when they are narrower than the scope of the card. Absent, the atom has the scope of the card and needs no gap; a gap says that the passage narrows the atom and the card does not record how.
 
 Type: `Text`. Vocabulary: Author wording and domain qualifiers. Basis: `ohf`. Class: `searchable`. Check: `passage`. Zones: `added`. Since: OHF 1.2.
 

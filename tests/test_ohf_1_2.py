@@ -543,7 +543,7 @@ def gap_codes(card):
 
 def scope_gap(card):
     card['added']['gaps'].append({'path': f'core.atoms[{DIET}].scope', 'disposition': 'not_supplied',
-                                  'reason': 'The paragraph names no narrower scope for this atom.', 'query_ids': [],
+                                  'reason': 'The paragraph restricts this atom to a subset that the card does not state.', 'query_ids': [],
                                   'inspected_artifacts': copy.deepcopy(card['added']['gaps'][0]['inspected_artifacts'])})
     return card
 

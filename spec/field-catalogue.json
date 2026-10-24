@@ -413,7 +413,7 @@
       "layer": "1 Claim core",
       "path": "core.atoms[].scope",
       "since": "1.2",
-      "definition": "The systems and conditions to which this atom applies, when they are narrower than the scope of the card. Absent, the atom has the scope of the card.",
+      "definition": "The systems and conditions to which this atom applies, when they are narrower than the scope of the card. Absent, the atom has the scope of the card and needs no gap; a gap says that the passage narrows the atom and the card does not record how.",
       "logical_type": "Text",
       "vocabulary": "Author wording and domain qualifiers",
       "example": "terrestrial mammals only, not the marine species of the data set",
