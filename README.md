@@ -8,7 +8,7 @@ Biological hypotheses are written as prose, spread across papers, preprints and,
 
 In OHF, a **hypothesis** is a proposed claim about a living system, typically an explanation of an observed phenomenon, that goes beyond established knowledge at the time it is stated, is stated with its scope and conditions, and entails observations that would count for or against it. The [glossary](spec/glossary.md) defines the other terms.
 
-This repository holds OHF 1.3.0: the specification, the JSON Schemas, the vocabularies, example cards and a reference validator. OHF 1.1 is a minor version of OHF 1.0, OHF 1.2 of OHF 1.1, and OHF 1.3 of OHF 1.2; a 1.0, 1.1 or 1.2 card stays valid and is checked by its own rules. Their additions are listed in the specification, sections [OHF 1.1](spec/README.md#ohf-11), [OHF 1.2](spec/README.md#ohf-12) and [OHF 1.3](spec/README.md#ohf-13).
+This repository holds OHF 1.3.1: the specification, the JSON Schemas, the vocabularies, example cards and a reference validator. OHF 1.1 is a minor version of OHF 1.0, OHF 1.2 of OHF 1.1, and OHF 1.3 of OHF 1.2; a 1.0, 1.1 or 1.2 card stays valid and is checked by its own rules. Their additions are listed in the specification, sections [OHF 1.1](spec/README.md#ohf-11), [OHF 1.2](spec/README.md#ohf-12) and [OHF 1.3](spec/README.md#ohf-13).
 
 - **Implementers** who write, convert or read cards: start with the [schema](schema/hypothesis-1.schema.json) and the [validator](tools/validate.py).
 - **Scientists and reviewers**: start with the [field reference](spec/fields.md) and the [specification](spec/README.md).

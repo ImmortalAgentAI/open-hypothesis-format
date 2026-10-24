@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.3.1 (2026-10-24)
+
+- Correct the catalogue path count in the specification index and glossary from 219 to 220. A regression test compares the counts in both documents and the field reference with the field catalogue. No format or validation rule changes.
+
 ## 1.3.0 (2026-10-24)
 
 A minor version: every new member is optional, 1.0, 1.1 and 1.2 cards stay valid and are checked by their own rules, and they may not carry a member introduced in 1.3 or name one in a gap. A 1.3 card follows every rule of 1.2. The new catalogue path is marked `since: "1.3"`. The rules are listed in [spec/README.md, section OHF 1.3](spec/README.md#ohf-13). The release also corrects how the reference validator read the end of some schema patterns; no rule changes.
