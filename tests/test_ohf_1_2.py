@@ -661,3 +661,64 @@ def test_gaps_follow_the_union_of_the_named_profiles():
     card['added']['gaps'].append({'path': 'profile.aging_hallmarks[]', 'disposition': 'not_supplied'})
     assert 'GAP_PROFILE_FIELD' in gap_codes(card)
     assert 'GAP_PROFILE_FIELD' not in gap_codes(with_domain([PHARMACOLOGY, AGING], card))
+
+
+# ------------------------------------------------------------------ erratum E7: a work in the public domain by its term
+
+PUBLIC_DOMAIN = 'LicenseRef-public-domain-term'
+EXPIRY = ['imprint year 1918', 'year of death of the author: 1950, from the record of the national library',
+          'United States: published in 1930 or earlier', 'life plus 70 years: every author died in 1955 or earlier']
+
+
+def public_domain(conditions=EXPIRY, basis='public_domain_term', card=None):
+    """Peto as a 1.2 card whose source is in the public domain by its term, with the record of the expiry."""
+    card = copy.deepcopy(card) if card is not None else as_1_2(PETO)
+    card['author']['source'].update(license=PUBLIC_DOMAIN, rights_basis='public_domain_term')
+    if conditions is not None:
+        card['added']['layers'].setdefault('provenance', {})['licence'] = {'value': {
+            'publication_allowed': True, 'usage': 'publication_permitted_under_recorded_terms', 'spdx': None,
+            'basis': basis, 'conditions': list(conditions)}, 'src': 'abstract'}
+    return card
+
+
+def test_a_public_domain_source_with_its_expiry_is_valid():  # P7a, (a) and (d)
+    card = public_domain()
+    assert not validation_errors(SCHEMA, card)
+    result = check_refs(card)
+    assert result['valid'], result['errors']
+
+
+def test_the_public_domain_basis_has_its_own_licence_id():  # M7b
+    card = public_domain()
+    card['author']['source']['license'] = 'CC-PDDC'
+    assert schema_rejects(card)
+    card = as_1_2(PETO)
+    card['author']['source']['license'] = PUBLIC_DOMAIN
+    assert card['author']['source']['rights_basis'] == 'license'
+    assert schema_rejects(card)
+
+
+@pytest.mark.parametrize('conditions, basis', [(None, 'public_domain_term'), ([], 'public_domain_term'),
+                                               (EXPIRY, 'license')], ids=['no_record', 'no_conditions', 'other_basis'])
+def test_the_expiry_is_recorded(conditions, basis):  # M7c
+    card = public_domain(conditions, basis)
+    assert not validation_errors(SCHEMA, card)
+    assert 'REF_RIGHTS_BASIS' in codes(card)
+
+
+def test_the_public_domain_basis_permits_publication():  # M7d
+    terms = public_domain()['added']['layers']['provenance']['licence']['value']
+    assert terms['usage'] == 'publication_permitted_under_recorded_terms' and terms['publication_allowed'] is True
+    assert not validation_errors(SCHEMA, public_domain())
+
+
+def test_a_1_1_card_has_no_public_domain_basis():  # M7e
+    card = copy.deepcopy(PETO)
+    card['author']['source'].update(license=PUBLIC_DOMAIN, rights_basis='public_domain_term')
+    assert schema_rejects(card)
+    card = copy.deepcopy(PETO)
+    card['added']['layers'].setdefault('provenance', {})['licence'] = copy.deepcopy(
+        public_domain()['added']['layers']['provenance']['licence'])
+    assert schema_rejects(card)
+    card['added']['layers']['provenance']['licence']['value']['basis'] = 'license'
+    assert not validation_errors(SCHEMA, card)

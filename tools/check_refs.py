@@ -36,7 +36,8 @@ external record, bound to the response and the key it looked up; a value checked
 without a record gets a warning (`check_integrity`); the relation of an atom triple has the label
 of that predicate in the pinned vocabulary (`check_predicates`); an atom scope with the text of the
 card scope gets a warning, because an atom scope only narrows it (`check_atom_scope`); a named domain
-profile whose paths another named profile holds gets a warning (`check_profiles`). The completeness
+profile whose paths another named profile holds gets a warning (`check_profiles`); a source in the public
+domain by its term has an added-zone licence record with that basis and its conditions (`check_rights_basis`). The completeness
 level is computed by `check_completeness.py` and compared with the declared one.
 It assumes a card that already passes `tools/validate.py`.
 """
@@ -511,6 +512,18 @@ def check_profiles(card, warnings, profiles=None):
                                   f'Another named profile already holds every path of {one}; leave it out'))
 
 
+def check_rights_basis(card, errors):
+    """OHF 1.2: a source in the public domain by an expired term shows what the expiry rests on: the
+    added-zone licence record has the basis public_domain_term and its conditions."""
+    if card.get('author', {}).get('source', {}).get('rights_basis') != 'public_domain_term':
+        return
+    terms = unwrap(layers(card, 'added').get('provenance', {}).get('licence'))
+    if not isinstance(terms, dict) or terms.get('basis') != 'public_domain_term' or not terms.get('conditions'):
+        errors.append(issue('REF_RIGHTS_BASIS', 'added.provenance.licence',
+                            'A source in the public domain by its term needs a licence record with the basis '
+                            'public_domain_term and the conditions the expiry rests on'))
+
+
 def check_atom_scope(card, warnings):
     """OHF 1.2: an atom scope narrows the scope of the card. Whether it does is read in the passage;
     an atom scope with the same text as the card scope narrows nothing."""
@@ -586,6 +599,7 @@ def check(card, taxa=None):
     check_proximity(card, errors, warnings, taxa)
     check_predicates(card, errors)
     check_atom_scope(card, warnings)
+    check_rights_basis(card, errors)
     for ident, prediction in fields.items():
         missing = [key for key in COMPARABLE if key not in prediction]
         if prediction.get('form') == 'directional_contrast' and 'direction' not in prediction:

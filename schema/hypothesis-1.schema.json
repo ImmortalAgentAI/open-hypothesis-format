@@ -12512,6 +12512,82 @@
                 }
               }
             }
+          },
+          {
+            "properties": {
+              "author": {
+                "properties": {
+                  "source": {
+                    "properties": {
+                      "rights_basis": {
+                        "not": {
+                          "const": "public_domain_term"
+                        }
+                      },
+                      "license": {
+                        "not": {
+                          "const": "LicenseRef-public-domain-term"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          {
+            "properties": {
+              "author": {
+                "properties": {
+                  "layers": {
+                    "properties": {
+                      "provenance": {
+                        "properties": {
+                          "licence": {
+                            "properties": {
+                              "value": {
+                                "properties": {
+                                  "basis": {
+                                    "not": {
+                                      "const": "public_domain_term"
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              },
+              "added": {
+                "properties": {
+                  "layers": {
+                    "properties": {
+                      "provenance": {
+                        "properties": {
+                          "licence": {
+                            "properties": {
+                              "value": {
+                                "properties": {
+                                  "basis": {
+                                    "not": {
+                                      "const": "public_domain_term"
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
           }
         ]
       }
@@ -12782,6 +12858,76 @@
                           "domain": {
                             "type": "array"
                           }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          {
+            "if": {
+              "properties": {
+                "author": {
+                  "properties": {
+                    "source": {
+                      "properties": {
+                        "rights_basis": {
+                          "const": "public_domain_term"
+                        }
+                      },
+                      "required": [
+                        "rights_basis"
+                      ]
+                    }
+                  }
+                }
+              }
+            },
+            "then": {
+              "properties": {
+                "author": {
+                  "properties": {
+                    "source": {
+                      "properties": {
+                        "license": {
+                          "const": "LicenseRef-public-domain-term"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          {
+            "if": {
+              "properties": {
+                "author": {
+                  "properties": {
+                    "source": {
+                      "properties": {
+                        "license": {
+                          "const": "LicenseRef-public-domain-term"
+                        }
+                      },
+                      "required": [
+                        "license"
+                      ]
+                    }
+                  }
+                }
+              }
+            },
+            "then": {
+              "properties": {
+                "author": {
+                  "properties": {
+                    "source": {
+                      "properties": {
+                        "rights_basis": {
+                          "const": "public_domain_term"
                         }
                       }
                     }
@@ -16428,6 +16574,7 @@
               "enum": [
                 "license",
                 "permission_with_attribution",
+                "public_domain_term",
                 "unknown"
               ]
             },
@@ -16482,7 +16629,8 @@
               "basis": {
                 "enum": [
                   "license",
-                  "permission_with_attribution"
+                  "permission_with_attribution",
+                  "public_domain_term"
                 ]
               }
             }
@@ -16567,7 +16715,8 @@
               "basis": {
                 "enum": [
                   "license",
-                  "permission_with_attribution"
+                  "permission_with_attribution",
+                  "public_domain_term"
                 ]
               }
             }

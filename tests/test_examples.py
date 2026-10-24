@@ -17,8 +17,9 @@ CARDS = sorted((ROOT / 'examples/cards').glob('*.json'))
 FICTIONAL = sorted((ROOT / 'tests/fixtures/fictional').glob('fx_*.json'))
 # The open licences an example card's source may carry, by SPDX identifier. A CC BY licence whose version
 # the article's own record does not state has its own identifier, and no version is guessed; an NC, ND or SA
-# licence is not open.
-EXAMPLE_LICENCES = ('CC-BY-1.0', 'CC-BY-2.0', 'CC-BY-2.5', 'CC-BY-3.0', 'CC-BY-4.0', 'LicenseRef-CC-BY-version-not-stated')
+# licence is not open. From OHF 1.2 a work in the public domain because its term expired has its own identifier.
+EXAMPLE_LICENCES = ('CC-BY-1.0', 'CC-BY-2.0', 'CC-BY-2.5', 'CC-BY-3.0', 'CC-BY-4.0', 'LicenseRef-CC-BY-version-not-stated',
+                    'LicenseRef-public-domain-term')
 
 
 def licence_open(card):
@@ -57,7 +58,8 @@ def test_example_licence_accepted(licence):
 @pytest.mark.parametrize('licence', ['CC BY', 'CC-BY', 'CC BY 2.5', 'cc-by-2.5', 'CC-BY-2.5 ', 'CC-BY-NC-4.0',
                                      'CC-BY-NC-ND-4.0', 'CC-BY-NC-SA-3.0', 'CC-BY-NC-2.0', 'CC-BY-SA-4.0', 'CC-BY-ND-2.5',
                                      'CC-BY-version-not-stated', 'LicenseRef-CC-BY-4.0',
-                                     'LicenseRef-CC-BY-NC-version-not-stated', 'licenseref-cc-by-version-not-stated'])
+                                     'LicenseRef-CC-BY-NC-version-not-stated', 'licenseref-cc-by-version-not-stated',
+                                     'LicenseRef-public-domain', 'public-domain', 'CC-PDDC', 'licenseref-public-domain-term'])
 def test_example_licence_refused(licence):
     card = load(ROOT / 'examples/cards/peto-paradox-mammals.json')
     card['author']['source']['license'] = licence
