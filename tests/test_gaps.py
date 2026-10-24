@@ -6,6 +6,7 @@ import pytest
 from jsonschema import Draft202012Validator
 
 from tests.test_ohf_1_2 import as_1_2
+from tests.test_ohf_1_3 import as_1_3
 from tools.check_gaps import check, gap_path_patterns
 from tools.strict_json import load
 from tools.validate import validation_errors
@@ -58,7 +59,7 @@ def test_policy_counts():
     counts = {}
     for row in POLICY['fields']:
         counts[row['na_allowed']] = counts.get(row['na_allowed'], 0) + 1
-    assert counts == {'never': 201, 'scope': 5, 'contract': 13}
+    assert counts == {'never': 202, 'scope': 5, 'contract': 13}
 
 
 def test_intervention_claim_cannot_declare_pharmacology_inapplicable():
@@ -181,7 +182,7 @@ def admitted(path):
 
 
 PETO = load(ROOT / 'examples/cards/peto-paradox-mammals.json')  # an OHF 1.1 card
-BASES = {'1.0': FIVE, '1.1': PETO, '1.2': as_1_2(PETO)}
+BASES = {'1.0': FIVE, '1.1': PETO, '1.2': as_1_2(PETO), '1.3': as_1_3(PETO)}
 
 
 def schema_refuses_gap(path, base):

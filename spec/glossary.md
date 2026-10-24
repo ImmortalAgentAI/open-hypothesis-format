@@ -146,6 +146,8 @@ This glossary defines the terms the Open Hypothesis Format (OHF) specification u
 
 **Vocabulary pin.** An entry of `vocabularies` that names a controlled vocabulary by id and SHA-256, such as `ohf:profiles@1` and `ohf:heuristics@1`, from OHF 1.1 `ohf:terms@1`, `ohf:profiles@2` and `ohf:hallmarks@1`, from OHF 1.2 `ohf:predicates@1`, and from OHF 1.3 `ohf:licence-refs@1`. The schema fixes the hash, so a card is bound to one exact vocabulary file. See [vocabularies](../vocabularies/profiles-1.json).
 
+**Name of a hypothesis.** From OHF 1.3, `core.names[]`: a name that the source itself gives the hypothesis, word for word, with its passage. The card invents none; absent, the source gives no name. See [README](README.md#ohf-13).
+
 **Withheld quote.** From OHF 1.1, `evidence.lines[].quote_withheld`: in place of a quote that may not be reproduced, the reason, the locator, the record, a paraphrase and the abstract sentence that entails it. Such a line is counted but does not make the disputing side for `full`. See [README](README.md#ohf-11).
 
 **Zone.** One of the two parts of a card that hold scientific values: the author zone and the added zone. Both use the same layers. See [README](README.md).

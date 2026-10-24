@@ -40,7 +40,8 @@ profile whose paths another named profile holds gets a warning (`check_profiles`
 domain by its term has an added-zone licence record with that basis and its conditions (`check_rights_basis`). In an
 OHF 1.3 card, a stated release is of the card's minor version and one this tool knows (`check_release`). A
 LicenseRef- licence is an id of the OHF licence vocabulary that the card's release can know, and in a 1.0-1.2
-card a finding is a warning; another licence has the SPDX id form (`check_licence`). The completeness
+card a finding is a warning; another licence has the SPDX id form (`check_licence`). A name of the
+hypothesis is listed once in each zone, compared without whitespace and letter case (`check_names`). The completeness
 level is computed by `check_completeness.py` and compared with the declared one.
 It assumes a card that already passes `tools/validate.py`.
 """
@@ -586,6 +587,21 @@ def check_licence(card, errors, warnings, licences=None):
     found.append(issue('REF_LICENCE_REF_RELEASE', path, f'{licence} is defined from OHF {since[licence]}, later than {known}'))
 
 
+def check_names(card, errors):
+    """OHF 1.3: a name the source gives the hypothesis is listed once in each zone. Two names that
+    differ only in whitespace or letter case are one name, as in a capitalised title and a lower-case
+    sentence of the body; two passages for one name are one element with either passage."""
+    same = lambda text: ' '.join(str(text).split()).casefold()
+    for zone in ZONES:
+        seen = {}
+        for i, name in enumerate(layers(card, zone).get('core', {}).get('names', [])):
+            key = same(name['value'])
+            if key in seen:
+                errors.append(issue('REF_NAME_DUPLICATE', f'{zone}.core.names[{i}]',
+                                    f"The name of core.names[{seen[key]}] again"))
+            seen.setdefault(key, i)
+
+
 def check_atom_scope(card, warnings):
     """OHF 1.2: an atom scope narrows the scope of the card. Whether it does is read in the passage;
     an atom scope with the same text as the card scope narrows nothing."""
@@ -664,6 +680,7 @@ def check(card, taxa=None, release=None, licences=None):
     check_rights_basis(card, errors)
     check_release(card, errors, release)
     check_licence(card, errors, warnings, licences)
+    check_names(card, errors)
     for ident, prediction in fields.items():
         missing = [key for key in COMPARABLE if key not in prediction]
         if prediction.get('form') == 'directional_contrast' and 'direction' not in prediction:

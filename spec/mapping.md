@@ -19,6 +19,7 @@ The catalogue distinguishes logical scientific fields from their storage. A dire
 | `identity.retractions[]` | `identity.retractions[]` | system identity |  |
 | `identity.lifecycle` | `identity.lifecycle` | system identity |  |
 | `core.statement` | `author.layers.core.statement`, `added.layers.core.statement` | scientific field |  |
+| `core.names[]` | `author.layers.core.names[]`, `added.layers.core.names[]` | scientific field |  |
 | `core.kind` | `author.layers.core.kind`, `added.layers.core.kind` | scientific field |  |
 | `core.explanandum` | `author.layers.core.explanandum`, `added.layers.core.explanandum` | scientific field |  |
 | `core.scope` | `author.layers.core.scope`, `added.layers.core.scope` | scientific field |  |

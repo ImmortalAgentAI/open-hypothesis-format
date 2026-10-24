@@ -21,8 +21,8 @@ DOLLAR = re.compile(r'(?<!\\)(?:\\\\)*\$')
 # The number of distinct patterns that use the end anchor, and of the pattern nodes that use it. A new
 # pattern needs a sample below and these counts raised, so a pattern added or left without its end cannot
 # pass unnoticed, even where another copy of the same pattern keeps its end.
-ANCHORED = 32
-ANCHORED_NODES = 106
+ANCHORED = 33
+ANCHORED_NODES = 107
 # The patterns that are not anchored at the end, on purpose.
 UNANCHORED = {
     '\\S': 'any text with a non-blank character',
@@ -35,7 +35,7 @@ SAMPLES = ['', 'x', '42', '2026', '2026-10', '2026-10-24', 'USD', '1.3.0', 'h_ab
            '0' * 40, '0' * 64, 'sha256:' + '0' * 64, 'RO:0002211', 'biolink:affects', 'NCBITaxon:9606',
            'doi:10.1/x', '10.1234/abc', '/a', '/added/layers/core', '/author/layers/core',
            'core.atoms', 'core.atoms[0].requires', 'core.atoms[].scope', 'provenance.claim_author_coi',
-           'appendix.rationale', 'core.explains[0].id', 'core.first_proposed']
+           'appendix.rationale', 'core.explains[0].id', 'core.first_proposed', 'core.names']
 
 
 def pattern_nodes():

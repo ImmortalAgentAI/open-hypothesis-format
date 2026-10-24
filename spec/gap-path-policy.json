@@ -78,6 +78,11 @@
       "reason": "No exception: missing input, unknown scope, exhausted budget or failed search is not scientific inapplicability."
     },
     {
+      "path": "core.names[]",
+      "na_allowed": "never",
+      "reason": "No exception: missing input, unknown scope, exhausted budget or failed search is not scientific inapplicability."
+    },
+    {
       "path": "core.kind",
       "na_allowed": "never",
       "reason": "No exception: missing input, unknown scope, exhausted budget or failed search is not scientific inapplicability."

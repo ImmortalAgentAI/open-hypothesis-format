@@ -1094,7 +1094,7 @@ MULLER = load(ROOT / 'examples/cards/muller-sheltering.json')
 
 def test_new_paths_are_marked_since_1_1():
     assert len(NEW_PATHS) == 36
-    assert {row.get('since', '1.0') for row in CATALOGUE['fields']} == {'1.0', '1.1', '1.2'}
+    assert {row.get('since', '1.0') for row in CATALOGUE['fields']} == {'1.0', '1.1', '1.2', '1.3'}
 
 
 @pytest.mark.parametrize('path', NEW_PATHS)

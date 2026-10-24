@@ -170,6 +170,18 @@
     },
     {
       "layer": "1 Claim core",
+      "path": "core.names[]",
+      "since": "1.3",
+      "definition": "A name that the source itself gives the hypothesis, word for word, each with its own passage. The order carries no meaning. Absent or empty, the source gives no name, and no gap is needed.",
+      "logical_type": "Text[]",
+      "vocabulary": "Source wording, word for word",
+      "example": "amoeboid predator-animal virulence hypothesis",
+      "basis": "ohf",
+      "field_class": "searchable",
+      "check": "passage"
+    },
+    {
+      "layer": "1 Claim core",
       "path": "core.kind",
       "definition": "Kind of claim, distinct from evidence type and generation method.",
       "logical_type": "Term",

@@ -8,7 +8,7 @@ import hashlib
 
 import pytest
 
-from tests.test_ohf_1_2 import PETO, RAPA, as_1_2, public_domain
+from tests.test_ohf_1_2 import PETO, RAPA, as_1_2, gap_codes, public_domain, record
 from tools.check_refs import check as check_refs, release_context
 from tools.content_hash import content_hash
 from tools.strict_json import load
@@ -237,3 +237,112 @@ def test_the_published_licence_vocabulary():
     assert all(row['since'] in release_context()['known'] for row in LICENCE_REFS['licence_refs'])
     card = with_licence(as_1_3(PETO), 'LicenseRef-fixture-row')
     assert {i['code'] for i in check_refs(card, release=RELEASED)['errors']} >= {'REF_LICENCE_REF_UNKNOWN'}
+
+
+# ------------------------------------------------------------------ N1: the names the source gives the hypothesis
+
+# Fixture names on the Peto card: the format checks their form, not their wording against the source.
+NAMED = 'the Diet Hypothesis of Cancer Mortality'
+OTHER = 'mammal-prey cancer hypothesis'
+SRC = PETO['added']['layers']['core']['scope']['src']
+LOCATOR = PETO['author']['layers']['core']['statement']['locator']
+
+
+def with_names(card, added=(NAMED, OTHER), author=(NAMED,)):
+    card = copy.deepcopy(card)
+    card['added']['layers']['core']['names'] = [{'value': name, 'src': SRC} for name in added]
+    card['author']['layers']['core']['names'] = [{'value': name, 'locator': LOCATOR} for name in author]
+    return card
+
+
+def name_gap(card, path='core.names'):
+    card = copy.deepcopy(card)
+    model = next(gap for gap in card['added']['gaps'] if gap['disposition'] == 'not_supplied')
+    card['added']['gaps'].append({**copy.deepcopy(model), 'path': path,
+                                  'reason': 'The body names the hypothesis; the conversion did not record the name.'})
+    return card
+
+
+def test_names_with_their_passages_are_valid():  # P1
+    card = with_names(as_1_3(PETO))
+    assert not validation_errors(SCHEMA, card)
+    result = check_refs(card, release=RELEASED)
+    assert result['valid'], result['errors']
+
+
+def test_a_card_without_names_needs_no_gap():
+    card = as_1_3(PETO)
+    assert 'names' not in card['added']['layers']['core']
+    assert not validation_errors(SCHEMA, card) and not gap_codes(card) and not codes(card)
+    card['added']['layers']['core']['names'] = []
+    assert not validation_errors(SCHEMA, card) and not codes(card)
+
+
+@pytest.mark.parametrize('zone, element', [('added', {'value': NAMED}), ('author', {'value': NAMED}),
+                                           ('added', {'value': NAMED, 'src': SRC, 'paraphrase': True}),
+                                           ('added', {'value': NAMED, 'locator': LOCATOR}),
+                                           ('author', {'value': NAMED, 'src': SRC})],
+                         ids=['added_no_src', 'author_no_locator', 'paraphrase', 'added_locator', 'author_src'])
+def test_a_name_has_its_own_passage(zone, element):  # M1a: each element its own src or locator, word for word
+    card = with_names(as_1_3(PETO))
+    card[zone]['layers']['core']['names'][0] = element
+    assert schema_rejects(card)
+
+
+@pytest.mark.parametrize('zone', ['author', 'added'])
+def test_a_1_2_card_has_no_names(zone):  # M1b
+    card = with_names(as_1_3(PETO))
+    card['standard_version'] = '1.2'
+    other = 'added' if zone == 'author' else 'author'
+    del card[other]['layers']['core']['names']
+    assert schema_rejects(card)
+    del card[zone]['layers']['core']['names']
+    assert not validation_errors(SCHEMA, card)
+
+
+@pytest.mark.parametrize('path', ['core.names', 'core.names[]', 'core.names[0]'])
+def test_a_gap_on_names_is_a_1_3_gap(path):  # M1b: the gap
+    card = name_gap(as_1_3(PETO), path)
+    assert not validation_errors(SCHEMA, card) and not gap_codes(card)
+    card['standard_version'] = '1.2'
+    assert schema_rejects(card)
+    assert 'GAP_PATH_UNKNOWN' in gap_codes(card)
+
+
+def test_a_gap_on_a_recorded_name_is_refused():
+    assert 'GAP_PATH_POPULATED' in gap_codes(name_gap(with_names(as_1_3(PETO)), 'core.names[0]'))
+
+
+@pytest.mark.parametrize('value', ['', '   ', '\n'])
+def test_a_name_is_not_empty(value):  # M1c
+    card = with_names(as_1_3(PETO), added=(value,))
+    assert schema_rejects(card)
+
+
+@pytest.mark.parametrize('again', [NAMED, NAMED.lower(), NAMED.upper(), '  the Diet  Hypothesis of\nCancer Mortality '],
+                         ids=['same', 'lower_case', 'upper_case', 'whitespace'])
+def test_a_name_is_listed_once(again):  # M1d, with the lead's note (a): letter case does not make another name
+    card = with_names(as_1_3(PETO), added=(NAMED, OTHER, again))
+    assert not validation_errors(SCHEMA, card)
+    assert 'REF_NAME_DUPLICATE' in codes(card)
+    assert 'REF_NAME_DUPLICATE' not in codes(with_names(as_1_3(PETO), added=(NAMED, OTHER)))
+
+
+def test_a_duplicate_is_found_in_the_author_zone_too():
+    card = with_names(as_1_3(PETO), author=(NAMED, NAMED.lower()))
+    assert 'REF_NAME_DUPLICATE' in codes(card)
+
+
+def test_the_same_name_in_both_zones_is_no_duplicate():
+    assert 'REF_NAME_DUPLICATE' not in codes(with_names(as_1_3(PETO), added=(NAMED,), author=(NAMED,)))
+
+
+def test_a_name_is_checked_against_its_passage():
+    card = with_names(as_1_3(PETO))
+    card['added']['integrity']['entailment'].append(record('/added/layers/core/names/1'))
+    assert not validation_errors(SCHEMA, card)
+    result = check_refs(card, release=RELEASED)
+    assert result['valid'], result['errors']
+    # A name is checked against a passage, never by resolution.
+    card['added']['integrity']['entailment'][-1]['basis'] = 'resolution'
+    assert 'REF_BASIS_KIND' in codes(card)
