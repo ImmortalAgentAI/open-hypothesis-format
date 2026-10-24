@@ -97,6 +97,7 @@ The catalogue distinguishes logical scientific fields from their storage. A dire
 | `evidence.lines[].items[]` | `author.layers.evidence.lines[].items[]`, `added.layers.evidence.lines[].items[]` | scientific field |  |
 | `evidence.lines[].quote` | `author.layers.evidence.lines[].quote`, `added.layers.evidence.lines[].quote` | scientific field |  |
 | `evidence.lines[].quote_withheld` | `added.layers.evidence.lines[].quote_withheld` | scientific field |  |
+| `evidence.lines[].data_availability` | `added.layers.evidence.lines[].data_availability` | scientific field |  |
 | `evidence.lines[].evidence_type` | `author.layers.evidence.lines[].evidence_type`, `added.layers.evidence.lines[].evidence_type` | scientific field |  |
 | `evidence.lines[].knowledge_level` | `author.layers.evidence.lines[].knowledge_level`, `added.layers.evidence.lines[].knowledge_level` | scientific field |  |
 | `evidence.lines[].agent_type` | `author.layers.evidence.lines[].agent_type`, `added.layers.evidence.lines[].agent_type` | scientific field |  |
@@ -138,6 +139,7 @@ The catalogue distinguishes logical scientific fields from their storage. A dire
 | `evidence.references[].identifier` | `author.layers.evidence.references[].identifier`, `added.layers.evidence.references[].identifier` | scientific field |  |
 | `evidence.references[].citation_relation` | `author.layers.evidence.references[].citation_relation`, `added.layers.evidence.references[].citation_relation` | scientific field |  |
 | `provenance.claim_author` | `author.layers.provenance.claim_author`, `added.layers.provenance.claim_author` | scientific field |  |
+| `provenance.claim_author_coi` | `added.layers.provenance.claim_author_coi` | scientific field |  |
 | `provenance.author_type` | `author.layers.provenance.author_type`, `added.layers.provenance.author_type` | scientific field |  |
 | `provenance.model` | `author.layers.provenance.model`, `added.layers.provenance.model` | scientific field |  |
 | `provenance.origin_method` | `author.layers.provenance.origin_method`, `added.layers.provenance.origin_method` | scientific field |  |

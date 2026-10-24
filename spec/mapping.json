@@ -900,6 +900,15 @@
       "coverage": "direct"
     },
     {
+      "catalogue_path": "evidence.lines[].data_availability",
+      "card_paths": [
+        "added.layers.evidence.lines[].data_availability"
+      ],
+      "status": "scientific field",
+      "extension": null,
+      "coverage": "direct"
+    },
+    {
       "catalogue_path": "evidence.lines[].evidence_type",
       "card_paths": [
         "author.layers.evidence.lines[].evidence_type",
@@ -1298,6 +1307,15 @@
       "card_paths": [
         "author.layers.provenance.claim_author",
         "added.layers.provenance.claim_author"
+      ],
+      "status": "scientific field",
+      "extension": null,
+      "coverage": "direct"
+    },
+    {
+      "catalogue_path": "provenance.claim_author_coi",
+      "card_paths": [
+        "added.layers.provenance.claim_author_coi"
       ],
       "status": "scientific field",
       "extension": null,

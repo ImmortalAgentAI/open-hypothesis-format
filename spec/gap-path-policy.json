@@ -468,6 +468,11 @@
       "reason": "No exception: missing input, unknown scope, exhausted budget or failed search is not scientific inapplicability."
     },
     {
+      "path": "evidence.lines[].data_availability",
+      "na_allowed": "never",
+      "reason": "No exception: missing input, unknown scope, exhausted budget or failed search is not scientific inapplicability."
+    },
+    {
       "path": "evidence.lines[].evidence_type",
       "na_allowed": "never",
       "reason": "No exception: missing input, unknown scope, exhausted budget or failed search is not scientific inapplicability."
@@ -669,6 +674,11 @@
     },
     {
       "path": "provenance.claim_author",
+      "na_allowed": "never",
+      "reason": "No exception: missing input, unknown scope, exhausted budget or failed search is not scientific inapplicability."
+    },
+    {
+      "path": "provenance.claim_author_coi",
       "na_allowed": "never",
       "reason": "No exception: missing input, unknown scope, exhausted budget or failed search is not scientific inapplicability."
     },

@@ -1,6 +1,6 @@
 # Field reference
 
-This reference lists all 217 logical catalogue paths. Each path has a short example value from the catalogue. Where a card fills the path, a longer example follows: from the example card muller-sheltering, converted from a published article, or from a fictional test card, whose values describe a fictional system and are not scientific evidence. A JSON pointer identifies each card example. An absent concept is illustrated by the card's explicit gap; no missing value is invented. Definitions and logical types describe the concept before provenance wrappers.
+This reference lists all 219 logical catalogue paths. Each path has a short example value from the catalogue. Where a card fills the path, a longer example follows: from the example card muller-sheltering, converted from a published article, or from a fictional test card, whose values describe a fictional system and are not scientific evidence. A JSON pointer identifies each card example. An absent concept is illustrated by the card's explicit gap; no missing value is invented. Definitions and logical types describe the concept before provenance wrappers.
 
 Generated from [the reference data](field-reference.json) with `python tools/build_field_reference.py`. Edit the reference data and regenerate this file.
 
@@ -1573,6 +1573,14 @@ Type: `WithheldQuotation`. Vocabulary: reason licence_unknown | nc_nd | no_open_
 
 Example value: nc_nd, Table 2, doi 10.1000/fictional, paraphrase and abstract sentence
 
+### `evidence.lines[].data_availability`
+
+Whether the data on which the line rests can be obtained, as the source states it: public, on request, or not available, with the restriction and, on request, the route to them.
+
+Type: `DataAvailability`. Vocabulary: OHF vocabulary: availability public | on_request | not_available; restriction and route as text; route required for on_request. Basis: `ohf`. Class: `searchable`. Check: `passage`. Zones: `added`. Since: OHF 1.2.
+
+Example value: on_request: species data held by a zoo network, by application to it
+
 ### `evidence.lines[].evidence_type`
 
 Evidence category, not a quality score.
@@ -2143,6 +2151,14 @@ Example from card muller-sheltering at `/added/layers/provenance/claim_author`:
   "src": "meta"
 }
 ```
+
+### `provenance.claim_author_coi`
+
+Funding and conflict-of-interest declarations of the author whose claim the card records, as the source states them, distinguishing explicit absence from unreported information. A cited work's declarations are in evidence.references[].funding_coi.
+
+Type: `FundingCOI`. Vocabulary: OHF record, as for evidence.references[].funding_coi. Basis: `ohf`. Class: `searchable`. Check: `passage`. Zones: `added`. Since: OHF 1.2.
+
+Example value: funded by fund G; author A is a consultant for company C
 
 ### `provenance.author_type`
 

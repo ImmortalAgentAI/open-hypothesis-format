@@ -1441,6 +1441,21 @@
     },
     {
       "layer": "4 Evidence",
+      "path": "evidence.lines[].data_availability",
+      "since": "1.2",
+      "definition": "Whether the data on which the line rests can be obtained, as the source states it: public, on request, or not available, with the restriction and, on request, the route to them.",
+      "logical_type": "DataAvailability",
+      "vocabulary": "OHF vocabulary: availability public | on_request | not_available; restriction and route as text; route required for on_request",
+      "example": "on_request: species data held by a zoo network, by application to it",
+      "basis": "ohf",
+      "field_class": "searchable",
+      "check": "passage",
+      "zones": [
+        "added"
+      ]
+    },
+    {
+      "layer": "4 Evidence",
       "path": "evidence.lines[].evidence_type",
       "definition": "Evidence category, not a quality score.",
       "logical_type": "Term",
@@ -2066,6 +2081,21 @@
       "basis": "sepio",
       "field_class": "searchable",
       "check": "passage"
+    },
+    {
+      "layer": "5 Provenance",
+      "path": "provenance.claim_author_coi",
+      "since": "1.2",
+      "definition": "Funding and conflict-of-interest declarations of the author whose claim the card records, as the source states them, distinguishing explicit absence from unreported information. A cited work's declarations are in evidence.references[].funding_coi.",
+      "logical_type": "FundingCOI",
+      "vocabulary": "OHF record, as for evidence.references[].funding_coi",
+      "example": "funded by fund G; author A is a consultant for company C",
+      "basis": "ohf",
+      "field_class": "searchable",
+      "check": "passage",
+      "zones": [
+        "added"
+      ]
     },
     {
       "layer": "5 Provenance",

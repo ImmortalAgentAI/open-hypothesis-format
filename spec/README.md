@@ -9,7 +9,7 @@ Every card states `standard_version`, the version of the card format: `"1.0"` or
 | File | Contents |
 | --- | --- |
 | [glossary.md](glossary.md) | Definitions of the terms OHF uses |
-| [field-catalogue.json](field-catalogue.json) | All 217 logical paths, with definition, logical type, vocabulary, conceptual basis and field class |
+| [field-catalogue.json](field-catalogue.json) | All 219 logical paths, with definition, logical type, vocabulary, conceptual basis and field class |
 | [fields.md](fields.md) | Field reference with an example for every path, generated from [field-reference.json](field-reference.json) |
 | [logical-types.md](logical-types.md) | How logical types are represented |
 | [references.md](references.md) | The identifier namespaces of a card and what each reference field must name |
@@ -273,4 +273,12 @@ The values checked by resolution are NCBI Taxonomy ids (`predictions[].system.ta
 **Closed predicates.** In a 1.2 card the relation of an atom triple (`core.atoms[].triple`) is a predicate of [`predicates-1.json`](../vocabularies/predicates-1.json) (`ohf:predicates@1`), and its label is that predicate's label there (`REF_PREDICATE_LABEL`). A qualifier names one of the qualifier slots listed there. A 1.2 card with a triple pins `ohf:predicates@1`; a 1.0 or 1.1 card may not pin it and keeps the open relation of 1.1. Each predicate has its id and label as the ontology release states them (RO, release 2026-09-04; Biolink Model 4.4.6), its inverse where the ontology gives one, and its kind: `causal`, `regulatory` or `associative`. The list holds every predicate the example cards and fixtures use and a small set of RO causal and regulatory relations. It has no `other`: when no predicate fits, the triple is not written, and the gap `core.atoms[].triple` with disposition `not_supplied` names the relation in its reason. Whether the subject and object are of the kinds the predicate expects is not checked.
 
 **Atom scope.** In a 1.2 card an added-zone atom may have a `scope` (`core.atoms[].scope`): the systems and conditions to which this atom applies when they are narrower than `core.scope`, as a sourced text with its `src`, checked against its passage. An atom without it has the scope of the card. It narrows the card scope and never widens it; whether it does is read in the passage, not checked mechanically. An atom scope with the same text as the card scope narrows nothing and gets a warning (`REF_ATOM_SCOPE_SAME`). `context_override` records how a child atom's conditions differ from its parent's; `scope` records which systems the atom covers. A 1.0 or 1.1 card has no atom scope and no gap on it.
+
+**The claim author's interests.** In a 1.2 card `provenance.claim_author_coi` records the funding and conflict-of-interest declarations of the author whose claim the card records, as the source states them, in the same record as `evidence.references[].funding_coi`: funders, and a declaration that is a text, `none_declared` or `not_reported`. A cited work's declarations stay in `evidence.references[].funding_coi`.
+
+**Data availability.** In a 1.2 card an evidence line may have `data_availability`: whether the data on which the line rests can be obtained, as the source states it. `availability` is `public`, `on_request` or `not_available`; `restriction` says what limits access, and `route`, required for `on_request`, says how the data are obtained. It is checked against its passage.
+
+**An entry of the reference list.** A source record may name an entry of the source's own reference list, for example `XML .//ref[@id='r7']` in a JATS document, as it may name a paragraph. A value whose basis is the cited work, such as the independence group of a line that cites observations of that work, then has that entry as its `src`, so it is checked against the entry and not against the paragraph that carries only the citation marker. The locator is a string; the format does not parse it.
+
+A 1.0 or 1.1 card has neither `claim_author_coi` nor `data_availability`, and no gap on them.
 

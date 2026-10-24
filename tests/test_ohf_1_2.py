@@ -557,8 +557,9 @@ def test_an_atom_scope_is_valid_in_1_2():  # P4a
     assert check_class(card, f'/added/layers/core/atoms/{DIET}/scope') == 'passage'
 
 
-def test_the_atom_scope_is_the_only_1_2_path():
-    assert [row['path'] for row in CATALOGUE['fields'] if row.get('since') == '1.2'] == ['core.atoms[].scope']
+def test_the_1_2_paths():
+    assert {row['path'] for row in CATALOGUE['fields'] if row.get('since') == '1.2'} == {
+        'core.atoms[].scope', 'provenance.claim_author_coi', 'evidence.lines[].data_availability'}
 
 
 def test_an_atom_scope_without_its_src_is_rejected():  # M4a
@@ -737,3 +738,73 @@ def test_a_record_on_an_element_without_its_own_src_names_the_list(card):
     element = card['added']['layers']['core']['alternative_explanations']['value'][0]
     element['src'] = card['added']['layers']['core']['alternative_explanations']['src']
     assert 'REF_WRONG_TARGET' not in codes(add(card, record(ELEMENT)))
+
+
+# ------------------------------------------------------------------ errata E1 and E2: the claim author's interests, data availability
+
+COI = {'value': {'funders': ['fund G'], 'coi_declared': {'kind': 'text', 'text': 'Author A is a consultant for company C.'}},
+       'src': 'abstract'}
+ZIMS = 4  # peto: a line on the zoo data set
+
+
+def zims(value=None, card=None):
+    card = copy.deepcopy(card) if card is not None else as_1_2(PETO)
+    card['added']['layers']['evidence']['lines'][ZIMS]['data_availability'] = {'value': value or {
+        'availability': 'on_request', 'restriction': 'Not public; held by the zoo network.',
+        'route': 'By application to the network.'}, 'src': 'zoo_data'}
+    return card
+
+
+def with_coi(card=None, coi=COI):
+    card = copy.deepcopy(card) if card is not None else as_1_2(PETO)
+    card['added']['layers'].setdefault('provenance', {})['claim_author_coi'] = copy.deepcopy(coi)
+    return card
+
+
+def test_the_claim_authors_interests_and_data_availability_are_valid_in_1_2():  # P1, P2
+    card = zims(card=with_coi())
+    assert not validation_errors(SCHEMA, card)
+    result = check_refs(card)
+    assert result['valid'], result['errors']
+    assert check_class(card, '/added/layers/provenance/claim_author_coi') == 'passage'
+    assert check_class(card, f'/added/layers/evidence/lines/{ZIMS}/data_availability') == 'passage'
+    assert not validation_errors(SCHEMA, zims({'availability': 'public'}))
+
+
+@pytest.mark.parametrize('coi', [{'value': {}, 'src': 'abstract'}, {'value': COI['value']},
+                                 {'value': {'coi_declared': {'kind': 'unknown'}}, 'src': 'abstract'}],
+                         ids=['empty', 'no_src', 'kind'])
+def test_the_claim_authors_interests_take_the_funding_record(coi):  # M1a
+    assert schema_rejects(with_coi(coi=coi))
+
+
+@pytest.mark.parametrize('value', [{'availability': 'on_request'}, {'availability': 'open'},
+                                   {'availability': 'public', 'licence': 'CC0'}],
+                         ids=['on_request_without_route', 'unknown_availability', 'unknown_member'])
+def test_data_availability_is_closed(value):  # M2a
+    assert schema_rejects(zims(value))
+
+
+@pytest.mark.parametrize('path, card', [('provenance.claim_author_coi', lambda: with_coi(copy.deepcopy(PETO))),
+                                        (f'evidence.lines[{ZIMS}].data_availability', lambda: zims(card=copy.deepcopy(PETO)))],
+                         ids=['claim_author_coi', 'data_availability'])
+def test_a_1_1_card_has_neither(path, card):  # M1b, M2b
+    assert schema_rejects(card())
+    gapped = copy.deepcopy(PETO)
+    gapped['added']['gaps'].append({'path': path, 'disposition': 'not_supplied', 'reason': 'Test reason.',
+                                    'query_ids': [], 'inspected_artifacts': copy.deepcopy(PETO['added']['gaps'][0]['inspected_artifacts'])})
+    assert schema_rejects(gapped)
+    assert 'GAP_PATH_UNKNOWN' in gap_codes(gapped)
+    gapped['standard_version'] = '1.2'
+    assert not gap_codes(as_1_2(gapped))
+
+
+# ------------------------------------------------------------------ erratum E5: an entry of the source's reference list
+
+def test_a_source_record_may_name_an_entry_of_the_reference_list():  # P5
+    card = as_1_2(PETO)
+    card['added']['sources']['ref_r7'] = dict(card['added']['sources']['peto'], locator="XML .//ref[@id='r7']")
+    card['added']['layers']['evidence']['lines'][ZIMS]['data_availability'] = {
+        'value': {'availability': 'public'}, 'src': 'ref_r7'}
+    assert not validation_errors(SCHEMA, card)
+    assert check_refs(card)['valid'], check_refs(card)['errors']
