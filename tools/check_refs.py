@@ -41,7 +41,8 @@ domain by its term has an added-zone licence record with that basis and its cond
 OHF 1.3 card, a stated release is of the card's minor version and one this tool knows (`check_release`). A
 LicenseRef- licence is an id of the OHF licence vocabulary that the card's release can know, and in a 1.0-1.2
 card a finding is a warning; another licence has the SPDX id form (`check_licence`). A name of the
-hypothesis is listed once in each zone, compared without whitespace and letter case (`check_names`). The completeness
+hypothesis is listed once in each zone, compared without letter case and with each run of whitespace read as
+one space (`check_names`). The completeness
 level is computed by `check_completeness.py` and compared with the declared one.
 It assumes a card that already passes `tools/validate.py`.
 """
@@ -589,8 +590,9 @@ def check_licence(card, errors, warnings, licences=None):
 
 def check_names(card, errors):
     """OHF 1.3: a name the source gives the hypothesis is listed once in each zone. Two names that
-    differ only in whitespace or letter case are one name, as in a capitalised title and a lower-case
-    sentence of the body; two passages for one name are one element with either passage."""
+    differ only in letter case or in the amount of whitespace before, between or after words are one
+    name, as in a capitalised title and a lower-case sentence of the body; words are not joined, so
+    "ab" and "a b" are two names; two passages for one name are one element with either passage."""
     same = lambda text: ' '.join(str(text).split()).casefold()
     for zone in ZONES:
         seen = {}

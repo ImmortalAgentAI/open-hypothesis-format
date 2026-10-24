@@ -346,3 +346,12 @@ def test_a_name_is_checked_against_its_passage():
     # A name is checked against a passage, never by resolution.
     card['added']['integrity']['entailment'][-1]['basis'] = 'resolution'
     assert 'REF_BASIS_KIND' in codes(card)
+
+
+@pytest.mark.parametrize('first, second, duplicate', [('ab', 'a b', False), ('a b', ' A  B ', True),
+                                                      ('a-b', 'a b', False)],
+                         ids=['joined_words', 'case_and_spacing', 'hyphen'])
+def test_names_are_compared_by_case_and_spacing_only(first, second, duplicate):  # lead review of N1
+    # Only letter case and the amount of whitespace are ignored; words are not joined or split.
+    card = with_names(as_1_3(PETO), added=(first, second))
+    assert ('REF_NAME_DUPLICATE' in codes(card)) == duplicate
