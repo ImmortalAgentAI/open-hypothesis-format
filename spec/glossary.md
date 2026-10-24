@@ -82,7 +82,7 @@ This glossary defines the terms the Open Hypothesis Format (OHF) specification u
 
 **Layer.** One of the seven scientific layers that both zones use: claim core (`core`), mechanism (`mechanism`), predictions (`predictions`), evidence (`evidence`), provenance (`provenance`), profile (`profile`) and appendix (`appendix`). The catalogue also has layer 0, identity and versions, which applies to the whole card, and the pair-level record, which is stored outside cards. See [README](README.md).
 
-**Licence.** The terms under which a source may be reused. The prose of this specification spells the word *licence*; field names and values use *license*: `author.source.license` and `rights_basis: "license"`. See [logical types](logical-types.md).
+**Licence.** The terms under which a source may be reused. The prose of this specification spells the word *licence*; field names and values use *license*: `author.source.license` and `rights_basis: "license"`. `author.source.license` is the licence the retrieved source record states at `retrieved_at`, given as an SPDX identifier; a CC BY licence whose version the record does not state is `LicenseRef-CC-BY-version-not-stated`. See [source licence](README.md#card-members-outside-the-layers) and [logical types](logical-types.md).
 
 **Locator.** The pointer from an author-zone value into the source text, held in `locator`, for example a paragraph of the source's full-text XML. Source records also carry a locator. See [README](README.md#logical-paths-and-storage).
 
