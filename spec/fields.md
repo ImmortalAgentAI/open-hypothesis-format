@@ -353,7 +353,7 @@ Example from card muller-sheltering at `/added/layers/core/atoms/0/role`:
 
 ### `core.atoms[].modality`
 
-How firmly the author asserts the atom, with the exact author wording on which the value rests.
+How firmly the author asserts the atom, with the exact author wording on which the value rests. It records how firmly the author asserts the atom, not whether the document itself demonstrates it: an unhedged assertion is claimed_shown even when the document credits it to other work; a hedge in the author's words (may, likely, suggests) is recorded as such, whatever the document shows.
 
 Type: `Term`. Vocabulary: OHF vocabulary: speculative | proposed | likely | claimed_shown. Basis: `ohf`. Class: `author_only`. Check: `passage`. Zones: `added`.
 
@@ -1965,7 +1965,7 @@ Example from fictional card fx_four at `/added/layers/evidence/lines/0/replicati
 
 ### `evidence.lines[].indirectness`
 
-How far the evidence is from the claim it is attached to, judged separately for the test system, the endpoint, the intervention and the comparison: none, some, serious or not applicable. It is the assessment of whoever recorded it.
+How far the evidence is from the claim it is attached to, judged separately for the test system, the endpoint, the intervention and the comparison: none, some, serious or not applicable. It is the assessment of whoever recorded it. It covers only the system, the endpoint, the intervention and the comparison; that a line cites data rather than reporting them is recorded in its independence group.
 
 Type: `Assessment`. Vocabulary: OHF vocabulary, not GRADE or RoB 2: a mapping to external schemes follows only after a check against their primary sources; none | some | serious | not_applicable. Basis: `ohf`. Class: `author_only`. Check: `passage`. Zones: `added`.
 
@@ -2023,7 +2023,7 @@ Example from fictional card fx_eight at `/added/layers/evidence/lines/0/risk_of_
 
 ### `evidence.lines[].independence_group`
 
-Lines with the same group label rest on the same data, study or laboratory and are not independent of each other.
+Lines with the same group label rest on the same data, study or laboratory and are not independent of each other. It records who observed: a line that cites observations of a named work has the group of that work, so a review of other work is not a further independent source. When the cited work is not named, the line keeps the document's own group.
 
 Type: `Identifier`. Vocabulary: Card-local label. Basis: `ohf`. Class: `author_only`. Check: `card`. Zones: `added`.
 
@@ -2048,7 +2048,7 @@ Example value: registry NCT04488601
 
 ### `evidence.lines[].argument_kind`
 
-Whether the line rests on observation or experiment (empirical), on a simulation, or on a mathematical derivation or proof.
+Whether the line rests on observation or experiment (empirical), on a simulation, or on a mathematical derivation or proof. It is the kind of argument, not whose data it is: empirical: the line rests on observation or experiment, whether the document reports it or cites it. How far the line is from the data is recorded in its indirectness and independence group, not here.
 
 Type: `Term`. Vocabulary: OHF vocabulary: empirical | simulation | derivation. Basis: `ohf`. Class: `author_only`. Check: `passage`. Zones: `added`.
 
@@ -2173,7 +2173,7 @@ Example value: model declaration not supplied
 
 How this claim arose, distinct from who authored it.
 
-Type: `Term`. Vocabulary: OHF: de_novo, refine, merge, import, published_restatement. Basis: `hep`. Class: `searchable`. Check: `passage`.
+Type: `Term`. Vocabulary: OHF: de_novo, the claim is proposed in the work the card is made from and derives from no earlier hypothesis record, so it has no parent_refs (what inspired it goes in inspiration_refs); refine, the claim changes one earlier hypothesis, named in parent_refs, by narrowing, extending or correcting it; merge, the claim joins two or more earlier hypotheses, each named in parent_refs; import, the claim is taken over unchanged from a record of another registry or format; published_restatement, the card restates a claim that a published work already states, read from author.source. The value says how this record's claim arose, not who wrote it: the author of the source and the means of writing it are in author.generator. Basis: `hep`. Class: `searchable`. Check: `passage`.
 
 Example value: published_restatement
 

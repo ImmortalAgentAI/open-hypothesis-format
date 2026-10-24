@@ -353,7 +353,7 @@
     {
       "layer": "1 Claim core",
       "path": "core.atoms[].modality",
-      "definition": "How firmly the author asserts the atom, with the exact author wording on which the value rests.",
+      "definition": "How firmly the author asserts the atom, with the exact author wording on which the value rests. It records how firmly the author asserts the atom, not whether the document itself demonstrates it: an unhedged assertion is claimed_shown even when the document credits it to other work; a hedge in the author's words (may, likely, suggests) is recorded as such, whatever the document shows.",
       "logical_type": "Term",
       "vocabulary": "OHF vocabulary: speculative | proposed | likely | claimed_shown",
       "example": "proposed, \"Here, I hypothesize that\"",
@@ -1948,7 +1948,7 @@
     {
       "layer": "4 Evidence",
       "path": "evidence.lines[].indirectness",
-      "definition": "How far the evidence is from the claim it is attached to, judged separately for the test system, the endpoint, the intervention and the comparison: none, some, serious or not applicable. It is the assessment of whoever recorded it.",
+      "definition": "How far the evidence is from the claim it is attached to, judged separately for the test system, the endpoint, the intervention and the comparison: none, some, serious or not applicable. It is the assessment of whoever recorded it. It covers only the system, the endpoint, the intervention and the comparison; that a line cites data rather than reporting them is recorded in its independence group.",
       "logical_type": "Assessment",
       "vocabulary": "OHF vocabulary, not GRADE or RoB 2: a mapping to external schemes follows only after a check against their primary sources; none | some | serious | not_applicable",
       "example": "system serious (mouse for human), endpoint none",
@@ -1976,7 +1976,7 @@
     {
       "layer": "4 Evidence",
       "path": "evidence.lines[].independence_group",
-      "definition": "Lines with the same group label rest on the same data, study or laboratory and are not independent of each other.",
+      "definition": "Lines with the same group label rest on the same data, study or laboratory and are not independent of each other. It records who observed: a line that cites observations of a named work has the group of that work, so a review of other work is not a further independent source. When the cited work is not named, the line keeps the document's own group.",
       "logical_type": "Identifier",
       "vocabulary": "Card-local label",
       "example": "g_head_extracts",
@@ -2005,7 +2005,7 @@
     {
       "layer": "4 Evidence",
       "path": "evidence.lines[].argument_kind",
-      "definition": "Whether the line rests on observation or experiment (empirical), on a simulation, or on a mathematical derivation or proof.",
+      "definition": "Whether the line rests on observation or experiment (empirical), on a simulation, or on a mathematical derivation or proof. It is the kind of argument, not whose data it is: empirical: the line rests on observation or experiment, whether the document reports it or cites it. How far the line is from the data is recorded in its indirectness and independence group, not here.",
       "logical_type": "Term",
       "vocabulary": "OHF vocabulary: empirical | simulation | derivation",
       "example": "derivation",
@@ -2094,7 +2094,7 @@
       "path": "provenance.origin_method",
       "definition": "How this claim arose, distinct from who authored it.",
       "logical_type": "Term",
-      "vocabulary": "OHF: de_novo, refine, merge, import, published_restatement",
+      "vocabulary": "OHF: de_novo, the claim is proposed in the work the card is made from and derives from no earlier hypothesis record, so it has no parent_refs (what inspired it goes in inspiration_refs); refine, the claim changes one earlier hypothesis, named in parent_refs, by narrowing, extending or correcting it; merge, the claim joins two or more earlier hypotheses, each named in parent_refs; import, the claim is taken over unchanged from a record of another registry or format; published_restatement, the card restates a claim that a published work already states, read from author.source. The value says how this record's claim arose, not who wrote it: the author of the source and the means of writing it are in author.generator",
       "example": "published_restatement",
       "basis": "hep",
       "field_class": "searchable",
