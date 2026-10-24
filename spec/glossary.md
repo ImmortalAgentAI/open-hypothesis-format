@@ -8,7 +8,7 @@ This glossary defines the terms the Open Hypothesis Format (OHF) specification u
 
 **Assessment.** A value that is the judgement of whoever recorded it, not a statement of the hypothesis author, such as `predictions[].discrimination`, `evidence.lines[].strength`, `evidence.lines[].indirectness` or `evidence.lines[].risk_of_bias`. It is held in the added zone with an `assessment` record that names the assessor, the time and the evidence it rests on. An assessment without a basis is not recorded; the field is a gap with `not_supplied`. See [integrity](README.md#integrity).
 
-**Atom.** An item of `core.atoms[]`: one atomic assertion of the hypothesis, stated without losing its condition, uncertainty or negation. Atoms are linked by `parent_ref` and an explicit `operator`; every added-zone atom has a claim type, a role and a modality, and an author-zone atom needs an added-zone atom with the same `id` that carries them. See [fields](fields.md).
+**Atom.** An item of `core.atoms[]`: one atomic assertion of the hypothesis, stated without losing its condition, uncertainty or negation. Atoms are linked by `parent_ref` and an explicit `operator`; every added-zone atom has a claim type, a role and a modality, and an author-zone atom needs an added-zone atom with the same `id` that carries them. From OHF 1.2 an added-zone atom may have a `scope` narrower than the scope of the card. See [fields](fields.md).
 
 **Author zone.** The `author` member of a card: the author's assertions and their source, `author.source`. Each value carries a `locator` into the source text, and author source strings stay verbatim. See [README](README.md).
 
@@ -20,9 +20,11 @@ This glossary defines the terms the Open Hypothesis Format (OHF) specification u
 
 **Card version.** One immutable version of a card, referenced by its `id`, `version` and `content_hash`. Relations artifacts and pair briefs bind to card versions, and `identity.supersedes[]` lists the earlier versions a card replaces. See [fields](fields.md).
 
-**Catalogue.** The [field catalogue](field-catalogue.json): all 216 logical paths, each with its layer, definition, logical type, vocabulary, conceptual basis and field class. The [field reference](fields.md) gives an example for every path.
+**Catalogue.** The [field catalogue](field-catalogue.json): all 219 logical paths, each with its layer, definition, logical type, vocabulary, conceptual basis and field class. The [field reference](fields.md) gives an example for every path.
 
 **Claim type.** `core.atoms[].claim_type`: what kind of claim an atom makes: `existence`, `distribution`, `association`, `causal_effect`, `mechanism`, `functional_attribution`, `evolutionary_explanation`, `development`, `constitution`, `quantitative_law`, `model_sufficiency`, `historical_reconstruction`, or `other` with a note. It is required on every added-zone atom. See [fields](fields.md).
+
+**Check.** From OHF 1.2, how a catalogue row's added value is checked: `passage` (against the paragraph its `src` names, by an entailment checker), `resolution` (against an external record, by a tool) or `card` (against the card, by `tools/check_refs.py`, with no record). A row may give a check for each member of its value. See [README](README.md#ohf-12).
 
 **Closed term.** From OHF 1.1, a `term` from [`terms-1.json`](../vocabularies/terms-1.json) next to the source wording of a route or an endpoint kind, with a `note` exactly when the term is `other`; `predictions[].control_type` lists terms. A 1.1 card gives the term wherever it records a route or an endpoint kind in the added zone. See [README](README.md#ohf-11).
 
@@ -38,9 +40,9 @@ This glossary defines the terms the Open Hypothesis Format (OHF) specification u
 
 **Discrimination.** `predictions[].discrimination`: how well a prediction's outcome separates the hypothesis from the alternatives that also expect it (`predictions[].also_expected_under[]`): none, weak or strong. It is an assessment, held in the added zone. See [fields](fields.md).
 
-**Domain profile.** The set of domain-specific paths a card selects in `added.layers.profile.domain`, from [`profiles-1.json`](../vocabularies/profiles-1.json): `ohf:intervention-pharmacology@1` for claims about the effect of an intervention (22 paths, in the predictions and profile layers; `facets.intervention_type` is then required), from OHF 1.1 `ohf:aging@1` ([`profiles-2.json`](../vocabularies/profiles-2.json): the same 22 paths and the hallmarks of aging), or `none`. With `none` the 22 paths are absent and need no gaps, and a gap for one of them is rejected; `author.layers.profile.domain`, if present, must match. See [README](README.md#domain-profiles).
+**Domain profile.** The set of domain-specific paths a card selects in `added.layers.profile.domain`, from [`profiles-1.json`](../vocabularies/profiles-1.json): `ohf:intervention-pharmacology@1` for claims about the effect of an intervention (22 paths, in the predictions and profile layers; `facets.intervention_type` is then required), from OHF 1.1 `ohf:aging@1` ([`profiles-2.json`](../vocabularies/profiles-2.json): the same 22 paths and the hallmarks of aging), or `none`. With `none` the 22 paths are absent and need no gaps, and a gap for one of them is rejected; `author.layers.profile.domain`, if present, must match. From OHF 1.2 the domain is a list of profiles, and a path is selected when any of them has it. See [README](README.md#domain-profiles).
 
-**Entailment record.** An item of `added.integrity.entailment[]`: a JSON pointer to a sourced added-zone value, the basis checked (`src` or `basis_quote`), a verdict, the checker with its version and the SHA-256 of its instructions, and the time. The checker is not the pass that wrote the added zone. See [integrity](README.md#integrity).
+**Entailment record.** An item of `added.integrity.entailment[]`: a JSON pointer to a sourced added-zone value (from OHF 1.2 also a member of one, or a value checked by resolution, which is checked against an external record rather than a `src`), the basis checked (`src` or `basis_quote`, or from OHF 1.2 `resolution`), a verdict, the checker with its version and the SHA-256 of what it ran (a model checker's prompt; from OHF 1.2 a tool checker's tool), and the time. The checker is not the pass that wrote the added zone. See [integrity](README.md#integrity).
 
 **Entailment verdict.** Whether the source passage supports an added value: `entails`, `partial` or `no`, the last two with a note. A value with a `partial` or `no` verdict is not presented as supported, and a value without a record has not been checked; a verdict concerns the source passage, not the truth of the claim. See [integrity](README.md#integrity).
 
@@ -82,7 +84,7 @@ This glossary defines the terms the Open Hypothesis Format (OHF) specification u
 
 **Layer.** One of the seven scientific layers that both zones use: claim core (`core`), mechanism (`mechanism`), predictions (`predictions`), evidence (`evidence`), provenance (`provenance`), profile (`profile`) and appendix (`appendix`). The catalogue also has layer 0, identity and versions, which applies to the whole card, and the pair-level record, which is stored outside cards. See [README](README.md).
 
-**Licence.** The terms under which a source may be reused. The prose of this specification spells the word *licence*; field names and values use *license*: `author.source.license` and `rights_basis: "license"`. `author.source.license` is the licence the retrieved source record states at `retrieved_at`, given as an SPDX identifier; a CC BY licence whose version the record does not state is `LicenseRef-CC-BY-version-not-stated`. See [source licence](README.md#card-members-outside-the-layers) and [logical types](logical-types.md).
+**Licence.** The terms under which a source may be reused. The prose of this specification spells the word *licence*; field names and values use *license*: `author.source.license` and `rights_basis: "license"`. `author.source.license` is the licence the retrieved source record states at `retrieved_at`, given as an SPDX identifier; a CC BY licence whose version the record does not state is `LicenseRef-CC-BY-version-not-stated`, and from OHF 1.2 a work whose copyright term has expired is `LicenseRef-public-domain-term` with `rights_basis: "public_domain_term"`. See [source licence](README.md#card-members-outside-the-layers) and [logical types](logical-types.md).
 
 **Locator.** The pointer from an author-zone value into the source text, held in `locator`, for example a paragraph of the source's full-text XML. Source records also carry a locator. See [README](README.md#logical-paths-and-storage).
 
@@ -109,6 +111,8 @@ This glossary defines the terms the Open Hypothesis Format (OHF) specification u
 **Reference checker.** `tools/check_refs.py`: resolves the internal references of a schema-valid card, applies the integrity rules the schema cannot express, and reports which predictions are comparable. See the [checker](../tools/check_refs.py).
 
 **Relations artifact.** A detached artifact, [`ohf:hypothesis-relations@1`](../schema/hypothesis-relations-1.schema.json), that records typed edges between card versions in a fixed pool: `rival_same_explanandum`, `nested`, `compatible_independent`, `duplicate`, `refines`, `unrelated`, and from OHF 1.1 `analog` or `mechanism_neighbour`; from OHF 1.1 an edge may join single records, such as atoms, of the two card versions. Support and contradiction are evidence relations and are not included. See [relations and pair briefs](README.md#relations-and-pair-briefs).
+
+**Resolution record.** From OHF 1.2, an entailment record with basis `resolution`: a tool checked the value against an external record and names that record's source, the SHA-256 of its response and the key it looked up. Its verdict is `entails` or `no`; when the record could not be retrieved or matched no single entry, no record is written. See [README](README.md#ohf-12).
 
 **Result estimate.** From OHF 1.1, `evidence.lines[].result_estimate` in the added zone: the result the line's quote reports, word for word, with its measure, contrast and scale as the source states them, or `not_stated`. See [README](README.md#ohf-11).
 
@@ -140,7 +144,7 @@ This glossary defines the terms the Open Hypothesis Format (OHF) specification u
 
 **Validator.** `tools/validate.py`: checks a card against the schema, rejects duplicate JSON members, non-finite numbers and invalid calendar timestamps, and reports every schema error. See the [validator](../tools/validate.py).
 
-**Vocabulary pin.** An entry of `vocabularies` that names a controlled vocabulary by id and SHA-256, such as `ohf:profiles@1` and `ohf:heuristics@1`, and from OHF 1.1 `ohf:terms@1`, `ohf:profiles@2` and `ohf:hallmarks@1`. The schema fixes the hash, so a card is bound to one exact vocabulary file. See [vocabularies](../vocabularies/profiles-1.json).
+**Vocabulary pin.** An entry of `vocabularies` that names a controlled vocabulary by id and SHA-256, such as `ohf:profiles@1` and `ohf:heuristics@1`, from OHF 1.1 `ohf:terms@1`, `ohf:profiles@2` and `ohf:hallmarks@1`, and from OHF 1.2 `ohf:predicates@1`. The schema fixes the hash, so a card is bound to one exact vocabulary file. See [vocabularies](../vocabularies/profiles-1.json).
 
 **Withheld quote.** From OHF 1.1, `evidence.lines[].quote_withheld`: in place of a quote that may not be reproduced, the reason, the locator, the record, a paraphrase and the abstract sentence that entails it. Such a line is counted but does not make the disputing side for `full`. See [README](README.md#ohf-11).
 

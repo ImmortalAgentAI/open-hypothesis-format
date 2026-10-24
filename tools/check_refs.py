@@ -29,7 +29,15 @@ only states existence, distribution or association gets a warning. In an OHF 1.1
 evidence line whose quote reports a result in numbers has a result estimate quoting those
 words, or a gap that says why not; a dose or an age in the quote that the line does not
 record gets a warning (`check_quotes`); a declared `human_proximity` follows from the line's
-taxon and endpoint kind where the pinned taxon table allows it (`check_proximity`). The completeness
+taxon and endpoint kind where the pinned taxon table allows it (`check_proximity`). In an OHF 1.2 card,
+each entailment record follows the check of the value it names, from the field catalogue: a passage
+record names a value checked against its passage, a resolution record a value checked against an
+external record, bound to the response and the key it looked up; a value checked by resolution
+without a record gets a warning (`check_integrity`); the relation of an atom triple has the label
+of that predicate in the pinned vocabulary (`check_predicates`); an atom scope with the text of the
+card scope gets a warning, because an atom scope only narrows it (`check_atom_scope`); a named domain
+profile whose paths another named profile holds gets a warning (`check_profiles`); a source in the public
+domain by its term has an added-zone licence record with that basis and its conditions (`check_rights_basis`). The completeness
 level is computed by `check_completeness.py` and compared with the declared one.
 It assumes a card that already passes `tools/validate.py`.
 """
@@ -43,7 +51,8 @@ import sys
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 
 import check_completeness  # noqa: E402
-from check_gaps import filled, resolve_pointer, unwrap  # noqa: E402
+from check_gaps import filled, named_profiles, resolve_pointer, unwrap  # noqa: E402
+from check_ledger import by_member, check_class, checks_classes, logical_path, own_versions  # noqa: E402
 from strict_json import load  # noqa: E402
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -209,12 +218,6 @@ def _under(pointer, pattern):
 
 def patterns(kinds):
     return [f'/{zone}/layers/{POINTERS[kind]}' for kind in kinds for zone in ZONES]
-
-
-def own_versions(card):
-    identity = card.get('identity', {})
-    return {f"{card.get('id')}@{card.get('version')}",
-            f"{unwrap(identity.get('proposition_id'))}@{unwrap(identity.get('version'))}"}
 
 
 def typed_reference(card, value, path, kinds, forms, ids, errors, external):
@@ -482,6 +485,59 @@ def check_proximity(card, errors, warnings, taxa=None, terms=None):
                                 + ' or '.join(sorted(allowed - STATED_ONLY))))
 
 
+def check_predicates(card, errors, predicates=None):
+    """OHF 1.2: the label of an atom triple's relation is the label of that predicate in the pinned
+    vocabulary (the schema closes the id)."""
+    if card.get('standard_version') in ('1.0', '1.1'):
+        return
+    predicates = predicates if predicates is not None else load(ROOT / 'vocabularies/predicates-1.json')
+    labels = {row['id']: row['label'] for row in predicates['predicates']}
+    for i, atom in enumerate(layers(card, 'added').get('core', {}).get('atoms', [])):
+        relation = (unwrap(atom.get('triple')) or {}).get('relation') or {}
+        if relation.get('id') in labels and relation.get('label') != labels[relation['id']]:
+            errors.append(issue('REF_PREDICATE_LABEL', f'added.core.atoms[{i}].triple.relation.label',
+                                f"The label of {relation['id']} is {labels[relation['id']]!r}"))
+
+
+def check_profiles(card, warnings, profiles=None):
+    """OHF 1.2: a named profile whose paths another named profile already holds adds nothing."""
+    named = named_profiles(layers(card, 'added').get('profile', {}).get('domain'))
+    if len(named) < 2:
+        return
+    profiles = profiles if profiles is not None else load(ROOT / 'vocabularies/profiles-2.json')
+    paths = {row['id']: set(row['paths']) for row in profiles['profiles']}
+    for i, one in enumerate(named):
+        if any(other != one and paths.get(one, set()) <= paths.get(other, set()) for other in named):
+            warnings.append(issue('REF_PROFILE_REDUNDANT', f'added.profile.domain[{i}]',
+                                  f'Another named profile already holds every path of {one}; leave it out'))
+
+
+def check_rights_basis(card, errors):
+    """OHF 1.2: a source in the public domain by an expired term shows what the expiry rests on: the
+    added-zone licence record has the basis public_domain_term and its conditions."""
+    if card.get('author', {}).get('source', {}).get('rights_basis') != 'public_domain_term':
+        return
+    terms = unwrap(layers(card, 'added').get('provenance', {}).get('licence'))
+    if not isinstance(terms, dict) or terms.get('basis') != 'public_domain_term' or not terms.get('conditions'):
+        errors.append(issue('REF_RIGHTS_BASIS', 'added.provenance.licence',
+                            'A source in the public domain by its term needs a licence record with the basis '
+                            'public_domain_term and the conditions the expiry rests on'))
+
+
+def check_atom_scope(card, warnings):
+    """OHF 1.2: an atom scope narrows the scope of the card. Whether it does is read in the passage;
+    an atom scope with the same text as the card scope narrows nothing."""
+    if card.get('standard_version') in ('1.0', '1.1'):
+        return
+    same = lambda text: ' '.join(str(text).split()).casefold()
+    card_scopes = {same(unwrap(layers(card, zone).get('core', {}).get('scope')))
+                   for zone in ZONES if layers(card, zone).get('core', {}).get('scope') is not None}
+    for i, atom in enumerate(layers(card, 'added').get('core', {}).get('atoms', [])):
+        if 'scope' in atom and same(unwrap(atom['scope'])) in card_scopes:
+            warnings.append(issue('REF_ATOM_SCOPE_SAME', f'added.core.atoms[{i}].scope',
+                                  'The atom scope repeats the scope of the card; leave it out'))
+
+
 def check_quotes(card, errors, warnings):
     """OHF 1.1: what a line's quote reports in numbers is also in the line's fields, or a gap says why not.
 
@@ -491,7 +547,7 @@ def check_quotes(card, errors, warnings):
     reason. The reported words of the estimate are in the quote. A dose or an age in the quote
     without the matching condition or a gap is a warning, because the pattern is a heuristic.
     """
-    if card.get('standard_version') != '1.1':
+    if card.get('standard_version') not in ('1.1', '1.2'):
         return
     for index, line in enumerate(layers(card, 'added').get('evidence', {}).get('lines', [])):
         quote = unwrap(line.get('quote'))
@@ -518,14 +574,15 @@ def check_quotes(card, errors, warnings):
 def check(card, taxa=None):
     errors, warnings, external, comparable, not_comparable = [], [], [], [], []
     fields = {}
-    if card.get('standard_version') not in ('1.0', '1.1'):
-        return {'valid': False, 'errors': [issue('REF_STANDARD_VERSION', 'standard_version', 'Only OHF 1.0 and 1.1 cards are checked')],
+    if card.get('standard_version') not in ('1.0', '1.1', '1.2'):
+        return {'valid': False, 'errors': [issue('REF_STANDARD_VERSION', 'standard_version', 'Only OHF 1.0, 1.1 and 1.2 cards are checked')],
                 'warnings': [], 'external': [], 'comparable': [], 'not_comparable': [], 'completeness': None}
     ids = identifiers(card, errors)
     domains = {zone: layers(card, zone).get('profile', {}).get('domain') for zone in ZONES}
-    if domains['author'] is not None and domains['author'] != domains['added']:
+    if domains['author'] is not None and set(named_profiles(domains['author'])) != set(named_profiles(domains['added'])):
         errors.append(issue('REF_DOMAIN_MISMATCH', 'profile.domain',
                             'author and added zones select different domain profiles'))
+    check_profiles(card, warnings)
     check_references(card, ids, errors, external)
     check_sources(card, errors)
     check_atom_links(card, errors)
@@ -540,6 +597,9 @@ def check(card, taxa=None):
     check_times(card, errors)
     check_quotes(card, errors, warnings)
     check_proximity(card, errors, warnings, taxa)
+    check_predicates(card, errors)
+    check_atom_scope(card, warnings)
+    check_rights_basis(card, errors)
     for ident, prediction in fields.items():
         missing = [key for key in COMPARABLE if key not in prediction]
         if prediction.get('form') == 'directional_contrast' and 'direction' not in prediction:
@@ -574,7 +634,8 @@ def check_integrity(card, errors, warnings):
                             'refetched_mismatch needs refetched bytes that differ from the stored source'))
     by = card['added']['by']
     sources = card['added'].get('sources') or {}
-    seen = set()
+    classes = checks_classes(card)
+    seen, resolved = set(), set()
     for i, record in enumerate(card['added'].get('integrity', {}).get('entailment', [])):
         path = f'added.integrity.entailment[{i}]'
         key = (record['pointer'], record['basis'])
@@ -582,7 +643,8 @@ def check_integrity(card, errors, warnings):
             errors.append(issue('REF_DUPLICATE_ID', path, 'One entailment record per pointer and basis'))
         seen.add(key)
         checker = record['checker']
-        if checker['name'] == by['converter'] or checker['prompt_sha256'] == by['converter_hash']:
+        own = checker.get('tool_sha256') if checker.get('kind') == 'tool' else checker.get('prompt_sha256')
+        if checker['name'] == by['converter'] or own == by['converter_hash']:
             errors.append(issue('REF_CHECKER_NOT_INDEPENDENT', path,
                                 'The entailment checker must not be the pass that wrote the added zone'))
         try:
@@ -590,9 +652,25 @@ def check_integrity(card, errors, warnings):
         except KeyError:
             errors.append(issue('REF_UNRESOLVED', path, f"Card pointer does not resolve: {record['pointer']}"))
             continue
+        if classes:
+            how = check_class(card, record['pointer'])
+            wanted = 'resolution' if record['basis'] == 'resolution' else 'passage'
+            if how != wanted:
+                errors.append(issue('REF_BASIS_KIND', path, f"A record with basis {record['basis']!r} names a value "
+                                    + (CHECKED[how] if how else 'that is checked member by member')))
+                continue
+            if wanted == 'resolution':
+                resolved.add(record['pointer'])
+                check_resolution(card, record, node, path, sources, errors)
+                assessment_order(card, record, path, errors)
+                continue
+            parent = record['pointer'].rsplit('/', 2)
+            if not (isinstance(node, dict) and 'src' in node) and parent[1:2] == ['value'] \
+                    and by_member(card, parent[0]) is not None:
+                node = {'value': node, 'src': unwrap_src(card, parent[0])}
         element = isinstance(node, dict) and 'src' in node and any(
             _under(record['pointer'], pattern) for pattern in ELEMENT_SOURCED)
-        if not (isinstance(node, dict) and 'src' in node and 'value' in node or element):
+        if not (isinstance(node, dict) and node.get('src') and 'value' in node or element):
             errors.append(issue('REF_WRONG_TARGET', path, 'An entailment record names a sourced added-zone value'))
             continue
         if record['basis'] == 'basis_quote' and 'basis_quote' not in node:
@@ -602,9 +680,97 @@ def check_integrity(card, errors, warnings):
         if checked and accessed and checked < accessed:
             errors.append(issue('REF_TIME_ORDER', path,
                                 f"checked_at is earlier than the access time of source record {node['src']!r}"))
-        assessed = moment((nearest_assessment(card, record['pointer']) or {}).get('assessed_at'))
-        if checked and assessed and checked < assessed:
-            errors.append(issue('REF_TIME_ORDER', path, 'checked_at is earlier than the assessment of the value'))
+        assessment_order(card, record, path, errors)
+    if classes:
+        for pointer in resolution_values(card):
+            if pointer not in resolved:
+                warnings.append(issue('REF_NOT_RESOLVED', pointer, 'The value is checked against an external record, '
+                                      'and no record of that check is in the card'))
+
+
+# OHF 1.2: what each check class means, for messages.
+CHECKED = {'passage': 'checked against its passage, so its record has basis src or basis_quote',
+           'resolution': 'checked against an external record, so its record has basis resolution',
+           'card': 'checked against the card by tools/check_refs.py, so no record is written for it'}
+
+
+def unwrap_src(card, pointer):
+    """The src of the source wrapper at `pointer`, or None."""
+    try:
+        node = resolve_pointer(card, pointer)
+    except KeyError:
+        return None
+    return node.get('src') if isinstance(node, dict) else None
+
+
+def resolution_key(card, pointer, node):
+    """The identifier a resolution of the value at `pointer` looks up, or None when it names none.
+    A taxon id, an independence key and a withheld quote's record are looked up as they stand; a
+    rung by its line's taxon id; a withheld quote's licence reason by that quote's record."""
+    logical = logical_path(card, pointer)
+    value = unwrap(node)
+    if logical.endswith('.taxon_id'):
+        return value
+    if logical in ('evidence.lines[].independence_group.key', 'evidence.lines[].quote_withheld.record_ref'):
+        return value.get('id') if isinstance(value, dict) else None
+    line = pointer.split('/')
+    line = resolve_pointer(card, '/'.join(line[:line.index('lines') + 2])) if 'lines' in line else {}
+    if logical == 'evidence.lines[].quote_withheld.reason':
+        record = (unwrap(line.get('quote_withheld')) or {}).get('record_ref') or {}
+        return record.get('id')
+    if logical == 'evidence.lines[].human_proximity':
+        return unwrap((line.get('system') or {}).get('taxon_id'))
+    return None
+
+
+def assessment_order(card, record, path, errors):
+    """A value is checked after it was assessed: checked_at is not earlier than the nearest assessment."""
+    checked = moment(record['checked_at'])
+    assessed = moment((nearest_assessment(card, record['pointer']) or {}).get('assessed_at'))
+    if checked and assessed and checked < assessed:
+        errors.append(issue('REF_TIME_ORDER', path, 'checked_at is earlier than the assessment of the value'))
+
+
+def check_resolution(card, record, node, path, sources, errors):
+    """A resolution record names the source record of the response it was checked against, with that
+    response's sha256 and the identifier it looked up, which is the one the value names (without case)."""
+    against = record['resolved_against']
+    source = sources.get(against['source'])
+    if source is None:
+        errors.append(issue('REF_SOURCE_UNKNOWN', path, f"No source record {against['source']!r} in added.sources"))
+        return
+    if source.get('sha256') != against['response_sha256']:
+        errors.append(issue('REF_RESOLUTION_BINDING', path, f"response_sha256 is not the sha256 of source record "
+                            f"{against['source']!r}"))
+    wanted = resolution_key(card, record['pointer'], node)
+    if wanted is None or str(wanted).casefold() != against['key'].casefold():
+        errors.append(issue('REF_RESOLUTION_BINDING', path, f"key {against['key']!r} is not the identifier the value "
+                            f"names ({wanted!r})"))
+    checked, accessed = moment(record['checked_at']), moment(source.get('accessed_at'))
+    if checked and accessed and checked < accessed:
+        errors.append(issue('REF_TIME_ORDER', path,
+                            f"checked_at is earlier than the access time of source record {against['source']!r}"))
+
+
+def resolution_values(card):
+    """Pointers of the filled added-zone values that are checked against an external record."""
+    out = []
+
+    def walk(node, pointer):
+        if pointer != '/added/layers':
+            how = check_class(card, pointer)
+            if how == 'resolution':
+                if filled(unwrap(node)):
+                    out.append(pointer)
+                return
+        if isinstance(node, dict):
+            for key, value in node.items():
+                walk(value, f"{pointer}/{key.replace('~', '~0').replace('/', '~1')}")
+        elif isinstance(node, list):
+            for i, value in enumerate(node):
+                walk(value, f'{pointer}/{i}')
+    walk(card['added']['layers'], '/added/layers')
+    return out
 
 
 def main():

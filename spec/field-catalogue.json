@@ -11,7 +11,8 @@
       "vocabulary": "OHF namespace, with external identifiers retained separately",
       "example": "urn:example:proposition-a",
       "basis": "sepio",
-      "field_class": "system"
+      "field_class": "system",
+      "check": "card"
     },
     {
       "layer": "0 Identity and versions",
@@ -21,7 +22,8 @@
       "vocabulary": "Positive integer",
       "example": "1",
       "basis": "ohf",
-      "field_class": "system"
+      "field_class": "system",
+      "check": "card"
     },
     {
       "layer": "0 Identity and versions",
@@ -31,7 +33,8 @@
       "vocabulary": "References to question or problem records, with source attribution",
       "example": "problem-context-example@1 (optional)",
       "basis": "ohf",
-      "field_class": "system"
+      "field_class": "system",
+      "check": "card"
     },
     {
       "layer": "0 Identity and versions",
@@ -41,7 +44,8 @@
       "vocabulary": "Card-local identifier, separate from the proposition identifier",
       "example": "urn:example:assertion-a",
       "basis": "sepio",
-      "field_class": "system"
+      "field_class": "system",
+      "check": "card"
     },
     {
       "layer": "0 Identity and versions",
@@ -51,7 +55,8 @@
       "vocabulary": "SEPIO Statement.statementText",
       "example": "author's assertion wording",
       "basis": "sepio",
-      "field_class": "author_only"
+      "field_class": "author_only",
+      "check": "passage"
     },
     {
       "layer": "0 Identity and versions",
@@ -61,7 +66,8 @@
       "vocabulary": "SEPIO Contribution / Agent identity",
       "example": "urn:example:author-a",
       "basis": "sepio",
-      "field_class": "author_only"
+      "field_class": "author_only",
+      "check": "card"
     },
     {
       "layer": "0 Identity and versions",
@@ -71,7 +77,8 @@
       "vocabulary": "ISO 8601 timestamp with stated precision",
       "example": "2026-10-15T10:00:00Z",
       "basis": "sepio",
-      "field_class": "author_only"
+      "field_class": "author_only",
+      "check": "passage"
     },
     {
       "layer": "0 Identity and versions",
@@ -81,7 +88,8 @@
       "vocabulary": "Source vocabulary plus reviewed OHF mapping",
       "example": "supports",
       "basis": "sepio",
-      "field_class": "author_only"
+      "field_class": "author_only",
+      "check": "passage"
     },
     {
       "layer": "0 Identity and versions",
@@ -91,7 +99,8 @@
       "vocabulary": "Declared probability or ordinal scale",
       "example": "0.6, elicited and uncalibrated",
       "basis": "hep",
-      "field_class": "author_only"
+      "field_class": "author_only",
+      "check": "passage"
     },
     {
       "layer": "0 Identity and versions",
@@ -101,7 +110,8 @@
       "vocabulary": "Reference to a cluster record kept by the publisher, or null",
       "example": "urn:example:cluster-a",
       "basis": "micropublications",
-      "field_class": "system"
+      "field_class": "system",
+      "check": "card"
     },
     {
       "layer": "0 Identity and versions",
@@ -111,7 +121,8 @@
       "vocabulary": "Versioned reference to one card of the cluster, or null",
       "example": "proposition-a@1",
       "basis": "micropublications",
-      "field_class": "system"
+      "field_class": "system",
+      "check": "card"
     },
     {
       "layer": "0 Identity and versions",
@@ -121,7 +132,8 @@
       "vocabulary": "Versioned references to earlier records of the same proposition",
       "example": "proposition-a@1",
       "basis": "ohf",
-      "field_class": "system"
+      "field_class": "system",
+      "check": "card"
     },
     {
       "layer": "0 Identity and versions",
@@ -131,7 +143,8 @@
       "vocabulary": "Retraction records; source notices are recorded separately",
       "example": "withdrawal of assertion-a with source notice",
       "basis": "nanopub",
-      "field_class": "system"
+      "field_class": "system",
+      "check": "passage"
     },
     {
       "layer": "0 Identity and versions",
@@ -141,7 +154,8 @@
       "vocabulary": "The publisher's own label, such as example or fixture; OHF 1.0 defines no lifecycle states or transitions",
       "example": "example",
       "basis": "hep",
-      "field_class": "system"
+      "field_class": "system",
+      "check": "passage"
     },
     {
       "layer": "1 Claim core",
@@ -151,7 +165,8 @@
       "vocabulary": "Source wording plus confirmed canonical restatement",
       "example": "Compound X reduces readout Y in cell system Z at 48 hours.",
       "basis": "ohf",
-      "field_class": "searchable"
+      "field_class": "searchable",
+      "check": "passage"
     },
     {
       "layer": "1 Claim core",
@@ -161,7 +176,8 @@
       "vocabulary": "OHF vocabulary: mechanism | association | intervention_effect | prediction",
       "example": "intervention_effect",
       "basis": "ohf",
-      "field_class": "searchable"
+      "field_class": "searchable",
+      "check": "passage"
     },
     {
       "layer": "1 Claim core",
@@ -171,7 +187,8 @@
       "vocabulary": "Author wording",
       "example": "variation of readout Y in system Z",
       "basis": "ohf",
-      "field_class": "searchable"
+      "field_class": "searchable",
+      "check": "passage"
     },
     {
       "layer": "1 Claim core",
@@ -181,7 +198,8 @@
       "vocabulary": "Author wording and domain qualifiers",
       "example": "cell system Z only, not organism survival",
       "basis": "biolink",
-      "field_class": "searchable"
+      "field_class": "searchable",
+      "check": "passage"
     },
     {
       "layer": "1 Claim core",
@@ -191,7 +209,8 @@
       "vocabulary": "Typed qualifiers, with the source terms retained",
       "example": "exposure duration: 48 hours",
       "basis": "biolink",
-      "field_class": "searchable"
+      "field_class": "searchable",
+      "check": "passage"
     },
     {
       "layer": "1 Claim core",
@@ -201,7 +220,8 @@
       "vocabulary": "OHF local identifiers",
       "example": "assumption-a",
       "basis": "micropublications",
-      "field_class": "system"
+      "field_class": "system",
+      "check": "card"
     },
     {
       "layer": "1 Claim core",
@@ -211,7 +231,8 @@
       "vocabulary": "Source wording",
       "example": "readout Y reflects the stated cellular process",
       "basis": "micropublications",
-      "field_class": "searchable"
+      "field_class": "searchable",
+      "check": "passage"
     },
     {
       "layer": "1 Claim core",
@@ -221,7 +242,8 @@
       "vocabulary": "OHF author declaration",
       "example": "true, only if explicitly declared",
       "basis": "ohf",
-      "field_class": "author_only"
+      "field_class": "author_only",
+      "check": "passage"
     },
     {
       "layer": "1 Claim core",
@@ -231,7 +253,8 @@
       "vocabulary": "Attributed assessment record",
       "example": "unassessed",
       "basis": "sepio",
-      "field_class": "searchable"
+      "field_class": "searchable",
+      "check": "passage"
     },
     {
       "layer": "1 Claim core",
@@ -241,7 +264,8 @@
       "vocabulary": "Author-defined resolution rule",
       "example": "opposite direction under the same stated conditions",
       "basis": "popper",
-      "field_class": "searchable"
+      "field_class": "searchable",
+      "check": "passage"
     },
     {
       "layer": "1 Claim core",
@@ -251,7 +275,8 @@
       "vocabulary": "OHF local identifiers",
       "example": "atom-a",
       "basis": "hyque",
-      "field_class": "system"
+      "field_class": "system",
+      "check": "card"
     },
     {
       "layer": "1 Claim core",
@@ -261,7 +286,8 @@
       "vocabulary": "Source wording",
       "example": "X affects Y under condition C",
       "basis": "hyque",
-      "field_class": "searchable"
+      "field_class": "searchable",
+      "check": "passage"
     },
     {
       "layer": "1 Claim core",
@@ -271,7 +297,8 @@
       "vocabulary": "Reference to the parent claim or atom; null for a root atom",
       "example": "proposition-a@1",
       "basis": "hyque",
-      "field_class": "system"
+      "field_class": "system",
+      "check": "card"
     },
     {
       "layer": "1 Claim core",
@@ -281,7 +308,8 @@
       "vocabulary": "AND | OR | XOR",
       "example": "AND",
       "basis": "hyque",
-      "field_class": "searchable"
+      "field_class": "searchable",
+      "check": "passage"
     },
     {
       "layer": "1 Claim core",
@@ -291,7 +319,8 @@
       "vocabulary": "Typed qualifiers, with a locator",
       "example": "different exposure duration, when stated",
       "basis": "ohf",
-      "field_class": "system"
+      "field_class": "system",
+      "check": "passage"
     },
     {
       "layer": "1 Claim core",
@@ -302,6 +331,7 @@
       "example": "causal_effect",
       "basis": "ohf",
       "field_class": "author_only",
+      "check": "passage",
       "zones": [
         "added"
       ]
@@ -315,6 +345,7 @@
       "example": "core",
       "basis": "ohf",
       "field_class": "author_only",
+      "check": "passage",
       "zones": [
         "added"
       ]
@@ -322,12 +353,13 @@
     {
       "layer": "1 Claim core",
       "path": "core.atoms[].modality",
-      "definition": "How firmly the author asserts the atom, with the exact author wording on which the value rests.",
+      "definition": "How firmly the author asserts the atom, with the exact author wording on which the value rests. It records how firmly the author asserts the atom, not whether the document itself demonstrates it: an unhedged assertion is claimed_shown even when the document credits it to other work; a hedge in the author's words (may, likely, suggests) is recorded as such, whatever the document shows.",
       "logical_type": "Term",
       "vocabulary": "OHF vocabulary: speculative | proposed | likely | claimed_shown",
       "example": "proposed, \"Here, I hypothesize that\"",
       "basis": "ohf",
       "field_class": "author_only",
+      "check": "passage",
       "zones": [
         "added"
       ]
@@ -342,6 +374,7 @@
       "example": "a_mtorc1_inhibition",
       "basis": "ohf",
       "field_class": "author_only",
+      "check": "card",
       "zones": [
         "added"
       ]
@@ -356,6 +389,7 @@
       "example": "a_mtorc1_inhibition",
       "basis": "ohf",
       "field_class": "author_only",
+      "check": "card",
       "zones": [
         "added"
       ]
@@ -366,10 +400,26 @@
       "since": "1.1",
       "definition": "The atom as subject, relation and object for machine linking. The statement stays the claim; the triple is a reading of it and may be coarser. Subject and object are ontology terms or mechanism entities of this card.",
       "logical_type": "Triple",
-      "vocabulary": "Relation from RO (RO:nnnnnnn) or the Biolink Model (biolink:slot); subject and object as CURIEs; qualifiers as Biolink qualifier slots",
+      "vocabulary": "Relation from RO (RO:nnnnnnn) or the Biolink Model (biolink:slot); from OHF 1.2 a predicate of ohf:predicates@1 with its label there, and qualifiers from its qualifier slots; subject and object as CURIEs",
       "example": "rapamycin RO:0002212 negatively regulates mTORC1",
       "basis": "ohf",
       "field_class": "author_only",
+      "check": "passage",
+      "zones": [
+        "added"
+      ]
+    },
+    {
+      "layer": "1 Claim core",
+      "path": "core.atoms[].scope",
+      "since": "1.2",
+      "definition": "The systems and conditions to which this atom applies, when they are narrower than the scope of the card. Absent, the atom has the scope of the card and needs no gap; a gap says that the passage narrows the atom and the card does not record how.",
+      "logical_type": "Text",
+      "vocabulary": "Author wording and domain qualifiers",
+      "example": "terrestrial mammals only, not the marine species of the data set",
+      "basis": "ohf",
+      "field_class": "searchable",
+      "check": "passage",
       "zones": [
         "added"
       ]
@@ -382,7 +432,8 @@
       "vocabulary": "OHF record",
       "example": "outcome \"counter Y stays high for longer\", for operators of system four, constrained to the fictional system",
       "basis": "ohf",
-      "field_class": "searchable"
+      "field_class": "searchable",
+      "check": "passage"
     },
     {
       "layer": "1 Claim core",
@@ -392,7 +443,8 @@
       "vocabulary": "OHF record; status claimed | bounded_search | expert_review | known_result (OHF 1.1: the result is already published, named by prior_claim_refs within a recorded search, and there is no new content)",
       "example": "new: agent Q as a way to act on target T; shared: the link between T and counter Y",
       "basis": "ohf",
-      "field_class": "searchable"
+      "field_class": "searchable",
+      "check": "passage"
     },
     {
       "layer": "1 Claim core",
@@ -402,7 +454,8 @@
       "vocabulary": "OHF record",
       "example": "question \"does target T limit counter Y in system five?\", consequence: the claim is limited to system four",
       "basis": "ohf",
-      "field_class": "searchable"
+      "field_class": "searchable",
+      "check": "passage"
     },
     {
       "layer": "1 Claim core",
@@ -412,7 +465,8 @@
       "vocabulary": "OHF record",
       "example": "agent Q raises counter Y through target U instead of T, told apart by prediction p1",
       "basis": "ohf",
-      "field_class": "searchable"
+      "field_class": "searchable",
+      "check": "passage"
     },
     {
       "layer": "1 Claim core",
@@ -423,7 +477,8 @@
       "vocabulary": "Card-local identifier, unique among alternatives",
       "example": "alt_cr_mimetic",
       "basis": "ohf",
-      "field_class": "system"
+      "field_class": "system",
+      "check": "card"
     },
     {
       "layer": "1 Claim core",
@@ -433,7 +488,8 @@
       "vocabulary": "OHF record",
       "example": "6 of 40 agents screened in system four raised counter Y (rate 0.15, as of 2026-01-01)",
       "basis": "ohf",
-      "field_class": "searchable"
+      "field_class": "searchable",
+      "check": "passage"
     },
     {
       "layer": "1 Claim core",
@@ -444,6 +500,7 @@
       "example": "Y-linked gene loss after recombination stops, explained by an accepted account",
       "basis": "ohf",
       "field_class": "searchable",
+      "check": "passage",
       "question_part": "gaps_closed"
     },
     {
@@ -455,6 +512,7 @@
       "example": "early models read as a rejection of sheltering, reread under sex-specific costs",
       "basis": "ohf",
       "field_class": "searchable",
+      "check": "passage",
       "question_part": "data_reinterpreted"
     },
     {
@@ -466,6 +524,7 @@
       "example": "whether ants spread bactericidal fatty acids by grooming",
       "basis": "ohf",
       "field_class": "searchable",
+      "check": "passage",
       "question_part": "directions_opened"
     },
     {
@@ -476,7 +535,8 @@
       "vocabulary": "OHF vocabulary: in_principle testable | not_testable | unclear; in_practice feasible_now | needs_new_method | not_feasible | unclear",
       "example": "testable and feasible now, cheapest test a chemical disruptor",
       "basis": "ohf",
-      "field_class": "searchable"
+      "field_class": "searchable",
+      "check": "passage"
     },
     {
       "layer": "1 Claim core",
@@ -486,7 +546,8 @@
       "vocabulary": "OHF vocabulary: precision year | month | day; basis author_statement | bounded_search",
       "example": "1971, author statement",
       "basis": "ohf",
-      "field_class": "searchable"
+      "field_class": "searchable",
+      "check": "passage"
     },
     {
       "layer": "2 Mechanism",
@@ -496,7 +557,8 @@
       "vocabulary": "Source wording",
       "example": "X may alter process Y",
       "basis": "indra",
-      "field_class": "searchable"
+      "field_class": "searchable",
+      "check": "passage"
     },
     {
       "layer": "2 Mechanism",
@@ -506,7 +568,8 @@
       "vocabulary": "OHF author declaration",
       "example": "true, if author states mechanism unknown",
       "basis": "ohf",
-      "field_class": "author_only"
+      "field_class": "author_only",
+      "check": "passage"
     },
     {
       "layer": "2 Mechanism",
@@ -516,7 +579,8 @@
       "vocabulary": "Identifiers from ChEBI, UniProt, GO, Reactome or another named registry",
       "example": "UniProt:P42345 as a vocabulary example only",
       "basis": "indra",
-      "field_class": "searchable"
+      "field_class": "searchable",
+      "check": "card"
     },
     {
       "layer": "2 Mechanism",
@@ -526,7 +590,8 @@
       "vocabulary": "Source wording; a normalized label names its registry release",
       "example": "protein X",
       "basis": "indra",
-      "field_class": "searchable"
+      "field_class": "searchable",
+      "check": "passage"
     },
     {
       "layer": "2 Mechanism",
@@ -536,7 +601,8 @@
       "vocabulary": "OHF local identifiers",
       "example": "step-a",
       "basis": "indra",
-      "field_class": "system"
+      "field_class": "system",
+      "check": "card"
     },
     {
       "layer": "2 Mechanism",
@@ -546,7 +612,8 @@
       "vocabulary": "Identifier of an entity in mechanism.entities[]",
       "example": "entity-a",
       "basis": "indra",
-      "field_class": "searchable"
+      "field_class": "searchable",
+      "check": "card"
     },
     {
       "layer": "2 Mechanism",
@@ -556,7 +623,8 @@
       "vocabulary": "RO or a reviewed domain relation mapping",
       "example": "positively regulates, if stated",
       "basis": "biolink",
-      "field_class": "searchable"
+      "field_class": "searchable",
+      "check": "passage"
     },
     {
       "layer": "2 Mechanism",
@@ -566,7 +634,8 @@
       "vocabulary": "OHF vocabulary: positive | negative | unspecified",
       "example": "negative",
       "basis": "indra",
-      "field_class": "searchable"
+      "field_class": "searchable",
+      "check": "passage"
     },
     {
       "layer": "2 Mechanism",
@@ -576,7 +645,8 @@
       "vocabulary": "Identifier of an entity in mechanism.entities[]",
       "example": "entity-b",
       "basis": "indra",
-      "field_class": "searchable"
+      "field_class": "searchable",
+      "check": "card"
     },
     {
       "layer": "2 Mechanism",
@@ -586,7 +656,8 @@
       "vocabulary": "ECO identifier with release/source locator",
       "example": "author-stated experimental evidence type",
       "basis": "eco",
-      "field_class": "searchable"
+      "field_class": "searchable",
+      "check": "passage"
     },
     {
       "layer": "2 Mechanism",
@@ -596,7 +667,8 @@
       "vocabulary": "Identifiers of evidence.lines[] in this card",
       "example": "evidence-line-a",
       "basis": "sepio",
-      "field_class": "searchable"
+      "field_class": "searchable",
+      "check": "card"
     },
     {
       "layer": "2 Mechanism",
@@ -606,7 +678,8 @@
       "vocabulary": "Typed qualifiers, with the source terms retained",
       "example": "cell system Z",
       "basis": "biolink",
-      "field_class": "searchable"
+      "field_class": "searchable",
+      "check": "passage"
     },
     {
       "layer": "2 Mechanism",
@@ -616,7 +689,8 @@
       "vocabulary": "OHF record",
       "example": "fictional target T, with the primary role in the mechanism",
       "basis": "ohf",
-      "field_class": "searchable"
+      "field_class": "searchable",
+      "check": "passage"
     },
     {
       "layer": "3 Predictions and estimands",
@@ -626,7 +700,8 @@
       "vocabulary": "OHF local identifiers",
       "example": "prediction-a",
       "basis": "ohf",
-      "field_class": "system"
+      "field_class": "system",
+      "check": "card"
     },
     {
       "layer": "3 Predictions and estimands",
@@ -636,7 +711,8 @@
       "vocabulary": "ICH estimand population, in the source terms",
       "example": "cell system Z as stated",
       "basis": "ich",
-      "field_class": "searchable"
+      "field_class": "searchable",
+      "check": "passage"
     },
     {
       "layer": "3 Predictions and estimands",
@@ -646,7 +722,8 @@
       "vocabulary": "NCBI Taxonomy, otherwise explicit missingness",
       "example": "NCBITaxon:10090 as a vocabulary example only",
       "basis": "arrive",
-      "field_class": "searchable"
+      "field_class": "searchable",
+      "check": "passage"
     },
     {
       "logical_type": "Identifier",
@@ -654,6 +731,7 @@
       "example": "NCBITaxon:10090",
       "basis": "ohf",
       "field_class": "searchable",
+      "check": "resolution",
       "zones": [
         "added"
       ],
@@ -670,7 +748,8 @@
       "vocabulary": "Free text; use a strain or cell-line registry identifier where one exists",
       "example": "cell line Z",
       "basis": "arrive",
-      "field_class": "searchable"
+      "field_class": "searchable",
+      "check": "passage"
     },
     {
       "layer": "3 Predictions and estimands",
@@ -680,7 +759,8 @@
       "vocabulary": "Source wording, without defaulting to both sexes",
       "example": "not stated",
       "basis": "arrive",
-      "field_class": "searchable"
+      "field_class": "searchable",
+      "check": "passage"
     },
     {
       "layer": "3 Predictions and estimands",
@@ -690,7 +770,8 @@
       "vocabulary": "UCUM-compatible units and explicit time origin",
       "example": "10 weeks, fictional example",
       "basis": "arrive",
-      "field_class": "searchable"
+      "field_class": "searchable",
+      "check": "passage"
     },
     {
       "layer": "3 Predictions and estimands",
@@ -700,7 +781,8 @@
       "vocabulary": "Source study design",
       "example": "culture well, fictional",
       "basis": "arrive",
-      "field_class": "searchable"
+      "field_class": "searchable",
+      "check": "passage"
     },
     {
       "layer": "3 Predictions and estimands",
@@ -710,7 +792,8 @@
       "vocabulary": "Source-defined time origin",
       "example": "not stated",
       "basis": "arrive",
-      "field_class": "searchable"
+      "field_class": "searchable",
+      "check": "passage"
     },
     {
       "layer": "3 Predictions and estimands",
@@ -720,7 +803,8 @@
       "vocabulary": "Source identifiers",
       "example": "site A",
       "basis": "arrive",
-      "field_class": "searchable"
+      "field_class": "searchable",
+      "check": "passage"
     },
     {
       "layer": "3 Predictions and estimands",
@@ -730,7 +814,8 @@
       "vocabulary": "OHF vocabulary: cell | tissue | organism | population | community | ecosystem | clade | in_silico | other",
       "example": "community",
       "basis": "ohf",
-      "field_class": "searchable"
+      "field_class": "searchable",
+      "check": "passage"
     },
     {
       "layer": "3 Predictions and estimands",
@@ -740,7 +825,8 @@
       "vocabulary": "Source text",
       "example": "laboratory colonies",
       "basis": "ohf",
-      "field_class": "searchable"
+      "field_class": "searchable",
+      "check": "passage"
     },
     {
       "layer": "3 Predictions and estimands",
@@ -750,7 +836,8 @@
       "vocabulary": "Source text",
       "example": "whole lakes",
       "basis": "ohf",
-      "field_class": "searchable"
+      "field_class": "searchable",
+      "check": "passage"
     },
     {
       "layer": "3 Predictions and estimands",
@@ -760,7 +847,8 @@
       "vocabulary": "Source text",
       "example": "about 350,000 generations",
       "basis": "ohf",
-      "field_class": "searchable"
+      "field_class": "searchable",
+      "check": "passage"
     },
     {
       "layer": "3 Predictions and estimands",
@@ -770,7 +858,8 @@
       "vocabulary": "ChEBI or another named registry, otherwise the source name",
       "example": "compound X",
       "basis": "ich",
-      "field_class": "searchable"
+      "field_class": "searchable",
+      "check": "passage"
     },
     {
       "layer": "3 Predictions and estimands",
@@ -780,7 +869,8 @@
       "vocabulary": "UCUM-compatible expression plus original dose string",
       "example": "5 arbitrary units per culture, fictional",
       "basis": "ucum",
-      "field_class": "searchable"
+      "field_class": "searchable",
+      "check": "passage"
     },
     {
       "layer": "3 Predictions and estimands",
@@ -790,7 +880,8 @@
       "vocabulary": "Source wording",
       "example": "single exposure",
       "basis": "ich",
-      "field_class": "searchable"
+      "field_class": "searchable",
+      "check": "passage"
     },
     {
       "layer": "3 Predictions and estimands",
@@ -800,7 +891,8 @@
       "vocabulary": "UCUM-compatible duration",
       "example": "48 hours, fictional",
       "basis": "ucum",
-      "field_class": "searchable"
+      "field_class": "searchable",
+      "check": "passage"
     },
     {
       "layer": "3 Predictions and estimands",
@@ -810,7 +902,8 @@
       "vocabulary": "Source wording in value; in the added zone also a closed term (ohf:terms@1, route), required from OHF 1.1, with a note for other",
       "example": "in culture medium, fictional",
       "basis": "arrive",
-      "field_class": "searchable"
+      "field_class": "searchable",
+      "check": "passage"
     },
     {
       "layer": "3 Predictions and estimands",
@@ -820,7 +913,8 @@
       "vocabulary": "Free text; use a domain registry identifier where one exists",
       "example": "not stated",
       "basis": "arrive",
-      "field_class": "searchable"
+      "field_class": "searchable",
+      "check": "passage"
     },
     {
       "layer": "3 Predictions and estimands",
@@ -830,7 +924,8 @@
       "vocabulary": "UCUM-compatible syntax plus biological basis",
       "example": "source dietary concentration, not delivered body dose",
       "basis": "ucum",
-      "field_class": "searchable"
+      "field_class": "searchable",
+      "check": "passage"
     },
     {
       "layer": "3 Predictions and estimands",
@@ -840,7 +935,8 @@
       "vocabulary": "Declared assay/context",
       "example": "not measured in supplied material",
       "basis": "ohf",
-      "field_class": "searchable"
+      "field_class": "searchable",
+      "check": "passage"
     },
     {
       "layer": "3 Predictions and estimands",
@@ -850,7 +946,8 @@
       "vocabulary": "Source intake basis",
       "example": "not stated",
       "basis": "ohf",
-      "field_class": "searchable"
+      "field_class": "searchable",
+      "check": "passage"
     },
     {
       "layer": "3 Predictions and estimands",
@@ -860,7 +957,8 @@
       "vocabulary": "Source assay, with specimen and time",
       "example": "blood concentration, if supplied",
       "basis": "ohf",
-      "field_class": "searchable"
+      "field_class": "searchable",
+      "check": "passage"
     },
     {
       "layer": "3 Predictions and estimands",
@@ -870,7 +968,8 @@
       "vocabulary": "ICH treatment conditions, PICO comparator",
       "example": "vehicle-treated system Z",
       "basis": "ich",
-      "field_class": "searchable"
+      "field_class": "searchable",
+      "check": "passage"
     },
     {
       "layer": "3 Predictions and estimands",
@@ -880,7 +979,8 @@
       "vocabulary": "Source-bound record of the control",
       "example": "matched control protocol A",
       "basis": "ohf",
-      "field_class": "searchable"
+      "field_class": "searchable",
+      "check": "passage"
     },
     {
       "layer": "3 Predictions and estimands",
@@ -890,7 +990,8 @@
       "vocabulary": "Declared criteria, not an imported p-value",
       "example": "not assessed",
       "basis": "ohf",
-      "field_class": "searchable"
+      "field_class": "searchable",
+      "check": "passage"
     },
     {
       "layer": "3 Predictions and estimands",
@@ -902,6 +1003,7 @@
       "example": "vehicle, active_comparator",
       "basis": "ohf",
       "field_class": "searchable",
+      "check": "passage",
       "zones": [
         "added"
       ]
@@ -914,7 +1016,8 @@
       "vocabulary": "PATO/MP or reviewed phenotype mapping",
       "example": "readout Y at 48 hours",
       "basis": "ich",
-      "field_class": "searchable"
+      "field_class": "searchable",
+      "check": "passage"
     },
     {
       "layer": "3 Predictions and estimands",
@@ -924,7 +1027,8 @@
       "vocabulary": "Source-defined endpoint semantics",
       "example": "higher deterioration differs from higher function",
       "basis": "ohf",
-      "field_class": "searchable"
+      "field_class": "searchable",
+      "check": "passage"
     },
     {
       "layer": "3 Predictions and estimands",
@@ -934,7 +1038,8 @@
       "vocabulary": "Author-stated ordering and conditions",
       "example": "A exceeds B exceeds C, fictional",
       "basis": "ohf",
-      "field_class": "searchable"
+      "field_class": "searchable",
+      "check": "passage"
     },
     {
       "layer": "3 Predictions and estimands",
@@ -944,7 +1049,8 @@
       "vocabulary": "Source wording in value; in the added zone also a closed term (ohf:terms@1, endpoint_kind), required from OHF 1.1, with a note for other",
       "example": "biomarker",
       "basis": "ohf",
-      "field_class": "searchable"
+      "field_class": "searchable",
+      "check": "passage"
     },
     {
       "layer": "3 Predictions and estimands",
@@ -954,7 +1060,8 @@
       "vocabulary": "ICH estimand, STATO where verified",
       "example": "difference in mean readout Y",
       "basis": "ich",
-      "field_class": "searchable"
+      "field_class": "searchable",
+      "check": "passage"
     },
     {
       "layer": "3 Predictions and estimands",
@@ -964,7 +1071,8 @@
       "vocabulary": "Author-defined contrast",
       "example": "difference versus vehicle",
       "basis": "ich",
-      "field_class": "searchable"
+      "field_class": "searchable",
+      "check": "passage"
     },
     {
       "layer": "3 Predictions and estimands",
@@ -974,7 +1082,8 @@
       "vocabulary": "Source definition and verified STATO mapping when available",
       "example": "original readout units",
       "basis": "ich",
-      "field_class": "searchable"
+      "field_class": "searchable",
+      "check": "passage"
     },
     {
       "layer": "3 Predictions and estimands",
@@ -984,7 +1093,8 @@
       "vocabulary": "Source event definition",
       "example": "treatment discontinuation, when relevant",
       "basis": "ich",
-      "field_class": "searchable"
+      "field_class": "searchable",
+      "check": "passage"
     },
     {
       "layer": "3 Predictions and estimands",
@@ -994,7 +1104,8 @@
       "vocabulary": "ICH strategy family only when source-stated",
       "example": "hypothetical, if explicitly declared",
       "basis": "ich",
-      "field_class": "author_only"
+      "field_class": "author_only",
+      "check": "passage"
     },
     {
       "layer": "3 Predictions and estimands",
@@ -1004,7 +1115,8 @@
       "vocabulary": "ICH-informed OHF adaptation",
       "example": "not stated",
       "basis": "ich",
-      "field_class": "author_only"
+      "field_class": "author_only",
+      "check": "passage"
     },
     {
       "layer": "3 Predictions and estimands",
@@ -1014,7 +1126,8 @@
       "vocabulary": "ICH five strategy families",
       "example": "event E handled by a hypothetical strategy, if stated",
       "basis": "ich",
-      "field_class": "searchable"
+      "field_class": "searchable",
+      "check": "passage"
     },
     {
       "layer": "3 Predictions and estimands",
@@ -1024,7 +1137,8 @@
       "vocabulary": "Study/analysis plan",
       "example": "not stated",
       "basis": "ich",
-      "field_class": "author_only"
+      "field_class": "author_only",
+      "check": "passage"
     },
     {
       "layer": "3 Predictions and estimands",
@@ -1034,7 +1148,8 @@
       "vocabulary": "Term for one of the directions in the definition; bounded equivalence requires explicit margins, scale and decision rule",
       "example": "decrease",
       "basis": "ohf",
-      "field_class": "searchable"
+      "field_class": "searchable",
+      "check": "passage"
     },
     {
       "layer": "3 Predictions and estimands",
@@ -1044,7 +1159,8 @@
       "vocabulary": "Source wording",
       "example": "qualitatively lower, no numeric threshold supplied",
       "basis": "ohf",
-      "field_class": "author_only"
+      "field_class": "author_only",
+      "check": "passage"
     },
     {
       "layer": "3 Predictions and estimands",
@@ -1054,7 +1170,8 @@
       "vocabulary": "Declared SESOI/TOST-style design, not inferred",
       "example": "lower/upper margins not stated",
       "basis": "ohf",
-      "field_class": "author_only"
+      "field_class": "author_only",
+      "check": "passage"
     },
     {
       "layer": "3 Predictions and estimands",
@@ -1064,7 +1181,8 @@
       "vocabulary": "UCUM-compatible duration",
       "example": "48 hours after exposure",
       "basis": "ich",
-      "field_class": "searchable"
+      "field_class": "searchable",
+      "check": "passage"
     },
     {
       "layer": "3 Predictions and estimands",
@@ -1074,7 +1192,8 @@
       "vocabulary": "Source wording, with the age unit the source states",
       "example": "not stated",
       "basis": "ohf",
-      "field_class": "searchable"
+      "field_class": "searchable",
+      "check": "passage"
     },
     {
       "layer": "3 Predictions and estimands",
@@ -1084,7 +1203,8 @@
       "vocabulary": "Typed qualifiers declared by the author",
       "example": "sex-specific effect, if stated",
       "basis": "biolink",
-      "field_class": "author_only"
+      "field_class": "author_only",
+      "check": "passage"
     },
     {
       "layer": "3 Predictions and estimands",
@@ -1094,7 +1214,8 @@
       "vocabulary": "Explicit method/coverage or elicitation",
       "example": "interval and coverage not stated",
       "basis": "ohf",
-      "field_class": "author_only"
+      "field_class": "author_only",
+      "check": "passage"
     },
     {
       "layer": "3 Predictions and estimands",
@@ -1104,7 +1225,8 @@
       "vocabulary": "Source text of the observable",
       "example": "test h0 versus h1 for observable Y",
       "basis": "popper",
-      "field_class": "searchable"
+      "field_class": "searchable",
+      "check": "passage"
     },
     {
       "layer": "3 Predictions and estimands",
@@ -1114,7 +1236,8 @@
       "vocabulary": "A declared proof/argument, never inferred from the prompt",
       "example": "not established",
       "basis": "popper",
-      "field_class": "searchable"
+      "field_class": "searchable",
+      "check": "passage"
     },
     {
       "layer": "3 Predictions and estimands",
@@ -1124,7 +1247,8 @@
       "vocabulary": "Reference to appendix.experiment_plan or to a preregistration",
       "example": "experiment-plan-a",
       "basis": "osf",
-      "field_class": "searchable"
+      "field_class": "searchable",
+      "check": "card"
     },
     {
       "layer": "3 Predictions and estimands",
@@ -1134,7 +1258,8 @@
       "vocabulary": "OHF record",
       "example": "about two weeks on one bench, 1000 to 1500 EUR in 2026",
       "basis": "ohf",
-      "field_class": "searchable"
+      "field_class": "searchable",
+      "check": "passage"
     },
     {
       "layer": "3 Predictions and estimands",
@@ -1144,7 +1269,8 @@
       "vocabulary": "OHF record",
       "example": "primary",
       "basis": "ohf",
-      "field_class": "searchable"
+      "field_class": "searchable",
+      "check": "passage"
     },
     {
       "layer": "3 Predictions and estimands",
@@ -1154,7 +1280,8 @@
       "vocabulary": "OHF record",
       "example": "holds if counter Y is at least 10 percent higher with agent Q after 20 cycles",
       "basis": "ohf",
-      "field_class": "searchable"
+      "field_class": "searchable",
+      "check": "passage"
     },
     {
       "layer": "3 Predictions and estimands",
@@ -1164,7 +1291,8 @@
       "vocabulary": "OHF record",
       "example": "dataset D4: counter Y for 200 runs with and without agent Q",
       "basis": "ohf",
-      "field_class": "searchable"
+      "field_class": "searchable",
+      "check": "passage"
     },
     {
       "layer": "3 Predictions and estimands",
@@ -1174,7 +1302,8 @@
       "vocabulary": "OHF vocabulary: novel | retrodicted | accommodated",
       "example": "retrodicted",
       "basis": "ohf",
-      "field_class": "searchable"
+      "field_class": "searchable",
+      "check": "passage"
     },
     {
       "layer": "3 Predictions and estimands",
@@ -1184,7 +1313,8 @@
       "vocabulary": "Card pointer or external reference",
       "example": "a pointer to an evidence line",
       "basis": "ohf",
-      "field_class": "searchable"
+      "field_class": "searchable",
+      "check": "card"
     },
     {
       "layer": "3 Predictions and estimands",
@@ -1194,7 +1324,8 @@
       "vocabulary": "OHF vocabulary: directional_contrast | presence_absence | parameter_value | functional_form | pattern | distribution | phylogenetic_comparative | historical_counterfactual",
       "example": "phylogenetic_comparative",
       "basis": "ohf",
-      "field_class": "searchable"
+      "field_class": "searchable",
+      "check": "passage"
     },
     {
       "layer": "3 Predictions and estimands",
@@ -1204,7 +1335,8 @@
       "vocabulary": "Identifiers of core.atoms[] in this card",
       "example": "a_bactericide_first",
       "basis": "ohf",
-      "field_class": "searchable"
+      "field_class": "searchable",
+      "check": "card"
     },
     {
       "layer": "3 Predictions and estimands",
@@ -1214,7 +1346,8 @@
       "vocabulary": "OHF vocabulary: card pointer or unspecified_other_mechanism",
       "example": "a pointer to an item of core.alternative_explanations",
       "basis": "ohf",
-      "field_class": "searchable"
+      "field_class": "searchable",
+      "check": "card"
     },
     {
       "layer": "3 Predictions and estimands",
@@ -1225,6 +1358,7 @@
       "example": "weak",
       "basis": "ohf",
       "field_class": "author_only",
+      "check": "passage",
       "zones": [
         "added"
       ]
@@ -1237,7 +1371,8 @@
       "vocabulary": "Card-local identifier",
       "example": "evidence-line-a",
       "basis": "sepio",
-      "field_class": "system"
+      "field_class": "system",
+      "check": "card"
     },
     {
       "layer": "4 Evidence",
@@ -1247,7 +1382,8 @@
       "vocabulary": "OHF scoped references",
       "example": "prediction-a of proposition-a@1",
       "basis": "sepio",
-      "field_class": "searchable"
+      "field_class": "searchable",
+      "check": "card"
     },
     {
       "layer": "4 Evidence",
@@ -1257,7 +1393,8 @@
       "vocabulary": "SEPIO direction with original source stance retained",
       "example": "neutral, not a missing-evidence marker",
       "basis": "sepio",
-      "field_class": "searchable"
+      "field_class": "searchable",
+      "check": "passage"
     },
     {
       "layer": "4 Evidence",
@@ -1267,7 +1404,8 @@
       "vocabulary": "SEPIO evidence items",
       "example": "source A, passage locator B",
       "basis": "sepio",
-      "field_class": "searchable"
+      "field_class": "searchable",
+      "check": "passage"
     },
     {
       "layer": "4 Evidence",
@@ -1277,7 +1415,8 @@
       "vocabulary": "OHF quotation contract",
       "example": "short source passage or not supplied",
       "basis": "ohf",
-      "field_class": "searchable"
+      "field_class": "searchable",
+      "check": "passage"
     },
     {
       "layer": "4 Evidence",
@@ -1289,6 +1428,28 @@
       "example": "nc_nd, Table 2, doi 10.1000/fictional, paraphrase and abstract sentence",
       "basis": "ohf",
       "field_class": "searchable",
+      "check": {
+        "reason": "resolution",
+        "record_ref": "resolution",
+        "locator": "card",
+        "paraphrase": "passage",
+        "abstract_quote": "passage"
+      },
+      "zones": [
+        "added"
+      ]
+    },
+    {
+      "layer": "4 Evidence",
+      "path": "evidence.lines[].data_availability",
+      "since": "1.2",
+      "definition": "Whether the data on which the line rests can be obtained, as the source states it: public, on request, or not available, with the restriction and, on request, the route to them.",
+      "logical_type": "DataAvailability",
+      "vocabulary": "OHF vocabulary: availability public | on_request | not_available; restriction and route as text; route required for on_request",
+      "example": "on_request: species data held by a zoo network, by application to it",
+      "basis": "ohf",
+      "field_class": "searchable",
+      "check": "passage",
       "zones": [
         "added"
       ]
@@ -1301,7 +1462,8 @@
       "vocabulary": "ECO with pinned term/version",
       "example": "source-stated assay evidence",
       "basis": "eco",
-      "field_class": "searchable"
+      "field_class": "searchable",
+      "check": "passage"
     },
     {
       "layer": "4 Evidence",
@@ -1311,7 +1473,8 @@
       "vocabulary": "Pinned Biolink enum",
       "example": "prediction, only after an explicit reviewed source mapping",
       "basis": "biolink",
-      "field_class": "searchable"
+      "field_class": "searchable",
+      "check": "passage"
     },
     {
       "layer": "4 Evidence",
@@ -1321,7 +1484,8 @@
       "vocabulary": "Pinned Biolink enum",
       "example": "automated_agent, only if explicitly supported",
       "basis": "biolink",
-      "field_class": "searchable"
+      "field_class": "searchable",
+      "check": "passage"
     },
     {
       "layer": "4 Evidence",
@@ -1331,7 +1495,8 @@
       "vocabulary": "INDRA optional epistemics",
       "example": "not stated",
       "basis": "indra",
-      "field_class": "searchable"
+      "field_class": "searchable",
+      "check": "passage"
     },
     {
       "layer": "4 Evidence",
@@ -1341,7 +1506,8 @@
       "vocabulary": "INDRA optional epistemics",
       "example": "true only when stated",
       "basis": "indra",
-      "field_class": "searchable"
+      "field_class": "searchable",
+      "check": "passage"
     },
     {
       "layer": "4 Evidence",
@@ -1351,7 +1517,8 @@
       "vocabulary": "Source wording of the study system",
       "example": "cell system Q, distinct from Z",
       "basis": "arrive",
-      "field_class": "searchable"
+      "field_class": "searchable",
+      "check": "passage"
     },
     {
       "layer": "4 Evidence",
@@ -1362,7 +1529,8 @@
       "vocabulary": "NCBI Taxonomy, otherwise explicit missingness",
       "example": "NCBITaxon:10090 as a vocabulary example only",
       "basis": "arrive",
-      "field_class": "searchable"
+      "field_class": "searchable",
+      "check": "passage"
     },
     {
       "logical_type": "Identifier",
@@ -1370,6 +1538,7 @@
       "example": "NCBITaxon:10090",
       "basis": "ohf",
       "field_class": "searchable",
+      "check": "resolution",
       "zones": [
         "added"
       ],
@@ -1387,7 +1556,8 @@
       "vocabulary": "Free text; use a strain or cell-line registry identifier where one exists",
       "example": "cell line Z",
       "basis": "arrive",
-      "field_class": "searchable"
+      "field_class": "searchable",
+      "check": "passage"
     },
     {
       "layer": "4 Evidence",
@@ -1398,7 +1568,8 @@
       "vocabulary": "Source wording, without defaulting to both sexes",
       "example": "not stated",
       "basis": "arrive",
-      "field_class": "searchable"
+      "field_class": "searchable",
+      "check": "passage"
     },
     {
       "layer": "4 Evidence",
@@ -1409,7 +1580,8 @@
       "vocabulary": "UCUM-compatible units and explicit time origin",
       "example": "10 weeks, fictional example",
       "basis": "arrive",
-      "field_class": "searchable"
+      "field_class": "searchable",
+      "check": "passage"
     },
     {
       "layer": "4 Evidence",
@@ -1420,7 +1592,8 @@
       "vocabulary": "Source-defined time origin",
       "example": "not stated",
       "basis": "arrive",
-      "field_class": "searchable"
+      "field_class": "searchable",
+      "check": "passage"
     },
     {
       "layer": "4 Evidence",
@@ -1431,7 +1604,8 @@
       "vocabulary": "Source identifiers",
       "example": "site A",
       "basis": "arrive",
-      "field_class": "searchable"
+      "field_class": "searchable",
+      "check": "passage"
     },
     {
       "layer": "4 Evidence",
@@ -1442,7 +1616,8 @@
       "vocabulary": "OHF vocabulary: cell | tissue | organism | population | community | ecosystem | clade | in_silico | other",
       "example": "community",
       "basis": "ohf",
-      "field_class": "searchable"
+      "field_class": "searchable",
+      "check": "passage"
     },
     {
       "layer": "4 Evidence",
@@ -1453,7 +1628,8 @@
       "vocabulary": "Source text",
       "example": "laboratory colonies",
       "basis": "ohf",
-      "field_class": "searchable"
+      "field_class": "searchable",
+      "check": "passage"
     },
     {
       "layer": "4 Evidence",
@@ -1464,7 +1640,8 @@
       "vocabulary": "Source text",
       "example": "whole lakes",
       "basis": "ohf",
-      "field_class": "searchable"
+      "field_class": "searchable",
+      "check": "passage"
     },
     {
       "layer": "4 Evidence",
@@ -1475,7 +1652,8 @@
       "vocabulary": "Source text",
       "example": "about 350,000 generations",
       "basis": "ohf",
-      "field_class": "searchable"
+      "field_class": "searchable",
+      "check": "passage"
     },
     {
       "layer": "4 Evidence",
@@ -1486,7 +1664,8 @@
       "vocabulary": "ChEBI or another named registry, otherwise the source name",
       "example": "compound X",
       "basis": "ich",
-      "field_class": "searchable"
+      "field_class": "searchable",
+      "check": "passage"
     },
     {
       "layer": "4 Evidence",
@@ -1497,7 +1676,8 @@
       "vocabulary": "UCUM-compatible expression plus original dose string",
       "example": "5 arbitrary units per culture, fictional",
       "basis": "ucum",
-      "field_class": "searchable"
+      "field_class": "searchable",
+      "check": "passage"
     },
     {
       "layer": "4 Evidence",
@@ -1508,7 +1688,8 @@
       "vocabulary": "Source wording",
       "example": "single exposure",
       "basis": "ich",
-      "field_class": "searchable"
+      "field_class": "searchable",
+      "check": "passage"
     },
     {
       "layer": "4 Evidence",
@@ -1519,7 +1700,8 @@
       "vocabulary": "UCUM-compatible duration",
       "example": "48 hours, fictional",
       "basis": "ucum",
-      "field_class": "searchable"
+      "field_class": "searchable",
+      "check": "passage"
     },
     {
       "layer": "4 Evidence",
@@ -1530,7 +1712,8 @@
       "vocabulary": "Source wording in value; in the added zone also a closed term (ohf:terms@1, route), required from OHF 1.1, with a note for other",
       "example": "in culture medium, fictional",
       "basis": "arrive",
-      "field_class": "searchable"
+      "field_class": "searchable",
+      "check": "passage"
     },
     {
       "layer": "4 Evidence",
@@ -1541,7 +1724,8 @@
       "vocabulary": "Free text; use a domain registry identifier where one exists",
       "example": "not stated",
       "basis": "arrive",
-      "field_class": "searchable"
+      "field_class": "searchable",
+      "check": "passage"
     },
     {
       "layer": "4 Evidence",
@@ -1552,7 +1736,8 @@
       "vocabulary": "UCUM-compatible syntax plus biological basis",
       "example": "source dietary concentration, not delivered body dose",
       "basis": "ucum",
-      "field_class": "searchable"
+      "field_class": "searchable",
+      "check": "passage"
     },
     {
       "layer": "4 Evidence",
@@ -1563,7 +1748,8 @@
       "vocabulary": "Declared assay/context",
       "example": "not measured in supplied material",
       "basis": "ohf",
-      "field_class": "searchable"
+      "field_class": "searchable",
+      "check": "passage"
     },
     {
       "layer": "4 Evidence",
@@ -1574,7 +1760,8 @@
       "vocabulary": "Source intake basis",
       "example": "not stated",
       "basis": "ohf",
-      "field_class": "searchable"
+      "field_class": "searchable",
+      "check": "passage"
     },
     {
       "layer": "4 Evidence",
@@ -1585,7 +1772,8 @@
       "vocabulary": "Source assay, with specimen and time",
       "example": "blood concentration, if supplied",
       "basis": "ohf",
-      "field_class": "searchable"
+      "field_class": "searchable",
+      "check": "passage"
     },
     {
       "layer": "4 Evidence",
@@ -1597,6 +1785,7 @@
       "example": "ITP, 3 sites",
       "basis": "ohf",
       "field_class": "searchable",
+      "check": "passage",
       "zones": [
         "added"
       ]
@@ -1611,6 +1800,7 @@
       "example": "subgroup: males on the lower dose; secondary outcome; analysis not stated",
       "basis": "ohf",
       "field_class": "searchable",
+      "check": "passage",
       "zones": [
         "added"
       ]
@@ -1625,6 +1815,7 @@
       "example": "biomarker",
       "basis": "ohf",
       "field_class": "searchable",
+      "check": "passage",
       "zones": [
         "added"
       ]
@@ -1639,6 +1830,7 @@
       "example": "human_marker",
       "basis": "ohf",
       "field_class": "searchable",
+      "check": "resolution",
       "zones": [
         "added"
       ]
@@ -1653,6 +1845,7 @@
       "example": "48",
       "basis": "ohf",
       "field_class": "searchable",
+      "check": "passage",
       "zones": [
         "added"
       ]
@@ -1665,7 +1858,8 @@
       "vocabulary": "Source design vocabulary with reviewed mapping",
       "example": "in vitro experiment",
       "basis": "arrive",
-      "field_class": "searchable"
+      "field_class": "searchable",
+      "check": "passage"
     },
     {
       "layer": "4 Evidence",
@@ -1675,7 +1869,8 @@
       "vocabulary": "Source analysis output. In the added zone of a 1.1 card a record: reported, the words of the quote that give the result; measure, contrast and scale, each as the source states it or not_stated",
       "example": "estimate not supplied",
       "basis": "ohf",
-      "field_class": "searchable"
+      "field_class": "searchable",
+      "check": "passage"
     },
     {
       "layer": "4 Evidence",
@@ -1685,7 +1880,8 @@
       "vocabulary": "Source statistical report",
       "example": "not supplied",
       "basis": "ohf",
-      "field_class": "searchable"
+      "field_class": "searchable",
+      "check": "passage"
     },
     {
       "layer": "4 Evidence",
@@ -1695,7 +1891,8 @@
       "vocabulary": "Study analysis report",
       "example": "test name only when stated",
       "basis": "arrive",
-      "field_class": "searchable"
+      "field_class": "searchable",
+      "check": "passage"
     },
     {
       "layer": "4 Evidence",
@@ -1705,7 +1902,8 @@
       "vocabulary": "SEPIO strength/score, no automatic OHF scale",
       "example": "author qualitative assessment",
       "basis": "sepio",
-      "field_class": "author_only"
+      "field_class": "author_only",
+      "check": "passage"
     },
     {
       "layer": "4 Evidence",
@@ -1715,7 +1913,8 @@
       "vocabulary": "Publisher or registry notices, with the date of the check",
       "example": "not checked",
       "basis": "ohf",
-      "field_class": "searchable"
+      "field_class": "searchable",
+      "check": "passage"
     },
     {
       "layer": "4 Evidence",
@@ -1725,7 +1924,8 @@
       "vocabulary": "DOI/PMID/accession when supplied",
       "example": "urn:example:source-a (reserved illustrative identifier)",
       "basis": "ohf",
-      "field_class": "searchable"
+      "field_class": "searchable",
+      "check": "passage"
     },
     {
       "layer": "4 Evidence",
@@ -1735,7 +1935,8 @@
       "vocabulary": "CiTO when explicitly reviewed",
       "example": "source cited as context",
       "basis": "cito",
-      "field_class": "searchable"
+      "field_class": "searchable",
+      "check": "passage"
     },
     {
       "layer": "4 Evidence",
@@ -1745,7 +1946,8 @@
       "vocabulary": "OHF record",
       "example": "full text retrieved and inspected on 2026-01-01",
       "basis": "ohf",
-      "field_class": "system"
+      "field_class": "system",
+      "check": "passage"
     },
     {
       "layer": "4 Evidence",
@@ -1755,17 +1957,19 @@
       "vocabulary": "OHF record",
       "example": "repeated once by an independent group with the same result",
       "basis": "ohf",
-      "field_class": "searchable"
+      "field_class": "searchable",
+      "check": "passage"
     },
     {
       "layer": "4 Evidence",
       "path": "evidence.lines[].indirectness",
-      "definition": "How far the evidence is from the claim it is attached to, judged separately for the test system, the endpoint, the intervention and the comparison: none, some, serious or not applicable. It is the assessment of whoever recorded it.",
+      "definition": "How far the evidence is from the claim it is attached to, judged separately for the test system, the endpoint, the intervention and the comparison: none, some, serious or not applicable. It is the assessment of whoever recorded it. It covers only the system, the endpoint, the intervention and the comparison; that a line cites data rather than reporting them is recorded in its independence group.",
       "logical_type": "Assessment",
       "vocabulary": "OHF vocabulary, not GRADE or RoB 2: a mapping to external schemes follows only after a check against their primary sources; none | some | serious | not_applicable",
       "example": "system serious (mouse for human), endpoint none",
       "basis": "ohf",
       "field_class": "author_only",
+      "check": "passage",
       "zones": [
         "added"
       ]
@@ -1779,6 +1983,7 @@
       "example": "not_assessed",
       "basis": "ohf",
       "field_class": "author_only",
+      "check": "passage",
       "zones": [
         "added"
       ]
@@ -1786,12 +1991,13 @@
     {
       "layer": "4 Evidence",
       "path": "evidence.lines[].independence_group",
-      "definition": "Lines with the same group label rest on the same data, study or laboratory and are not independent of each other.",
+      "definition": "Lines with the same group label rest on the same data, study or laboratory and are not independent of each other. It records who observed: a line that cites observations of a named work has the group of that work, so a review of other work is not a further independent source. When the cited work is not named, the line keeps the document's own group.",
       "logical_type": "Identifier",
       "vocabulary": "Card-local label",
       "example": "g_head_extracts",
       "basis": "ohf",
       "field_class": "author_only",
+      "check": "card",
       "zones": [
         "added"
       ]
@@ -1806,6 +2012,7 @@
       "example": "registry NCT04488601",
       "basis": "ohf",
       "field_class": "searchable",
+      "check": "resolution",
       "zones": [
         "added"
       ]
@@ -1813,12 +2020,13 @@
     {
       "layer": "4 Evidence",
       "path": "evidence.lines[].argument_kind",
-      "definition": "Whether the line rests on observation or experiment (empirical), on a simulation, or on a mathematical derivation or proof.",
+      "definition": "Whether the line rests on observation or experiment (empirical), on a simulation, or on a mathematical derivation or proof. It is the kind of argument, not whose data it is: empirical: the line rests on observation or experiment, whether the document reports it or cites it. How far the line is from the data is recorded in its indirectness and independence group, not here.",
       "logical_type": "Term",
       "vocabulary": "OHF vocabulary: empirical | simulation | derivation",
       "example": "derivation",
       "basis": "ohf",
       "field_class": "author_only",
+      "check": "passage",
       "zones": [
         "added"
       ]
@@ -1832,6 +2040,7 @@
       "example": "3 queries, 40 identified, 12 screened, 4 included",
       "basis": "ohf",
       "field_class": "system",
+      "check": "passage",
       "zones": [
         "added"
       ]
@@ -1846,6 +2055,7 @@
       "example": "inherited_mismatch: a mouse finding against a claim about humans",
       "basis": "ohf",
       "field_class": "searchable",
+      "check": "passage",
       "zones": [
         "added"
       ]
@@ -1858,7 +2068,8 @@
       "vocabulary": "OHF record",
       "example": "funded by fund G; authors declare no competing interests",
       "basis": "ohf",
-      "field_class": "searchable"
+      "field_class": "searchable",
+      "check": "passage"
     },
     {
       "layer": "5 Provenance",
@@ -1868,7 +2079,23 @@
       "vocabulary": "Declared person/organization/AI identity",
       "example": "author-a",
       "basis": "sepio",
-      "field_class": "searchable"
+      "field_class": "searchable",
+      "check": "passage"
+    },
+    {
+      "layer": "5 Provenance",
+      "path": "provenance.claim_author_coi",
+      "since": "1.2",
+      "definition": "Funding and conflict-of-interest declarations of the author whose claim the card records, as the source states them, distinguishing explicit absence from unreported information. A cited work's declarations are in evidence.references[].funding_coi.",
+      "logical_type": "FundingCOI",
+      "vocabulary": "OHF record, as for evidence.references[].funding_coi",
+      "example": "funded by fund G; author A is a consultant for company C",
+      "basis": "ohf",
+      "field_class": "searchable",
+      "check": "passage",
+      "zones": [
+        "added"
+      ]
     },
     {
       "layer": "5 Provenance",
@@ -1878,7 +2105,8 @@
       "vocabulary": "OHF agent vocabulary, with source declaration",
       "example": "human",
       "basis": "ohf",
-      "field_class": "searchable"
+      "field_class": "searchable",
+      "check": "passage"
     },
     {
       "layer": "5 Provenance",
@@ -1888,17 +2116,19 @@
       "vocabulary": "Provider report or explicitly client-declared identity",
       "example": "model declaration not supplied",
       "basis": "ohf",
-      "field_class": "searchable"
+      "field_class": "searchable",
+      "check": "passage"
     },
     {
       "layer": "5 Provenance",
       "path": "provenance.origin_method",
       "definition": "How this claim arose, distinct from who authored it.",
       "logical_type": "Term",
-      "vocabulary": "OHF: de_novo, refine, merge, import, published_restatement",
+      "vocabulary": "OHF: de_novo, the claim is proposed in the work the card is made from and derives from no earlier hypothesis record, so it has no parent_refs (what inspired it goes in inspiration_refs); refine, the claim changes one earlier hypothesis, named in parent_refs, by narrowing, extending or correcting it; merge, the claim joins two or more earlier hypotheses, each named in parent_refs; import, the claim is taken over unchanged from a record of another registry or format; published_restatement, the card restates a claim that a published work already states, read from author.source. The value says how this record's claim arose, not who wrote it: the author of the source and the means of writing it are in author.generator",
       "example": "published_restatement",
       "basis": "hep",
-      "field_class": "searchable"
+      "field_class": "searchable",
+      "check": "passage"
     },
     {
       "layer": "5 Provenance",
@@ -1908,7 +2138,8 @@
       "vocabulary": "Method declared by the author, not inferred from writing style",
       "example": "analogy, if stated",
       "basis": "ohf",
-      "field_class": "author_only"
+      "field_class": "author_only",
+      "check": "passage"
     },
     {
       "layer": "5 Provenance",
@@ -1918,7 +2149,8 @@
       "vocabulary": "HEP generation lineage",
       "example": "proposition-parent@1",
       "basis": "hep",
-      "field_class": "system"
+      "field_class": "system",
+      "check": "card"
     },
     {
       "layer": "5 Provenance",
@@ -1928,7 +2160,8 @@
       "vocabulary": "References to attributed sources of inspiration",
       "example": "source-a",
       "basis": "moose",
-      "field_class": "searchable"
+      "field_class": "searchable",
+      "check": "card"
     },
     {
       "layer": "5 Provenance",
@@ -1938,7 +2171,8 @@
       "vocabulary": "Source-bound declaration of what the author knew",
       "example": "outcome knowledge not stated",
       "basis": "osf",
-      "field_class": "searchable"
+      "field_class": "searchable",
+      "check": "passage"
     },
     {
       "layer": "5 Provenance",
@@ -1948,7 +2182,8 @@
       "vocabulary": "OHF SHA-256 byte binding, not a Trusty URI",
       "example": "source artifact A with hash supplied by ingestion",
       "basis": "nanopub",
-      "field_class": "system"
+      "field_class": "system",
+      "check": "passage"
     },
     {
       "layer": "5 Provenance",
@@ -1958,7 +2193,8 @@
       "vocabulary": "OHF extraction provenance",
       "example": "core.statement -> source-a span",
       "basis": "ohf",
-      "field_class": "system"
+      "field_class": "system",
+      "check": "passage"
     },
     {
       "layer": "5 Provenance",
@@ -1968,7 +2204,8 @@
       "vocabulary": "OHF immutable component identity",
       "example": "converter version and exact configuration",
       "basis": "ohf",
-      "field_class": "system"
+      "field_class": "system",
+      "check": "passage"
     },
     {
       "layer": "5 Provenance",
@@ -1978,7 +2215,8 @@
       "vocabulary": "OHF labelled translation contract",
       "example": "proposed English translation, source retained",
       "basis": "ohf",
-      "field_class": "searchable"
+      "field_class": "searchable",
+      "check": "passage"
     },
     {
       "layer": "5 Provenance",
@@ -1988,7 +2226,8 @@
       "vocabulary": "SPDX identifier only when verified, otherwise verbatim terms",
       "example": "reuse basis pending",
       "basis": "ohf",
-      "field_class": "searchable"
+      "field_class": "searchable",
+      "check": "passage"
     },
     {
       "layer": "5 Provenance",
@@ -1998,7 +2237,8 @@
       "vocabulary": "SEPIO Contribution, nanopub publication provenance",
       "example": "curator-a reviewed version 1",
       "basis": "sepio",
-      "field_class": "system"
+      "field_class": "system",
+      "check": "passage"
     },
     {
       "layer": "5 Provenance",
@@ -2008,7 +2248,8 @@
       "vocabulary": "Source-bound record of the registration event",
       "example": "registration pending",
       "basis": "ohf",
-      "field_class": "system"
+      "field_class": "system",
+      "check": "passage"
     },
     {
       "layer": "5 Provenance",
@@ -2018,7 +2259,8 @@
       "vocabulary": "OHF record",
       "example": "competing-explanations, justified by \"We compared competing explanations\"",
       "basis": "ohf",
-      "field_class": "searchable"
+      "field_class": "searchable",
+      "check": "passage"
     },
     {
       "layer": "6 Profile",
@@ -2028,7 +2270,8 @@
       "vocabulary": "Source wording, such as monotone; OHF 1.0 fixes no list",
       "example": "monotone, if stated",
       "basis": "ohf",
-      "field_class": "author_only"
+      "field_class": "author_only",
+      "check": "passage"
     },
     {
       "layer": "6 Profile",
@@ -2038,7 +2281,8 @@
       "vocabulary": "Source declaration",
       "example": "exposure duration, not automatically dose",
       "basis": "ohf",
-      "field_class": "searchable"
+      "field_class": "searchable",
+      "check": "passage"
     },
     {
       "layer": "6 Profile",
@@ -2048,7 +2292,8 @@
       "vocabulary": "Versioned prediction/context",
       "example": "prediction-a",
       "basis": "ohf",
-      "field_class": "searchable"
+      "field_class": "searchable",
+      "check": "card"
     },
     {
       "layer": "6 Profile",
@@ -2058,7 +2303,8 @@
       "vocabulary": "UCUM-compatible quantities with original wording",
       "example": "not stated",
       "basis": "ucum",
-      "field_class": "searchable"
+      "field_class": "searchable",
+      "check": "passage"
     },
     {
       "layer": "6 Profile",
@@ -2068,7 +2314,8 @@
       "vocabulary": "Intervention records, as in predictions[].intervention",
       "example": "X plus Y, fictional",
       "basis": "ohf",
-      "field_class": "searchable"
+      "field_class": "searchable",
+      "check": "passage"
     },
     {
       "layer": "6 Profile",
@@ -2078,7 +2325,8 @@
       "vocabulary": "Bliss, Loewe, HSA or ZIP when explicitly supplied",
       "example": "not stated",
       "basis": "ohf",
-      "field_class": "searchable"
+      "field_class": "searchable",
+      "check": "passage"
     },
     {
       "layer": "6 Profile",
@@ -2088,7 +2336,8 @@
       "vocabulary": "Declared scale and study context",
       "example": "not assessed",
       "basis": "ohf",
-      "field_class": "searchable"
+      "field_class": "searchable",
+      "check": "passage"
     },
     {
       "layer": "6 Profile",
@@ -2098,7 +2347,8 @@
       "vocabulary": "Source wording of the role; OHF 1.0 fixes no list",
       "example": "biomarker, not lifespan",
       "basis": "ohf",
-      "field_class": "searchable"
+      "field_class": "searchable",
+      "check": "passage"
     },
     {
       "layer": "6 Profile",
@@ -2108,7 +2358,8 @@
       "vocabulary": "Endpoint/population/intervention-specific validation",
       "example": "not established",
       "basis": "ohf",
-      "field_class": "searchable"
+      "field_class": "searchable",
+      "check": "passage"
     },
     {
       "layer": "6 Profile",
@@ -2118,7 +2369,8 @@
       "vocabulary": "Separate harm endpoint and provenance",
       "example": "harm not stated",
       "basis": "ohf",
-      "field_class": "searchable"
+      "field_class": "searchable",
+      "check": "passage"
     },
     {
       "layer": "6 Profile",
@@ -2128,7 +2380,8 @@
       "vocabulary": "Declared applicability assessment",
       "example": "no human benefit claim",
       "basis": "ohf",
-      "field_class": "searchable"
+      "field_class": "searchable",
+      "check": "passage"
     },
     {
       "layer": "6 Profile",
@@ -2138,7 +2391,8 @@
       "vocabulary": "Reviewed GO/Reactome mapping, no mandatory hallmarks ontology",
       "example": "process Y",
       "basis": "ohf",
-      "field_class": "searchable"
+      "field_class": "searchable",
+      "check": "passage"
     },
     {
       "layer": "6 Profile",
@@ -2150,6 +2404,7 @@
       "example": "deregulated_nutrient_sensing: a_mtorc1_inhibition",
       "basis": "ohf",
       "field_class": "author_only",
+      "check": "passage",
       "zones": [
         "added"
       ]
@@ -2162,7 +2417,8 @@
       "vocabulary": "OHF record",
       "example": "no human counterpart; no human study applies",
       "basis": "ohf",
-      "field_class": "searchable"
+      "field_class": "searchable",
+      "check": "passage"
     },
     {
       "layer": "7 Free appendix",
@@ -2172,7 +2428,8 @@
       "vocabulary": "Author narrative",
       "example": "source rationale retained as narrative",
       "basis": "coscientist",
-      "field_class": "searchable"
+      "field_class": "searchable",
+      "check": "passage"
     },
     {
       "layer": "7 Free appendix",
@@ -2182,7 +2439,8 @@
       "vocabulary": "OSF/ARRIVE-informed plan, not a completed study",
       "example": "planned matched-system assay",
       "basis": "osf",
-      "field_class": "author_only"
+      "field_class": "author_only",
+      "check": "passage"
     },
     {
       "layer": "7 Free appendix",
@@ -2192,7 +2450,8 @@
       "vocabulary": "Versioned foreign-format extension",
       "example": "source Risk Factors and Limitations section",
       "basis": "ai-scientist",
-      "field_class": "system"
+      "field_class": "system",
+      "check": "passage"
     },
     {
       "layer": "7 Free appendix",
@@ -2202,7 +2461,8 @@
       "vocabulary": "Source narrative",
       "example": "mechanism not established",
       "basis": "ai-scientist",
-      "field_class": "searchable"
+      "field_class": "searchable",
+      "check": "passage"
     },
     {
       "layer": "Pair-level record",
@@ -2212,7 +2472,8 @@
       "vocabulary": "OHF pair record",
       "example": "proposition-a@1 and proposition-b@1",
       "basis": "ohf",
-      "field_class": "system"
+      "field_class": "system",
+      "check": "card"
     },
     {
       "layer": "Pair-level record",
@@ -2222,7 +2483,8 @@
       "vocabulary": "The relation types of ohf:hypothesis-relations@1: rival_same_explanandum | nested | compatible_independent | duplicate | refines | unrelated | analog | mechanism_neighbour",
       "example": "rival_same_explanandum",
       "basis": "ohf",
-      "field_class": "system"
+      "field_class": "system",
+      "check": "passage"
     },
     {
       "layer": "Pair-level record",
@@ -2232,7 +2494,8 @@
       "vocabulary": "OHF comparison context",
       "example": "not established",
       "basis": "ohf",
-      "field_class": "system"
+      "field_class": "system",
+      "check": "passage"
     },
     {
       "layer": "Pair-level record",
@@ -2242,7 +2505,8 @@
       "vocabulary": "OHF adaptation of competing-hypothesis reasoning",
       "example": "observation O favors A only if stated predictions differ",
       "basis": "ohf",
-      "field_class": "system"
+      "field_class": "system",
+      "check": "passage"
     },
     {
       "layer": "Pair-level record",
@@ -2252,7 +2516,8 @@
       "vocabulary": "Declared pair-level design",
       "example": "test O under matched conditions",
       "basis": "ohf",
-      "field_class": "system"
+      "field_class": "system",
+      "check": "passage"
     },
     {
       "layer": "Pair-level record",
@@ -2262,7 +2527,8 @@
       "vocabulary": "References to separately attributed premises",
       "example": "assumption-a",
       "basis": "ohf",
-      "field_class": "system"
+      "field_class": "system",
+      "check": "card"
     },
     {
       "layer": "Pair-level record",
@@ -2272,7 +2538,8 @@
       "vocabulary": "OHF pool / versioned criterion / protocol context",
       "example": "pool-example / criterion@1 / protocol@1",
       "basis": "ohf",
-      "field_class": "system"
+      "field_class": "system",
+      "check": "card"
     }
   ]
 }

@@ -95,10 +95,10 @@ A system that evaluates formalised hypotheses, made of events joined by logical 
 
 - Version: System rules, repository commit 526a5faacf9f089df888aa85197d31df8b75fcf3
 - Maintainer: Developed by Alison Callahan, Michel Dumontier and Nigam Shah
-- Licence: Not established. OHF reuses no text or terms from it.
+- Licence: MIT (LICENSE file of the repository at the pinned commit)
 - Source: <https://doi.org/10.1186/2041-1480-2-S2-S3>, <https://github.com/alisoncallahan/hyque-spin-rules/tree/526a5faacf9f089df888aa85197d31df8b75fcf3>
 - Relation to OHF: Different problem. Catalogue paths: `core.atoms[].id`, `core.atoms[].statement`, `core.atoms[].parent_ref`, `core.atoms[].operator`
-- How OHF differs: HyQue scores a hypothesis against a knowledge base. OHF takes from it the decomposition of a claim into atoms joined by AND, OR and XOR, and does not score.
+- How OHF differs: HyQue scores a hypothesis against a knowledge base. OHF takes from it the decomposition of a claim into atoms joined by AND and OR, its conjunctive and disjunctive propositions; XOR is OHF's own, and OHF does not score.
 
 ## Evidence & Conclusion Ontology (ECO)
 Terms for types of scientific evidence and for how an assertion was made, used to record the basis of annotations in biological databases.
