@@ -411,6 +411,21 @@
     },
     {
       "layer": "1 Claim core",
+      "path": "core.atoms[].scope",
+      "since": "1.2",
+      "definition": "The systems and conditions to which this atom applies, when they are narrower than the scope of the card. Absent, the atom has the scope of the card.",
+      "logical_type": "Text",
+      "vocabulary": "Author wording and domain qualifiers",
+      "example": "terrestrial mammals only, not the marine species of the data set",
+      "basis": "ohf",
+      "field_class": "searchable",
+      "check": "passage",
+      "zones": [
+        "added"
+      ]
+    },
+    {
+      "layer": "1 Claim core",
       "path": "core.potential_benefit",
       "definition": "Source-grounded potential benefit, target system, causal bridge, horizon and constraints without an unsupported effect estimate.",
       "logical_type": "PotentialBenefit",

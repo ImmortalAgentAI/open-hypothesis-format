@@ -34,7 +34,8 @@ each entailment record follows the check of the value it names, from the field c
 record names a value checked against its passage, a resolution record a value checked against an
 external record, bound to the response and the key it looked up; a value checked by resolution
 without a record gets a warning (`check_integrity`); the relation of an atom triple has the label
-of that predicate in the pinned vocabulary (`check_predicates`). The completeness
+of that predicate in the pinned vocabulary (`check_predicates`); an atom scope with the text of the
+card scope gets a warning, because an atom scope only narrows it (`check_atom_scope`). The completeness
 level is computed by `check_completeness.py` and compared with the declared one.
 It assumes a card that already passes `tools/validate.py`.
 """
@@ -496,6 +497,20 @@ def check_predicates(card, errors, predicates=None):
                                 f"The label of {relation['id']} is {labels[relation['id']]!r}"))
 
 
+def check_atom_scope(card, warnings):
+    """OHF 1.2: an atom scope narrows the scope of the card. Whether it does is read in the passage;
+    an atom scope with the same text as the card scope narrows nothing."""
+    if card.get('standard_version') in ('1.0', '1.1'):
+        return
+    same = lambda text: ' '.join(str(text).split()).casefold()
+    card_scopes = {same(unwrap(layers(card, zone).get('core', {}).get('scope')))
+                   for zone in ZONES if layers(card, zone).get('core', {}).get('scope') is not None}
+    for i, atom in enumerate(layers(card, 'added').get('core', {}).get('atoms', [])):
+        if 'scope' in atom and same(unwrap(atom['scope'])) in card_scopes:
+            warnings.append(issue('REF_ATOM_SCOPE_SAME', f'added.core.atoms[{i}].scope',
+                                  'The atom scope repeats the scope of the card; leave it out'))
+
+
 def check_quotes(card, errors, warnings):
     """OHF 1.1: what a line's quote reports in numbers is also in the line's fields, or a gap says why not.
 
@@ -555,6 +570,7 @@ def check(card, taxa=None):
     check_quotes(card, errors, warnings)
     check_proximity(card, errors, warnings, taxa)
     check_predicates(card, errors)
+    check_atom_scope(card, warnings)
     for ident, prediction in fields.items():
         missing = [key for key in COMPARABLE if key not in prediction]
         if prediction.get('form') == 'directional_contrast' and 'direction' not in prediction:

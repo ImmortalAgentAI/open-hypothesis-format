@@ -8,7 +8,7 @@ This glossary defines the terms the Open Hypothesis Format (OHF) specification u
 
 **Assessment.** A value that is the judgement of whoever recorded it, not a statement of the hypothesis author, such as `predictions[].discrimination`, `evidence.lines[].strength`, `evidence.lines[].indirectness` or `evidence.lines[].risk_of_bias`. It is held in the added zone with an `assessment` record that names the assessor, the time and the evidence it rests on. An assessment without a basis is not recorded; the field is a gap with `not_supplied`. See [integrity](README.md#integrity).
 
-**Atom.** An item of `core.atoms[]`: one atomic assertion of the hypothesis, stated without losing its condition, uncertainty or negation. Atoms are linked by `parent_ref` and an explicit `operator`; every added-zone atom has a claim type, a role and a modality, and an author-zone atom needs an added-zone atom with the same `id` that carries them. See [fields](fields.md).
+**Atom.** An item of `core.atoms[]`: one atomic assertion of the hypothesis, stated without losing its condition, uncertainty or negation. Atoms are linked by `parent_ref` and an explicit `operator`; every added-zone atom has a claim type, a role and a modality, and an author-zone atom needs an added-zone atom with the same `id` that carries them. From OHF 1.2 an added-zone atom may have a `scope` narrower than the scope of the card. See [fields](fields.md).
 
 **Author zone.** The `author` member of a card: the author's assertions and their source, `author.source`. Each value carries a `locator` into the source text, and author source strings stay verbatim. See [README](README.md).
 
@@ -20,7 +20,7 @@ This glossary defines the terms the Open Hypothesis Format (OHF) specification u
 
 **Card version.** One immutable version of a card, referenced by its `id`, `version` and `content_hash`. Relations artifacts and pair briefs bind to card versions, and `identity.supersedes[]` lists the earlier versions a card replaces. See [fields](fields.md).
 
-**Catalogue.** The [field catalogue](field-catalogue.json): all 216 logical paths, each with its layer, definition, logical type, vocabulary, conceptual basis and field class. The [field reference](fields.md) gives an example for every path.
+**Catalogue.** The [field catalogue](field-catalogue.json): all 217 logical paths, each with its layer, definition, logical type, vocabulary, conceptual basis and field class. The [field reference](fields.md) gives an example for every path.
 
 **Claim type.** `core.atoms[].claim_type`: what kind of claim an atom makes: `existence`, `distribution`, `association`, `causal_effect`, `mechanism`, `functional_attribution`, `evolutionary_explanation`, `development`, `constitution`, `quantitative_law`, `model_sufficiency`, `historical_reconstruction`, or `other` with a note. It is required on every added-zone atom. See [fields](fields.md).
 

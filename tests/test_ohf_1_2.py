@@ -13,6 +13,7 @@ import pytest
 
 from tools import check_ledger
 from tools.check_ledger import check_class, logical_path, target_statement
+from tools.check_gaps import check as check_gaps
 from tools.check_mapping import check_classes
 from tools.check_refs import check as check_refs
 from tools.content_hash import content_hash
@@ -514,3 +515,72 @@ def test_a_1_1_card_keeps_the_open_relation():  # M1f, M1g
     assert 'REF_PREDICATE_LABEL' not in codes(card)
     card['vocabularies']['predicates'] = {'id': 'ohf:predicates@1', 'sha256': predicates_pin()}
     assert schema_rejects(card)
+
+
+# ------------------------------------------------------------------ item 4(c): the scope of an atom
+
+DIET = 8  # peto: a_diet, read on a diet data set of terrestrial mammals only
+DIET_SCOPE = {'value': 'Terrestrial mammals of the global diet data set; marine mammals of the sample are not covered.',
+              'src': 'diet_models', 'paraphrase': True,
+              'basis_quote': 'Diet information was obtained from a global diet dataset for terrestrial mammals32'}
+
+
+def peto(scope=DIET_SCOPE, card=None):
+    card = copy.deepcopy(card) if card is not None else as_1_2(PETO)
+    if scope is not None:
+        card['added']['layers']['core']['atoms'][DIET]['scope'] = copy.deepcopy(scope)
+    return card
+
+
+def gap_codes(card):
+    return {issue['code'] for issue in check_gaps(card, load(ROOT / 'spec/gap-path-policy.json'), CATALOGUE,
+                                                  load(ROOT / 'spec/mapping.json'), schema=SCHEMA)['errors']}
+
+
+def scope_gap(card):
+    card['added']['gaps'].append({'path': f'core.atoms[{DIET}].scope', 'disposition': 'not_supplied',
+                                  'reason': 'The paragraph names no narrower scope for this atom.', 'query_ids': [],
+                                  'inspected_artifacts': copy.deepcopy(card['added']['gaps'][0]['inspected_artifacts'])})
+    return card
+
+
+def test_an_atom_scope_is_valid_in_1_2():  # P4a
+    card = peto()
+    assert not validation_errors(SCHEMA, card)
+    result = check_refs(card)
+    assert result['valid'], result['errors']
+    assert 'REF_ATOM_SCOPE_SAME' not in codes(card, 'warnings')
+    assert check_class(card, f'/added/layers/core/atoms/{DIET}/scope') == 'passage'
+
+
+def test_the_atom_scope_is_the_only_1_2_path():
+    assert [row['path'] for row in CATALOGUE['fields'] if row.get('since') == '1.2'] == ['core.atoms[].scope']
+
+
+def test_an_atom_scope_without_its_src_is_rejected():  # M4a
+    assert not validation_errors(SCHEMA, peto())
+    assert schema_rejects(peto({'value': DIET_SCOPE['value']}))
+
+
+def test_a_1_1_card_has_no_atom_scope():  # M4b
+    card = peto(card=PETO)
+    assert card['standard_version'] == '1.1'
+    assert schema_rejects(card)
+
+
+def test_an_atom_scope_that_repeats_the_card_scope_is_a_warning():  # M4c
+    card = as_1_2(PETO)
+    text = card['added']['layers']['core']['scope']['value']
+    card = peto({'value': '  ' + text.upper() + ' ', 'src': 'diet_models'}, card)
+    assert not validation_errors(SCHEMA, card)
+    assert 'REF_ATOM_SCOPE_SAME' in codes(card, 'warnings')
+    assert check_refs(card)['valid']
+
+
+def test_a_gap_on_an_atom_scope_is_a_1_2_path():  # M4d
+    card = scope_gap(peto(None))
+    assert not validation_errors(SCHEMA, card)
+    assert not gap_codes(card)
+    card = scope_gap(copy.deepcopy(PETO))
+    assert schema_rejects(card)
+    assert 'GAP_PATH_UNKNOWN' in gap_codes(card)

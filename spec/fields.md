@@ -1,6 +1,6 @@
 # Field reference
 
-This reference lists all 216 logical catalogue paths. Each path has a short example value from the catalogue. Where a card fills the path, a longer example follows: from the example card muller-sheltering, converted from a published article, or from a fictional test card, whose values describe a fictional system and are not scientific evidence. A JSON pointer identifies each card example. An absent concept is illustrated by the card's explicit gap; no missing value is invented. Definitions and logical types describe the concept before provenance wrappers.
+This reference lists all 217 logical catalogue paths. Each path has a short example value from the catalogue. Where a card fills the path, a longer example follows: from the example card muller-sheltering, converted from a published article, or from a fictional test card, whose values describe a fictional system and are not scientific evidence. A JSON pointer identifies each card example. An absent concept is illustrated by the card's explicit gap; no missing value is invented. Definitions and logical types describe the concept before provenance wrappers.
 
 Generated from [the reference data](field-reference.json) with `python tools/build_field_reference.py`. Edit the reference data and regenerate this file.
 
@@ -392,6 +392,14 @@ The atom as subject, relation and object for machine linking. The statement stay
 Type: `Triple`. Vocabulary: Relation from RO (RO:nnnnnnn) or the Biolink Model (biolink:slot); from OHF 1.2 a predicate of ohf:predicates@1 with its label there, and qualifiers from its qualifier slots; subject and object as CURIEs. Basis: `ohf`. Class: `author_only`. Check: `passage`. Zones: `added`. Since: OHF 1.1.
 
 Example value: rapamycin RO:0002212 negatively regulates mTORC1
+
+### `core.atoms[].scope`
+
+The systems and conditions to which this atom applies, when they are narrower than the scope of the card. Absent, the atom has the scope of the card.
+
+Type: `Text`. Vocabulary: Author wording and domain qualifiers. Basis: `ohf`. Class: `searchable`. Check: `passage`. Zones: `added`. Since: OHF 1.2.
+
+Example value: terrestrial mammals only, not the marine species of the data set
 
 ### `core.potential_benefit`
 
