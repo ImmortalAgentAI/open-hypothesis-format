@@ -416,7 +416,7 @@ def test_predicates_pin_matches_the_vocabulary():
 
 
 def test_schema_predicates_are_the_vocabulary():
-    clause = schema_clause(['1.2'])
+    clause = schema_clause(['1.2', '1.3'])
     value = next(c for c in clause if 'atoms' in str(c) and 'enum' in str(c))
     value = value['properties']['added']['properties']['layers']['properties']['core']['properties']['atoms']['items']
     value = value['properties']['triple']['properties']['value']['properties']

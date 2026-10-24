@@ -189,9 +189,9 @@ def unselected_paths(card, profiles):
 
 def check(card, policy, catalogue, mapping, profiles=None, schema=None):
     errors, review = [], []
-    if card.get('standard_version') not in ('1.0', '1.1', '1.2'):
+    if card.get('standard_version') not in ('1.0', '1.1', '1.2', '1.3'):
         return {'valid': False, 'review_required': [], 'errors': [issue(
-            'GAP_STANDARD_VERSION', 'standard_version', 'Only OHF 1.0, 1.1 and 1.2 cards are checked')]}
+            'GAP_STANDARD_VERSION', 'standard_version', 'Only OHF 1.0, 1.1, 1.2 and 1.3 cards are checked')]}
     profiles = profiles if profiles is not None else load(ROOT / 'vocabularies/profiles-2.json')
     admitted = gap_path_patterns(schema) if schema is not None else default_patterns()
     unselected = unselected_paths(card, profiles)

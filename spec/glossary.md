@@ -136,7 +136,7 @@ This glossary defines the terms the Open Hypothesis Format (OHF) specification u
 
 **`src`.** The member of an added-zone value that names, by its key in `added.sources`, the source record the value comes from. See [README](README.md#logical-paths-and-storage).
 
-**`standard_version`.** The card member that names the format version: `"1.0"` or `"1.1"`; any other value is rejected. A 1.0 card is checked by the 1.0 rules and may not carry a member introduced in 1.1. See [README](README.md).
+**`standard_version`.** The card member that names the format version: `"1.0"`, `"1.1"`, `"1.2"` or `"1.3"`; any other value is rejected. A card is checked by the rules of its version and may not carry a member introduced in a later one. The release of the standard, with its patch number, is `added.by.standard_release` (OHF 1.3). See [README](README.md).
 
 **Test fixture.** A file in [`tests/fixtures/`](../tests/fixtures/README.md) that serves as input for the tests and illustrates fields in the [field reference](fields.md). Fixtures are not example cards, and the fictional cards among them are not scientific evidence.
 

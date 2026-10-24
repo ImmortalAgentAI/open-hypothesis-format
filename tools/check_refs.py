@@ -37,7 +37,8 @@ without a record gets a warning (`check_integrity`); the relation of an atom tri
 of that predicate in the pinned vocabulary (`check_predicates`); an atom scope with the text of the
 card scope gets a warning, because an atom scope only narrows it (`check_atom_scope`); a named domain
 profile whose paths another named profile holds gets a warning (`check_profiles`); a source in the public
-domain by its term has an added-zone licence record with that basis and its conditions (`check_rights_basis`). The completeness
+domain by its term has an added-zone licence record with that basis and its conditions (`check_rights_basis`). In an
+OHF 1.3 card, a stated release is of the card's minor version and one this tool knows (`check_release`). The completeness
 level is computed by `check_completeness.py` and compared with the declared one.
 It assumes a card that already passes `tools/validate.py`.
 """
@@ -524,6 +525,32 @@ def check_rights_basis(card, errors):
                             'public_domain_term and the conditions the expiry rests on'))
 
 
+def release_context(root=ROOT):
+    """The releases this tool knows: the release headings of its CHANGELOG, and its VERSION."""
+    known = re.findall(r'^## (\d+\.\d+\.\d+)\b', (root / 'CHANGELOG.md').read_text(), re.MULTILINE)
+    return {'known': known, 'current': (root / 'VERSION').read_text().strip()}
+
+
+def release_tuple(version):
+    return tuple(int(part) for part in version.split('.'))
+
+
+def check_release(card, errors, release=None):
+    """OHF 1.3: the release a card names in `added.by.standard_release` is a release of its minor
+    version that this tool knows, and not newer than the tool. The commit is not resolved."""
+    stated = card.get('added', {}).get('by', {}).get('standard_release')
+    if not stated:
+        return
+    version = stated['version']
+    if '.'.join(version.split('.')[:2]) != card.get('standard_version'):
+        errors.append(issue('REF_RELEASE_VERSION', 'added.by.standard_release.version',
+                            f"Release {version} is not of OHF {card.get('standard_version')}"))
+    release = release if release is not None else release_context()
+    if version not in release['known'] or release_tuple(version) > release_tuple(release['current']):
+        errors.append(issue('REF_RELEASE_UNKNOWN', 'added.by.standard_release.version',
+                            f"Release {version} is not a release this tool knows (it is OHF {release['current']})"))
+
+
 def check_atom_scope(card, warnings):
     """OHF 1.2: an atom scope narrows the scope of the card. Whether it does is read in the passage;
     an atom scope with the same text as the card scope narrows nothing."""
@@ -547,7 +574,7 @@ def check_quotes(card, errors, warnings):
     reason. The reported words of the estimate are in the quote. A dose or an age in the quote
     without the matching condition or a gap is a warning, because the pattern is a heuristic.
     """
-    if card.get('standard_version') not in ('1.1', '1.2'):
+    if card.get('standard_version') not in ('1.1', '1.2', '1.3'):
         return
     for index, line in enumerate(layers(card, 'added').get('evidence', {}).get('lines', [])):
         quote = unwrap(line.get('quote'))
@@ -571,11 +598,11 @@ def check_quotes(card, errors, warnings):
                                       f'the quote names a {member.replace("_", " ")} the line does not record'))
 
 
-def check(card, taxa=None):
+def check(card, taxa=None, release=None):
     errors, warnings, external, comparable, not_comparable = [], [], [], [], []
     fields = {}
-    if card.get('standard_version') not in ('1.0', '1.1', '1.2'):
-        return {'valid': False, 'errors': [issue('REF_STANDARD_VERSION', 'standard_version', 'Only OHF 1.0, 1.1 and 1.2 cards are checked')],
+    if card.get('standard_version') not in ('1.0', '1.1', '1.2', '1.3'):
+        return {'valid': False, 'errors': [issue('REF_STANDARD_VERSION', 'standard_version', 'Only OHF 1.0, 1.1, 1.2 and 1.3 cards are checked')],
                 'warnings': [], 'external': [], 'comparable': [], 'not_comparable': [], 'completeness': None}
     ids = identifiers(card, errors)
     domains = {zone: layers(card, zone).get('profile', {}).get('domain') for zone in ZONES}
@@ -600,6 +627,7 @@ def check(card, taxa=None):
     check_predicates(card, errors)
     check_atom_scope(card, warnings)
     check_rights_basis(card, errors)
+    check_release(card, errors, release)
     for ident, prediction in fields.items():
         missing = [key for key in COMPARABLE if key not in prediction]
         if prediction.get('form') == 'directional_contrast' and 'direction' not in prediction:

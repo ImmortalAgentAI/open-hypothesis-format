@@ -1,5 +1,11 @@
 # Changelog
 
+## Unreleased
+
+- **OHF 1.3.** `standard_version` may be `"1.3"`; a 1.3 card follows every rule of 1.2. See [spec/README.md, section OHF 1.3](spec/README.md#ohf-13).
+- **The release a card was built against (OHF 1.3).** `added.by.standard_release` names the full release (`version`) and optionally the `commit` of its tag. It is of the card's minor version (`REF_RELEASE_VERSION`) and a release the checking tool knows, not newer than it (`REF_RELEASE_UNKNOWN`). Absent, the release is not stated.
+- The README of the specification lists every version of the card format; it still named only 1.0 and 1.1.
+
 ## 1.2.0 (2026-10-24)
 
 A minor version: every new member is optional, 1.0 and 1.1 cards stay valid and are checked by their own rules, and they may not carry a member introduced in 1.2 or name one in a gap. One form changes in a 1.2 card: `profile.domain` is a list. The three new catalogue paths are marked `since: "1.2"`. The rules are listed in [spec/README.md, section OHF 1.2](spec/README.md#ohf-12).

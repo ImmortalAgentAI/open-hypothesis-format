@@ -3429,6 +3429,23 @@
             },
             "model": {
               "type": "string"
+            },
+            "standard_release": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "version"
+              ],
+              "properties": {
+                "version": {
+                  "type": "string",
+                  "pattern": "^(0|[1-9][0-9]*)\\.(0|[1-9][0-9]*)\\.(0|[1-9][0-9]*)$"
+                },
+                "commit": {
+                  "type": "string",
+                  "pattern": "^[0-9a-f]{40}$"
+                }
+              }
             }
           },
           "additionalProperties": false,
@@ -10936,7 +10953,8 @@
       "enum": [
         "1.0",
         "1.1",
-        "1.2"
+        "1.2",
+        "1.3"
       ]
     },
     "vocabularies": {
@@ -11330,7 +11348,8 @@
           "standard_version": {
             "enum": [
               "1.1",
-              "1.2"
+              "1.2",
+              "1.3"
             ]
           }
         },
@@ -12703,7 +12722,10 @@
       "if": {
         "properties": {
           "standard_version": {
-            "const": "1.2"
+            "enum": [
+              "1.2",
+              "1.3"
+            ]
           }
         },
         "required": [
@@ -13037,6 +13059,41 @@
                           "const": "public_domain_term"
                         }
                       }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        ]
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "standard_version": {
+            "enum": [
+              "1.0",
+              "1.1",
+              "1.2"
+            ]
+          }
+        },
+        "required": [
+          "standard_version"
+        ]
+      },
+      "then": {
+        "allOf": [
+          {
+            "properties": {
+              "added": {
+                "properties": {
+                  "by": {
+                    "not": {
+                      "required": [
+                        "standard_release"
+                      ]
                     }
                   }
                 }

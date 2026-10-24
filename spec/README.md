@@ -2,7 +2,7 @@
 
 A hypothesis card keeps what its author said apart from what was added later. Both zones, `author` and `added`, use the same scientific layers: claim core, mechanism, predictions, evidence, provenance, profile and appendix. Layer 0, identity and versions, applies to the whole card. The pair-level record describes two cards together and is stored outside them.
 
-Every card states `standard_version`, the version of the card format: `"1.0"` or `"1.1"`; any other value is rejected. A release that does not change the format keeps this value. A 1.0 card stays valid and is checked by the 1.0 rules; a 1.0 card may not carry a member introduced in 1.1. What 1.1 adds is in [OHF 1.1](#ohf-11). The terms used here are defined in the [glossary](glossary.md).
+Every card states `standard_version`, the version of the card format: `"1.0"`, `"1.1"`, `"1.2"` or `"1.3"`; any other value is rejected. A release that does not change the format keeps this value. A card of an earlier version stays valid and is checked by the rules of its version, and it may not carry a member introduced in a later one. What each version adds is in [OHF 1.1](#ohf-11), [OHF 1.2](#ohf-12) and [OHF 1.3](#ohf-13). The terms used here are defined in the [glossary](glossary.md).
 
 ## Files
 
@@ -84,7 +84,7 @@ Besides the layers, a card holds these members. All are required unless marked o
 | Member | Records |
 | --- | --- |
 | `schema`, `id`, `version`, `content_hash` | The card schema (`ohf:hypothesis@1`), the card identifier, the card version and the SHA-256 of the card's canonical form. |
-| `standard_version` | The version of the card format, `"1.0"` or `"1.1"`. |
+| `standard_version` | The version of the card format, `"1.0"`, `"1.1"`, `"1.2"` or `"1.3"`. |
 | `identity` | The proposition identifier and version, superseded versions, retractions, duplicate-cluster and representative references, and the lifecycle state. |
 | `vocabularies` | The pinned vocabularies, by id and SHA-256: `ohf:heuristics@1` and `ohf:profiles@1` or `@2`. From OHF 1.1 also `ohf:terms@1`, required, and `ohf:hallmarks@1`, required with the aging profile and forbidden without it. From OHF 1.2 also `ohf:predicates@1`, required when an atom has a triple. |
 | `facets` | Search labels for the whole card: `topic[]`, `source_class` and, in the domain profile `ohf:intervention-pharmacology@1`, `intervention_type`. |
@@ -92,7 +92,7 @@ Besides the layers, a card holds these members. All are required unless marked o
 | `author.generator` | Who or what generated the hypothesis: `human`, `ai_system`, `hybrid` or `unknown`, and for a system its name, version and model, each null when unknown. From OHF 1.1 a machine author may add the `prompt` (an artifact reference) and `generated_at`, which may not be later than `submitted_at` (`REF_TIME_ORDER`). |
 | `author.generation` | For a hypothesis from a generation run: the run identifier, how many hypotheses the run generated and submitted, and whether it submitted all of them. Each member is null when unknown or not applicable. A reader can see from it whether the hypothesis was selected from a larger set. |
 | `author.submitted_at` | When the hypothesis was submitted as a card. |
-| `added.by`, `added.at` | The converter that wrote the added zone, and when. |
+| `added.by`, `added.at` | The converter that wrote the added zone, and when. From OHF 1.3 `added.by.standard_release` may name the release of the standard the card was built and checked against. |
 | `added.cutoff_date` | The date up to which the converter's knowledge and searches reach, or null when unknown. |
 | `added.sources` | The source records that added values point to through `src`: source, locator, access time and tool. |
 | `added.budget` | The model calls, HTTP requests and tokens spent on the added zone; token counts may be null. |
@@ -282,3 +282,8 @@ The values checked by resolution are NCBI Taxonomy ids (`predictions[].system.ta
 
 A 1.0 or 1.1 card has neither `claim_author_coi` nor `data_availability`, and no gap on them.
 
+## OHF 1.3
+
+OHF 1.3 is a minor version. Every new member is optional. 1.0, 1.1 and 1.2 cards stay valid and are checked by their own rules, and they may not carry a member introduced in 1.3. A 1.3 card follows every rule of 1.2. The rules are enforced by the schema unless a code of `tools/check_refs.py` is named.
+
+**The release a card was built against.** `standard_version` names the version of the card format, major and minor. Whether a value is allowed can depend on the patch release: `LicenseRef-CC-BY-version-not-stated` is defined from 1.1.4. A 1.3 card may therefore name the release in `added.by.standard_release`: `version`, the full release such as `1.3.0`, and optionally `commit`, the 40-character commit of the tag `v<version>` in the repository of the standard. The release is of the card's minor version (`REF_RELEASE_VERSION`), and it is one that the checking tool knows from the release headings of its CHANGELOG and not newer than its `VERSION` (`REF_RELEASE_UNKNOWN`). The commit is not resolved. Without `standard_release` the release is not stated; it needs no gap, and nothing is inferred.
