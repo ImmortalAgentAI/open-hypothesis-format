@@ -11,11 +11,11 @@
         },
         "sha256": {
           "type": "string",
-          "pattern": "^sha256:[0-9a-f]{64}$"
+          "pattern": "^sha256:[0-9a-f]{64}(?![\\s\\S])"
         },
         "json_pointer": {
           "type": "string",
-          "pattern": "^(?:/(?:[^~/]|~[01])*)*$"
+          "pattern": "^(?:/(?:[^~/]|~[01])*)*(?![\\s\\S])"
         }
       },
       "required": [
@@ -34,7 +34,7 @@
             },
             "pointer": {
               "type": "string",
-              "pattern": "^(?:/(?:[^~/]|~[01])*)*$"
+              "pattern": "^(?:/(?:[^~/]|~[01])*)*(?![\\s\\S])"
             }
           },
           "required": [
@@ -51,11 +51,11 @@
             },
             "sha256": {
               "type": "string",
-              "pattern": "^sha256:[0-9a-f]{64}$"
+              "pattern": "^sha256:[0-9a-f]{64}(?![\\s\\S])"
             },
             "json_pointer": {
               "type": "string",
-              "pattern": "^(?:/(?:[^~/]|~[01])*)*$"
+              "pattern": "^(?:/(?:[^~/]|~[01])*)*(?![\\s\\S])"
             }
           },
           "required": [
@@ -1039,7 +1039,7 @@
           "oneOf": [
             {
               "type": "string",
-              "pattern": "^sha256:[0-9a-f]{64}$"
+              "pattern": "^sha256:[0-9a-f]{64}(?![\\s\\S])"
             },
             {
               "type": "null"
@@ -1231,7 +1231,7 @@
             "properties": {
               "source_sha256": {
                 "type": "string",
-                "pattern": "^sha256:[0-9a-f]{64}$"
+                "pattern": "^sha256:[0-9a-f]{64}(?![\\s\\S])"
               }
             },
             "required": [
@@ -1562,7 +1562,7 @@
                 "oneOf": [
                   {
                     "type": "string",
-                    "pattern": "^sha256:[0-9a-f]{64}$"
+                    "pattern": "^sha256:[0-9a-f]{64}(?![\\s\\S])"
                   },
                   {
                     "type": "null"
@@ -1616,7 +1616,7 @@
                   "properties": {
                     "response_sha256": {
                       "type": "string",
-                      "pattern": "^sha256:[0-9a-f]{64}$"
+                      "pattern": "^sha256:[0-9a-f]{64}(?![\\s\\S])"
                     }
                   }
                 }

@@ -123,6 +123,16 @@
       "coverage": "direct"
     },
     {
+      "catalogue_path": "core.names[]",
+      "card_paths": [
+        "author.layers.core.names[]",
+        "added.layers.core.names[]"
+      ],
+      "status": "scientific field",
+      "extension": null,
+      "coverage": "direct"
+    },
+    {
       "catalogue_path": "core.kind",
       "card_paths": [
         "author.layers.core.kind",

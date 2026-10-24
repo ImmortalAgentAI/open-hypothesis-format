@@ -37,7 +37,12 @@ without a record gets a warning (`check_integrity`); the relation of an atom tri
 of that predicate in the pinned vocabulary (`check_predicates`); an atom scope with the text of the
 card scope gets a warning, because an atom scope only narrows it (`check_atom_scope`); a named domain
 profile whose paths another named profile holds gets a warning (`check_profiles`); a source in the public
-domain by its term has an added-zone licence record with that basis and its conditions (`check_rights_basis`). The completeness
+domain by its term has an added-zone licence record with that basis and its conditions (`check_rights_basis`). In an
+OHF 1.3 card, a stated release is of the card's minor version and one this tool knows (`check_release`). A
+LicenseRef- licence is an id of the OHF licence vocabulary that the card's release can know, and in a 1.0-1.2
+card a finding is a warning; another licence has the SPDX id form (`check_licence`). A name of the
+hypothesis is listed once in each zone, compared without letter case and with each run of whitespace read as
+one space (`check_names`). The completeness
 level is computed by `check_completeness.py` and compared with the declared one.
 It assumes a card that already passes `tools/validate.py`.
 """
@@ -524,6 +529,81 @@ def check_rights_basis(card, errors):
                             'public_domain_term and the conditions the expiry rests on'))
 
 
+def release_context(root=ROOT):
+    """The releases this tool knows: the release headings of its CHANGELOG, and its VERSION."""
+    known = re.findall(r'^## (\d+\.\d+\.\d+)\b', (root / 'CHANGELOG.md').read_text(), re.MULTILINE)
+    return {'known': known, 'current': (root / 'VERSION').read_text().strip()}
+
+
+def release_tuple(version):
+    return tuple(int(part) for part in version.split('.'))
+
+
+def check_release(card, errors, release=None):
+    """OHF 1.3: the release a card names in `added.by.standard_release` is a release of its minor
+    version that this tool knows, and not newer than the tool. The commit is not resolved."""
+    stated = card.get('added', {}).get('by', {}).get('standard_release')
+    if not stated:
+        return
+    version = stated['version']
+    if '.'.join(version.split('.')[:2]) != card.get('standard_version'):
+        errors.append(issue('REF_RELEASE_VERSION', 'added.by.standard_release.version',
+                            f"Release {version} is not of OHF {card.get('standard_version')}"))
+    release = release if release is not None else release_context()
+    if version not in release['known'] or release_tuple(version) > release_tuple(release['current']):
+        errors.append(issue('REF_RELEASE_UNKNOWN', 'added.by.standard_release.version',
+                            f"Release {version} is not a release this tool knows (it is OHF {release['current']})"))
+
+
+SPDX_FORM = re.compile(r'[A-Za-z0-9.+-]+')
+
+
+def check_licence(card, errors, warnings, licences=None):
+    """OHF 1.3: a LicenseRef- licence is an id of the OHF licence vocabulary, defined by the release the
+    card can know: by its minor version, and in a 1.3 card that names its release, by that release. A
+    1.0-1.2 card gets warnings, so a released card stays valid. Any other licence has the form of an
+    SPDX id; the list of SPDX ids is not checked."""
+    licence = card.get('author', {}).get('source', {}).get('license')
+    if not isinstance(licence, str):
+        return
+    path = 'author.source.license'
+    if not licence.casefold().startswith('licenseref-'):
+        if not SPDX_FORM.fullmatch(licence):
+            warnings.append(issue('REF_LICENCE_FORM', path, f'{licence!r} is neither an SPDX id nor a LicenseRef- id'))
+        return
+    found = errors if card.get('standard_version') == '1.3' else warnings
+    licences = licences if licences is not None else load(ROOT / 'vocabularies/licence-refs-1.json')
+    since = {row['id']: row['since'] for row in licences['licence_refs']}
+    if licence not in since:
+        found.append(issue('REF_LICENCE_REF_UNKNOWN', path, f'{licence} is not a licence id of ohf:licence-refs@1'))
+        return
+    defined = release_tuple(since[licence])
+    stated = card.get('added', {}).get('by', {}).get('standard_release')
+    if defined[:2] > release_tuple(card['standard_version']):
+        known = f"OHF {card['standard_version']}"
+    elif stated and defined > release_tuple(stated['version']):
+        known = f"release {stated['version']}"
+    else:
+        return
+    found.append(issue('REF_LICENCE_REF_RELEASE', path, f'{licence} is defined from OHF {since[licence]}, later than {known}'))
+
+
+def check_names(card, errors):
+    """OHF 1.3: a name the source gives the hypothesis is listed once in each zone. Two names that
+    differ only in letter case or in the amount of whitespace before, between or after words are one
+    name, as in a capitalised title and a lower-case sentence of the body; words are not joined, so
+    "ab" and "a b" are two names; two passages for one name are one element with either passage."""
+    same = lambda text: ' '.join(str(text).split()).casefold()
+    for zone in ZONES:
+        seen = {}
+        for i, name in enumerate(layers(card, zone).get('core', {}).get('names', [])):
+            key = same(name['value'])
+            if key in seen:
+                errors.append(issue('REF_NAME_DUPLICATE', f'{zone}.core.names[{i}]',
+                                    f"The name of core.names[{seen[key]}] again"))
+            seen.setdefault(key, i)
+
+
 def check_atom_scope(card, warnings):
     """OHF 1.2: an atom scope narrows the scope of the card. Whether it does is read in the passage;
     an atom scope with the same text as the card scope narrows nothing."""
@@ -547,7 +627,7 @@ def check_quotes(card, errors, warnings):
     reason. The reported words of the estimate are in the quote. A dose or an age in the quote
     without the matching condition or a gap is a warning, because the pattern is a heuristic.
     """
-    if card.get('standard_version') not in ('1.1', '1.2'):
+    if card.get('standard_version') not in ('1.1', '1.2', '1.3'):
         return
     for index, line in enumerate(layers(card, 'added').get('evidence', {}).get('lines', [])):
         quote = unwrap(line.get('quote'))
@@ -571,11 +651,11 @@ def check_quotes(card, errors, warnings):
                                       f'the quote names a {member.replace("_", " ")} the line does not record'))
 
 
-def check(card, taxa=None):
+def check(card, taxa=None, release=None, licences=None):
     errors, warnings, external, comparable, not_comparable = [], [], [], [], []
     fields = {}
-    if card.get('standard_version') not in ('1.0', '1.1', '1.2'):
-        return {'valid': False, 'errors': [issue('REF_STANDARD_VERSION', 'standard_version', 'Only OHF 1.0, 1.1 and 1.2 cards are checked')],
+    if card.get('standard_version') not in ('1.0', '1.1', '1.2', '1.3'):
+        return {'valid': False, 'errors': [issue('REF_STANDARD_VERSION', 'standard_version', 'Only OHF 1.0, 1.1, 1.2 and 1.3 cards are checked')],
                 'warnings': [], 'external': [], 'comparable': [], 'not_comparable': [], 'completeness': None}
     ids = identifiers(card, errors)
     domains = {zone: layers(card, zone).get('profile', {}).get('domain') for zone in ZONES}
@@ -600,6 +680,9 @@ def check(card, taxa=None):
     check_predicates(card, errors)
     check_atom_scope(card, warnings)
     check_rights_basis(card, errors)
+    check_release(card, errors, release)
+    check_licence(card, errors, warnings, licences)
+    check_names(card, errors)
     for ident, prediction in fields.items():
         missing = [key for key in COMPARABLE if key not in prediction]
         if prediction.get('form') == 'directional_contrast' and 'direction' not in prediction:

@@ -84,7 +84,7 @@ This glossary defines the terms the Open Hypothesis Format (OHF) specification u
 
 **Layer.** One of the seven scientific layers that both zones use: claim core (`core`), mechanism (`mechanism`), predictions (`predictions`), evidence (`evidence`), provenance (`provenance`), profile (`profile`) and appendix (`appendix`). The catalogue also has layer 0, identity and versions, which applies to the whole card, and the pair-level record, which is stored outside cards. See [README](README.md).
 
-**Licence.** The terms under which a source may be reused. The prose of this specification spells the word *licence*; field names and values use *license*: `author.source.license` and `rights_basis: "license"`. `author.source.license` is the licence the retrieved source record states at `retrieved_at`, given as an SPDX identifier; a CC BY licence whose version the record does not state is `LicenseRef-CC-BY-version-not-stated`, and from OHF 1.2 a work whose copyright term has expired is `LicenseRef-public-domain-term` with `rights_basis: "public_domain_term"`. See [source licence](README.md#card-members-outside-the-layers) and [logical types](logical-types.md).
+**Licence.** The terms under which a source may be reused. The prose of this specification spells the word *licence*; field names and values use *license*: `author.source.license` and `rights_basis: "license"`. `author.source.license` is the licence the retrieved source record states at `retrieved_at`, given as an SPDX identifier; a CC BY licence whose version the record does not state is `LicenseRef-CC-BY-version-not-stated`, and from OHF 1.2 a work whose copyright term has expired is `LicenseRef-public-domain-term` with `rights_basis: "public_domain_term"`. From OHF 1.3 the ids OHF defines are listed in `ohf:licence-refs@1` with the release each is defined from. See [source licence](README.md#card-members-outside-the-layers) and [logical types](logical-types.md).
 
 **Locator.** The pointer from an author-zone value into the source text, held in `locator`, for example a paragraph of the source's full-text XML. Source records also carry a locator. See [README](README.md#logical-paths-and-storage).
 
@@ -136,7 +136,7 @@ This glossary defines the terms the Open Hypothesis Format (OHF) specification u
 
 **`src`.** The member of an added-zone value that names, by its key in `added.sources`, the source record the value comes from. See [README](README.md#logical-paths-and-storage).
 
-**`standard_version`.** The card member that names the format version: `"1.0"` or `"1.1"`; any other value is rejected. A 1.0 card is checked by the 1.0 rules and may not carry a member introduced in 1.1. See [README](README.md).
+**`standard_version`.** The card member that names the format version: `"1.0"`, `"1.1"`, `"1.2"` or `"1.3"`; any other value is rejected. A card is checked by the rules of its version and may not carry a member introduced in a later one. The release of the standard, with its patch number, is `added.by.standard_release` (OHF 1.3). See [README](README.md).
 
 **Test fixture.** A file in [`tests/fixtures/`](../tests/fixtures/README.md) that serves as input for the tests and illustrates fields in the [field reference](fields.md). Fixtures are not example cards, and the fictional cards among them are not scientific evidence.
 
@@ -144,7 +144,9 @@ This glossary defines the terms the Open Hypothesis Format (OHF) specification u
 
 **Validator.** `tools/validate.py`: checks a card against the schema, rejects duplicate JSON members, non-finite numbers and invalid calendar timestamps, and reports every schema error. See the [validator](../tools/validate.py).
 
-**Vocabulary pin.** An entry of `vocabularies` that names a controlled vocabulary by id and SHA-256, such as `ohf:profiles@1` and `ohf:heuristics@1`, from OHF 1.1 `ohf:terms@1`, `ohf:profiles@2` and `ohf:hallmarks@1`, and from OHF 1.2 `ohf:predicates@1`. The schema fixes the hash, so a card is bound to one exact vocabulary file. See [vocabularies](../vocabularies/profiles-1.json).
+**Vocabulary pin.** An entry of `vocabularies` that names a controlled vocabulary by id and SHA-256, such as `ohf:profiles@1` and `ohf:heuristics@1`, from OHF 1.1 `ohf:terms@1`, `ohf:profiles@2` and `ohf:hallmarks@1`, from OHF 1.2 `ohf:predicates@1`, and from OHF 1.3 `ohf:licence-refs@1`. The schema fixes the hash, so a card is bound to one exact vocabulary file. See [vocabularies](../vocabularies/profiles-1.json).
+
+**Name of a hypothesis.** From OHF 1.3, `core.names[]`: a name that the source itself gives the hypothesis, word for word, with its passage. The card invents none; absent, the source gives no name. See [README](README.md#ohf-13).
 
 **Withheld quote.** From OHF 1.1, `evidence.lines[].quote_withheld`: in place of a quote that may not be reproduced, the reason, the locator, the record, a paraphrase and the abstract sentence that entails it. Such a line is counted but does not make the disputing side for `full`. See [README](README.md#ohf-11).
 

@@ -1,6 +1,6 @@
 # Field reference
 
-This reference lists all 219 logical catalogue paths. Each path has a short example value from the catalogue. Where a card fills the path, a longer example follows: from the example card muller-sheltering, converted from a published article, or from a fictional test card, whose values describe a fictional system and are not scientific evidence. A JSON pointer identifies each card example. An absent concept is illustrated by the card's explicit gap; no missing value is invented. Definitions and logical types describe the concept before provenance wrappers.
+This reference lists all 220 logical catalogue paths. Each path has a short example value from the catalogue. Where a card fills the path, a longer example follows: from the example card muller-sheltering, converted from a published article, or from a fictional test card, whose values describe a fictional system and are not scientific evidence. A JSON pointer identifies each card example. An absent concept is illustrated by the card's explicit gap; no missing value is invented. Definitions and logical types describe the concept before provenance wrappers.
 
 Generated from [the reference data](field-reference.json) with `python tools/build_field_reference.py`. Edit the reference data and regenerate this file.
 
@@ -160,6 +160,14 @@ Example from card muller-sheltering at `/author/layers/core/statement`:
   "locator": "XML .//p[1] (1-based document order)"
 }
 ```
+
+### `core.names[]`
+
+A name that the source itself gives the hypothesis, word for word, each with its own passage. The order carries no meaning. Absent or empty, the source gives no name, and no gap is needed.
+
+Type: `Text[]`. Vocabulary: Source wording, word for word. Basis: `ohf`. Class: `searchable`. Check: `passage`. Since: OHF 1.3.
+
+Example value: amoeboid predator-animal virulence hypothesis
 
 ### `core.kind`
 

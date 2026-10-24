@@ -1094,7 +1094,7 @@ MULLER = load(ROOT / 'examples/cards/muller-sheltering.json')
 
 def test_new_paths_are_marked_since_1_1():
     assert len(NEW_PATHS) == 36
-    assert {row.get('since', '1.0') for row in CATALOGUE['fields']} == {'1.0', '1.1', '1.2'}
+    assert {row.get('since', '1.0') for row in CATALOGUE['fields']} == {'1.0', '1.1', '1.2', '1.3'}
 
 
 @pytest.mark.parametrize('path', NEW_PATHS)
@@ -1117,7 +1117,7 @@ def test_the_1_0_gap_rule_of_the_schema_is_the_catalogue():
     patterns = [r['properties']['added']['properties']['gaps']['items']['properties']['path']['not']['pattern']
                 for r in rule['then']['allOf'] if 'gaps' in str(r)]
     expected = '^(?:' + '|'.join(sorted(re.escape(p.removesuffix('[]')).replace(r'\[\]', r'\[[0-9]*\]')
-                                         for p in NEW_PATHS)) + r')(?:$|[.\[])'
+                                         for p in NEW_PATHS)) + r')(?:(?![\s\S])|[.\[])'
     assert expected in patterns
 
 

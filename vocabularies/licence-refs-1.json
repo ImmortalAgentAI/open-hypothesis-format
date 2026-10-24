@@ -1,0 +1,7 @@
+{
+  "schema": "ohf:licence-refs@1",
+  "licence_refs": [
+    {"id": "LicenseRef-CC-BY-version-not-stated", "since": "1.1.4", "meaning": "A Creative Commons Attribution licence that the source's own record names without a version and without a NonCommercial, NoDerivatives or ShareAlike term. The version is not guessed."},
+    {"id": "LicenseRef-public-domain-term", "since": "1.2.0", "meaning": "A work in the public domain because its copyright term has expired, with rights_basis public_domain_term. A dedication such as CC0 keeps its own SPDX identifier."}
+  ]
+}

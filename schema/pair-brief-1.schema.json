@@ -92,7 +92,7 @@
             "properties": {
               "pointer": {
                 "type": "string",
-                "pattern": "^(?:/(?:[^~/]|~[01])*)+$"
+                "pattern": "^(?:/(?:[^~/]|~[01])*)+(?![\\s\\S])"
               }
             },
             "required": [
@@ -105,7 +105,7 @@
             "properties": {
               "pointer": {
                 "type": "string",
-                "pattern": "^(?:/(?:[^~/]|~[01])*)+$"
+                "pattern": "^(?:/(?:[^~/]|~[01])*)+(?![\\s\\S])"
               }
             },
             "required": [
@@ -194,7 +194,7 @@
                   },
                   "pointer": {
                     "type": "string",
-                    "pattern": "^(?:/(?:[^~/]|~[01])*)+$"
+                    "pattern": "^(?:/(?:[^~/]|~[01])*)+(?![\\s\\S])"
                   }
                 },
                 "required": [
@@ -331,7 +331,7 @@
                     },
                     "pointer": {
                       "type": "string",
-                      "pattern": "^(?:/(?:[^~/]|~[01])*)+$"
+                      "pattern": "^(?:/(?:[^~/]|~[01])*)+(?![\\s\\S])"
                     }
                   },
                   "required": [

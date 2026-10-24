@@ -10,7 +10,7 @@
     },
     "id": {
       "type": "string",
-      "pattern": "^h_[a-z0-9-]+$"
+      "pattern": "^h_[a-z0-9-]+(?![\\s\\S])"
     },
     "version": {
       "type": "integer",
@@ -18,7 +18,7 @@
     },
     "content_hash": {
       "type": "string",
-      "pattern": "^sha256:[0-9a-f]{64}$"
+      "pattern": "^sha256:[0-9a-f]{64}(?![\\s\\S])"
     },
     "identity": {
       "type": "object",
@@ -105,7 +105,7 @@
             },
             "source_text_sha256": {
               "type": "string",
-              "pattern": "^sha256:[0-9a-f]{64}$"
+              "pattern": "^sha256:[0-9a-f]{64}(?![\\s\\S])"
             }
           },
           "additionalProperties": false,
@@ -292,6 +292,27 @@
                     "value",
                     "locator"
                   ]
+                },
+                "names": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "value": {
+                        "$ref": "#/$defs/Logical%3AText"
+                      },
+                      "locator": {
+                        "type": "string",
+                        "minLength": 1,
+                        "pattern": "\\S"
+                      }
+                    },
+                    "additionalProperties": false,
+                    "required": [
+                      "value",
+                      "locator"
+                    ]
+                  }
                 },
                 "kind": {
                   "type": "object",
@@ -1783,7 +1804,7 @@
                               },
                               "currency": {
                                 "type": "string",
-                                "pattern": "^[A-Z]{3}$"
+                                "pattern": "^[A-Z]{3}(?![\\s\\S])"
                               },
                               "year": {
                                 "type": "integer",
@@ -3425,10 +3446,27 @@
             },
             "converter_hash": {
               "type": "string",
-              "pattern": "^sha256:[0-9a-f]{64}$"
+              "pattern": "^sha256:[0-9a-f]{64}(?![\\s\\S])"
             },
             "model": {
               "type": "string"
+            },
+            "standard_release": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "version"
+              ],
+              "properties": {
+                "version": {
+                  "type": "string",
+                  "pattern": "^(0|[1-9][0-9]*)\\.(0|[1-9][0-9]*)\\.(0|[1-9][0-9]*)(?![\\s\\S])"
+                },
+                "commit": {
+                  "type": "string",
+                  "pattern": "^[0-9a-f]{40}(?![\\s\\S])"
+                }
+              }
             }
           },
           "additionalProperties": false,
@@ -3508,6 +3546,27 @@
                   "dependentRequired": {
                     "basis_quote": [
                       "paraphrase"
+                    ]
+                  }
+                },
+                "names": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "value": {
+                        "$ref": "#/$defs/Logical%3AText"
+                      },
+                      "src": {
+                        "type": "string",
+                        "minLength": 1,
+                        "pattern": "\\S"
+                      }
+                    },
+                    "additionalProperties": false,
+                    "required": [
+                      "value",
+                      "src"
                     ]
                   }
                 },
@@ -4398,7 +4457,7 @@
                                     "properties": {
                                       "id": {
                                         "type": "string",
-                                        "pattern": "^[A-Za-z][A-Za-z0-9._-]*:[^\\s:][^\\s]*$"
+                                        "pattern": "^[A-Za-z][A-Za-z0-9._-]*:[^\\s:][^\\s]*(?![\\s\\S])"
                                       },
                                       "label": {
                                         "type": "string",
@@ -4433,7 +4492,7 @@
                                 "properties": {
                                   "id": {
                                     "type": "string",
-                                    "pattern": "^(?:RO:[0-9]{7}|biolink:[a-z][a-z0-9_]*)$"
+                                    "pattern": "^(?:RO:[0-9]{7}|biolink:[a-z][a-z0-9_]*)(?![\\s\\S])"
                                   },
                                   "label": {
                                     "type": "string",
@@ -4454,7 +4513,7 @@
                                     "properties": {
                                       "id": {
                                         "type": "string",
-                                        "pattern": "^[A-Za-z][A-Za-z0-9._-]*:[^\\s:][^\\s]*$"
+                                        "pattern": "^[A-Za-z][A-Za-z0-9._-]*:[^\\s:][^\\s]*(?![\\s\\S])"
                                       },
                                       "label": {
                                         "type": "string",
@@ -4492,7 +4551,7 @@
                                   "properties": {
                                     "type": {
                                       "type": "string",
-                                      "pattern": "^biolink:[a-z][a-z0-9_]*$"
+                                      "pattern": "^biolink:[a-z][a-z0-9_]*(?![\\s\\S])"
                                     },
                                     "value": {
                                       "type": "string",
@@ -6617,7 +6676,7 @@
                               },
                               "currency": {
                                 "type": "string",
-                                "pattern": "^[A-Z]{3}$"
+                                "pattern": "^[A-Z]{3}(?![\\s\\S])"
                               },
                               "year": {
                                 "type": "integer",
@@ -8161,7 +8220,7 @@
                                 "then": {
                                   "properties": {
                                     "id": {
-                                      "pattern": "^10\\.[0-9]{4,9}/\\S+$"
+                                      "pattern": "^10\\.[0-9]{4,9}/\\S+(?![\\s\\S])"
                                     }
                                   }
                                 }
@@ -8177,7 +8236,7 @@
                                 "then": {
                                   "properties": {
                                     "id": {
-                                      "pattern": "^[1-9][0-9]*$"
+                                      "pattern": "^[1-9][0-9]*(?![\\s\\S])"
                                     }
                                   }
                                 }
@@ -8193,7 +8252,7 @@
                                 "then": {
                                   "properties": {
                                     "id": {
-                                      "pattern": "^PMC[1-9][0-9]*$"
+                                      "pattern": "^PMC[1-9][0-9]*(?![\\s\\S])"
                                     }
                                   }
                                 }
@@ -8209,7 +8268,7 @@
                                 "then": {
                                   "properties": {
                                     "id": {
-                                      "pattern": "^\\S+$"
+                                      "pattern": "^\\S+(?![\\s\\S])"
                                     }
                                   }
                                 }
@@ -8225,7 +8284,7 @@
                                 "then": {
                                   "properties": {
                                     "id": {
-                                      "pattern": "^\\S+$"
+                                      "pattern": "^\\S+(?![\\s\\S])"
                                     }
                                   }
                                 }
@@ -8559,7 +8618,7 @@
                                     "then": {
                                       "properties": {
                                         "id": {
-                                          "pattern": "^10\\.[0-9]{4,9}/\\S+$"
+                                          "pattern": "^10\\.[0-9]{4,9}/\\S+(?![\\s\\S])"
                                         }
                                       }
                                     }
@@ -8575,7 +8634,7 @@
                                     "then": {
                                       "properties": {
                                         "id": {
-                                          "pattern": "^[1-9][0-9]*$"
+                                          "pattern": "^[1-9][0-9]*(?![\\s\\S])"
                                         }
                                       }
                                     }
@@ -10591,7 +10650,7 @@
               },
               "sha256": {
                 "type": "string",
-                "pattern": "^sha256:[0-9a-f]{64}$"
+                "pattern": "^sha256:[0-9a-f]{64}(?![\\s\\S])"
               }
             },
             "additionalProperties": false,
@@ -10707,7 +10766,7 @@
             },
             "sha256": {
               "type": "string",
-              "pattern": "^sha256:[0-9a-f]{64}$"
+              "pattern": "^sha256:[0-9a-f]{64}(?![\\s\\S])"
             },
             "reason": {
               "type": "string",
@@ -10793,7 +10852,7 @@
                 "properties": {
                   "pointer": {
                     "type": "string",
-                    "pattern": "^/added/layers(?:/(?:[^~/]|~[01])*)+$"
+                    "pattern": "^/added/layers(?:/(?:[^~/]|~[01])*)+(?![\\s\\S])"
                   },
                   "basis": {
                     "enum": [
@@ -10830,11 +10889,11 @@
                       },
                       "prompt_sha256": {
                         "type": "string",
-                        "pattern": "^sha256:[0-9a-f]{64}$"
+                        "pattern": "^sha256:[0-9a-f]{64}(?![\\s\\S])"
                       },
                       "tool_sha256": {
                         "type": "string",
-                        "pattern": "^sha256:[0-9a-f]{64}$"
+                        "pattern": "^sha256:[0-9a-f]{64}(?![\\s\\S])"
                       }
                     },
                     "required": [
@@ -10853,7 +10912,7 @@
                       },
                       "response_sha256": {
                         "type": "string",
-                        "pattern": "^sha256:[0-9a-f]{64}$"
+                        "pattern": "^sha256:[0-9a-f]{64}(?![\\s\\S])"
                       },
                       "key": {
                         "type": "string",
@@ -10936,7 +10995,8 @@
       "enum": [
         "1.0",
         "1.1",
-        "1.2"
+        "1.2",
+        "1.3"
       ]
     },
     "vocabularies": {
@@ -11034,6 +11094,22 @@
             },
             "sha256": {
               "const": "sha256:1f4ea70f6f0ed53e79ee08b0e1ad6f8a1f13016ad7df0a7b75d43acd10b7c22a"
+            }
+          },
+          "required": [
+            "id",
+            "sha256"
+          ],
+          "additionalProperties": false
+        },
+        "licence_refs": {
+          "type": "object",
+          "properties": {
+            "id": {
+              "const": "ohf:licence-refs@1"
+            },
+            "sha256": {
+              "const": "sha256:6f2fa6a9082e505fca4235709c16d76ec98d5efe4aa00b6ae4334c22960e0e99"
             }
           },
           "required": [
@@ -11330,7 +11406,8 @@
           "standard_version": {
             "enum": [
               "1.1",
-              "1.2"
+              "1.2",
+              "1.3"
             ]
           }
         },
@@ -11783,7 +11860,7 @@
                       "properties": {
                         "path": {
                           "not": {
-                            "pattern": "^(?:core\\.alternative_explanations|core\\.assumptions|core\\.atoms|core\\.context|core\\.explains|core\\.opens|core\\.reinterprets|core\\.uncertainties|evidence\\.lines|evidence\\.references|mechanism\\.entities|mechanism\\.molecular_targets|mechanism\\.steps|predictions|profile\\.combination\\.components|provenance\\.contributions|provenance\\.field_sources|provenance\\.heuristic_principle|provenance\\.inspiration_refs|provenance\\.parent_refs)$"
+                            "pattern": "^(?:core\\.alternative_explanations|core\\.assumptions|core\\.atoms|core\\.context|core\\.explains|core\\.opens|core\\.reinterprets|core\\.uncertainties|evidence\\.lines|evidence\\.references|mechanism\\.entities|mechanism\\.molecular_targets|mechanism\\.steps|predictions|profile\\.combination\\.components|provenance\\.contributions|provenance\\.field_sources|provenance\\.heuristic_principle|provenance\\.inspiration_refs|provenance\\.parent_refs)(?![\\s\\S])"
                           }
                         }
                       }
@@ -11802,7 +11879,7 @@
                       "properties": {
                         "path": {
                           "not": {
-                            "pattern": "^(?:core\\.alternative_explanations\\[[0-9]*\\]\\.id|core\\.atoms\\[[0-9]*\\]\\.contradicts|core\\.atoms\\[[0-9]*\\]\\.requires|core\\.atoms\\[[0-9]*\\]\\.triple|evidence\\.excluded|evidence\\.lines\\[[0-9]*\\]\\.endpoint_kind|evidence\\.lines\\[[0-9]*\\]\\.human_proximity|evidence\\.lines\\[[0-9]*\\]\\.independence_group\\.key|evidence\\.lines\\[[0-9]*\\]\\.intervention\\.agent|evidence\\.lines\\[[0-9]*\\]\\.intervention\\.dose|evidence\\.lines\\[[0-9]*\\]\\.intervention\\.duration|evidence\\.lines\\[[0-9]*\\]\\.intervention\\.formulation|evidence\\.lines\\[[0-9]*\\]\\.intervention\\.intake|evidence\\.lines\\[[0-9]*\\]\\.intervention\\.measured_concentration|evidence\\.lines\\[[0-9]*\\]\\.intervention\\.nominal_concentration|evidence\\.lines\\[[0-9]*\\]\\.intervention\\.regimen|evidence\\.lines\\[[0-9]*\\]\\.intervention\\.route|evidence\\.lines\\[[0-9]*\\]\\.intervention\\.systemic_exposure|evidence\\.lines\\[[0-9]*\\]\\.multi_site_program|evidence\\.lines\\[[0-9]*\\]\\.quote_withheld|evidence\\.lines\\[[0-9]*\\]\\.sample|evidence\\.lines\\[[0-9]*\\]\\.sample_size|evidence\\.lines\\[[0-9]*\\]\\.system\\.age_at_start|evidence\\.lines\\[[0-9]*\\]\\.system\\.assessment_age|evidence\\.lines\\[[0-9]*\\]\\.system\\.environment|evidence\\.lines\\[[0-9]*\\]\\.system\\.kind|evidence\\.lines\\[[0-9]*\\]\\.system\\.sex|evidence\\.lines\\[[0-9]*\\]\\.system\\.site|evidence\\.lines\\[[0-9]*\\]\\.system\\.spatial_scale|evidence\\.lines\\[[0-9]*\\]\\.system\\.strain_or_line|evidence\\.lines\\[[0-9]*\\]\\.system\\.taxon|evidence\\.lines\\[[0-9]*\\]\\.system\\.taxon_id|evidence\\.lines\\[[0-9]*\\]\\.system\\.temporal_scale|predictions\\[[0-9]*\\]\\.control_type|predictions\\[[0-9]*\\]\\.system\\.taxon_id|profile\\.aging_hallmarks)(?:$|[.\\[])"
+                            "pattern": "^(?:core\\.alternative_explanations\\[[0-9]*\\]\\.id|core\\.atoms\\[[0-9]*\\]\\.contradicts|core\\.atoms\\[[0-9]*\\]\\.requires|core\\.atoms\\[[0-9]*\\]\\.triple|evidence\\.excluded|evidence\\.lines\\[[0-9]*\\]\\.endpoint_kind|evidence\\.lines\\[[0-9]*\\]\\.human_proximity|evidence\\.lines\\[[0-9]*\\]\\.independence_group\\.key|evidence\\.lines\\[[0-9]*\\]\\.intervention\\.agent|evidence\\.lines\\[[0-9]*\\]\\.intervention\\.dose|evidence\\.lines\\[[0-9]*\\]\\.intervention\\.duration|evidence\\.lines\\[[0-9]*\\]\\.intervention\\.formulation|evidence\\.lines\\[[0-9]*\\]\\.intervention\\.intake|evidence\\.lines\\[[0-9]*\\]\\.intervention\\.measured_concentration|evidence\\.lines\\[[0-9]*\\]\\.intervention\\.nominal_concentration|evidence\\.lines\\[[0-9]*\\]\\.intervention\\.regimen|evidence\\.lines\\[[0-9]*\\]\\.intervention\\.route|evidence\\.lines\\[[0-9]*\\]\\.intervention\\.systemic_exposure|evidence\\.lines\\[[0-9]*\\]\\.multi_site_program|evidence\\.lines\\[[0-9]*\\]\\.quote_withheld|evidence\\.lines\\[[0-9]*\\]\\.sample|evidence\\.lines\\[[0-9]*\\]\\.sample_size|evidence\\.lines\\[[0-9]*\\]\\.system\\.age_at_start|evidence\\.lines\\[[0-9]*\\]\\.system\\.assessment_age|evidence\\.lines\\[[0-9]*\\]\\.system\\.environment|evidence\\.lines\\[[0-9]*\\]\\.system\\.kind|evidence\\.lines\\[[0-9]*\\]\\.system\\.sex|evidence\\.lines\\[[0-9]*\\]\\.system\\.site|evidence\\.lines\\[[0-9]*\\]\\.system\\.spatial_scale|evidence\\.lines\\[[0-9]*\\]\\.system\\.strain_or_line|evidence\\.lines\\[[0-9]*\\]\\.system\\.taxon|evidence\\.lines\\[[0-9]*\\]\\.system\\.taxon_id|evidence\\.lines\\[[0-9]*\\]\\.system\\.temporal_scale|predictions\\[[0-9]*\\]\\.control_type|predictions\\[[0-9]*\\]\\.system\\.taxon_id|profile\\.aging_hallmarks)(?:(?![\\s\\S])|[.\\[])"
                           }
                         }
                       }
@@ -12525,7 +12602,7 @@
                       "properties": {
                         "path": {
                           "not": {
-                            "pattern": "^core\\.atoms\\[[0-9]*\\]\\.scope(?:$|[.\\[])"
+                            "pattern": "^core\\.atoms\\[[0-9]*\\]\\.scope(?:(?![\\s\\S])|[.\\[])"
                           }
                         }
                       }
@@ -12686,7 +12763,7 @@
                       "properties": {
                         "path": {
                           "not": {
-                            "pattern": "^(?:provenance\\.claim_author_coi|evidence\\.lines\\[[0-9]*\\]\\.data_availability)(?:$|[.\\[])"
+                            "pattern": "^(?:provenance\\.claim_author_coi|evidence\\.lines\\[[0-9]*\\]\\.data_availability)(?:(?![\\s\\S])|[.\\[])"
                           }
                         }
                       }
@@ -12703,7 +12780,10 @@
       "if": {
         "properties": {
           "standard_version": {
-            "const": "1.2"
+            "enum": [
+              "1.2",
+              "1.3"
+            ]
           }
         },
         "required": [
@@ -13045,6 +13125,144 @@
           }
         ]
       }
+    },
+    {
+      "if": {
+        "properties": {
+          "standard_version": {
+            "enum": [
+              "1.0",
+              "1.1",
+              "1.2"
+            ]
+          }
+        },
+        "required": [
+          "standard_version"
+        ]
+      },
+      "then": {
+        "allOf": [
+          {
+            "properties": {
+              "added": {
+                "properties": {
+                  "by": {
+                    "not": {
+                      "required": [
+                        "standard_release"
+                      ]
+                    }
+                  }
+                }
+              }
+            }
+          },
+          {
+            "properties": {
+              "vocabularies": {
+                "not": {
+                  "required": [
+                    "licence_refs"
+                  ]
+                }
+              }
+            }
+          },
+          {
+            "properties": {
+              "author": {
+                "properties": {
+                  "layers": {
+                    "properties": {
+                      "core": {
+                        "not": {
+                          "required": [
+                            "names"
+                          ]
+                        }
+                      }
+                    }
+                  }
+                }
+              },
+              "added": {
+                "properties": {
+                  "layers": {
+                    "properties": {
+                      "core": {
+                        "not": {
+                          "required": [
+                            "names"
+                          ]
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          {
+            "properties": {
+              "added": {
+                "properties": {
+                  "gaps": {
+                    "items": {
+                      "properties": {
+                        "path": {
+                          "not": {
+                            "pattern": "^core\\.names(?:(?![\\s\\S])|[.\\[])"
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        ]
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "standard_version": {
+            "const": "1.3"
+          },
+          "author": {
+            "properties": {
+              "source": {
+                "properties": {
+                  "license": {
+                    "pattern": "^[Ll][Ii][Cc][Ee][Nn][Ss][Ee][Rr][Ee][Ff]-"
+                  }
+                },
+                "required": [
+                  "license"
+                ]
+              }
+            },
+            "required": [
+              "source"
+            ]
+          }
+        },
+        "required": [
+          "standard_version",
+          "author"
+        ]
+      },
+      "then": {
+        "properties": {
+          "vocabularies": {
+            "required": [
+              "licence_refs"
+            ]
+          }
+        }
+      }
     }
   ],
   "$defs": {
@@ -13056,11 +13274,11 @@
         },
         "sha256": {
           "type": "string",
-          "pattern": "^sha256:[0-9a-f]{64}$"
+          "pattern": "^sha256:[0-9a-f]{64}(?![\\s\\S])"
         },
         "json_pointer": {
           "type": "string",
-          "pattern": "^(?:/(?:[^~/]|~[01])*)*$"
+          "pattern": "^(?:/(?:[^~/]|~[01])*)*(?![\\s\\S])"
         }
       },
       "required": [
@@ -13079,7 +13297,7 @@
             },
             "pointer": {
               "type": "string",
-              "pattern": "^(?:/(?:[^~/]|~[01])*)*$"
+              "pattern": "^(?:/(?:[^~/]|~[01])*)*(?![\\s\\S])"
             }
           },
           "required": [
@@ -13096,11 +13314,11 @@
             },
             "sha256": {
               "type": "string",
-              "pattern": "^sha256:[0-9a-f]{64}$"
+              "pattern": "^sha256:[0-9a-f]{64}(?![\\s\\S])"
             },
             "json_pointer": {
               "type": "string",
-              "pattern": "^(?:/(?:[^~/]|~[01])*)*$"
+              "pattern": "^(?:/(?:[^~/]|~[01])*)*(?![\\s\\S])"
             }
           },
           "required": [
@@ -14195,11 +14413,11 @@
               },
               "sha256": {
                 "type": "string",
-                "pattern": "^sha256:[0-9a-f]{64}$"
+                "pattern": "^sha256:[0-9a-f]{64}(?![\\s\\S])"
               },
               "json_pointer": {
                 "type": "string",
-                "pattern": "^(?:/(?:[^~/]|~[01])*)*$"
+                "pattern": "^(?:/(?:[^~/]|~[01])*)*(?![\\s\\S])"
               }
             },
             "required": [
@@ -14228,7 +14446,7 @@
               },
               "pointer": {
                 "type": "string",
-                "pattern": "^(?:/(?:[^~/]|~[01])*)*$"
+                "pattern": "^(?:/(?:[^~/]|~[01])*)*(?![\\s\\S])"
               }
             },
             "required": [
@@ -14716,7 +14934,7 @@
             },
             "pointer": {
               "type": "string",
-              "pattern": "^(?:/(?:[^~/]|~[01])*)*$"
+              "pattern": "^(?:/(?:[^~/]|~[01])*)*(?![\\s\\S])"
             }
           },
           "required": [
@@ -14733,11 +14951,11 @@
             },
             "sha256": {
               "type": "string",
-              "pattern": "^sha256:[0-9a-f]{64}$"
+              "pattern": "^sha256:[0-9a-f]{64}(?![\\s\\S])"
             },
             "json_pointer": {
               "type": "string",
-              "pattern": "^(?:/(?:[^~/]|~[01])*)*$"
+              "pattern": "^(?:/(?:[^~/]|~[01])*)*(?![\\s\\S])"
             }
           },
           "required": [
@@ -14804,11 +15022,11 @@
         },
         "sha256": {
           "type": "string",
-          "pattern": "^sha256:[0-9a-f]{64}$"
+          "pattern": "^sha256:[0-9a-f]{64}(?![\\s\\S])"
         },
         "json_pointer": {
           "type": "string",
-          "pattern": "^(?:/(?:[^~/]|~[01])*)*$"
+          "pattern": "^(?:/(?:[^~/]|~[01])*)*(?![\\s\\S])"
         }
       },
       "required": [
@@ -14853,7 +15071,7 @@
         },
         "currency": {
           "type": "string",
-          "pattern": "^[A-Z]{3}$"
+          "pattern": "^[A-Z]{3}(?![\\s\\S])"
         },
         "year": {
           "type": "integer",
@@ -15040,7 +15258,7 @@
           "type": "object",
           "propertyNames": {
             "type": "string",
-            "pattern": "^/(?:[^~/]|~[01])*(?:/(?:[^~/]|~[01])*)*$"
+            "pattern": "^/(?:[^~/]|~[01])*(?:/(?:[^~/]|~[01])*)*(?![\\s\\S])"
           },
           "additionalProperties": {
             "type": "string",
@@ -15265,7 +15483,7 @@
           "type": "object",
           "propertyNames": {
             "type": "string",
-            "pattern": "^/(?:[^~/]|~[01])*(?:/(?:[^~/]|~[01])*)*$"
+            "pattern": "^/(?:[^~/]|~[01])*(?:/(?:[^~/]|~[01])*)*(?![\\s\\S])"
           },
           "additionalProperties": {
             "type": "string",
@@ -15377,7 +15595,7 @@
           "type": "object",
           "propertyNames": {
             "type": "string",
-            "pattern": "^/(?:[^~/]|~[01])*(?:/(?:[^~/]|~[01])*)*$"
+            "pattern": "^/(?:[^~/]|~[01])*(?:/(?:[^~/]|~[01])*)*(?![\\s\\S])"
           },
           "additionalProperties": {
             "type": "string",
@@ -15486,7 +15704,7 @@
           "type": "object",
           "propertyNames": {
             "type": "string",
-            "pattern": "^/(?:[^~/]|~[01])*(?:/(?:[^~/]|~[01])*)*$"
+            "pattern": "^/(?:[^~/]|~[01])*(?:/(?:[^~/]|~[01])*)*(?![\\s\\S])"
           },
           "additionalProperties": {
             "type": "string",
@@ -15533,7 +15751,7 @@
                 {
                   "type": "string",
                   "format": "date",
-                  "pattern": "^\\d{4}-\\d{2}-\\d{2}$"
+                  "pattern": "^\\d{4}-\\d{2}-\\d{2}(?![\\s\\S])"
                 },
                 {
                   "type": "string",
@@ -15561,7 +15779,7 @@
           "type": "object",
           "propertyNames": {
             "type": "string",
-            "pattern": "^/(?:[^~/]|~[01])*(?:/(?:[^~/]|~[01])*)*$"
+            "pattern": "^/(?:[^~/]|~[01])*(?:/(?:[^~/]|~[01])*)*(?![\\s\\S])"
           },
           "additionalProperties": {
             "type": "string",
@@ -15605,7 +15823,7 @@
                 {
                   "type": "string",
                   "format": "date",
-                  "pattern": "^\\d{4}-\\d{2}-\\d{2}$"
+                  "pattern": "^\\d{4}-\\d{2}-\\d{2}(?![\\s\\S])"
                 },
                 {
                   "type": "string",
@@ -15633,7 +15851,7 @@
           "type": "object",
           "propertyNames": {
             "type": "string",
-            "pattern": "^/(?:[^~/]|~[01])*(?:/(?:[^~/]|~[01])*)*$"
+            "pattern": "^/(?:[^~/]|~[01])*(?:/(?:[^~/]|~[01])*)*(?![\\s\\S])"
           },
           "additionalProperties": {
             "type": "string",
@@ -15748,7 +15966,7 @@
           "type": "object",
           "propertyNames": {
             "type": "string",
-            "pattern": "^/(?:[^~/]|~[01])*(?:/(?:[^~/]|~[01])*)*$"
+            "pattern": "^/(?:[^~/]|~[01])*(?:/(?:[^~/]|~[01])*)*(?![\\s\\S])"
           },
           "additionalProperties": {
             "type": "string",
@@ -15860,7 +16078,7 @@
           "type": "object",
           "propertyNames": {
             "type": "string",
-            "pattern": "^/(?:[^~/]|~[01])*(?:/(?:[^~/]|~[01])*)*$"
+            "pattern": "^/(?:[^~/]|~[01])*(?:/(?:[^~/]|~[01])*)*(?![\\s\\S])"
           },
           "additionalProperties": {
             "type": "string",
@@ -15945,7 +16163,7 @@
           "type": "object",
           "propertyNames": {
             "type": "string",
-            "pattern": "^/(?:[^~/]|~[01])*(?:/(?:[^~/]|~[01])*)*$"
+            "pattern": "^/(?:[^~/]|~[01])*(?:/(?:[^~/]|~[01])*)*(?![\\s\\S])"
           },
           "additionalProperties": {
             "type": "string",
@@ -16027,7 +16245,7 @@
           "type": "object",
           "propertyNames": {
             "type": "string",
-            "pattern": "^/(?:[^~/]|~[01])*(?:/(?:[^~/]|~[01])*)*$"
+            "pattern": "^/(?:[^~/]|~[01])*(?:/(?:[^~/]|~[01])*)*(?![\\s\\S])"
           },
           "additionalProperties": {
             "type": "string",
@@ -16121,7 +16339,7 @@
           "type": "object",
           "propertyNames": {
             "type": "string",
-            "pattern": "^/(?:[^~/]|~[01])*(?:/(?:[^~/]|~[01])*)*$"
+            "pattern": "^/(?:[^~/]|~[01])*(?:/(?:[^~/]|~[01])*)*(?![\\s\\S])"
           },
           "additionalProperties": {
             "type": "string",
@@ -16212,7 +16430,7 @@
           "type": "object",
           "propertyNames": {
             "type": "string",
-            "pattern": "^/(?:[^~/]|~[01])*(?:/(?:[^~/]|~[01])*)*$"
+            "pattern": "^/(?:[^~/]|~[01])*(?:/(?:[^~/]|~[01])*)*(?![\\s\\S])"
           },
           "additionalProperties": {
             "type": "string",
@@ -17526,7 +17744,7 @@
           "properties": {
             "date": {
               "type": "string",
-              "pattern": "^[0-9]{4}(?:-(?:0[1-9]|1[0-2])(?:-(?:0[1-9]|[12][0-9]|3[01]))?)?$"
+              "pattern": "^[0-9]{4}(?:-(?:0[1-9]|1[0-2])(?:-(?:0[1-9]|[12][0-9]|3[01]))?)?(?![\\s\\S])"
             },
             "precision": {
               "enum": [
@@ -17572,7 +17790,7 @@
               "then": {
                 "properties": {
                   "date": {
-                    "pattern": "^[0-9]{4}$"
+                    "pattern": "^[0-9]{4}(?![\\s\\S])"
                   }
                 }
               }
@@ -17588,7 +17806,7 @@
               "then": {
                 "properties": {
                   "date": {
-                    "pattern": "^[0-9]{4}-[0-9]{2}$"
+                    "pattern": "^[0-9]{4}-[0-9]{2}(?![\\s\\S])"
                   }
                 }
               }
@@ -17604,7 +17822,7 @@
               "then": {
                 "properties": {
                   "date": {
-                    "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}$"
+                    "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}(?![\\s\\S])"
                   }
                 }
               }
@@ -17645,7 +17863,7 @@
           "properties": {
             "date": {
               "type": "string",
-              "pattern": "^[0-9]{4}(?:-(?:0[1-9]|1[0-2])(?:-(?:0[1-9]|[12][0-9]|3[01]))?)?$"
+              "pattern": "^[0-9]{4}(?:-(?:0[1-9]|1[0-2])(?:-(?:0[1-9]|[12][0-9]|3[01]))?)?(?![\\s\\S])"
             },
             "precision": {
               "enum": [
@@ -17691,7 +17909,7 @@
               "then": {
                 "properties": {
                   "date": {
-                    "pattern": "^[0-9]{4}$"
+                    "pattern": "^[0-9]{4}(?![\\s\\S])"
                   }
                 }
               }
@@ -17707,7 +17925,7 @@
               "then": {
                 "properties": {
                   "date": {
-                    "pattern": "^[0-9]{4}-[0-9]{2}$"
+                    "pattern": "^[0-9]{4}-[0-9]{2}(?![\\s\\S])"
                   }
                 }
               }
@@ -17723,7 +17941,7 @@
               "then": {
                 "properties": {
                   "date": {
-                    "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}$"
+                    "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}(?![\\s\\S])"
                   }
                 }
               }
@@ -17770,7 +17988,7 @@
               "anyOf": [
                 {
                   "type": "string",
-                  "pattern": "(?:^(?:appendix\\.experiment_plan|appendix\\.limitations|appendix\\.rationale|appendix\\.source_extensions|core\\.alternative_explanations\\[(?:0|[1-9][0-9]*)?\\]|core\\.alternative_explanations\\[(?:0|[1-9][0-9]*)?\\]\\.claim_or_ref|core\\.alternative_explanations\\[(?:0|[1-9][0-9]*)?\\]\\.distinguishing_prediction_refs|core\\.alternative_explanations\\[(?:0|[1-9][0-9]*)?\\]\\.shared_observation_refs|core\\.alternative_explanations\\[(?:0|[1-9][0-9]*)?\\]\\.unresolved_reason|core\\.assumptions\\[(?:0|[1-9][0-9]*)?\\]\\.assessment|core\\.assumptions\\[(?:0|[1-9][0-9]*)?\\]\\.fundamental|core\\.assumptions\\[(?:0|[1-9][0-9]*)?\\]\\.id|core\\.assumptions\\[(?:0|[1-9][0-9]*)?\\]\\.text|core\\.atoms\\[(?:0|[1-9][0-9]*)?\\]\\.context_override|core\\.atoms\\[(?:0|[1-9][0-9]*)?\\]\\.id|core\\.atoms\\[(?:0|[1-9][0-9]*)?\\]\\.operator|core\\.atoms\\[(?:0|[1-9][0-9]*)?\\]\\.parent_ref|core\\.atoms\\[(?:0|[1-9][0-9]*)?\\]\\.scope|core\\.atoms\\[(?:0|[1-9][0-9]*)?\\]\\.statement|core\\.context\\[(?:0|[1-9][0-9]*)?\\]|core\\.explanandum|core\\.falsification_condition|core\\.kind|core\\.novelty_assessment|core\\.novelty_assessment\\.as_of|core\\.novelty_assessment\\.new_content|core\\.novelty_assessment\\.prior_claim_refs|core\\.novelty_assessment\\.review_ref|core\\.novelty_assessment\\.search_scope_ref|core\\.novelty_assessment\\.shared_content|core\\.novelty_assessment\\.status|core\\.potential_benefit|core\\.potential_benefit\\.beneficiaries_or_system|core\\.potential_benefit\\.causal_bridge|core\\.potential_benefit\\.constraints|core\\.potential_benefit\\.horizon|core\\.potential_benefit\\.magnitude|core\\.potential_benefit\\.outcome|core\\.potential_benefit\\.target_refs|core\\.scope|core\\.statement|core\\.uncertainties\\[(?:0|[1-9][0-9]*)?\\]|core\\.uncertainties\\[(?:0|[1-9][0-9]*)?\\]\\.assessment_status|core\\.uncertainties\\[(?:0|[1-9][0-9]*)?\\]\\.consequence|core\\.uncertainties\\[(?:0|[1-9][0-9]*)?\\]\\.id|core\\.uncertainties\\[(?:0|[1-9][0-9]*)?\\]\\.kind|core\\.uncertainties\\[(?:0|[1-9][0-9]*)?\\]\\.question|core\\.uncertainties\\[(?:0|[1-9][0-9]*)?\\]\\.resolution_test_ref|core\\.uncertainties\\[(?:0|[1-9][0-9]*)?\\]\\.target_ref|evidence\\.lines\\[(?:0|[1-9][0-9]*)?\\]\\.agent_type|evidence\\.lines\\[(?:0|[1-9][0-9]*)?\\]\\.confidence_interval|evidence\\.lines\\[(?:0|[1-9][0-9]*)?\\]\\.data_availability|evidence\\.lines\\[(?:0|[1-9][0-9]*)?\\]\\.direction|evidence\\.lines\\[(?:0|[1-9][0-9]*)?\\]\\.evidence_type|evidence\\.lines\\[(?:0|[1-9][0-9]*)?\\]\\.hypothesis_flag|evidence\\.lines\\[(?:0|[1-9][0-9]*)?\\]\\.id|evidence\\.lines\\[(?:0|[1-9][0-9]*)?\\]\\.items\\[(?:0|[1-9][0-9]*)?\\]|evidence\\.lines\\[(?:0|[1-9][0-9]*)?\\]\\.knowledge_level|evidence\\.lines\\[(?:0|[1-9][0-9]*)?\\]\\.negated_flag|evidence\\.lines\\[(?:0|[1-9][0-9]*)?\\]\\.quote|evidence\\.lines\\[(?:0|[1-9][0-9]*)?\\]\\.result_estimate|evidence\\.lines\\[(?:0|[1-9][0-9]*)?\\]\\.retraction_status|evidence\\.lines\\[(?:0|[1-9][0-9]*)?\\]\\.statistical_procedure|evidence\\.lines\\[(?:0|[1-9][0-9]*)?\\]\\.strength|evidence\\.lines\\[(?:0|[1-9][0-9]*)?\\]\\.study_system|evidence\\.lines\\[(?:0|[1-9][0-9]*)?\\]\\.study_type|evidence\\.lines\\[(?:0|[1-9][0-9]*)?\\]\\.target_ref|evidence\\.references\\[(?:0|[1-9][0-9]*)?\\]\\.access_context|evidence\\.references\\[(?:0|[1-9][0-9]*)?\\]\\.access_context\\.alternate_source_refs|evidence\\.references\\[(?:0|[1-9][0-9]*)?\\]\\.access_context\\.inspected_locator_range|evidence\\.references\\[(?:0|[1-9][0-9]*)?\\]\\.access_context\\.limitation|evidence\\.references\\[(?:0|[1-9][0-9]*)?\\]\\.access_context\\.retrieval_record_ref|evidence\\.references\\[(?:0|[1-9][0-9]*)?\\]\\.access_context\\.retrieval_status|evidence\\.references\\[(?:0|[1-9][0-9]*)?\\]\\.access_context\\.source_ref|evidence\\.references\\[(?:0|[1-9][0-9]*)?\\]\\.access_context\\.text_scope|evidence\\.references\\[(?:0|[1-9][0-9]*)?\\]\\.access_context\\.truncated|evidence\\.references\\[(?:0|[1-9][0-9]*)?\\]\\.citation_relation|evidence\\.references\\[(?:0|[1-9][0-9]*)?\\]\\.identifier|identity\\.assertions\\[(?:0|[1-9][0-9]*)?\\]\\.agent_ref|identity\\.assertions\\[(?:0|[1-9][0-9]*)?\\]\\.asserted_at|identity\\.assertions\\[(?:0|[1-9][0-9]*)?\\]\\.confidence|identity\\.assertions\\[(?:0|[1-9][0-9]*)?\\]\\.id|identity\\.assertions\\[(?:0|[1-9][0-9]*)?\\]\\.stance|identity\\.assertions\\[(?:0|[1-9][0-9]*)?\\]\\.text|identity\\.duplicate_cluster_ref|identity\\.lifecycle|identity\\.proposition_id|identity\\.question_refs\\[(?:0|[1-9][0-9]*)?\\]|identity\\.representative_ref|identity\\.retractions\\[(?:0|[1-9][0-9]*)?\\]|identity\\.supersedes\\[(?:0|[1-9][0-9]*)?\\]|identity\\.version|mechanism\\.black_box|mechanism\\.entities\\[(?:0|[1-9][0-9]*)?\\]\\.id|mechanism\\.entities\\[(?:0|[1-9][0-9]*)?\\]\\.label|mechanism\\.molecular_targets\\[(?:0|[1-9][0-9]*)?\\]|mechanism\\.steps\\[(?:0|[1-9][0-9]*)?\\]\\.context|mechanism\\.steps\\[(?:0|[1-9][0-9]*)?\\]\\.evidence_refs\\[(?:0|[1-9][0-9]*)?\\]|mechanism\\.steps\\[(?:0|[1-9][0-9]*)?\\]\\.evidence_type|mechanism\\.steps\\[(?:0|[1-9][0-9]*)?\\]\\.id|mechanism\\.steps\\[(?:0|[1-9][0-9]*)?\\]\\.object_ref|mechanism\\.steps\\[(?:0|[1-9][0-9]*)?\\]\\.relation|mechanism\\.steps\\[(?:0|[1-9][0-9]*)?\\]\\.sign|mechanism\\.steps\\[(?:0|[1-9][0-9]*)?\\]\\.subject_ref|mechanism\\.summary|pair\\.assumptions|pair\\.context_ref|pair\\.decisive_test|pair\\.diagnosticity_matrix|pair\\.discriminability|pair\\.hypothesis_refs|pair\\.relation|predictions\\[(?:0|[1-9][0-9]*)?\\]\\.age_window|predictions\\[(?:0|[1-9][0-9]*)?\\]\\.comparator|predictions\\[(?:0|[1-9][0-9]*)?\\]\\.control_quality|predictions\\[(?:0|[1-9][0-9]*)?\\]\\.control_reference|predictions\\[(?:0|[1-9][0-9]*)?\\]\\.direction|predictions\\[(?:0|[1-9][0-9]*)?\\]\\.effect_modifiers\\[(?:0|[1-9][0-9]*)?\\]|predictions\\[(?:0|[1-9][0-9]*)?\\]\\.endpoint|predictions\\[(?:0|[1-9][0-9]*)?\\]\\.endpoint_kind|predictions\\[(?:0|[1-9][0-9]*)?\\]\\.endpoint_orientation|predictions\\[(?:0|[1-9][0-9]*)?\\]\\.equivalence_bounds|predictions\\[(?:0|[1-9][0-9]*)?\\]\\.experimental_unit|predictions\\[(?:0|[1-9][0-9]*)?\\]\\.horizon|predictions\\[(?:0|[1-9][0-9]*)?\\]\\.id|predictions\\[(?:0|[1-9][0-9]*)?\\]\\.intercurrent_events\\[(?:0|[1-9][0-9]*)?\\]|predictions\\[(?:0|[1-9][0-9]*)?\\]\\.intercurrent_events\\[(?:0|[1-9][0-9]*)?\\]\\.event|predictions\\[(?:0|[1-9][0-9]*)?\\]\\.intercurrent_events\\[(?:0|[1-9][0-9]*)?\\]\\.justification|predictions\\[(?:0|[1-9][0-9]*)?\\]\\.intercurrent_events\\[(?:0|[1-9][0-9]*)?\\]\\.strategy|predictions\\[(?:0|[1-9][0-9]*)?\\]\\.intermediate_tests\\[(?:0|[1-9][0-9]*)?\\]\\.h0|predictions\\[(?:0|[1-9][0-9]*)?\\]\\.intermediate_tests\\[(?:0|[1-9][0-9]*)?\\]\\.h1|predictions\\[(?:0|[1-9][0-9]*)?\\]\\.intermediate_tests\\[(?:0|[1-9][0-9]*)?\\]\\.observable|predictions\\[(?:0|[1-9][0-9]*)?\\]\\.intermediate_tests\\[(?:0|[1-9][0-9]*)?\\]\\.status|predictions\\[(?:0|[1-9][0-9]*)?\\]\\.intermediate_tests\\[(?:0|[1-9][0-9]*)?\\]\\.test|predictions\\[(?:0|[1-9][0-9]*)?\\]\\.intermediate_tests\\[(?:0|[1-9][0-9]*)?\\]\\.validity_justification|predictions\\[(?:0|[1-9][0-9]*)?\\]\\.intervention\\.agent|predictions\\[(?:0|[1-9][0-9]*)?\\]\\.intervention\\.dose|predictions\\[(?:0|[1-9][0-9]*)?\\]\\.intervention\\.duration|predictions\\[(?:0|[1-9][0-9]*)?\\]\\.intervention\\.formulation|predictions\\[(?:0|[1-9][0-9]*)?\\]\\.intervention\\.intake|predictions\\[(?:0|[1-9][0-9]*)?\\]\\.intervention\\.measured_concentration|predictions\\[(?:0|[1-9][0-9]*)?\\]\\.intervention\\.nominal_concentration|predictions\\[(?:0|[1-9][0-9]*)?\\]\\.intervention\\.regimen|predictions\\[(?:0|[1-9][0-9]*)?\\]\\.intervention\\.route|predictions\\[(?:0|[1-9][0-9]*)?\\]\\.intervention\\.systemic_exposure|predictions\\[(?:0|[1-9][0-9]*)?\\]\\.missing_data_plan|predictions\\[(?:0|[1-9][0-9]*)?\\]\\.population|predictions\\[(?:0|[1-9][0-9]*)?\\]\\.predictive_uncertainty|predictions\\[(?:0|[1-9][0-9]*)?\\]\\.relational_prediction|predictions\\[(?:0|[1-9][0-9]*)?\\]\\.role|predictions\\[(?:0|[1-9][0-9]*)?\\]\\.summary_measure|predictions\\[(?:0|[1-9][0-9]*)?\\]\\.summary_measure\\.contrast|predictions\\[(?:0|[1-9][0-9]*)?\\]\\.summary_measure\\.scale|predictions\\[(?:0|[1-9][0-9]*)?\\]\\.system\\.age_at_start|predictions\\[(?:0|[1-9][0-9]*)?\\]\\.system\\.assessment_age|predictions\\[(?:0|[1-9][0-9]*)?\\]\\.system\\.sex|predictions\\[(?:0|[1-9][0-9]*)?\\]\\.system\\.site|predictions\\[(?:0|[1-9][0-9]*)?\\]\\.system\\.strain_or_line|predictions\\[(?:0|[1-9][0-9]*)?\\]\\.system\\.taxon|predictions\\[(?:0|[1-9][0-9]*)?\\]\\.test_cost|predictions\\[(?:0|[1-9][0-9]*)?\\]\\.test_cost\\.basis|predictions\\[(?:0|[1-9][0-9]*)?\\]\\.test_cost\\.confidence|predictions\\[(?:0|[1-9][0-9]*)?\\]\\.test_cost\\.duration|predictions\\[(?:0|[1-9][0-9]*)?\\]\\.test_cost\\.duration\\.unit|predictions\\[(?:0|[1-9][0-9]*)?\\]\\.test_cost\\.duration\\.value|predictions\\[(?:0|[1-9][0-9]*)?\\]\\.test_cost\\.money_range|predictions\\[(?:0|[1-9][0-9]*)?\\]\\.test_cost\\.money_range\\.currency|predictions\\[(?:0|[1-9][0-9]*)?\\]\\.test_cost\\.money_range\\.high|predictions\\[(?:0|[1-9][0-9]*)?\\]\\.test_cost\\.money_range\\.low|predictions\\[(?:0|[1-9][0-9]*)?\\]\\.test_cost\\.money_range\\.year|predictions\\[(?:0|[1-9][0-9]*)?\\]\\.test_cost\\.resources|predictions\\[(?:0|[1-9][0-9]*)?\\]\\.test_plan_ref|predictions\\[(?:0|[1-9][0-9]*)?\\]\\.threshold|profile\\.biomarker\\.role|profile\\.biomarker\\.validation|profile\\.combination\\.components\\[(?:0|[1-9][0-9]*)?\\]|profile\\.combination\\.effect|profile\\.combination\\.reference_model|profile\\.dose_response\\.endpoint_ref|profile\\.dose_response\\.range|profile\\.dose_response\\.shape|profile\\.dose_response\\.x_axis|profile\\.function_process|profile\\.harm|profile\\.transfer_scope|provenance\\.author_type|provenance\\.claim_author_coi|provenance\\.claim_author|provenance\\.contributions\\[(?:0|[1-9][0-9]*)?\\]|provenance\\.field_sources\\[(?:0|[1-9][0-9]*)?\\]|provenance\\.foreknowledge|provenance\\.generation_heuristic|provenance\\.heuristic_principle\\[(?:0|[1-9][0-9]*)?\\]|provenance\\.inspiration_refs\\[(?:0|[1-9][0-9]*)?\\]|provenance\\.licence|provenance\\.model|provenance\\.origin_method|provenance\\.original_artifact|provenance\\.parent_refs\\[(?:0|[1-9][0-9]*)?\\]|provenance\\.registration|provenance\\.transformation|provenance\\.translation)|^(?:core\\.base_rate|core\\.base_rate\\.as_of|core\\.base_rate\\.denominator|core\\.base_rate\\.rate|core\\.base_rate\\.reference_class|core\\.base_rate\\.source|evidence\\.lines\\[(?:0|[1-9][0-9]*)?\\]\\.replication|evidence\\.lines\\[(?:0|[1-9][0-9]*)?\\]\\.replication\\.failed|evidence\\.lines\\[(?:0|[1-9][0-9]*)?\\]\\.replication\\.failed\\[(?:0|[1-9][0-9]*)?\\]|evidence\\.lines\\[(?:0|[1-9][0-9]*)?\\]\\.replication\\.independent|evidence\\.lines\\[(?:0|[1-9][0-9]*)?\\]\\.replication\\.independent\\[(?:0|[1-9][0-9]*)?\\]|evidence\\.lines\\[(?:0|[1-9][0-9]*)?\\]\\.replication\\.status|evidence\\.references\\[(?:0|[1-9][0-9]*)?\\]\\.funding_coi|evidence\\.references\\[(?:0|[1-9][0-9]*)?\\]\\.funding_coi\\.coi_declared|evidence\\.references\\[(?:0|[1-9][0-9]*)?\\]\\.funding_coi\\.coi_declared\\.kind|evidence\\.references\\[(?:0|[1-9][0-9]*)?\\]\\.funding_coi\\.coi_declared\\.text|evidence\\.references\\[(?:0|[1-9][0-9]*)?\\]\\.funding_coi\\.funders|evidence\\.references\\[(?:0|[1-9][0-9]*)?\\]\\.funding_coi\\.funders\\[(?:0|[1-9][0-9]*)?\\]|predictions\\[(?:0|[1-9][0-9]*)?\\]\\.existing_data_tests|predictions\\[(?:0|[1-9][0-9]*)?\\]\\.existing_data_tests\\[(?:0|[1-9][0-9]*)?\\]|predictions\\[(?:0|[1-9][0-9]*)?\\]\\.existing_data_tests\\[(?:0|[1-9][0-9]*)?\\]\\.access|predictions\\[(?:0|[1-9][0-9]*)?\\]\\.existing_data_tests\\[(?:0|[1-9][0-9]*)?\\]\\.dataset|predictions\\[(?:0|[1-9][0-9]*)?\\]\\.existing_data_tests\\[(?:0|[1-9][0-9]*)?\\]\\.dataset\\.name|predictions\\[(?:0|[1-9][0-9]*)?\\]\\.existing_data_tests\\[(?:0|[1-9][0-9]*)?\\]\\.dataset\\.ref|predictions\\[(?:0|[1-9][0-9]*)?\\]\\.existing_data_tests\\[(?:0|[1-9][0-9]*)?\\]\\.est_cost|predictions\\[(?:0|[1-9][0-9]*)?\\]\\.existing_data_tests\\[(?:0|[1-9][0-9]*)?\\]\\.est_duration|predictions\\[(?:0|[1-9][0-9]*)?\\]\\.existing_data_tests\\[(?:0|[1-9][0-9]*)?\\]\\.estimate_basis|predictions\\[(?:0|[1-9][0-9]*)?\\]\\.existing_data_tests\\[(?:0|[1-9][0-9]*)?\\]\\.estimate_scope|predictions\\[(?:0|[1-9][0-9]*)?\\]\\.existing_data_tests\\[(?:0|[1-9][0-9]*)?\\]\\.what_it_can_show|predictions\\[(?:0|[1-9][0-9]*)?\\]\\.resolution|predictions\\[(?:0|[1-9][0-9]*)?\\]\\.resolution\\.check_where|predictions\\[(?:0|[1-9][0-9]*)?\\]\\.resolution\\.criterion|predictions\\[(?:0|[1-9][0-9]*)?\\]\\.resolution\\.outcome|predictions\\[(?:0|[1-9][0-9]*)?\\]\\.resolution\\.outcome\\.evidence_ref|predictions\\[(?:0|[1-9][0-9]*)?\\]\\.resolution\\.outcome\\.recorded_at|predictions\\[(?:0|[1-9][0-9]*)?\\]\\.resolution\\.outcome\\.recorded_by|predictions\\[(?:0|[1-9][0-9]*)?\\]\\.resolution\\.outcome\\.status|predictions\\[(?:0|[1-9][0-9]*)?\\]\\.resolution\\.outcome_candidates|predictions\\[(?:0|[1-9][0-9]*)?\\]\\.resolution\\.outcome_candidates\\[(?:0|[1-9][0-9]*)?\\]|predictions\\[(?:0|[1-9][0-9]*)?\\]\\.resolution\\.outcome_candidates\\[(?:0|[1-9][0-9]*)?\\]\\.basis|predictions\\[(?:0|[1-9][0-9]*)?\\]\\.resolution\\.outcome_candidates\\[(?:0|[1-9][0-9]*)?\\]\\.evidence_ref|predictions\\[(?:0|[1-9][0-9]*)?\\]\\.resolution\\.outcome_candidates\\[(?:0|[1-9][0-9]*)?\\]\\.found_at|predictions\\[(?:0|[1-9][0-9]*)?\\]\\.resolution\\.outcome_candidates\\[(?:0|[1-9][0-9]*)?\\]\\.status|predictions\\[(?:0|[1-9][0-9]*)?\\]\\.resolution\\.resolves_by|predictions\\[(?:0|[1-9][0-9]*)?\\]\\.resolution\\.resolves_by\\.description|predictions\\[(?:0|[1-9][0-9]*)?\\]\\.resolution\\.resolves_by\\.event_ref|predictions\\[(?:0|[1-9][0-9]*)?\\]\\.resolution\\.resolves_by\\.kind|predictions\\[(?:0|[1-9][0-9]*)?\\]\\.resolution\\.resolves_by\\.value|profile\\.human_testability|profile\\.human_testability\\.ethical_constraints|profile\\.human_testability\\.ethical_constraints\\[(?:0|[1-9][0-9]*)?\\]|profile\\.human_testability\\.feasible|profile\\.human_testability\\.prerequisites|profile\\.human_testability\\.prerequisites\\[(?:0|[1-9][0-9]*)?\\]|profile\\.human_testability\\.regulatory_path|predictions\\[(?:0|[1-9][0-9]*)?\\]\\.control_type|evidence\\.lines\\[(?:0|[1-9][0-9]*)?\\]\\.system\\.taxon|evidence\\.lines\\[(?:0|[1-9][0-9]*)?\\]\\.system\\.strain_or_line|evidence\\.lines\\[(?:0|[1-9][0-9]*)?\\]\\.system\\.sex|evidence\\.lines\\[(?:0|[1-9][0-9]*)?\\]\\.system\\.age_at_start|evidence\\.lines\\[(?:0|[1-9][0-9]*)?\\]\\.system\\.assessment_age|evidence\\.lines\\[(?:0|[1-9][0-9]*)?\\]\\.system\\.site|evidence\\.lines\\[(?:0|[1-9][0-9]*)?\\]\\.system\\.kind|evidence\\.lines\\[(?:0|[1-9][0-9]*)?\\]\\.system\\.environment|evidence\\.lines\\[(?:0|[1-9][0-9]*)?\\]\\.system\\.spatial_scale|evidence\\.lines\\[(?:0|[1-9][0-9]*)?\\]\\.system\\.temporal_scale|evidence\\.lines\\[(?:0|[1-9][0-9]*)?\\]\\.intervention\\.agent|evidence\\.lines\\[(?:0|[1-9][0-9]*)?\\]\\.intervention\\.dose|evidence\\.lines\\[(?:0|[1-9][0-9]*)?\\]\\.intervention\\.regimen|evidence\\.lines\\[(?:0|[1-9][0-9]*)?\\]\\.intervention\\.duration|evidence\\.lines\\[(?:0|[1-9][0-9]*)?\\]\\.intervention\\.route|evidence\\.lines\\[(?:0|[1-9][0-9]*)?\\]\\.intervention\\.formulation|evidence\\.lines\\[(?:0|[1-9][0-9]*)?\\]\\.intervention\\.nominal_concentration|evidence\\.lines\\[(?:0|[1-9][0-9]*)?\\]\\.intervention\\.measured_concentration|evidence\\.lines\\[(?:0|[1-9][0-9]*)?\\]\\.intervention\\.intake|evidence\\.lines\\[(?:0|[1-9][0-9]*)?\\]\\.intervention\\.systemic_exposure|predictions\\[(?:0|[1-9][0-9]*)?\\]\\.system\\.taxon_id|evidence\\.lines\\[(?:0|[1-9][0-9]*)?\\]\\.system\\.taxon_id|evidence\\.lines\\[(?:0|[1-9][0-9]*)?\\]\\.sample_size|evidence\\.lines\\[(?:0|[1-9][0-9]*)?\\]\\.multi_site_program|evidence\\.lines\\[(?:0|[1-9][0-9]*)?\\]\\.sample|core\\.alternative_explanations|core\\.assumptions|core\\.atoms|core\\.context|core\\.explains|core\\.opens|core\\.reinterprets|core\\.uncertainties|evidence\\.lines|evidence\\.references|mechanism\\.entities|mechanism\\.molecular_targets|mechanism\\.steps|predictions|profile\\.combination\\.components|provenance\\.contributions|provenance\\.field_sources|provenance\\.heuristic_principle|provenance\\.inspiration_refs|provenance\\.parent_refs|core\\.alternative_explanations\\[(?:0|[1-9][0-9]*)?\\]\\.id|evidence\\.excluded\\[(?:0|[1-9][0-9]*)?\\]|evidence\\.excluded\\[(?:0|[1-9][0-9]*)?\\]\\.id|evidence\\.excluded\\[(?:0|[1-9][0-9]*)?\\]\\.target_ref|evidence\\.excluded\\[(?:0|[1-9][0-9]*)?\\]\\.reason|evidence\\.excluded\\[(?:0|[1-9][0-9]*)?\\]\\.note|evidence\\.excluded\\[(?:0|[1-9][0-9]*)?\\]\\.quote|evidence\\.excluded\\[(?:0|[1-9][0-9]*)?\\]\\.artifact|evidence\\.excluded\\[(?:0|[1-9][0-9]*)?\\]\\.record|evidence\\.lines\\[(?:0|[1-9][0-9]*)?\\]\\.endpoint_kind|evidence\\.lines\\[(?:0|[1-9][0-9]*)?\\]\\.human_proximity|core\\.atoms\\[(?:0|[1-9][0-9]*)?\\]\\.requires|core\\.atoms\\[(?:0|[1-9][0-9]*)?\\]\\.contradicts|evidence\\.lines\\[(?:0|[1-9][0-9]*)?\\]\\.independence_group\\.key|profile\\.aging_hallmarks\\[(?:0|[1-9][0-9]*)?\\]|core\\.atoms\\[(?:0|[1-9][0-9]*)?\\]\\.triple|evidence\\.lines\\[(?:0|[1-9][0-9]*)?\\]\\.quote_withheld))(?![\\s\\S])"
+                  "pattern": "(?:^(?:appendix\\.experiment_plan|appendix\\.limitations|appendix\\.rationale|appendix\\.source_extensions|core\\.alternative_explanations\\[(?:0|[1-9][0-9]*)?\\]|core\\.alternative_explanations\\[(?:0|[1-9][0-9]*)?\\]\\.claim_or_ref|core\\.alternative_explanations\\[(?:0|[1-9][0-9]*)?\\]\\.distinguishing_prediction_refs|core\\.alternative_explanations\\[(?:0|[1-9][0-9]*)?\\]\\.shared_observation_refs|core\\.alternative_explanations\\[(?:0|[1-9][0-9]*)?\\]\\.unresolved_reason|core\\.assumptions\\[(?:0|[1-9][0-9]*)?\\]\\.assessment|core\\.assumptions\\[(?:0|[1-9][0-9]*)?\\]\\.fundamental|core\\.assumptions\\[(?:0|[1-9][0-9]*)?\\]\\.id|core\\.assumptions\\[(?:0|[1-9][0-9]*)?\\]\\.text|core\\.atoms\\[(?:0|[1-9][0-9]*)?\\]\\.context_override|core\\.atoms\\[(?:0|[1-9][0-9]*)?\\]\\.id|core\\.atoms\\[(?:0|[1-9][0-9]*)?\\]\\.operator|core\\.atoms\\[(?:0|[1-9][0-9]*)?\\]\\.parent_ref|core\\.atoms\\[(?:0|[1-9][0-9]*)?\\]\\.scope|core\\.atoms\\[(?:0|[1-9][0-9]*)?\\]\\.statement|core\\.context\\[(?:0|[1-9][0-9]*)?\\]|core\\.explanandum|core\\.falsification_condition|core\\.kind|core\\.novelty_assessment|core\\.novelty_assessment\\.as_of|core\\.novelty_assessment\\.new_content|core\\.novelty_assessment\\.prior_claim_refs|core\\.novelty_assessment\\.review_ref|core\\.novelty_assessment\\.search_scope_ref|core\\.novelty_assessment\\.shared_content|core\\.novelty_assessment\\.status|core\\.potential_benefit|core\\.potential_benefit\\.beneficiaries_or_system|core\\.potential_benefit\\.causal_bridge|core\\.potential_benefit\\.constraints|core\\.potential_benefit\\.horizon|core\\.potential_benefit\\.magnitude|core\\.potential_benefit\\.outcome|core\\.potential_benefit\\.target_refs|core\\.scope|core\\.names\\[(?:0|[1-9][0-9]*)?\\]|core\\.statement|core\\.uncertainties\\[(?:0|[1-9][0-9]*)?\\]|core\\.uncertainties\\[(?:0|[1-9][0-9]*)?\\]\\.assessment_status|core\\.uncertainties\\[(?:0|[1-9][0-9]*)?\\]\\.consequence|core\\.uncertainties\\[(?:0|[1-9][0-9]*)?\\]\\.id|core\\.uncertainties\\[(?:0|[1-9][0-9]*)?\\]\\.kind|core\\.uncertainties\\[(?:0|[1-9][0-9]*)?\\]\\.question|core\\.uncertainties\\[(?:0|[1-9][0-9]*)?\\]\\.resolution_test_ref|core\\.uncertainties\\[(?:0|[1-9][0-9]*)?\\]\\.target_ref|evidence\\.lines\\[(?:0|[1-9][0-9]*)?\\]\\.agent_type|evidence\\.lines\\[(?:0|[1-9][0-9]*)?\\]\\.confidence_interval|evidence\\.lines\\[(?:0|[1-9][0-9]*)?\\]\\.data_availability|evidence\\.lines\\[(?:0|[1-9][0-9]*)?\\]\\.direction|evidence\\.lines\\[(?:0|[1-9][0-9]*)?\\]\\.evidence_type|evidence\\.lines\\[(?:0|[1-9][0-9]*)?\\]\\.hypothesis_flag|evidence\\.lines\\[(?:0|[1-9][0-9]*)?\\]\\.id|evidence\\.lines\\[(?:0|[1-9][0-9]*)?\\]\\.items\\[(?:0|[1-9][0-9]*)?\\]|evidence\\.lines\\[(?:0|[1-9][0-9]*)?\\]\\.knowledge_level|evidence\\.lines\\[(?:0|[1-9][0-9]*)?\\]\\.negated_flag|evidence\\.lines\\[(?:0|[1-9][0-9]*)?\\]\\.quote|evidence\\.lines\\[(?:0|[1-9][0-9]*)?\\]\\.result_estimate|evidence\\.lines\\[(?:0|[1-9][0-9]*)?\\]\\.retraction_status|evidence\\.lines\\[(?:0|[1-9][0-9]*)?\\]\\.statistical_procedure|evidence\\.lines\\[(?:0|[1-9][0-9]*)?\\]\\.strength|evidence\\.lines\\[(?:0|[1-9][0-9]*)?\\]\\.study_system|evidence\\.lines\\[(?:0|[1-9][0-9]*)?\\]\\.study_type|evidence\\.lines\\[(?:0|[1-9][0-9]*)?\\]\\.target_ref|evidence\\.references\\[(?:0|[1-9][0-9]*)?\\]\\.access_context|evidence\\.references\\[(?:0|[1-9][0-9]*)?\\]\\.access_context\\.alternate_source_refs|evidence\\.references\\[(?:0|[1-9][0-9]*)?\\]\\.access_context\\.inspected_locator_range|evidence\\.references\\[(?:0|[1-9][0-9]*)?\\]\\.access_context\\.limitation|evidence\\.references\\[(?:0|[1-9][0-9]*)?\\]\\.access_context\\.retrieval_record_ref|evidence\\.references\\[(?:0|[1-9][0-9]*)?\\]\\.access_context\\.retrieval_status|evidence\\.references\\[(?:0|[1-9][0-9]*)?\\]\\.access_context\\.source_ref|evidence\\.references\\[(?:0|[1-9][0-9]*)?\\]\\.access_context\\.text_scope|evidence\\.references\\[(?:0|[1-9][0-9]*)?\\]\\.access_context\\.truncated|evidence\\.references\\[(?:0|[1-9][0-9]*)?\\]\\.citation_relation|evidence\\.references\\[(?:0|[1-9][0-9]*)?\\]\\.identifier|identity\\.assertions\\[(?:0|[1-9][0-9]*)?\\]\\.agent_ref|identity\\.assertions\\[(?:0|[1-9][0-9]*)?\\]\\.asserted_at|identity\\.assertions\\[(?:0|[1-9][0-9]*)?\\]\\.confidence|identity\\.assertions\\[(?:0|[1-9][0-9]*)?\\]\\.id|identity\\.assertions\\[(?:0|[1-9][0-9]*)?\\]\\.stance|identity\\.assertions\\[(?:0|[1-9][0-9]*)?\\]\\.text|identity\\.duplicate_cluster_ref|identity\\.lifecycle|identity\\.proposition_id|identity\\.question_refs\\[(?:0|[1-9][0-9]*)?\\]|identity\\.representative_ref|identity\\.retractions\\[(?:0|[1-9][0-9]*)?\\]|identity\\.supersedes\\[(?:0|[1-9][0-9]*)?\\]|identity\\.version|mechanism\\.black_box|mechanism\\.entities\\[(?:0|[1-9][0-9]*)?\\]\\.id|mechanism\\.entities\\[(?:0|[1-9][0-9]*)?\\]\\.label|mechanism\\.molecular_targets\\[(?:0|[1-9][0-9]*)?\\]|mechanism\\.steps\\[(?:0|[1-9][0-9]*)?\\]\\.context|mechanism\\.steps\\[(?:0|[1-9][0-9]*)?\\]\\.evidence_refs\\[(?:0|[1-9][0-9]*)?\\]|mechanism\\.steps\\[(?:0|[1-9][0-9]*)?\\]\\.evidence_type|mechanism\\.steps\\[(?:0|[1-9][0-9]*)?\\]\\.id|mechanism\\.steps\\[(?:0|[1-9][0-9]*)?\\]\\.object_ref|mechanism\\.steps\\[(?:0|[1-9][0-9]*)?\\]\\.relation|mechanism\\.steps\\[(?:0|[1-9][0-9]*)?\\]\\.sign|mechanism\\.steps\\[(?:0|[1-9][0-9]*)?\\]\\.subject_ref|mechanism\\.summary|pair\\.assumptions|pair\\.context_ref|pair\\.decisive_test|pair\\.diagnosticity_matrix|pair\\.discriminability|pair\\.hypothesis_refs|pair\\.relation|predictions\\[(?:0|[1-9][0-9]*)?\\]\\.age_window|predictions\\[(?:0|[1-9][0-9]*)?\\]\\.comparator|predictions\\[(?:0|[1-9][0-9]*)?\\]\\.control_quality|predictions\\[(?:0|[1-9][0-9]*)?\\]\\.control_reference|predictions\\[(?:0|[1-9][0-9]*)?\\]\\.direction|predictions\\[(?:0|[1-9][0-9]*)?\\]\\.effect_modifiers\\[(?:0|[1-9][0-9]*)?\\]|predictions\\[(?:0|[1-9][0-9]*)?\\]\\.endpoint|predictions\\[(?:0|[1-9][0-9]*)?\\]\\.endpoint_kind|predictions\\[(?:0|[1-9][0-9]*)?\\]\\.endpoint_orientation|predictions\\[(?:0|[1-9][0-9]*)?\\]\\.equivalence_bounds|predictions\\[(?:0|[1-9][0-9]*)?\\]\\.experimental_unit|predictions\\[(?:0|[1-9][0-9]*)?\\]\\.horizon|predictions\\[(?:0|[1-9][0-9]*)?\\]\\.id|predictions\\[(?:0|[1-9][0-9]*)?\\]\\.intercurrent_events\\[(?:0|[1-9][0-9]*)?\\]|predictions\\[(?:0|[1-9][0-9]*)?\\]\\.intercurrent_events\\[(?:0|[1-9][0-9]*)?\\]\\.event|predictions\\[(?:0|[1-9][0-9]*)?\\]\\.intercurrent_events\\[(?:0|[1-9][0-9]*)?\\]\\.justification|predictions\\[(?:0|[1-9][0-9]*)?\\]\\.intercurrent_events\\[(?:0|[1-9][0-9]*)?\\]\\.strategy|predictions\\[(?:0|[1-9][0-9]*)?\\]\\.intermediate_tests\\[(?:0|[1-9][0-9]*)?\\]\\.h0|predictions\\[(?:0|[1-9][0-9]*)?\\]\\.intermediate_tests\\[(?:0|[1-9][0-9]*)?\\]\\.h1|predictions\\[(?:0|[1-9][0-9]*)?\\]\\.intermediate_tests\\[(?:0|[1-9][0-9]*)?\\]\\.observable|predictions\\[(?:0|[1-9][0-9]*)?\\]\\.intermediate_tests\\[(?:0|[1-9][0-9]*)?\\]\\.status|predictions\\[(?:0|[1-9][0-9]*)?\\]\\.intermediate_tests\\[(?:0|[1-9][0-9]*)?\\]\\.test|predictions\\[(?:0|[1-9][0-9]*)?\\]\\.intermediate_tests\\[(?:0|[1-9][0-9]*)?\\]\\.validity_justification|predictions\\[(?:0|[1-9][0-9]*)?\\]\\.intervention\\.agent|predictions\\[(?:0|[1-9][0-9]*)?\\]\\.intervention\\.dose|predictions\\[(?:0|[1-9][0-9]*)?\\]\\.intervention\\.duration|predictions\\[(?:0|[1-9][0-9]*)?\\]\\.intervention\\.formulation|predictions\\[(?:0|[1-9][0-9]*)?\\]\\.intervention\\.intake|predictions\\[(?:0|[1-9][0-9]*)?\\]\\.intervention\\.measured_concentration|predictions\\[(?:0|[1-9][0-9]*)?\\]\\.intervention\\.nominal_concentration|predictions\\[(?:0|[1-9][0-9]*)?\\]\\.intervention\\.regimen|predictions\\[(?:0|[1-9][0-9]*)?\\]\\.intervention\\.route|predictions\\[(?:0|[1-9][0-9]*)?\\]\\.intervention\\.systemic_exposure|predictions\\[(?:0|[1-9][0-9]*)?\\]\\.missing_data_plan|predictions\\[(?:0|[1-9][0-9]*)?\\]\\.population|predictions\\[(?:0|[1-9][0-9]*)?\\]\\.predictive_uncertainty|predictions\\[(?:0|[1-9][0-9]*)?\\]\\.relational_prediction|predictions\\[(?:0|[1-9][0-9]*)?\\]\\.role|predictions\\[(?:0|[1-9][0-9]*)?\\]\\.summary_measure|predictions\\[(?:0|[1-9][0-9]*)?\\]\\.summary_measure\\.contrast|predictions\\[(?:0|[1-9][0-9]*)?\\]\\.summary_measure\\.scale|predictions\\[(?:0|[1-9][0-9]*)?\\]\\.system\\.age_at_start|predictions\\[(?:0|[1-9][0-9]*)?\\]\\.system\\.assessment_age|predictions\\[(?:0|[1-9][0-9]*)?\\]\\.system\\.sex|predictions\\[(?:0|[1-9][0-9]*)?\\]\\.system\\.site|predictions\\[(?:0|[1-9][0-9]*)?\\]\\.system\\.strain_or_line|predictions\\[(?:0|[1-9][0-9]*)?\\]\\.system\\.taxon|predictions\\[(?:0|[1-9][0-9]*)?\\]\\.test_cost|predictions\\[(?:0|[1-9][0-9]*)?\\]\\.test_cost\\.basis|predictions\\[(?:0|[1-9][0-9]*)?\\]\\.test_cost\\.confidence|predictions\\[(?:0|[1-9][0-9]*)?\\]\\.test_cost\\.duration|predictions\\[(?:0|[1-9][0-9]*)?\\]\\.test_cost\\.duration\\.unit|predictions\\[(?:0|[1-9][0-9]*)?\\]\\.test_cost\\.duration\\.value|predictions\\[(?:0|[1-9][0-9]*)?\\]\\.test_cost\\.money_range|predictions\\[(?:0|[1-9][0-9]*)?\\]\\.test_cost\\.money_range\\.currency|predictions\\[(?:0|[1-9][0-9]*)?\\]\\.test_cost\\.money_range\\.high|predictions\\[(?:0|[1-9][0-9]*)?\\]\\.test_cost\\.money_range\\.low|predictions\\[(?:0|[1-9][0-9]*)?\\]\\.test_cost\\.money_range\\.year|predictions\\[(?:0|[1-9][0-9]*)?\\]\\.test_cost\\.resources|predictions\\[(?:0|[1-9][0-9]*)?\\]\\.test_plan_ref|predictions\\[(?:0|[1-9][0-9]*)?\\]\\.threshold|profile\\.biomarker\\.role|profile\\.biomarker\\.validation|profile\\.combination\\.components\\[(?:0|[1-9][0-9]*)?\\]|profile\\.combination\\.effect|profile\\.combination\\.reference_model|profile\\.dose_response\\.endpoint_ref|profile\\.dose_response\\.range|profile\\.dose_response\\.shape|profile\\.dose_response\\.x_axis|profile\\.function_process|profile\\.harm|profile\\.transfer_scope|provenance\\.author_type|provenance\\.claim_author_coi|provenance\\.claim_author|provenance\\.contributions\\[(?:0|[1-9][0-9]*)?\\]|provenance\\.field_sources\\[(?:0|[1-9][0-9]*)?\\]|provenance\\.foreknowledge|provenance\\.generation_heuristic|provenance\\.heuristic_principle\\[(?:0|[1-9][0-9]*)?\\]|provenance\\.inspiration_refs\\[(?:0|[1-9][0-9]*)?\\]|provenance\\.licence|provenance\\.model|provenance\\.origin_method|provenance\\.original_artifact|provenance\\.parent_refs\\[(?:0|[1-9][0-9]*)?\\]|provenance\\.registration|provenance\\.transformation|provenance\\.translation)|^(?:core\\.base_rate|core\\.base_rate\\.as_of|core\\.base_rate\\.denominator|core\\.base_rate\\.rate|core\\.base_rate\\.reference_class|core\\.base_rate\\.source|evidence\\.lines\\[(?:0|[1-9][0-9]*)?\\]\\.replication|evidence\\.lines\\[(?:0|[1-9][0-9]*)?\\]\\.replication\\.failed|evidence\\.lines\\[(?:0|[1-9][0-9]*)?\\]\\.replication\\.failed\\[(?:0|[1-9][0-9]*)?\\]|evidence\\.lines\\[(?:0|[1-9][0-9]*)?\\]\\.replication\\.independent|evidence\\.lines\\[(?:0|[1-9][0-9]*)?\\]\\.replication\\.independent\\[(?:0|[1-9][0-9]*)?\\]|evidence\\.lines\\[(?:0|[1-9][0-9]*)?\\]\\.replication\\.status|evidence\\.references\\[(?:0|[1-9][0-9]*)?\\]\\.funding_coi|evidence\\.references\\[(?:0|[1-9][0-9]*)?\\]\\.funding_coi\\.coi_declared|evidence\\.references\\[(?:0|[1-9][0-9]*)?\\]\\.funding_coi\\.coi_declared\\.kind|evidence\\.references\\[(?:0|[1-9][0-9]*)?\\]\\.funding_coi\\.coi_declared\\.text|evidence\\.references\\[(?:0|[1-9][0-9]*)?\\]\\.funding_coi\\.funders|evidence\\.references\\[(?:0|[1-9][0-9]*)?\\]\\.funding_coi\\.funders\\[(?:0|[1-9][0-9]*)?\\]|predictions\\[(?:0|[1-9][0-9]*)?\\]\\.existing_data_tests|predictions\\[(?:0|[1-9][0-9]*)?\\]\\.existing_data_tests\\[(?:0|[1-9][0-9]*)?\\]|predictions\\[(?:0|[1-9][0-9]*)?\\]\\.existing_data_tests\\[(?:0|[1-9][0-9]*)?\\]\\.access|predictions\\[(?:0|[1-9][0-9]*)?\\]\\.existing_data_tests\\[(?:0|[1-9][0-9]*)?\\]\\.dataset|predictions\\[(?:0|[1-9][0-9]*)?\\]\\.existing_data_tests\\[(?:0|[1-9][0-9]*)?\\]\\.dataset\\.name|predictions\\[(?:0|[1-9][0-9]*)?\\]\\.existing_data_tests\\[(?:0|[1-9][0-9]*)?\\]\\.dataset\\.ref|predictions\\[(?:0|[1-9][0-9]*)?\\]\\.existing_data_tests\\[(?:0|[1-9][0-9]*)?\\]\\.est_cost|predictions\\[(?:0|[1-9][0-9]*)?\\]\\.existing_data_tests\\[(?:0|[1-9][0-9]*)?\\]\\.est_duration|predictions\\[(?:0|[1-9][0-9]*)?\\]\\.existing_data_tests\\[(?:0|[1-9][0-9]*)?\\]\\.estimate_basis|predictions\\[(?:0|[1-9][0-9]*)?\\]\\.existing_data_tests\\[(?:0|[1-9][0-9]*)?\\]\\.estimate_scope|predictions\\[(?:0|[1-9][0-9]*)?\\]\\.existing_data_tests\\[(?:0|[1-9][0-9]*)?\\]\\.what_it_can_show|predictions\\[(?:0|[1-9][0-9]*)?\\]\\.resolution|predictions\\[(?:0|[1-9][0-9]*)?\\]\\.resolution\\.check_where|predictions\\[(?:0|[1-9][0-9]*)?\\]\\.resolution\\.criterion|predictions\\[(?:0|[1-9][0-9]*)?\\]\\.resolution\\.outcome|predictions\\[(?:0|[1-9][0-9]*)?\\]\\.resolution\\.outcome\\.evidence_ref|predictions\\[(?:0|[1-9][0-9]*)?\\]\\.resolution\\.outcome\\.recorded_at|predictions\\[(?:0|[1-9][0-9]*)?\\]\\.resolution\\.outcome\\.recorded_by|predictions\\[(?:0|[1-9][0-9]*)?\\]\\.resolution\\.outcome\\.status|predictions\\[(?:0|[1-9][0-9]*)?\\]\\.resolution\\.outcome_candidates|predictions\\[(?:0|[1-9][0-9]*)?\\]\\.resolution\\.outcome_candidates\\[(?:0|[1-9][0-9]*)?\\]|predictions\\[(?:0|[1-9][0-9]*)?\\]\\.resolution\\.outcome_candidates\\[(?:0|[1-9][0-9]*)?\\]\\.basis|predictions\\[(?:0|[1-9][0-9]*)?\\]\\.resolution\\.outcome_candidates\\[(?:0|[1-9][0-9]*)?\\]\\.evidence_ref|predictions\\[(?:0|[1-9][0-9]*)?\\]\\.resolution\\.outcome_candidates\\[(?:0|[1-9][0-9]*)?\\]\\.found_at|predictions\\[(?:0|[1-9][0-9]*)?\\]\\.resolution\\.outcome_candidates\\[(?:0|[1-9][0-9]*)?\\]\\.status|predictions\\[(?:0|[1-9][0-9]*)?\\]\\.resolution\\.resolves_by|predictions\\[(?:0|[1-9][0-9]*)?\\]\\.resolution\\.resolves_by\\.description|predictions\\[(?:0|[1-9][0-9]*)?\\]\\.resolution\\.resolves_by\\.event_ref|predictions\\[(?:0|[1-9][0-9]*)?\\]\\.resolution\\.resolves_by\\.kind|predictions\\[(?:0|[1-9][0-9]*)?\\]\\.resolution\\.resolves_by\\.value|profile\\.human_testability|profile\\.human_testability\\.ethical_constraints|profile\\.human_testability\\.ethical_constraints\\[(?:0|[1-9][0-9]*)?\\]|profile\\.human_testability\\.feasible|profile\\.human_testability\\.prerequisites|profile\\.human_testability\\.prerequisites\\[(?:0|[1-9][0-9]*)?\\]|profile\\.human_testability\\.regulatory_path|predictions\\[(?:0|[1-9][0-9]*)?\\]\\.control_type|evidence\\.lines\\[(?:0|[1-9][0-9]*)?\\]\\.system\\.taxon|evidence\\.lines\\[(?:0|[1-9][0-9]*)?\\]\\.system\\.strain_or_line|evidence\\.lines\\[(?:0|[1-9][0-9]*)?\\]\\.system\\.sex|evidence\\.lines\\[(?:0|[1-9][0-9]*)?\\]\\.system\\.age_at_start|evidence\\.lines\\[(?:0|[1-9][0-9]*)?\\]\\.system\\.assessment_age|evidence\\.lines\\[(?:0|[1-9][0-9]*)?\\]\\.system\\.site|evidence\\.lines\\[(?:0|[1-9][0-9]*)?\\]\\.system\\.kind|evidence\\.lines\\[(?:0|[1-9][0-9]*)?\\]\\.system\\.environment|evidence\\.lines\\[(?:0|[1-9][0-9]*)?\\]\\.system\\.spatial_scale|evidence\\.lines\\[(?:0|[1-9][0-9]*)?\\]\\.system\\.temporal_scale|evidence\\.lines\\[(?:0|[1-9][0-9]*)?\\]\\.intervention\\.agent|evidence\\.lines\\[(?:0|[1-9][0-9]*)?\\]\\.intervention\\.dose|evidence\\.lines\\[(?:0|[1-9][0-9]*)?\\]\\.intervention\\.regimen|evidence\\.lines\\[(?:0|[1-9][0-9]*)?\\]\\.intervention\\.duration|evidence\\.lines\\[(?:0|[1-9][0-9]*)?\\]\\.intervention\\.route|evidence\\.lines\\[(?:0|[1-9][0-9]*)?\\]\\.intervention\\.formulation|evidence\\.lines\\[(?:0|[1-9][0-9]*)?\\]\\.intervention\\.nominal_concentration|evidence\\.lines\\[(?:0|[1-9][0-9]*)?\\]\\.intervention\\.measured_concentration|evidence\\.lines\\[(?:0|[1-9][0-9]*)?\\]\\.intervention\\.intake|evidence\\.lines\\[(?:0|[1-9][0-9]*)?\\]\\.intervention\\.systemic_exposure|predictions\\[(?:0|[1-9][0-9]*)?\\]\\.system\\.taxon_id|evidence\\.lines\\[(?:0|[1-9][0-9]*)?\\]\\.system\\.taxon_id|evidence\\.lines\\[(?:0|[1-9][0-9]*)?\\]\\.sample_size|evidence\\.lines\\[(?:0|[1-9][0-9]*)?\\]\\.multi_site_program|evidence\\.lines\\[(?:0|[1-9][0-9]*)?\\]\\.sample|core\\.alternative_explanations|core\\.assumptions|core\\.atoms|core\\.context|core\\.names|core\\.explains|core\\.opens|core\\.reinterprets|core\\.uncertainties|evidence\\.lines|evidence\\.references|mechanism\\.entities|mechanism\\.molecular_targets|mechanism\\.steps|predictions|profile\\.combination\\.components|provenance\\.contributions|provenance\\.field_sources|provenance\\.heuristic_principle|provenance\\.inspiration_refs|provenance\\.parent_refs|core\\.alternative_explanations\\[(?:0|[1-9][0-9]*)?\\]\\.id|evidence\\.excluded\\[(?:0|[1-9][0-9]*)?\\]|evidence\\.excluded\\[(?:0|[1-9][0-9]*)?\\]\\.id|evidence\\.excluded\\[(?:0|[1-9][0-9]*)?\\]\\.target_ref|evidence\\.excluded\\[(?:0|[1-9][0-9]*)?\\]\\.reason|evidence\\.excluded\\[(?:0|[1-9][0-9]*)?\\]\\.note|evidence\\.excluded\\[(?:0|[1-9][0-9]*)?\\]\\.quote|evidence\\.excluded\\[(?:0|[1-9][0-9]*)?\\]\\.artifact|evidence\\.excluded\\[(?:0|[1-9][0-9]*)?\\]\\.record|evidence\\.lines\\[(?:0|[1-9][0-9]*)?\\]\\.endpoint_kind|evidence\\.lines\\[(?:0|[1-9][0-9]*)?\\]\\.human_proximity|core\\.atoms\\[(?:0|[1-9][0-9]*)?\\]\\.requires|core\\.atoms\\[(?:0|[1-9][0-9]*)?\\]\\.contradicts|evidence\\.lines\\[(?:0|[1-9][0-9]*)?\\]\\.independence_group\\.key|profile\\.aging_hallmarks\\[(?:0|[1-9][0-9]*)?\\]|core\\.atoms\\[(?:0|[1-9][0-9]*)?\\]\\.triple|evidence\\.lines\\[(?:0|[1-9][0-9]*)?\\]\\.quote_withheld))(?![\\s\\S])"
                 },
                 {
                   "pattern": "(?:^(?:core\\.explains\\[(?:0|[1-9][0-9]*)?\\]|core\\.explains\\[(?:0|[1-9][0-9]*)?\\]\\.atom_refs|core\\.explains\\[(?:0|[1-9][0-9]*)?\\]\\.id|core\\.explains\\[(?:0|[1-9][0-9]*)?\\]\\.mode|core\\.explains\\[(?:0|[1-9][0-9]*)?\\]\\.observation|core\\.explains\\[(?:0|[1-9][0-9]*)?\\]\\.observation_ref|core\\.explains\\[(?:0|[1-9][0-9]*)?\\]\\.prediction_refs|core\\.explains\\[(?:0|[1-9][0-9]*)?\\]\\.rival_ref|core\\.explains\\[(?:0|[1-9][0-9]*)?\\]\\.status|core\\.opens\\[(?:0|[1-9][0-9]*)?\\]|core\\.opens\\[(?:0|[1-9][0-9]*)?\\]\\.atom_refs|core\\.opens\\[(?:0|[1-9][0-9]*)?\\]\\.enabling_method|core\\.opens\\[(?:0|[1-9][0-9]*)?\\]\\.id|core\\.opens\\[(?:0|[1-9][0-9]*)?\\]\\.new_question|core\\.opens\\[(?:0|[1-9][0-9]*)?\\]\\.why_not_askable_today|core\\.reinterprets\\[(?:0|[1-9][0-9]*)?\\]|core\\.reinterprets\\[(?:0|[1-9][0-9]*)?\\]\\.atom_refs|core\\.reinterprets\\[(?:0|[1-9][0-9]*)?\\]\\.current_interpretation|core\\.reinterprets\\[(?:0|[1-9][0-9]*)?\\]\\.finding|core\\.reinterprets\\[(?:0|[1-9][0-9]*)?\\]\\.finding_ref|core\\.reinterprets\\[(?:0|[1-9][0-9]*)?\\]\\.id|core\\.reinterprets\\[(?:0|[1-9][0-9]*)?\\]\\.proposed_interpretation|core\\.testability|core\\.testability\\.cheapest_test|core\\.testability\\.in_practice|core\\.testability\\.in_principle|core\\.testability\\.justification|predictions\\[(?:0|[1-9][0-9]*)?\\]\\.also_expected_under\\[(?:0|[1-9][0-9]*)?\\]|predictions\\[(?:0|[1-9][0-9]*)?\\]\\.derives_from_atom_refs\\[(?:0|[1-9][0-9]*)?\\]|predictions\\[(?:0|[1-9][0-9]*)?\\]\\.discrimination|predictions\\[(?:0|[1-9][0-9]*)?\\]\\.epistemic_status|predictions\\[(?:0|[1-9][0-9]*)?\\]\\.form|predictions\\[(?:0|[1-9][0-9]*)?\\]\\.known_result_ref|predictions\\[(?:0|[1-9][0-9]*)?\\]\\.system\\.environment|predictions\\[(?:0|[1-9][0-9]*)?\\]\\.system\\.kind|predictions\\[(?:0|[1-9][0-9]*)?\\]\\.system\\.spatial_scale|predictions\\[(?:0|[1-9][0-9]*)?\\]\\.system\\.temporal_scale))(?![\\s\\S])"
@@ -17820,11 +18038,11 @@
               },
               "sha256": {
                 "type": "string",
-                "pattern": "^sha256:[0-9a-f]{64}$"
+                "pattern": "^sha256:[0-9a-f]{64}(?![\\s\\S])"
               },
               "json_pointer": {
                 "type": "string",
-                "pattern": "^(?:/(?:[^~/]|~[01])*)*$"
+                "pattern": "^(?:/(?:[^~/]|~[01])*)*(?![\\s\\S])"
               }
             },
             "required": [
@@ -17844,7 +18062,7 @@
             },
             "pointer": {
               "type": "string",
-              "pattern": "^(?:/(?:[^~/]|~[01])*)*$"
+              "pattern": "^(?:/(?:[^~/]|~[01])*)*(?![\\s\\S])"
             }
           },
           "required": [
@@ -18718,7 +18936,7 @@
           "properties": {
             "value": {
               "type": "string",
-              "pattern": "^NCBITaxon:[1-9][0-9]*$"
+              "pattern": "^NCBITaxon:[1-9][0-9]*(?![\\s\\S])"
             },
             "src": {
               "type": "string",
