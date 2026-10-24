@@ -722,3 +722,18 @@ def test_a_1_1_card_has_no_public_domain_basis():  # M7e
     assert schema_rejects(card)
     card['added']['layers']['provenance']['licence']['value']['basis'] = 'license'
     assert not validation_errors(SCHEMA, card)
+
+
+# ------------------------------------------------------------------ erratum E8: an element of a list layer
+
+ELEMENT = '/added/layers/core/alternative_explanations/value/0'
+
+
+@pytest.mark.parametrize('card', [RAPA, rapa()], ids=['1.1', '1.2'])
+def test_a_record_on_an_element_without_its_own_src_names_the_list(card):
+    card = copy.deepcopy(card)
+    assert 'src' not in card['added']['layers']['core']['alternative_explanations']['value'][0]
+    assert 'REF_WRONG_TARGET' in codes(add(copy.deepcopy(card), record(ELEMENT)))
+    element = card['added']['layers']['core']['alternative_explanations']['value'][0]
+    element['src'] = card['added']['layers']['core']['alternative_explanations']['src']
+    assert 'REF_WRONG_TARGET' not in codes(add(card, record(ELEMENT)))

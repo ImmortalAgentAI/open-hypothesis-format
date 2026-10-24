@@ -52,7 +52,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parent))
 
 import check_completeness  # noqa: E402
 from check_gaps import filled, named_profiles, resolve_pointer, unwrap  # noqa: E402
-from check_ledger import check_class, checks_classes, logical_path, own_versions  # noqa: E402
+from check_ledger import by_member, check_class, checks_classes, logical_path, own_versions  # noqa: E402
 from strict_json import load  # noqa: E402
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -665,7 +665,8 @@ def check_integrity(card, errors, warnings):
                 assessment_order(card, record, path, errors)
                 continue
             parent = record['pointer'].rsplit('/', 2)
-            if not (isinstance(node, dict) and 'src' in node) and parent[1:2] == ['value']:
+            if not (isinstance(node, dict) and 'src' in node) and parent[1:2] == ['value'] \
+                    and by_member(card, parent[0]) is not None:
                 node = {'value': node, 'src': unwrap_src(card, parent[0])}
         element = isinstance(node, dict) and 'src' in node and any(
             _under(record['pointer'], pattern) for pattern in ELEMENT_SOURCED)
