@@ -1,5 +1,11 @@
 # Changelog
 
+## 1.1.4 (2026-10-24)
+
+The card format, the schemas, the vocabularies and the examples are unchanged.
+
+- A source whose own record names a CC BY licence without a version has the licence `LicenseRef-CC-BY-version-not-stated`, and no version is guessed; an example card may quote such a source. `author.source.license` is the licence the retrieved record states, which may differ from the licence of first publication. Reuse under it follows a conservative attribution rule meant to meet any CC BY version: the authors, the title, the source, a link to the licence, a note of changes, and every notice the source supplies.
+
 ## 1.1.3 (2026-10-23)
 
 The card format, the schemas, the vocabularies and the examples are unchanged.
