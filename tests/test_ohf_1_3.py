@@ -88,8 +88,10 @@ def test_a_release_newer_than_the_tool_is_reported():  # M2d: known, but later t
 
 
 @pytest.mark.parametrize('release', [{'version': '1.3'}, {'version': '1.3.0', 'commit': 'b8101eb'},
-                                     {'version': '01.3.0'}, {'commit': COMMIT}, {'version': '1.3.0', 'tag': 'v1.3.0'}],
-                         ids=['short_version', 'short_commit', 'leading_zero', 'no_version', 'unknown_member'])
+                                     {'version': '01.3.0'}, {'commit': COMMIT}, {'version': '1.3.0', 'tag': 'v1.3.0'},
+                                     {'version': '1.3.0\n'}, {'version': '1.3.0', 'commit': COMMIT + '\n'}],
+                         ids=['short_version', 'short_commit', 'leading_zero', 'no_version', 'unknown_member',
+                              'version_with_final_lf', 'commit_with_final_lf'])
 def test_a_malformed_release_is_rejected(release):  # M2e
     card = as_1_3(PETO)
     card['added']['by']['standard_release'] = release
