@@ -424,9 +424,28 @@ def test_vocabulary_rows_are_well_formed():
     assert len(ids) == len(set(ids))
     for row in PREDICATES['predicates']:
         assert row['source'] in PREDICATES['sources'] and row['label'].strip()
-        assert row['kind'] in ('causal', 'regulatory', 'associative', 'participation')
+        assert row['kind'] in ('causal', 'regulatory', 'associative')
         assert row['id'].startswith('RO:' if row['source'] == 'RO' else 'biolink:')
     assert 'other' not in ids
+
+
+# (id, label, inverse) as read in ro.json release 2026-09-04
+# (sha256 17eab8be4f47c73d2905ba45752154ae8e2e7b0bf03ba3cc62a326b42a38e5a5: node lbl, inverseOf edges)
+# and biolink-model.yaml v4.4.6
+# (sha256 5837907e1eb579812856579feea5a099665252f2454bd6f950d63fbb00f4c9f0: `affected by` has `inverse: affects`).
+SOURCE_ROWS = [
+    ('RO:0002211', 'regulates', 'RO:0002334'),
+    ('RO:0002213', 'positively regulates', 'RO:0002336'),
+    ('RO:0002212', 'negatively regulates', 'RO:0002335'),
+    ('RO:0002411', 'causally upstream of', 'RO:0002404'),
+    ('RO:0003304', 'contributes to condition', None),
+    ('RO:0002610', 'correlated with', None),
+    ('biolink:affects', 'affects', 'biolink:affected_by'),
+]
+
+
+def test_vocabulary_rows_are_as_the_sources_state_them():
+    assert [(p['id'], p['label'], p.get('inverse')) for p in PREDICATES['predicates']] == SOURCE_ROWS
 
 
 def test_examples_and_fixtures_use_only_listed_predicates():
