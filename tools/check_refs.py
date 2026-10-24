@@ -35,7 +35,8 @@ record names a value checked against its passage, a resolution record a value ch
 external record, bound to the response and the key it looked up; a value checked by resolution
 without a record gets a warning (`check_integrity`); the relation of an atom triple has the label
 of that predicate in the pinned vocabulary (`check_predicates`); an atom scope with the text of the
-card scope gets a warning, because an atom scope only narrows it (`check_atom_scope`). The completeness
+card scope gets a warning, because an atom scope only narrows it (`check_atom_scope`); a named domain
+profile whose paths another named profile holds gets a warning (`check_profiles`). The completeness
 level is computed by `check_completeness.py` and compared with the declared one.
 It assumes a card that already passes `tools/validate.py`.
 """
@@ -49,7 +50,7 @@ import sys
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 
 import check_completeness  # noqa: E402
-from check_gaps import filled, resolve_pointer, unwrap  # noqa: E402
+from check_gaps import filled, named_profiles, resolve_pointer, unwrap  # noqa: E402
 from check_ledger import check_class, checks_classes, logical_path, own_versions  # noqa: E402
 from strict_json import load  # noqa: E402
 
@@ -497,6 +498,19 @@ def check_predicates(card, errors, predicates=None):
                                 f"The label of {relation['id']} is {labels[relation['id']]!r}"))
 
 
+def check_profiles(card, warnings, profiles=None):
+    """OHF 1.2: a named profile whose paths another named profile already holds adds nothing."""
+    named = named_profiles(layers(card, 'added').get('profile', {}).get('domain'))
+    if len(named) < 2:
+        return
+    profiles = profiles if profiles is not None else load(ROOT / 'vocabularies/profiles-2.json')
+    paths = {row['id']: set(row['paths']) for row in profiles['profiles']}
+    for i, one in enumerate(named):
+        if any(other != one and paths.get(one, set()) <= paths.get(other, set()) for other in named):
+            warnings.append(issue('REF_PROFILE_REDUNDANT', f'added.profile.domain[{i}]',
+                                  f'Another named profile already holds every path of {one}; leave it out'))
+
+
 def check_atom_scope(card, warnings):
     """OHF 1.2: an atom scope narrows the scope of the card. Whether it does is read in the passage;
     an atom scope with the same text as the card scope narrows nothing."""
@@ -552,9 +566,10 @@ def check(card, taxa=None):
                 'warnings': [], 'external': [], 'comparable': [], 'not_comparable': [], 'completeness': None}
     ids = identifiers(card, errors)
     domains = {zone: layers(card, zone).get('profile', {}).get('domain') for zone in ZONES}
-    if domains['author'] is not None and domains['author'] != domains['added']:
+    if domains['author'] is not None and set(named_profiles(domains['author'])) != set(named_profiles(domains['added'])):
         errors.append(issue('REF_DOMAIN_MISMATCH', 'profile.domain',
                             'author and added zones select different domain profiles'))
+    check_profiles(card, warnings)
     check_references(card, ids, errors, external)
     check_sources(card, errors)
     check_atom_links(card, errors)

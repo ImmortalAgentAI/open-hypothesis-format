@@ -3261,10 +3261,34 @@
                   "type": "string"
                 },
                 "domain": {
-                  "enum": [
-                    "ohf:intervention-pharmacology@1",
-                    "ohf:aging@1",
-                    "none"
+                  "anyOf": [
+                    {
+                      "enum": [
+                        "ohf:intervention-pharmacology@1",
+                        "ohf:aging@1",
+                        "none"
+                      ]
+                    },
+                    {
+                      "type": "array",
+                      "items": {
+                        "enum": [
+                          "ohf:intervention-pharmacology@1",
+                          "ohf:aging@1",
+                          "none"
+                        ]
+                      },
+                      "minItems": 1,
+                      "uniqueItems": true,
+                      "if": {
+                        "contains": {
+                          "const": "none"
+                        }
+                      },
+                      "then": {
+                        "maxItems": 1
+                      }
+                    }
                   ]
                 },
                 "human_testability": {
@@ -10144,10 +10168,34 @@
                   "type": "string"
                 },
                 "domain": {
-                  "enum": [
-                    "ohf:intervention-pharmacology@1",
-                    "ohf:aging@1",
-                    "none"
+                  "anyOf": [
+                    {
+                      "enum": [
+                        "ohf:intervention-pharmacology@1",
+                        "ohf:aging@1",
+                        "none"
+                      ]
+                    },
+                    {
+                      "type": "array",
+                      "items": {
+                        "enum": [
+                          "ohf:intervention-pharmacology@1",
+                          "ohf:aging@1",
+                          "none"
+                        ]
+                      },
+                      "minItems": 1,
+                      "uniqueItems": true,
+                      "if": {
+                        "contains": {
+                          "const": "none"
+                        }
+                      },
+                      "then": {
+                        "maxItems": 1
+                      }
+                    }
                   ]
                 },
                 "human_testability": {
@@ -10970,7 +11018,16 @@
                   "profile": {
                     "properties": {
                       "domain": {
-                        "const": "none"
+                        "anyOf": [
+                          {
+                            "const": "none"
+                          },
+                          {
+                            "const": [
+                              "none"
+                            ]
+                          }
+                        ]
                       }
                     },
                     "required": [
@@ -11092,7 +11149,17 @@
                   "profile": {
                     "properties": {
                       "domain": {
-                        "const": "ohf:intervention-pharmacology@1"
+                        "anyOf": [
+                          {
+                            "const": "ohf:intervention-pharmacology@1"
+                          },
+                          {
+                            "type": "array",
+                            "contains": {
+                              "const": "ohf:intervention-pharmacology@1"
+                            }
+                          }
+                        ]
                       }
                     },
                     "required": [
@@ -11125,7 +11192,17 @@
                   "profile": {
                     "properties": {
                       "domain": {
-                        "const": "ohf:aging@1"
+                        "anyOf": [
+                          {
+                            "const": "ohf:aging@1"
+                          },
+                          {
+                            "type": "array",
+                            "contains": {
+                              "const": "ohf:aging@1"
+                            }
+                          }
+                        ]
                       }
                     },
                     "required": [
@@ -12401,6 +12478,40 @@
                 }
               }
             }
+          },
+          {
+            "properties": {
+              "author": {
+                "properties": {
+                  "layers": {
+                    "properties": {
+                      "profile": {
+                        "properties": {
+                          "domain": {
+                            "type": "string"
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              },
+              "added": {
+                "properties": {
+                  "layers": {
+                    "properties": {
+                      "profile": {
+                        "properties": {
+                          "domain": {
+                            "type": "string"
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
           }
         ]
       }
@@ -12641,6 +12752,40 @@
                   "required": [
                     "predicates"
                   ]
+                }
+              }
+            }
+          },
+          {
+            "properties": {
+              "author": {
+                "properties": {
+                  "layers": {
+                    "properties": {
+                      "profile": {
+                        "properties": {
+                          "domain": {
+                            "type": "array"
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              },
+              "added": {
+                "properties": {
+                  "layers": {
+                    "properties": {
+                      "profile": {
+                        "properties": {
+                          "domain": {
+                            "type": "array"
+                          }
+                        }
+                      }
+                    }
+                  }
                 }
               }
             }

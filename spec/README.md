@@ -111,6 +111,8 @@ A card names its domain profile in `added.layers.profile.domain`. [`profiles-1.j
 - `ohf:aging@1` (OHF 1.1): claims about aging. It holds the 22 paths of the intervention profile and `profile.aging_hallmarks[]`: the hallmarks of aging that atoms of the card concern, each with those atoms (`REF_UNKNOWN_ID` when an atom does not exist). It needs the pins `ohf:profiles@2` and `ohf:hallmarks@1`. Unlike the intervention profile it does not require `facets.intervention_type`, because an aging claim need not name an intervention.
 - `none`: no domain profile. The 22 paths are absent, and they need no gaps; a gap for one of them is rejected.
 
+From OHF 1.2, `profile.domain` is a list of profile ids, in both zones: at least one, each named once, and `none` only alone. A path of a domain profile is selected when any named profile has it, and the rules for a selected path and for an unselected one are those above. A named profile whose paths another named profile already holds adds nothing and gets a warning (`REF_PROFILE_REDUNDANT`): `ohf:aging@1` holds every path of `ohf:intervention-pharmacology@1`. The profiles and their pins are unchanged. A 1.0 or 1.1 card names one profile as a string.
+
 Layer 6, profile, also holds general fields that every card may use, whatever its domain profile: biomarkers, human testability, transfer scope and the function or process concerned.
 
 ## Completeness
@@ -242,7 +244,7 @@ The expression is `RESULT_NUMBER` in `tools/check_refs.py`. A dose (a number wit
 
 ## OHF 1.2
 
-OHF 1.2 is a minor version. Every new member is optional. 1.0 and 1.1 cards stay valid and are checked by their own rules, and they may not carry a member introduced in 1.2. A 1.2 card follows every rule of 1.1. The rules are enforced by the schema unless a code of `tools/check_refs.py`, `tools/check_ledger.py` or `tools/check_mapping.py` is named.
+OHF 1.2 is a minor version. Every new member is optional. 1.0 and 1.1 cards stay valid and are checked by their own rules, and they may not carry a member introduced in 1.2. A 1.2 card follows every rule of 1.1, with one change of form: its `profile.domain` is a list of profiles, not one string ([Domain profiles](#domain-profiles)). The rules are enforced by the schema unless a code of `tools/check_refs.py`, `tools/check_ledger.py` or `tools/check_mapping.py` is named.
 
 **How a value is checked.** Each row of the [field catalogue](field-catalogue.json) has a `check`:
 

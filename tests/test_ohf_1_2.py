@@ -39,15 +39,19 @@ LATER = '2026-10-24T00:00:00Z'
 
 
 def as_1_2(card):
-    """The card as an OHF 1.2 card: a target_ref is a bare reference, and only values checked
-    against a passage keep their records."""
+    """The card as an OHF 1.2 card: its domain is a list, a target_ref is a bare reference, and only
+    values checked against a passage keep their records."""
     card = copy.deepcopy(card)
     card['standard_version'] = '1.2'
     card['vocabularies']['predicates'] = {'id': 'ohf:predicates@1', 'sha256': predicates_pin()}
+    for zone in ('author', 'added'):
+        profile = card[zone]['layers'].get('profile', {})
+        if isinstance(profile.get('domain'), str):
+            profile['domain'] = [profile['domain']]
     for line in card['added']['layers']['evidence']['lines']:
         if isinstance(line.get('target_ref'), dict) and 'src' in line['target_ref']:
             line['target_ref'] = line['target_ref']['value']
-    records = card['added']['integrity']['entailment']
+    records = card['added'].get('integrity', {}).get('entailment', [])
     records[:] = [r for r in records if check_class(card, r['pointer']) == 'passage']
     return card
 
@@ -584,3 +588,76 @@ def test_a_gap_on_an_atom_scope_is_a_1_2_path():  # M4d
     card = scope_gap(copy.deepcopy(PETO))
     assert schema_rejects(card)
     assert 'GAP_PATH_UNKNOWN' in gap_codes(card)
+
+
+# ------------------------------------------------------------------ item 3: the domain as a list
+
+PHARMACOLOGY, AGING = 'ohf:intervention-pharmacology@1', 'ohf:aging@1'
+
+
+def with_domain(domain, card=None):
+    """rapa (an aging card with hallmarks) as a 1.2 card, or the given card, naming these profiles."""
+    card = copy.deepcopy(card) if card is not None else rapa()
+    for zone in ('author', 'added'):
+        profile = card[zone]['layers'].get('profile')
+        if profile is not None and 'domain' in profile:
+            profile['domain'] = copy.deepcopy(domain)
+    return card
+
+
+def without_hallmarks(card):
+    card['added']['layers']['profile'].pop('aging_hallmarks')
+    card['vocabularies'].pop('hallmarks')
+    records = card['added']['integrity']['entailment']
+    records[:] = [r for r in records if '/aging_hallmarks' not in r['pointer']]
+    return card
+
+
+def test_a_1_2_domain_is_a_list():  # P3a
+    for card, domain in ((rapa(), [AGING]), (as_1_2(PETO), ['none'])):
+        assert card['added']['layers']['profile']['domain'] == domain
+        assert not validation_errors(SCHEMA, card)
+        assert check_refs(card)['valid']
+        assert 'REF_PROFILE_REDUNDANT' not in codes(card, 'warnings')
+
+
+def test_an_empty_domain_list_is_rejected():  # M3a
+    card = without_hallmarks(rapa())
+    assert not validation_errors(SCHEMA, with_domain([PHARMACOLOGY], card))
+    assert schema_rejects(with_domain([], card))
+
+
+def test_none_stands_alone():  # M3b
+    assert not validation_errors(SCHEMA, as_1_2(PETO))
+    assert schema_rejects(with_domain(['none', AGING]))
+    assert schema_rejects(with_domain(['none', AGING], as_1_2(PETO)))
+
+
+def test_a_profile_is_named_once():  # M3c
+    assert schema_rejects(with_domain([AGING, AGING]))
+
+
+def test_a_hallmark_needs_a_profile_that_has_it():  # M3d
+    assert not validation_errors(SCHEMA, with_domain([AGING]))
+    assert schema_rejects(with_domain([PHARMACOLOGY]))
+    assert not validation_errors(SCHEMA, with_domain([PHARMACOLOGY], without_hallmarks(rapa())))
+
+
+def test_a_profile_held_by_another_is_a_warning():  # M3e
+    card = with_domain([PHARMACOLOGY, AGING])
+    assert not validation_errors(SCHEMA, card)
+    result = check_refs(card)
+    assert result['valid'], result['errors']
+    assert [w['path'] for w in result['warnings'] if w['code'] == 'REF_PROFILE_REDUNDANT'] == ['added.profile.domain[0]']
+
+
+def test_a_1_2_domain_is_not_a_string():  # M3f
+    assert schema_rejects(with_domain(AGING))
+    assert schema_rejects(with_domain([AGING], RAPA))  # a list in a 1.1 card
+
+
+def test_gaps_follow_the_union_of_the_named_profiles():
+    card = without_hallmarks(with_domain([PHARMACOLOGY]))
+    card['added']['gaps'].append({'path': 'profile.aging_hallmarks[]', 'disposition': 'not_supplied'})
+    assert 'GAP_PROFILE_FIELD' in gap_codes(card)
+    assert 'GAP_PROFILE_FIELD' not in gap_codes(with_domain([PHARMACOLOGY, AGING], card))

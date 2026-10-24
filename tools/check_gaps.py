@@ -8,7 +8,8 @@ silently. It does not resolve query records or source artifacts. It assumes a ca
 
 A field of a domain profile the card does not select is absent and needs no gap; a gap
 for it is an error. A field the selected profile shares with another profile, as `ohf:aging@1`
-shares the fields of the intervention profile, is selected.
+shares the fields of the intervention profile, is selected. From OHF 1.2 a card names a list of
+profiles, and a field is selected when any of them has it.
 
 From OHF 1.1 a gap may name a whole list that is empty, such as `core.assumptions`: a list
 whose elements have catalogue paths but which has no row of its own. Such a gap stands for
@@ -172,10 +173,17 @@ def check_condition(card, gap, condition):
     return [issue('GAP_POLICY_INVALID', path, f'Unknown condition {kind}')], []
 
 
+def named_profiles(domain):
+    """The profile ids a domain names: one string in OHF 1.0 and 1.1, a list from OHF 1.2."""
+    if domain is None:
+        return []
+    return [domain] if isinstance(domain, str) else list(domain)
+
+
 def unselected_paths(card, profiles):
-    """Catalogue paths of the domain profiles the card does not select."""
-    selected = card.get('added', {}).get('layers', {}).get('profile', {}).get('domain')
-    chosen = {path for profile in profiles['profiles'] if profile['id'] == selected for path in profile['paths']}
+    """Catalogue paths of no domain profile the card selects; a path is selected when any named profile has it."""
+    selected = named_profiles(card.get('added', {}).get('layers', {}).get('profile', {}).get('domain'))
+    chosen = {path for profile in profiles['profiles'] if profile['id'] in selected for path in profile['paths']}
     return {path for profile in profiles['profiles'] for path in profile['paths']} - chosen
 
 
